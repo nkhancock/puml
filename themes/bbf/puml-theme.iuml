@@ -1,0 +1,3 @@
+!include puml-theme-bbf.puml
+hide <<choice>> members
+

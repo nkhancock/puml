@@ -1,0 +1,361 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/bbf-pots.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title bbf-pots 
+package "if:ietf-interfaces" as if_ietf_interfaces { 
+} 
+package "inet:ietf-inet-types" as inet_ietf_inet_types { 
+} 
+package "yang:ietf-yang-types" as yang_ietf_yang_types { 
+} 
+package "ianaift:iana-if-type" as ianaift_iana_if_type { 
+} 
+package "bbf-yang:bbf-yang-types" as bbf_yang_bbf_yang_types { 
+} 
+package "bbf-pots:bbf-pots" as bbf_pots_bbf_pots { 
+} 
+package "bbf-pots:bbf-pots" as bbf_pots_bbf_pots { 
+class "bbf-pots" as bbf_pots << (M, #33CCFF) module>> 
+bbf_pots : feature : tone-pattern 
+bbf_pots : feature : ringing-pattern 
+bbf_pots : feature : tone-pattern-file 
+bbf_pots : feature : ringing-pattern-file 
+bbf_pots : feature : dtmf-detection 
+bbf_pots : feature : loop-voltage-holdover 
+bbf_pots : feature : fast-busy-tone 
+bbf_pots : feature : statistics 
+bbf_pots : feature : pots-uni-profiles 
+class "tone-pattern-profile-ref" as bbf_pots_tone_pattern_profile_ref_typedef << (T, YellowGreen) typedef>>
+bbf_pots_tone_pattern_profile_ref_typedef : leafref : /bbf-pots:profiles/bbf-pots:tone-pattern-profiles/bbf-pots:tone-pattern-profile/bbf-pots:name
+class "ringing-pattern-profile-ref" as bbf_pots_ringing_pattern_profile_ref_typedef << (T, YellowGreen) typedef>>
+bbf_pots_ringing_pattern_profile_ref_typedef : leafref : /bbf-pots:profiles/bbf-pots:ringing-pattern-profiles/bbf-pots:ringing-pattern-profile/bbf-pots:name
+class "clip-profile-ref" as bbf_pots_clip_profile_ref_typedef << (T, YellowGreen) typedef>>
+bbf_pots_clip_profile_ref_typedef : leafref : /bbf-pots:profiles/bbf-pots:clip-profiles/bbf-pots:clip-profile/bbf-pots:name
+class "pots-uni-profile-ref" as bbf_pots_pots_uni_profile_ref_typedef << (T, YellowGreen) typedef>>
+bbf_pots_pots_uni_profile_ref_typedef : leafref : /bbf-pots:profiles/bbf-pots:pots-uni-profiles/bbf-pots:pots-uni-profile/bbf-pots:name
+class "profiles" as  bbf_pots_I_profiles <<container>> 
+bbf_pots *-- "1" bbf_pots_I_profiles 
+class "tone-pattern-profiles" as  bbf_pots_I_profiles_I_tone_pattern_profiles <<container>> 
+bbf_pots_I_profiles *-- "1" bbf_pots_I_profiles_I_tone_pattern_profiles 
+class "tone-pattern-profile" as bbf_pots_I_profiles_I_tone_pattern_profiles_I_tone_pattern_profile << (L, #FF7700) list>> 
+bbf_pots_I_profiles_I_tone_pattern_profiles *-- "0..N" bbf_pots_I_profiles_I_tone_pattern_profiles_I_tone_pattern_profile 
+bbf_pots_I_profiles_I_tone_pattern_profiles_I_tone_pattern_profile : +name : bbf-yang:string-ascii64  {key} 
+class "pattern" as bbf_pots_I_profiles_I_tone_pattern_profiles_I_tone_pattern_profile_I_pattern << (L, #FF7700) list>> 
+bbf_pots_I_profiles_I_tone_pattern_profiles_I_tone_pattern_profile *-- "1..N" bbf_pots_I_profiles_I_tone_pattern_profiles_I_tone_pattern_profile_I_pattern 
+bbf_pots_I_profiles_I_tone_pattern_profiles_I_tone_pattern_profile_I_pattern : +event : identityref {bbf-pots:tone-event}  {key} 
+class "source" as bbf_pots_I_profiles_I_tone_pattern_profiles_I_tone_pattern_profile_I_pattern_I_source <<choice>> 
+bbf_pots_I_profiles_I_tone_pattern_profiles_I_tone_pattern_profile_I_pattern .. bbf_pots_I_profiles_I_tone_pattern_profiles_I_tone_pattern_profile_I_pattern_I_source : choice 
+class "file" as bbf_pots_I_profiles_I_tone_pattern_profiles_I_tone_pattern_profile_I_pattern_I_source_I_file_case <<case>>
+bbf_pots_I_profiles_I_tone_pattern_profiles_I_tone_pattern_profile_I_pattern_I_source .. bbf_pots_I_profiles_I_tone_pattern_profiles_I_tone_pattern_profile_I_pattern_I_source_I_file_case  : choice source
+class "pattern-file" as  bbf_pots_I_profiles_I_tone_pattern_profiles_I_tone_pattern_profile_I_pattern_I_source_I_file_I_pattern_file <<container>> 
+bbf_pots_I_profiles_I_tone_pattern_profiles_I_tone_pattern_profile_I_pattern_I_source_I_file_case *-- "1" bbf_pots_I_profiles_I_tone_pattern_profiles_I_tone_pattern_profile_I_pattern_I_source_I_file_I_pattern_file 
+class "location" as bbf_pots_I_profiles_I_tone_pattern_profiles_I_tone_pattern_profile_I_pattern_I_source_I_file_I_pattern_file_I_location <<choice>> 
+bbf_pots_I_profiles_I_tone_pattern_profiles_I_tone_pattern_profile_I_pattern_I_source_I_file_I_pattern_file .. bbf_pots_I_profiles_I_tone_pattern_profiles_I_tone_pattern_profile_I_pattern_I_source_I_file_I_pattern_file_I_location : choice 
+class "url" as bbf_pots_I_profiles_I_tone_pattern_profiles_I_tone_pattern_profile_I_pattern_I_source_I_file_I_pattern_file_I_location_I_url_case <<case>>
+bbf_pots_I_profiles_I_tone_pattern_profiles_I_tone_pattern_profile_I_pattern_I_source_I_file_I_pattern_file_I_location .. bbf_pots_I_profiles_I_tone_pattern_profiles_I_tone_pattern_profile_I_pattern_I_source_I_file_I_pattern_file_I_location_I_url_case  : choice location
+bbf_pots_I_profiles_I_tone_pattern_profiles_I_tone_pattern_profile_I_pattern_I_source_I_file_I_pattern_file_I_location_I_url_case : url : inet:uri  
+bbf_pots_I_profiles_I_tone_pattern_profiles_I_tone_pattern_profile_I_pattern_I_source_I_file_I_pattern_file : file-repetitions : union{uint8, enumeration}   = 1 
+class "tone-sequence" as bbf_pots_I_profiles_I_tone_pattern_profiles_I_tone_pattern_profile_I_pattern_I_source_I_tone_sequence_case <<case>>
+bbf_pots_I_profiles_I_tone_pattern_profiles_I_tone_pattern_profile_I_pattern_I_source .. bbf_pots_I_profiles_I_tone_pattern_profiles_I_tone_pattern_profile_I_pattern_I_source_I_tone_sequence_case  : choice source
+class "tone-sequence" as  bbf_pots_I_profiles_I_tone_pattern_profiles_I_tone_pattern_profile_I_pattern_I_source_I_tone_sequence_I_tone_sequence <<container>> 
+bbf_pots_I_profiles_I_tone_pattern_profiles_I_tone_pattern_profile_I_pattern_I_source_I_tone_sequence_case *-- "1" bbf_pots_I_profiles_I_tone_pattern_profiles_I_tone_pattern_profile_I_pattern_I_source_I_tone_sequence_I_tone_sequence 
+class "tone-sequence" as bbf_pots_I_profiles_I_tone_pattern_profiles_I_tone_pattern_profile_I_pattern_I_source_I_tone_sequence_I_tone_sequence_I_tone_sequence << (L, #FF7700) list>> 
+bbf_pots_I_profiles_I_tone_pattern_profiles_I_tone_pattern_profile_I_pattern_I_source_I_tone_sequence_I_tone_sequence *-- "1..N" bbf_pots_I_profiles_I_tone_pattern_profiles_I_tone_pattern_profile_I_pattern_I_source_I_tone_sequence_I_tone_sequence_I_tone_sequence 
+bbf_pots_I_profiles_I_tone_pattern_profiles_I_tone_pattern_profile_I_pattern_I_source_I_tone_sequence_I_tone_sequence_I_tone_sequence : +sequence-number : uint8  {key} 
+class "tone-type" as bbf_pots_I_profiles_I_tone_pattern_profiles_I_tone_pattern_profile_I_pattern_I_source_I_tone_sequence_I_tone_sequence_I_tone_sequence_I_tone_type <<choice>> 
+bbf_pots_I_profiles_I_tone_pattern_profiles_I_tone_pattern_profile_I_pattern_I_source_I_tone_sequence_I_tone_sequence_I_tone_sequence .. bbf_pots_I_profiles_I_tone_pattern_profiles_I_tone_pattern_profile_I_pattern_I_source_I_tone_sequence_I_tone_sequence_I_tone_sequence_I_tone_type : choice 
+class "complex-tone" as bbf_pots_I_profiles_I_tone_pattern_profiles_I_tone_pattern_profile_I_pattern_I_source_I_tone_sequence_I_tone_sequence_I_tone_sequence_I_tone_type_I_complex_tone_case <<case>>
+bbf_pots_I_profiles_I_tone_pattern_profiles_I_tone_pattern_profile_I_pattern_I_source_I_tone_sequence_I_tone_sequence_I_tone_sequence_I_tone_type .. bbf_pots_I_profiles_I_tone_pattern_profiles_I_tone_pattern_profile_I_pattern_I_source_I_tone_sequence_I_tone_sequence_I_tone_sequence_I_tone_type_I_complex_tone_case  : choice tone-type
+class "complex-tone" as  bbf_pots_I_profiles_I_tone_pattern_profiles_I_tone_pattern_profile_I_pattern_I_source_I_tone_sequence_I_tone_sequence_I_tone_sequence_I_tone_type_I_complex_tone_I_complex_tone <<container>> 
+bbf_pots_I_profiles_I_tone_pattern_profiles_I_tone_pattern_profile_I_pattern_I_source_I_tone_sequence_I_tone_sequence_I_tone_sequence_I_tone_type_I_complex_tone_case *-- "1" bbf_pots_I_profiles_I_tone_pattern_profiles_I_tone_pattern_profile_I_pattern_I_source_I_tone_sequence_I_tone_sequence_I_tone_sequence_I_tone_type_I_complex_tone_I_complex_tone 
+class "single-tone" as bbf_pots_I_profiles_I_tone_pattern_profiles_I_tone_pattern_profile_I_pattern_I_source_I_tone_sequence_I_tone_sequence_I_tone_sequence_I_tone_type_I_complex_tone_I_complex_tone_I_single_tone << (L, #FF7700) list>> 
+bbf_pots_I_profiles_I_tone_pattern_profiles_I_tone_pattern_profile_I_pattern_I_source_I_tone_sequence_I_tone_sequence_I_tone_sequence_I_tone_type_I_complex_tone_I_complex_tone *-- "1..N" bbf_pots_I_profiles_I_tone_pattern_profiles_I_tone_pattern_profile_I_pattern_I_source_I_tone_sequence_I_tone_sequence_I_tone_sequence_I_tone_type_I_complex_tone_I_complex_tone_I_single_tone 
+bbf_pots_I_profiles_I_tone_pattern_profiles_I_tone_pattern_profile_I_pattern_I_source_I_tone_sequence_I_tone_sequence_I_tone_sequence_I_tone_type_I_complex_tone_I_complex_tone_I_single_tone : +frequency : uint16 [0..4000]  {key}  {mandatory} {Hz}
+bbf_pots_I_profiles_I_tone_pattern_profiles_I_tone_pattern_profile_I_pattern_I_source_I_tone_sequence_I_tone_sequence_I_tone_sequence_I_tone_type_I_complex_tone_I_complex_tone_I_single_tone : power : decimal64 [-25..0]   {mandatory} {dBm0}
+class "modulation" as  bbf_pots_I_profiles_I_tone_pattern_profiles_I_tone_pattern_profile_I_pattern_I_source_I_tone_sequence_I_tone_sequence_I_tone_sequence_I_tone_type_I_complex_tone_I_complex_tone_I_modulation <<container>> 
+bbf_pots_I_profiles_I_tone_pattern_profiles_I_tone_pattern_profile_I_pattern_I_source_I_tone_sequence_I_tone_sequence_I_tone_sequence_I_tone_type_I_complex_tone_I_complex_tone *-- "0..1" bbf_pots_I_profiles_I_tone_pattern_profiles_I_tone_pattern_profile_I_pattern_I_source_I_tone_sequence_I_tone_sequence_I_tone_sequence_I_tone_type_I_complex_tone_I_complex_tone_I_modulation 
+bbf_pots_I_profiles_I_tone_pattern_profiles_I_tone_pattern_profile_I_pattern_I_source_I_tone_sequence_I_tone_sequence_I_tone_sequence_I_tone_type_I_complex_tone_I_complex_tone_I_modulation : +frequency : uint16 [0..2000]  {key}  {mandatory} {Hz}
+bbf_pots_I_profiles_I_tone_pattern_profiles_I_tone_pattern_profile_I_pattern_I_source_I_tone_sequence_I_tone_sequence_I_tone_sequence_I_tone_type_I_complex_tone_I_complex_tone_I_modulation : power : uint8 [0..25]   {mandatory} {dBm0}
+class "silence" as bbf_pots_I_profiles_I_tone_pattern_profiles_I_tone_pattern_profile_I_pattern_I_source_I_tone_sequence_I_tone_sequence_I_tone_sequence_I_tone_type_I_silence_case <<case>>
+bbf_pots_I_profiles_I_tone_pattern_profiles_I_tone_pattern_profile_I_pattern_I_source_I_tone_sequence_I_tone_sequence_I_tone_sequence_I_tone_type .. bbf_pots_I_profiles_I_tone_pattern_profiles_I_tone_pattern_profile_I_pattern_I_source_I_tone_sequence_I_tone_sequence_I_tone_sequence_I_tone_type_I_silence_case  : choice tone-type
+bbf_pots_I_profiles_I_tone_pattern_profiles_I_tone_pattern_profile_I_pattern_I_source_I_tone_sequence_I_tone_sequence_I_tone_sequence_I_tone_type_I_silence_case : silence : empty  
+bbf_pots_I_profiles_I_tone_pattern_profiles_I_tone_pattern_profile_I_pattern_I_source_I_tone_sequence_I_tone_sequence_I_tone_sequence : duration : union{uint16, enumeration}   {mandatory} {milliseconds}
+class "ringing-pattern-profiles" as  bbf_pots_I_profiles_I_ringing_pattern_profiles <<container>> 
+bbf_pots_I_profiles *-- "1" bbf_pots_I_profiles_I_ringing_pattern_profiles 
+class "ringing-pattern-profile" as bbf_pots_I_profiles_I_ringing_pattern_profiles_I_ringing_pattern_profile << (L, #FF7700) list>> 
+bbf_pots_I_profiles_I_ringing_pattern_profiles *-- "0..N" bbf_pots_I_profiles_I_ringing_pattern_profiles_I_ringing_pattern_profile 
+bbf_pots_I_profiles_I_ringing_pattern_profiles_I_ringing_pattern_profile : +name : bbf-yang:string-ascii64  {key} 
+class "pattern" as bbf_pots_I_profiles_I_ringing_pattern_profiles_I_ringing_pattern_profile_I_pattern << (L, #FF7700) list>> 
+bbf_pots_I_profiles_I_ringing_pattern_profiles_I_ringing_pattern_profile *-- "1..N" bbf_pots_I_profiles_I_ringing_pattern_profiles_I_ringing_pattern_profile_I_pattern 
+bbf_pots_I_profiles_I_ringing_pattern_profiles_I_ringing_pattern_profile_I_pattern : +event : identityref {bbf-pots:ringing-event}  {key} 
+class "source" as bbf_pots_I_profiles_I_ringing_pattern_profiles_I_ringing_pattern_profile_I_pattern_I_source <<choice>> 
+bbf_pots_I_profiles_I_ringing_pattern_profiles_I_ringing_pattern_profile_I_pattern .. bbf_pots_I_profiles_I_ringing_pattern_profiles_I_ringing_pattern_profile_I_pattern_I_source : choice 
+class "file" as bbf_pots_I_profiles_I_ringing_pattern_profiles_I_ringing_pattern_profile_I_pattern_I_source_I_file_case <<case>>
+bbf_pots_I_profiles_I_ringing_pattern_profiles_I_ringing_pattern_profile_I_pattern_I_source .. bbf_pots_I_profiles_I_ringing_pattern_profiles_I_ringing_pattern_profile_I_pattern_I_source_I_file_case  : choice source
+class "pattern-file" as  bbf_pots_I_profiles_I_ringing_pattern_profiles_I_ringing_pattern_profile_I_pattern_I_source_I_file_I_pattern_file <<container>> 
+bbf_pots_I_profiles_I_ringing_pattern_profiles_I_ringing_pattern_profile_I_pattern_I_source_I_file_case *-- "1" bbf_pots_I_profiles_I_ringing_pattern_profiles_I_ringing_pattern_profile_I_pattern_I_source_I_file_I_pattern_file 
+class "location" as bbf_pots_I_profiles_I_ringing_pattern_profiles_I_ringing_pattern_profile_I_pattern_I_source_I_file_I_pattern_file_I_location <<choice>> 
+bbf_pots_I_profiles_I_ringing_pattern_profiles_I_ringing_pattern_profile_I_pattern_I_source_I_file_I_pattern_file .. bbf_pots_I_profiles_I_ringing_pattern_profiles_I_ringing_pattern_profile_I_pattern_I_source_I_file_I_pattern_file_I_location : choice 
+class "url" as bbf_pots_I_profiles_I_ringing_pattern_profiles_I_ringing_pattern_profile_I_pattern_I_source_I_file_I_pattern_file_I_location_I_url_case <<case>>
+bbf_pots_I_profiles_I_ringing_pattern_profiles_I_ringing_pattern_profile_I_pattern_I_source_I_file_I_pattern_file_I_location .. bbf_pots_I_profiles_I_ringing_pattern_profiles_I_ringing_pattern_profile_I_pattern_I_source_I_file_I_pattern_file_I_location_I_url_case  : choice location
+bbf_pots_I_profiles_I_ringing_pattern_profiles_I_ringing_pattern_profile_I_pattern_I_source_I_file_I_pattern_file_I_location_I_url_case : url : inet:uri  
+bbf_pots_I_profiles_I_ringing_pattern_profiles_I_ringing_pattern_profile_I_pattern_I_source_I_file_I_pattern_file : file-repetitions : union{uint8, enumeration}   = 1 
+class "ringing-sequence" as bbf_pots_I_profiles_I_ringing_pattern_profiles_I_ringing_pattern_profile_I_pattern_I_source_I_ringing_sequence_case <<case>>
+bbf_pots_I_profiles_I_ringing_pattern_profiles_I_ringing_pattern_profile_I_pattern_I_source .. bbf_pots_I_profiles_I_ringing_pattern_profiles_I_ringing_pattern_profile_I_pattern_I_source_I_ringing_sequence_case  : choice source
+class "ringing-sequence" as bbf_pots_I_profiles_I_ringing_pattern_profiles_I_ringing_pattern_profile_I_pattern_I_source_I_ringing_sequence_I_ringing_sequence << (L, #FF7700) list>> 
+bbf_pots_I_profiles_I_ringing_pattern_profiles_I_ringing_pattern_profile_I_pattern_I_source_I_ringing_sequence_case *-- "1..N" bbf_pots_I_profiles_I_ringing_pattern_profiles_I_ringing_pattern_profile_I_pattern_I_source_I_ringing_sequence_I_ringing_sequence 
+bbf_pots_I_profiles_I_ringing_pattern_profiles_I_ringing_pattern_profile_I_pattern_I_source_I_ringing_sequence_I_ringing_sequence : +sequence-number : uint8  {key} 
+class "ringing-type" as bbf_pots_I_profiles_I_ringing_pattern_profiles_I_ringing_pattern_profile_I_pattern_I_source_I_ringing_sequence_I_ringing_sequence_I_ringing_type <<choice>> 
+bbf_pots_I_profiles_I_ringing_pattern_profiles_I_ringing_pattern_profile_I_pattern_I_source_I_ringing_sequence_I_ringing_sequence .. bbf_pots_I_profiles_I_ringing_pattern_profiles_I_ringing_pattern_profile_I_pattern_I_source_I_ringing_sequence_I_ringing_sequence_I_ringing_type : choice 
+class "ring" as bbf_pots_I_profiles_I_ringing_pattern_profiles_I_ringing_pattern_profile_I_pattern_I_source_I_ringing_sequence_I_ringing_sequence_I_ringing_type_I_ring_case <<case>>
+bbf_pots_I_profiles_I_ringing_pattern_profiles_I_ringing_pattern_profile_I_pattern_I_source_I_ringing_sequence_I_ringing_sequence_I_ringing_type .. bbf_pots_I_profiles_I_ringing_pattern_profiles_I_ringing_pattern_profile_I_pattern_I_source_I_ringing_sequence_I_ringing_sequence_I_ringing_type_I_ring_case  : choice ringing-type
+bbf_pots_I_profiles_I_ringing_pattern_profiles_I_ringing_pattern_profile_I_pattern_I_source_I_ringing_sequence_I_ringing_sequence_I_ringing_type_I_ring_case : ring : empty  
+class "silence" as bbf_pots_I_profiles_I_ringing_pattern_profiles_I_ringing_pattern_profile_I_pattern_I_source_I_ringing_sequence_I_ringing_sequence_I_ringing_type_I_silence_case <<case>>
+bbf_pots_I_profiles_I_ringing_pattern_profiles_I_ringing_pattern_profile_I_pattern_I_source_I_ringing_sequence_I_ringing_sequence_I_ringing_type .. bbf_pots_I_profiles_I_ringing_pattern_profiles_I_ringing_pattern_profile_I_pattern_I_source_I_ringing_sequence_I_ringing_sequence_I_ringing_type_I_silence_case  : choice ringing-type
+bbf_pots_I_profiles_I_ringing_pattern_profiles_I_ringing_pattern_profile_I_pattern_I_source_I_ringing_sequence_I_ringing_sequence_I_ringing_type_I_silence_case : silence : empty  
+bbf_pots_I_profiles_I_ringing_pattern_profiles_I_ringing_pattern_profile_I_pattern_I_source_I_ringing_sequence_I_ringing_sequence : duration : union{uint16, enumeration}   {mandatory} {milliseconds}
+class "clip-profiles" as  bbf_pots_I_profiles_I_clip_profiles <<container>> 
+bbf_pots_I_profiles *-- "1" bbf_pots_I_profiles_I_clip_profiles 
+class "clip-profile" as bbf_pots_I_profiles_I_clip_profiles_I_clip_profile << (L, #FF7700) list>> 
+bbf_pots_I_profiles_I_clip_profiles *-- "0..N" bbf_pots_I_profiles_I_clip_profiles_I_clip_profile 
+bbf_pots_I_profiles_I_clip_profiles_I_clip_profile : +name : bbf-yang:string-ascii64  {key} 
+class "data-transmission" as bbf_pots_I_profiles_I_clip_profiles_I_clip_profile_I_data_transmission <<choice>> 
+bbf_pots_I_profiles_I_clip_profiles_I_clip_profile .. bbf_pots_I_profiles_I_clip_profiles_I_clip_profile_I_data_transmission : choice 
+class "etsi" as bbf_pots_I_profiles_I_clip_profiles_I_clip_profile_I_data_transmission_I_etsi_case <<case>>
+bbf_pots_I_profiles_I_clip_profiles_I_clip_profile_I_data_transmission .. bbf_pots_I_profiles_I_clip_profiles_I_clip_profile_I_data_transmission_I_etsi_case  : choice data-transmission
+class "etsi" as  bbf_pots_I_profiles_I_clip_profiles_I_clip_profile_I_data_transmission_I_etsi_I_etsi <<container>> 
+bbf_pots_I_profiles_I_clip_profiles_I_clip_profile_I_data_transmission_I_etsi_case *-- "1" bbf_pots_I_profiles_I_clip_profiles_I_clip_profile_I_data_transmission_I_etsi_I_etsi 
+class "data-transmission-mode" as bbf_pots_I_profiles_I_clip_profiles_I_clip_profile_I_data_transmission_I_etsi_I_etsi_I_data_transmission_mode <<choice>> 
+bbf_pots_I_profiles_I_clip_profiles_I_clip_profile_I_data_transmission_I_etsi_I_etsi .. bbf_pots_I_profiles_I_clip_profiles_I_clip_profile_I_data_transmission_I_etsi_I_etsi_I_data_transmission_mode : choice 
+class "fsk" as bbf_pots_I_profiles_I_clip_profiles_I_clip_profile_I_data_transmission_I_etsi_I_etsi_I_data_transmission_mode_I_fsk_case <<case>>
+bbf_pots_I_profiles_I_clip_profiles_I_clip_profile_I_data_transmission_I_etsi_I_etsi_I_data_transmission_mode .. bbf_pots_I_profiles_I_clip_profiles_I_clip_profile_I_data_transmission_I_etsi_I_etsi_I_data_transmission_mode_I_fsk_case  : choice data-transmission-mode
+bbf_pots_I_profiles_I_clip_profiles_I_clip_profile_I_data_transmission_I_etsi_I_etsi_I_data_transmission_mode_I_fsk_case : fsk : empty  
+class "dtmf" as bbf_pots_I_profiles_I_clip_profiles_I_clip_profile_I_data_transmission_I_etsi_I_etsi_I_data_transmission_mode_I_dtmf_case <<case>>
+bbf_pots_I_profiles_I_clip_profiles_I_clip_profile_I_data_transmission_I_etsi_I_etsi_I_data_transmission_mode .. bbf_pots_I_profiles_I_clip_profiles_I_clip_profile_I_data_transmission_I_etsi_I_etsi_I_data_transmission_mode_I_dtmf_case  : choice data-transmission-mode
+class "dtmf" as  bbf_pots_I_profiles_I_clip_profiles_I_clip_profile_I_data_transmission_I_etsi_I_etsi_I_data_transmission_mode_I_dtmf_I_dtmf <<container>> 
+bbf_pots_I_profiles_I_clip_profiles_I_clip_profile_I_data_transmission_I_etsi_I_etsi_I_data_transmission_mode_I_dtmf_case *-- "1" bbf_pots_I_profiles_I_clip_profiles_I_clip_profile_I_data_transmission_I_etsi_I_etsi_I_data_transmission_mode_I_dtmf_I_dtmf 
+class "detection" as  bbf_pots_I_profiles_I_clip_profiles_I_clip_profile_I_data_transmission_I_etsi_I_etsi_I_data_transmission_mode_I_dtmf_I_dtmf_I_detection <<container>> 
+bbf_pots_I_profiles_I_clip_profiles_I_clip_profile_I_data_transmission_I_etsi_I_etsi_I_data_transmission_mode_I_dtmf_I_dtmf *-- "1" bbf_pots_I_profiles_I_clip_profiles_I_clip_profile_I_data_transmission_I_etsi_I_etsi_I_data_transmission_mode_I_dtmf_I_dtmf_I_detection 
+bbf_pots_I_profiles_I_clip_profiles_I_clip_profile_I_data_transmission_I_etsi_I_etsi_I_data_transmission_mode_I_dtmf_I_dtmf_I_detection : positive-twist-threshold : uint8 [1..16]   = 10  {dB}
+bbf_pots_I_profiles_I_clip_profiles_I_clip_profile_I_data_transmission_I_etsi_I_etsi_I_data_transmission_mode_I_dtmf_I_dtmf_I_detection : negative-twist-threshold : int8 [-16..-1]   = -10  {dB}
+bbf_pots_I_profiles_I_clip_profiles_I_clip_profile_I_data_transmission_I_etsi_I_etsi_I_data_transmission_mode_I_dtmf_I_dtmf_I_detection : minimum-snr-threshold-adjustment : int8 [-3..6]   = 0  {dB}
+bbf_pots_I_profiles_I_clip_profiles_I_clip_profile_I_data_transmission_I_etsi_I_etsi_I_data_transmission_mode_I_dtmf_I_dtmf_I_detection : echo-control-enabled : boolean   = false 
+bbf_pots_I_profiles_I_clip_profiles_I_clip_profile_I_data_transmission_I_etsi_I_etsi_I_data_transmission_mode_I_dtmf_I_dtmf_I_detection : maximum-volume : int8 [-63..0]   = 0  {dBm}
+bbf_pots_I_profiles_I_clip_profiles_I_clip_profile_I_data_transmission_I_etsi_I_etsi_I_data_transmission_mode_I_dtmf_I_dtmf : minimum-level-threshold : int8 [-48..-14]   = -27  {dB}
+class "telcordia" as bbf_pots_I_profiles_I_clip_profiles_I_clip_profile_I_data_transmission_I_telcordia_case <<case>>
+bbf_pots_I_profiles_I_clip_profiles_I_clip_profile_I_data_transmission .. bbf_pots_I_profiles_I_clip_profiles_I_clip_profile_I_data_transmission_I_telcordia_case  : choice data-transmission
+class "telcordia" as  bbf_pots_I_profiles_I_clip_profiles_I_clip_profile_I_data_transmission_I_telcordia_I_telcordia <<container>> 
+bbf_pots_I_profiles_I_clip_profiles_I_clip_profile_I_data_transmission_I_telcordia_case *-- "1" bbf_pots_I_profiles_I_clip_profiles_I_clip_profile_I_data_transmission_I_telcordia_I_telcordia 
+class "data-transmission-mode" as bbf_pots_I_profiles_I_clip_profiles_I_clip_profile_I_data_transmission_I_telcordia_I_telcordia_I_data_transmission_mode <<choice>> 
+bbf_pots_I_profiles_I_clip_profiles_I_clip_profile_I_data_transmission_I_telcordia_I_telcordia .. bbf_pots_I_profiles_I_clip_profiles_I_clip_profile_I_data_transmission_I_telcordia_I_telcordia_I_data_transmission_mode : choice 
+class "fsk" as bbf_pots_I_profiles_I_clip_profiles_I_clip_profile_I_data_transmission_I_telcordia_I_telcordia_I_data_transmission_mode_I_fsk_case <<case>>
+bbf_pots_I_profiles_I_clip_profiles_I_clip_profile_I_data_transmission_I_telcordia_I_telcordia_I_data_transmission_mode .. bbf_pots_I_profiles_I_clip_profiles_I_clip_profile_I_data_transmission_I_telcordia_I_telcordia_I_data_transmission_mode_I_fsk_case  : choice data-transmission-mode
+bbf_pots_I_profiles_I_clip_profiles_I_clip_profile_I_data_transmission_I_telcordia_I_telcordia_I_data_transmission_mode_I_fsk_case : fsk : empty  
+class "pots-uni-profiles" as  bbf_pots_I_profiles_I_pots_uni_profiles <<container>> 
+bbf_pots_I_profiles *-- "1" bbf_pots_I_profiles_I_pots_uni_profiles 
+class "pots-uni-profile" as bbf_pots_I_profiles_I_pots_uni_profiles_I_pots_uni_profile << (L, #FF7700) list>> 
+bbf_pots_I_profiles_I_pots_uni_profiles *-- "0..N" bbf_pots_I_profiles_I_pots_uni_profiles_I_pots_uni_profile 
+bbf_pots_I_profiles_I_pots_uni_profiles_I_pots_uni_profile : +name : bbf-yang:string-ascii64  {key} 
+bbf_pots_I_profiles_I_pots_uni_profiles_I_pots_uni_profile : nominal-feed-current : uint8   = 25  {milliamperes}
+bbf_pots_I_profiles_I_pots_uni_profiles_I_pots_uni_profile : nominal-feed-voltage : uint8 [0..255]   = 0  {volts}
+bbf_pots_I_profiles_I_pots_uni_profiles_I_pots_uni_profile : impedance : identityref {bbf-pots:impedance}   = bbf-pots:vendor-specific-default-impedance 
+bbf_pots_I_profiles_I_pots_uni_profiles_I_pots_uni_profile : splitter : boolean   = false 
+bbf_pots_I_profiles_I_pots_uni_profiles_I_pots_uni_profile : splitter-type : identityref {bbf-pots:splitter-type}  
+bbf_pots_I_profiles_I_pots_uni_profiles_I_pots_uni_profile : automatic-gain-control-enabled : boolean   = false 
+bbf_pots_I_profiles_I_pots_uni_profiles_I_pots_uni_profile : rx-gain : int16 [-14..6]   = 0  {dB}
+bbf_pots_I_profiles_I_pots_uni_profiles_I_pots_uni_profile : tx-gain : int16 [-14..6]   = 0  {dB}
+bbf_pots_I_profiles_I_pots_uni_profiles_I_pots_uni_profile : transmission-path : enumeration : {full-time-on-hook,part-time-on-hook,}   = full-time-on-hook 
+bbf_pots_I_profiles_I_pots_uni_profiles_I_pots_uni_profile : holdover-time : union{enumeration, uint16}   = 0  {seconds} {if-feature : bbf-pots:loop-voltage-holdover}
+bbf_pots_I_profiles_I_pots_uni_profiles_I_pots_uni_profile : loss-of-softswitch : boolean   = false  {if-feature : bbf-pots:loop-voltage-holdover}
+bbf_pots_I_profiles_I_pots_uni_profiles_I_pots_uni_profile : off-hook-no-dial-behavior : identityref {bbf-pots:off-hook-dial-timeout-treatment}   = bbf-pots:apply-silence 
+bbf_pots_I_profiles_I_pots_uni_profiles_I_pots_uni_profile : receiver-off-hook-timer : union{enumeration, uint8}   = 15  {seconds}
+bbf_pots_I_profiles_I_pots_uni_profiles_I_pots_uni_profile : echo-cancel-enabled : boolean   = true 
+bbf_pots_I_profiles_I_pots_uni_profiles_I_pots_uni_profile : hook-flash-minimum-time : uint16   = 0  {milliseconds}
+bbf_pots_I_profiles_I_pots_uni_profiles_I_pots_uni_profile : hook-flash-maximum-time : uint16   = 0  {milliseconds}
+bbf_pots_I_profiles_I_pots_uni_profiles_I_pots_uni_profile : dtmf-digit-levels : int16 [-25..0]   = 0  {dBm0}
+bbf_pots_I_profiles_I_pots_uni_profiles_I_pots_uni_profile : dmtf-digit-duration : uint16   = 0  {milliseconds}
+class "/if:interfaces/if:interface" as if_interfaces_if_interface << (A,CadetBlue) augment>>
+bbf_pots *--  if_interfaces_if_interface 
+class "pots" as  ietf_interfaces_I_interfaces_I_interface_I_pots <<container>> 
+if_interfaces_if_interface *-- "1" ietf_interfaces_I_interfaces_I_interface_I_pots 
+class "pots-uni-configuration" as ietf_interfaces_I_interfaces_I_interface_I_pots_I_pots_uni_configuration <<choice>> 
+ietf_interfaces_I_interfaces_I_interface_I_pots .. ietf_interfaces_I_interfaces_I_interface_I_pots_I_pots_uni_configuration : choice 
+class "pots-uni-profile" as ietf_interfaces_I_interfaces_I_interface_I_pots_I_pots_uni_configuration_I_pots_uni_profile_case <<case>>
+ietf_interfaces_I_interfaces_I_interface_I_pots_I_pots_uni_configuration .. ietf_interfaces_I_interfaces_I_interface_I_pots_I_pots_uni_configuration_I_pots_uni_profile_case  : choice pots-uni-configuration
+ietf_interfaces_I_interfaces_I_interface_I_pots_I_pots_uni_configuration_I_pots_uni_profile_case : pots-uni-profile : bbf-pots:pots-uni-profile-ref  
+class "pstn-protocol-variant" as ietf_interfaces_I_interfaces_I_interface_I_pots_I_pots_uni_configuration_I_pstn_protocol_variant_case <<case>>
+ietf_interfaces_I_interfaces_I_interface_I_pots_I_pots_uni_configuration .. ietf_interfaces_I_interfaces_I_interface_I_pots_I_pots_uni_configuration_I_pstn_protocol_variant_case  : choice pots-uni-configuration
+ietf_interfaces_I_interfaces_I_interface_I_pots_I_pots_uni_configuration_I_pstn_protocol_variant_case : pstn-protocol-variant : union{uint16, enumeration}   = default-country-code 
+class "internal-defaults" as ietf_interfaces_I_interfaces_I_interface_I_pots_I_pots_uni_configuration_I_internal_defaults_case <<case>>
+ietf_interfaces_I_interfaces_I_interface_I_pots_I_pots_uni_configuration .. ietf_interfaces_I_interfaces_I_interface_I_pots_I_pots_uni_configuration_I_internal_defaults_case  : choice pots-uni-configuration
+ietf_interfaces_I_interfaces_I_interface_I_pots_I_pots_uni_configuration_I_internal_defaults_case : internal-defaults : empty  
+ietf_interfaces_I_interfaces_I_interface_I_pots : clip-profile : bbf-pots:clip-profile-ref  
+ietf_interfaces_I_interfaces_I_interface_I_pots : tone-pattern-profile : bbf-pots:tone-pattern-profile-ref   {if-feature : bbf-pots:tone-pattern}
+ietf_interfaces_I_interfaces_I_interface_I_pots : ringing-pattern-profile : bbf-pots:ringing-pattern-profile-ref   {if-feature : bbf-pots:ringing-pattern}
+class "analog-subscriber-loop" as  ietf_interfaces_I_interfaces_I_interface_I_pots_I_analog_subscriber_loop <<container>> 
+ietf_interfaces_I_interfaces_I_interface_I_pots *-- "0..1" ietf_interfaces_I_interfaces_I_interface_I_pots_I_analog_subscriber_loop 
+class "source" as ietf_interfaces_I_interfaces_I_interface_I_pots_I_analog_subscriber_loop_I_source <<choice>> 
+ietf_interfaces_I_interfaces_I_interface_I_pots_I_analog_subscriber_loop .. ietf_interfaces_I_interfaces_I_interface_I_pots_I_analog_subscriber_loop_I_source : choice 
+class "file" as ietf_interfaces_I_interfaces_I_interface_I_pots_I_analog_subscriber_loop_I_source_I_file_case <<case>>
+ietf_interfaces_I_interfaces_I_interface_I_pots_I_analog_subscriber_loop_I_source .. ietf_interfaces_I_interfaces_I_interface_I_pots_I_analog_subscriber_loop_I_source_I_file_case  : choice source
+class "location" as ietf_interfaces_I_interfaces_I_interface_I_pots_I_analog_subscriber_loop_I_source_I_file_I_location <<choice>> 
+ietf_interfaces_I_interfaces_I_interface_I_pots_I_analog_subscriber_loop_I_source_I_file_case .. ietf_interfaces_I_interfaces_I_interface_I_pots_I_analog_subscriber_loop_I_source_I_file_I_location : choice 
+class "url" as ietf_interfaces_I_interfaces_I_interface_I_pots_I_analog_subscriber_loop_I_source_I_file_I_location_I_url_case <<case>>
+ietf_interfaces_I_interfaces_I_interface_I_pots_I_analog_subscriber_loop_I_source_I_file_I_location .. ietf_interfaces_I_interfaces_I_interface_I_pots_I_analog_subscriber_loop_I_source_I_file_I_location_I_url_case  : choice location
+ietf_interfaces_I_interfaces_I_interface_I_pots_I_analog_subscriber_loop_I_source_I_file_I_location_I_url_case : url : inet:uri  
+class "state" as  ietf_interfaces_I_interfaces_I_interface_I_pots_I_state <<container>> 
+ietf_interfaces_I_interfaces_I_interface_I_pots *-- "1" ietf_interfaces_I_interfaces_I_interface_I_pots_I_state 
+ietf_interfaces_I_interfaces_I_interface_I_pots_I_state : hook-state : enumeration : {on-hook,off-hook,}   {mandatory} {Config : false}
+class "statistics" as  ietf_interfaces_I_interfaces_I_interface_I_pots_I_statistics <<container>> 
+ietf_interfaces_I_interfaces_I_interface_I_pots *-- "1" ietf_interfaces_I_interfaces_I_interface_I_pots_I_statistics 
+ietf_interfaces_I_interfaces_I_interface_I_pots_I_statistics : maximum-off-hook-duration : uint32   {milliseconds}
+ietf_interfaces_I_interfaces_I_interface_I_pots_I_statistics : releases-without-dialing : yang:counter32  
+class "off-hook-dial-timeout-treatment" as bbf_pots_off_hook_dial_timeout_treatment_identity << (I,Silver) identity>> 
+class "apply-silence" as bbf_pots_apply_silence_identity << (I,Silver) identity>> 
+bbf_pots_off_hook_dial_timeout_treatment_identity <|-- bbf_pots_apply_silence_identity 
+class "apply-reorder-tone" as bbf_pots_apply_reorder_tone_identity << (I,Silver) identity>> 
+bbf_pots_off_hook_dial_timeout_treatment_identity <|-- bbf_pots_apply_reorder_tone_identity 
+class "apply-fast-busy-tone" as bbf_pots_apply_fast_busy_tone_identity << (I,Silver) identity>> 
+bbf_pots_off_hook_dial_timeout_treatment_identity <|-- bbf_pots_apply_fast_busy_tone_identity 
+class "apply-announcement" as bbf_pots_apply_announcement_identity << (I,Silver) identity>> 
+bbf_pots_off_hook_dial_timeout_treatment_identity <|-- bbf_pots_apply_announcement_identity 
+class "tone-event" as bbf_pots_tone_event_identity << (I,Silver) identity>> 
+class "busy" as bbf_pots_busy_identity << (I,Silver) identity>> 
+bbf_pots_tone_event_identity <|-- bbf_pots_busy_identity 
+class "confirmation" as bbf_pots_confirmation_identity << (I,Silver) identity>> 
+bbf_pots_tone_event_identity <|-- bbf_pots_confirmation_identity 
+class "dial" as bbf_pots_dial_identity << (I,Silver) identity>> 
+bbf_pots_tone_event_identity <|-- bbf_pots_dial_identity 
+class "message-waiting" as bbf_pots_message_waiting_identity << (I,Silver) identity>> 
+bbf_pots_tone_event_identity <|-- bbf_pots_message_waiting_identity 
+class "off-hook" as bbf_pots_off_hook_identity << (I,Silver) identity>> 
+bbf_pots_tone_event_identity <|-- bbf_pots_off_hook_identity 
+class "ringback" as bbf_pots_ringback_identity << (I,Silver) identity>> 
+bbf_pots_tone_event_identity <|-- bbf_pots_ringback_identity 
+class "reorder" as bbf_pots_reorder_identity << (I,Silver) identity>> 
+bbf_pots_tone_event_identity <|-- bbf_pots_reorder_identity 
+class "stutter-dial" as bbf_pots_stutter_dial_identity << (I,Silver) identity>> 
+bbf_pots_tone_event_identity <|-- bbf_pots_stutter_dial_identity 
+class "call-waiting-1" as bbf_pots_call_waiting_1_identity << (I,Silver) identity>> 
+bbf_pots_tone_event_identity <|-- bbf_pots_call_waiting_1_identity 
+class "call-waiting-2" as bbf_pots_call_waiting_2_identity << (I,Silver) identity>> 
+bbf_pots_tone_event_identity <|-- bbf_pots_call_waiting_2_identity 
+class "call-waiting-3" as bbf_pots_call_waiting_3_identity << (I,Silver) identity>> 
+bbf_pots_tone_event_identity <|-- bbf_pots_call_waiting_3_identity 
+class "call-waiting-4" as bbf_pots_call_waiting_4_identity << (I,Silver) identity>> 
+bbf_pots_tone_event_identity <|-- bbf_pots_call_waiting_4_identity 
+class "alerting-signal" as bbf_pots_alerting_signal_identity << (I,Silver) identity>> 
+bbf_pots_tone_event_identity <|-- bbf_pots_alerting_signal_identity 
+class "special-dial" as bbf_pots_special_dial_identity << (I,Silver) identity>> 
+bbf_pots_tone_event_identity <|-- bbf_pots_special_dial_identity 
+class "special-info" as bbf_pots_special_info_identity << (I,Silver) identity>> 
+bbf_pots_tone_event_identity <|-- bbf_pots_special_info_identity 
+class "release" as bbf_pots_release_identity << (I,Silver) identity>> 
+bbf_pots_tone_event_identity <|-- bbf_pots_release_identity 
+class "congestion" as bbf_pots_congestion_identity << (I,Silver) identity>> 
+bbf_pots_tone_event_identity <|-- bbf_pots_congestion_identity 
+class "intrusion" as bbf_pots_intrusion_identity << (I,Silver) identity>> 
+bbf_pots_tone_event_identity <|-- bbf_pots_intrusion_identity 
+class "dead" as bbf_pots_dead_identity << (I,Silver) identity>> 
+bbf_pots_tone_event_identity <|-- bbf_pots_dead_identity 
+class "ringing-event" as bbf_pots_ringing_event_identity << (I,Silver) identity>> 
+class "default-ringing" as bbf_pots_default_ringing_identity << (I,Silver) identity>> 
+bbf_pots_ringing_event_identity <|-- bbf_pots_default_ringing_identity 
+class "short-ringing" as bbf_pots_short_ringing_identity << (I,Silver) identity>> 
+bbf_pots_ringing_event_identity <|-- bbf_pots_short_ringing_identity 
+class "distinctive-ring-1" as bbf_pots_distinctive_ring_1_identity << (I,Silver) identity>> 
+bbf_pots_ringing_event_identity <|-- bbf_pots_distinctive_ring_1_identity 
+class "distinctive-ring-2" as bbf_pots_distinctive_ring_2_identity << (I,Silver) identity>> 
+bbf_pots_ringing_event_identity <|-- bbf_pots_distinctive_ring_2_identity 
+class "distinctive-ring-3" as bbf_pots_distinctive_ring_3_identity << (I,Silver) identity>> 
+bbf_pots_ringing_event_identity <|-- bbf_pots_distinctive_ring_3_identity 
+class "distinctive-ring-4" as bbf_pots_distinctive_ring_4_identity << (I,Silver) identity>> 
+bbf_pots_ringing_event_identity <|-- bbf_pots_distinctive_ring_4_identity 
+class "distinctive-ring-5" as bbf_pots_distinctive_ring_5_identity << (I,Silver) identity>> 
+bbf_pots_ringing_event_identity <|-- bbf_pots_distinctive_ring_5_identity 
+class "distinctive-ring-6" as bbf_pots_distinctive_ring_6_identity << (I,Silver) identity>> 
+bbf_pots_ringing_event_identity <|-- bbf_pots_distinctive_ring_6_identity 
+class "distinctive-ring-7" as bbf_pots_distinctive_ring_7_identity << (I,Silver) identity>> 
+bbf_pots_ringing_event_identity <|-- bbf_pots_distinctive_ring_7_identity 
+class "distinctive-ring-8" as bbf_pots_distinctive_ring_8_identity << (I,Silver) identity>> 
+bbf_pots_ringing_event_identity <|-- bbf_pots_distinctive_ring_8_identity 
+class "distinctive-ring-9" as bbf_pots_distinctive_ring_9_identity << (I,Silver) identity>> 
+bbf_pots_ringing_event_identity <|-- bbf_pots_distinctive_ring_9_identity 
+class "distinctive-ring-10" as bbf_pots_distinctive_ring_10_identity << (I,Silver) identity>> 
+bbf_pots_ringing_event_identity <|-- bbf_pots_distinctive_ring_10_identity 
+class "distinctive-ring-11" as bbf_pots_distinctive_ring_11_identity << (I,Silver) identity>> 
+bbf_pots_ringing_event_identity <|-- bbf_pots_distinctive_ring_11_identity 
+class "distinctive-ring-12" as bbf_pots_distinctive_ring_12_identity << (I,Silver) identity>> 
+bbf_pots_ringing_event_identity <|-- bbf_pots_distinctive_ring_12_identity 
+class "default-call-waiting" as bbf_pots_default_call_waiting_identity << (I,Silver) identity>> 
+bbf_pots_ringing_event_identity <|-- bbf_pots_default_call_waiting_identity 
+class "distinctive-call-waiting-1" as bbf_pots_distinctive_call_waiting_1_identity << (I,Silver) identity>> 
+bbf_pots_ringing_event_identity <|-- bbf_pots_distinctive_call_waiting_1_identity 
+class "distinctive-call-waiting-2" as bbf_pots_distinctive_call_waiting_2_identity << (I,Silver) identity>> 
+bbf_pots_ringing_event_identity <|-- bbf_pots_distinctive_call_waiting_2_identity 
+class "distinctive-call-waiting-3" as bbf_pots_distinctive_call_waiting_3_identity << (I,Silver) identity>> 
+bbf_pots_ringing_event_identity <|-- bbf_pots_distinctive_call_waiting_3_identity 
+class "distinctive-call-waiting-4" as bbf_pots_distinctive_call_waiting_4_identity << (I,Silver) identity>> 
+bbf_pots_ringing_event_identity <|-- bbf_pots_distinctive_call_waiting_4_identity 
+class "distinctive-call-waiting-5" as bbf_pots_distinctive_call_waiting_5_identity << (I,Silver) identity>> 
+bbf_pots_ringing_event_identity <|-- bbf_pots_distinctive_call_waiting_5_identity 
+class "distinctive-call-waiting-6" as bbf_pots_distinctive_call_waiting_6_identity << (I,Silver) identity>> 
+bbf_pots_ringing_event_identity <|-- bbf_pots_distinctive_call_waiting_6_identity 
+class "distinctive-call-waiting-7" as bbf_pots_distinctive_call_waiting_7_identity << (I,Silver) identity>> 
+bbf_pots_ringing_event_identity <|-- bbf_pots_distinctive_call_waiting_7_identity 
+class "distinctive-call-waiting-8" as bbf_pots_distinctive_call_waiting_8_identity << (I,Silver) identity>> 
+bbf_pots_ringing_event_identity <|-- bbf_pots_distinctive_call_waiting_8_identity 
+class "distinctive-call-waiting-9" as bbf_pots_distinctive_call_waiting_9_identity << (I,Silver) identity>> 
+bbf_pots_ringing_event_identity <|-- bbf_pots_distinctive_call_waiting_9_identity 
+class "call-completion" as bbf_pots_call_completion_identity << (I,Silver) identity>> 
+bbf_pots_ringing_event_identity <|-- bbf_pots_call_completion_identity 
+class "impedance" as bbf_pots_impedance_identity << (I,Silver) identity>> 
+class "vendor-specific-default-impedance" as bbf_pots_vendor_specific_default_impedance_identity << (I,Silver) identity>> 
+bbf_pots_impedance_identity <|-- bbf_pots_vendor_specific_default_impedance_identity 
+class "ohm220" as bbf_pots_ohm220_identity << (I,Silver) identity>> 
+bbf_pots_impedance_identity <|-- bbf_pots_ohm220_identity 
+class "ohm600" as bbf_pots_ohm600_identity << (I,Silver) identity>> 
+bbf_pots_impedance_identity <|-- bbf_pots_ohm600_identity 
+class "ohm900" as bbf_pots_ohm900_identity << (I,Silver) identity>> 
+bbf_pots_impedance_identity <|-- bbf_pots_ohm900_identity 
+class "european-compromise-matching-impedance" as bbf_pots_european_compromise_matching_impedance_identity << (I,Silver) identity>> 
+bbf_pots_impedance_identity <|-- bbf_pots_european_compromise_matching_impedance_identity 
+class "german-compromise-matching-impedance" as bbf_pots_german_compromise_matching_impedance_identity << (I,Silver) identity>> 
+bbf_pots_impedance_identity <|-- bbf_pots_german_compromise_matching_impedance_identity 
+class "uk-compromise-matching-impedance" as bbf_pots_uk_compromise_matching_impedance_identity << (I,Silver) identity>> 
+bbf_pots_impedance_identity <|-- bbf_pots_uk_compromise_matching_impedance_identity 
+class "splitter-type" as bbf_pots_splitter_type_identity << (I,Silver) identity>> 
+class "splitter" as bbf_pots_splitter_identity << (I,Silver) identity>> 
+bbf_pots_splitter_type_identity <|-- bbf_pots_splitter_identity 
+class "mini-splitter" as bbf_pots_mini_splitter_identity << (I,Silver) identity>> 
+bbf_pots_splitter_type_identity <|-- bbf_pots_mini_splitter_identity 
+bbf_pots_I_profiles_I_tone_pattern_profiles_I_tone_pattern_profile_I_pattern-->bbf_pots_tone_event_identity : event
+bbf_pots_I_profiles_I_ringing_pattern_profiles_I_ringing_pattern_profile_I_pattern-->bbf_pots_ringing_event_identity : event
+bbf_pots_I_profiles_I_pots_uni_profiles_I_pots_uni_profile-->bbf_pots_impedance_identity : impedance
+bbf_pots_I_profiles_I_pots_uni_profiles_I_pots_uni_profile-->bbf_pots_splitter_type_identity : splitter-type
+bbf_pots_I_profiles_I_pots_uni_profiles_I_pots_uni_profile-->bbf_pots_off_hook_dial_timeout_treatment_identity : off-hook-no-dial-behavior
+} 
+
+if_ietf_interfaces +-- bbf_pots_bbf_pots
+inet_ietf_inet_types +-- bbf_pots_bbf_pots
+yang_ietf_yang_types +-- bbf_pots_bbf_pots
+ianaift_iana_if_type +-- bbf_pots_bbf_pots
+bbf_yang_bbf_yang_types +-- bbf_pots_bbf_pots
+bbf_pots_tone_pattern_profile_ref_typedef-->"bbf-pots:name"bbf_pots_I_profiles_I_tone_pattern_profiles_I_tone_pattern_profile: tone-pattern-profile-ref
+bbf_pots_ringing_pattern_profile_ref_typedef-->"bbf-pots:name"bbf_pots_I_profiles_I_ringing_pattern_profiles_I_ringing_pattern_profile: ringing-pattern-profile-ref
+bbf_pots_clip_profile_ref_typedef-->"bbf-pots:name"bbf_pots_I_profiles_I_clip_profiles_I_clip_profile: clip-profile-ref
+bbf_pots_pots_uni_profile_ref_typedef-->"bbf-pots:name"bbf_pots_I_profiles_I_pots_uni_profiles_I_pots_uni_profile: pots-uni-profile-ref
+center footer
+ <size:20> UML Generated : 2023-07-25 11:39 </size>
+ endfooter 
+@enduml 

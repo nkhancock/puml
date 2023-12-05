@@ -1,0 +1,230 @@
+  package ieee802-dot1q-cfm {
+    class cfm <<container>>
+    hide cfm members
+    class "maintenance-domain" as md <<list>> {
+      +<<key>> md-id : cfm-types:name-key-type
+      +md-level : 0..7 = 0
+      +mhf-creation* : none, default, explicit, defer = none
+      +id-permission* : none, chassis, manage, manage-chassis, defer = none
+      +fault-alarm-transmission : address, not-transmitted = not-transmitted
+    }
+    note " *names of the enumerations \nhave been simplified for clarity" as N1
+    class "maintenance-association" as ma <<list>> {
+      +<<key>> ma-id : cfm-types:name-key-type
+      +ccm-interval : 300hz, 10ms, 100ms, 1sec, 10sec, 1min, 10min = 1sec
+      +mhf-creation* : none, default, explicit, defer = defer
+      +id-permission* : none, chassis, manage, manage-chassis, defer = defer
+      +fault-alarm-transmission : address, not-transmitted
+    }
+    class "maintenance-association-mep" as mepId <<list>> {
+      +<<key>> mep-id
+    }
+    class "maintenance-group" as mag <<list>> {
+      +<<key>> maintenance-group-id
+    }
+
+    class "md-name" as choice_md_name <<choice>>
+    hide choice_md_name members
+    class "none" as case_md_name_none <<case>>
+    class "dns-like-name" as case_md_name_dns <<case>> {
+      +dns-like-name : string[1..43]
+    }
+    class "mac-address-and-uint" as case_md_name_mac <<case>>
+    class "mac-address-and-uint-type" as md_name_mac  <<container>> {
+      +address : ieee:mac-address
+      +int : uint16
+    }
+    class "char-string" as case_md_name_string <<case>> {
+      +char-string : string[1..43]/[ -~]*
+    }
+
+    class "ma-name" as choice_ma_name <<choice>>
+    hide choice_ma_name members
+    class "primary-vid" as case_ma_name_vid <<case>> {
+      +primary-vid : 1..4094
+    }
+    class "unsigned-int16" as case_ma_name_uint16 <<case>> {
+      +unsigned-int16 : uint16
+    }
+    class "rfc2865-vpn-id" as case_ma_name_vpn_id <<case>>
+    class "char-string" as case_ma_name_string <<case>> {
+      +char-string : string[1..45]/[ -~]*
+    }
+    class "rfc2865-vpn-id" as ma_name_vpn_id  <<container>> {
+      +vpn-oui : uint32[0..16777215] = ?
+      +vpn-index : uint32 = ?
+    }
+
+    class mep <<list>> {
+      +direction : down, up = ?
+      +enabled : boolean = false
+      +ccm-ltm-priority : 0..7 = 7
+      #mac-adddress : ieee:mac-address = ?
+      +transmit-loopback(lbm-destination,lbm-messages,lbm-prioirty,lbm-drop-eligible,lbm-data-tlv) : lbm-request-id = ?
+      +transmit-linktrace(ltr-target,ltm-ttl,ltm-flags) : ltm-transaction-id,ltm-egress-identifier = ?
+    }
+    class "inactive-remote-mep" as irmep <<list>>
+
+    class "mep-db" as mepdb <<list>> {
+      #<<key>>rmep-id : 1..8191
+      #rmep-state* : idle, start, failed, ok = ?
+      #rmep-failed-ok-time : timeticks = ?
+      #mac-adddress : ieee:mac-address = ?
+      #rdi : boolean = ?
+      #port-status-tlv : no-port-status-tlv, blocked, up
+      #interface-status-tlv : no-interface-status-tlv, up, down, testing, unknown, dormant, not-present, lower-layer-down
+      #chassis-id-subtype : chassis-component, interface-alias, port-component, mac-address, network-address, interface-name, local
+      #chassis-id : string[1..255]
+      #rmep-is-active : boolean = true
+    }
+    class "transport-service-domain" as tsd <<container>> {
+      +domain : yang:object-identifier-128
+    }
+    class "management-address\n//{when ../domain}//" as tsd_choice_mgmt_addr <<choice>>
+    hide tsd_choice_mgmt_addr members
+    class "ip" as tsd_case_mgmt_addr_ip <<case>> {
+      #ip-address : inet:ip-address = ?
+      #ip-port : inet:port-number = ?
+    }
+    class "dns" as tsd_case_mgmt_addr_dns <<case>> {
+      #dns-address : string[1..255]
+    }
+    class "local" as tsd_case_mgmt_addr_local <<case>> {
+      #local-address : string[1..255] = ?
+    }
+    class "other" as tsd_case_mgmt_addr_other <<case>> {
+      #unknown-address : binary[1..255]
+    }
+    class "continuity-check" as cc  <<container>> {
+      +ccm-enabled : boolean = false
+      #fng-state* : reset, defect, report-defect, defect-reported, defect-clearing = reset
+      +fault-alarm-transmission : address, not-transmitted
+      +lowest-priority-defect : all-def, mac-remote-error-xcon, remote-error-xcon, xcon, no-xcon = mac-remote-error-xcon
+      +fng-alarm-time : 2500..10000 ms = 2500 ms
+      +fng-reset-time : 2500..10000 ms = 10000 ms
+      #highest-priority-defect* : none, rdi-ccm, mac-status, remote-ccm, error-ccm, xcon-ccm = ?
+      #defects[*] : rdi-ccm, mac-status, remote-ccm, error-ccm, xcon-ccm = ?
+      #error-ccm-last-failure : binary[1..128]
+      #xcon-last-failure : binary[1..128]
+    }
+    class stats  <<container>> {
+      #mep-ccm-sequence-errors : yang:counter64 = ?
+      #mep-ccms-sent : yang:counter64 = ?
+      #mep-lbr-in : yang:counter64 = ?
+      #mep-lbr-in-out-of-order : yang:counter64 = ?
+      #mep-lbr-bad-msdu : yang:counter64 = ?
+      #mep-unexpected-ltr-in : yang:counter64 = ?
+      #mep-lbr-out : yang:counter64 = ?
+    }
+    class "linktrace-reply" as lt_reply <<list>> {
+      #<<key>> ltr-transaction-id
+    }
+    class "linktrace-input" as lt_inp <<container>> {
+      #ltm-ttl : 0..255 = 64
+      #ltm-flags[*] : use-fdb-only = {}
+    }
+    class "ltr-target" as choice_ltr_tgt <<choice>>
+    hide choice_ltr_tgt members
+    class "target-ucast-mac-address" as case_ltr_tgt_ucast <<case>> {
+      #ltm-target-mac-address
+    }
+    class "target-mep-id" as case_ltr_tgt_mepid <<case>> {
+      #ltm-target-mep-id : 1..8191
+    }
+    class "responses" as ltr <<list>> {
+      #<<key>> ltr-receive-order : 1..max
+      #ltr-ttl : 0..255 = ?
+      #ltr-forwarded : boolean = ?
+      #ltr-terminal-mep : boolean = ?
+      #ltr-relay* : hit, fdb, mpdb = ?
+      #ltr-chassis-id-subtype : chassis-component, interface-alias, port-component, mac-address, network-address, interface-name, local = ?
+      #ltr-chassis-id : string[1..255] = ?
+      #ltr-ingress* : ok, down, blocked, vid
+      #\tltr-ingress-mac : ieee:mac-address = ?
+      #\tltr-ingress-port-id-subtype : alias, port-component, mac-address, network-address, interface-name, agent-circuit-id, local
+      #\t\tltr-ingress-port-id : string[8] = ?
+      #ltr-egress* : ok, down, blocked, vid
+      #\tltr-egress-mac : ieee:mac-address = ?
+      #\tltr-egress-port-id-subtype : alias, port-component, mac-address, network-address, interface-name, agent-circuit-id, local
+      #\t\tltr-egress-port-id : string[8] = ?
+      #ltr-organization-specific-tlv : binary[0|4..1500]
+    }
+    class "ltr-last-egress-identifier" as ltr_last_egr_id <<container>> {
+      #int : uint16 = ?
+      #address : ieee:mac-address = ?
+    }
+    class "ltr-next-egress-identifier" as ltr_next_egr_id <<container>> {
+      #int : uint16 = ?
+      #address : ieee:mac-address = ?
+    }
+    class "ltr-transport-service-domain" as ltr_tsd <<container>> {
+      +domain : yang:object-identifier-128
+    }
+    class "management-address\n//{when ../domain}//" as ltr_tsd_choice_mgmt_addr <<choice>>
+    hide ltr_tsd_choice_mgmt_addr members
+    class "ip" as ltr_tsd_case_mgmt_addr_ip <<case>> {
+      #ip-address : inet:ip-address = ?
+      #ip-port : inet:port-number = ?
+    }
+    class "dns" as ltr_tsd_case_mgmt_addr_dns <<case>> {
+      #dns-address : string[1..255]
+    }
+    class "local" as ltr_tsd_case_mgmt_addr_local <<case>> {
+      #local-address : string[1..255] = ?
+    }
+    class "other" as ltr_tsd_case_mgmt_addr_other <<case>> {
+      #unknown-address : binary[1..255]
+    }
+
+
+    cfm "1" *-- "0..*" md
+    cfm "1" *-- "0..*" mag
+    md "1" *-- "0..*" ma
+    ma "1" *-- "0.*" mepId
+    mag "1" *-- "0.*" mep
+    mag "*" -left-> "1" md : +md-id
+    mag "1" --> "1" ma : +ma-id
+    mep "1" -left-> "1" mepId : +<<key>> mep-id
+    mep "1" *-left- "0..*" irmep
+    irmep "0..1" -> "1" mepId : inactive-rmep-id
+
+    mep "1" *-right- "1" mepdb : \t
+    mepdb "1" *-- "0..1" tsd
+    tsd "1" *-- "0..1" tsd_choice_mgmt_addr
+    tsd_choice_mgmt_addr <|-- tsd_case_mgmt_addr_ip
+    tsd_choice_mgmt_addr <|-- tsd_case_mgmt_addr_dns
+    tsd_choice_mgmt_addr <|-- tsd_case_mgmt_addr_local
+    tsd_choice_mgmt_addr <|-- tsd_case_mgmt_addr_other
+    mep "1" *-- "1" cc
+    mep "1" *-- "0..*" lt_reply
+    mep "1" *-- "1" stats
+
+    lt_reply "1" *-- "0.*" ltr
+    lt_reply "1" *-- "1" lt_inp
+    lt_inp "1" *-- "1" choice_ltr_tgt
+    choice_ltr_tgt <|-- case_ltr_tgt_ucast
+    choice_ltr_tgt <|-- case_ltr_tgt_mepid
+    ltr "1" *-- "1" ltr_last_egr_id
+    ltr "1" *-- "1" ltr_next_egr_id
+    ltr "1" *-- "0..1" ltr_tsd
+    ltr_tsd "1" *-- "0..1" ltr_tsd_choice_mgmt_addr
+    ltr_tsd_choice_mgmt_addr <|-- ltr_tsd_case_mgmt_addr_ip
+    ltr_tsd_choice_mgmt_addr <|-- ltr_tsd_case_mgmt_addr_dns
+    ltr_tsd_choice_mgmt_addr <|-- ltr_tsd_case_mgmt_addr_local
+    ltr_tsd_choice_mgmt_addr <|-- ltr_tsd_case_mgmt_addr_other
+
+
+    md "1" *-left- "1" choice_md_name
+    choice_md_name <|-up- case_md_name_none
+    choice_md_name <|-down- case_md_name_dns
+    choice_md_name <|-down- case_md_name_mac
+    choice_md_name <|-left- case_md_name_string
+    case_md_name_mac "1" *-- "1" md_name_mac
+
+    ma "1" *- "0..1" choice_ma_name
+    choice_ma_name <|-left- case_ma_name_vid
+    choice_ma_name <|-up- case_ma_name_uint16
+    choice_ma_name <|-right- case_ma_name_vpn_id
+    choice_ma_name <|-up- case_ma_name_string
+    case_ma_name_vpn_id "1" *-right- "1" ma_name_vpn_id
+  }

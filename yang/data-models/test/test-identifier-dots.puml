@@ -1,0 +1,38 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/test-identifier-dots.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title test-identifier-dots 
+package "tst-id-dots:test-identifier-dots" as tst_id_dots_test_identifier_dots { 
+} 
+note top of tst_id_dots_test_identifier_dots : <b>Namespace: </b> http://www.example.com/ns/yang/test-identifier-dots \n<b>Prefix: </b> tst-id-dots \n<b>Revision : </b> 2023-07-17 \n
+package "tst-id-dots:test-identifier-dots" as tst_id_dots_test_identifier_dots { 
+class "test-identifier-dots" as test_identifier_dots << (M, #33CCFF) module>> 
+class "base-identity" as base_identity << (I,Silver) identity>> 
+class "a" as a << (I,Silver) identity>> 
+base_identity <|-- a 
+class "a.1" as a__1 << (I,Silver) identity>> 
+a <|-- a__1 
+class "a-1" as a_1 << (I,Silver) identity>> 
+a <|-- a_1 
+class "a.2" as a__2 << (I,Silver) identity>> 
+a <|-- a__2 
+class "a-2" as a_2 << (I,Silver) identity>> 
+a <|-- a_2 
+class "a.2-b.1" as a__2_b__1 << (I,Silver) identity>> 
+a__2 <|-- a__2_b__1 
+} 
+
+center footer
+ <size:20> UML Generated : 2023-07-19 17:54 </size>
+ endfooter 
+@enduml 

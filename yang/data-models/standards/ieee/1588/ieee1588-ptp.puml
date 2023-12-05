@@ -1,0 +1,621 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/ieee1588-ptp.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title ieee1588-ptp 
+package "yang:ietf-yang-types" as yang_ietf_yang_types { 
+} 
+package "if:ietf-interfaces" as if_ietf_interfaces { 
+} 
+package "ptp:ieee1588-ptp" as ptp_ieee1588_ptp { 
+} 
+package "ptp:ieee1588-ptp" as ptp_ieee1588_ptp { 
+class "ieee1588-ptp" as ieee1588_ptp << (M, #33CCFF) module>> 
+ieee1588_ptp : feature : fault-log 
+ieee1588_ptp : feature : unicast-negotiation 
+ieee1588_ptp : feature : path-trace 
+ieee1588_ptp : feature : alternate-timescale 
+ieee1588_ptp : feature : holdover-upgrade 
+ieee1588_ptp : feature : cmlds 
+ieee1588_ptp : feature : timestamp-correction 
+ieee1588_ptp : feature : asymmetry-correction 
+ieee1588_ptp : feature : slave-monitoring 
+ieee1588_ptp : feature : enhanced-metrics 
+ieee1588_ptp : feature : grandmaster-cluster 
+ieee1588_ptp : feature : alternate-master 
+ieee1588_ptp : feature : unicast-discovery 
+ieee1588_ptp : feature : acceptable-master 
+ieee1588_ptp : feature : external-port-config 
+ieee1588_ptp : feature : performance-monitoring 
+ieee1588_ptp : feature : l1-sync 
+class "time-interval" as ptp_time_interval_typedef << (T, YellowGreen) typedef>>
+ptp_time_interval_typedef : int64
+class "clock-identity" as ptp_clock_identity_typedef << (T, YellowGreen) typedef>>
+ptp_clock_identity_typedef : string {pattern = [0-9A-F]{2}(-[0-9A-F...}
+class "relative-difference" as ptp_relative_difference_typedef << (T, YellowGreen) typedef>>
+ptp_relative_difference_typedef : int64
+enum "instance-type" as ptp_instance_type_typedef <<enumeration>> {
+oc
+bc
+p2p-tc
+e2e-tc
+}
+enum "fault-severity" as ptp_fault_severity_typedef <<enumeration>> {
+emergency
+alert
+critical
+error
+warning
+notice
+informational
+debug
+}
+enum "port-state" as ptp_port_state_typedef <<enumeration>> {
+initializing
+faulty
+disabled
+listening
+pre-master
+master
+passive
+uncalibrated
+slave
+}
+enum "delay-mechanism" as ptp_delay_mechanism_typedef <<enumeration>> {
+e2e
+p2p
+no-mechanism
+common-p2p
+special
+}
+enum "l1sync-state" as ptp_l1sync_state_typedef <<enumeration>> {
+disabled
+idle
+link-alive
+config-match
+l1-sync-up
+}
+class "ptp" as  ieee1588_ptp_I_ptp <<container>> 
+ieee1588_ptp *-- "1" ieee1588_ptp_I_ptp 
+class "instances" as  ieee1588_ptp_I_ptp_I_instances <<container>> 
+ieee1588_ptp_I_ptp *-- "1" ieee1588_ptp_I_ptp_I_instances 
+class "instance" as ieee1588_ptp_I_ptp_I_instances_I_instance << (L, #FF7700) list>> 
+ieee1588_ptp_I_ptp_I_instances *-- "0..N" ieee1588_ptp_I_ptp_I_instances_I_instance 
+ieee1588_ptp_I_ptp_I_instances_I_instance : +instance-index : uint32  {key} 
+class "default-ds" as  ieee1588_ptp_I_ptp_I_instances_I_instance_I_default_ds <<container>> 
+ieee1588_ptp_I_ptp_I_instances_I_instance *-- "1" ieee1588_ptp_I_ptp_I_instances_I_instance_I_default_ds 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_default_ds : two-step-flag : boolean   {deprecated} {Config : false}
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_default_ds : clock-identity : clock-identity   {Config : false}
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_default_ds : number-ports : uint16   {Config : false}
+class "clock-quality" as  ieee1588_ptp_I_ptp_I_instances_I_instance_I_default_ds_I_clock_quality <<container>> 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_default_ds *-- "1" ieee1588_ptp_I_ptp_I_instances_I_instance_I_default_ds_I_clock_quality 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_default_ds_I_clock_quality : clock-class : identityref {clock-class}  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_default_ds_I_clock_quality : clock-accuracy : identityref {clock-accuracy}  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_default_ds_I_clock_quality : offset-scaled-log-variance : uint16  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_default_ds : priority1 : uint8  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_default_ds : priority2 : uint8  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_default_ds : domain-number : uint8  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_default_ds : slave-only : boolean  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_default_ds : sdo-id : uint16 [0..4095]  
+class "current-time" as  ieee1588_ptp_I_ptp_I_instances_I_instance_I_default_ds_I_current_time <<container>> 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_default_ds *-- "1" ieee1588_ptp_I_ptp_I_instances_I_instance_I_default_ds_I_current_time 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_default_ds_I_current_time : seconds-field : uint64 [0..281474976710655]  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_default_ds_I_current_time : nanoseconds-field : uint32  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_default_ds : instance-enable : boolean  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_default_ds : external-port-config-enable : boolean   {if-feature : external-port-config}
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_default_ds : max-steps-removed : uint8 [2..255]  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_default_ds : instance-type : instance-type  
+class "current-ds" as  ieee1588_ptp_I_ptp_I_instances_I_instance_I_current_ds <<container>> 
+ieee1588_ptp_I_ptp_I_instances_I_instance *-- "1" ieee1588_ptp_I_ptp_I_instances_I_instance_I_current_ds 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_current_ds : steps-removed : uint16   {Config : false}
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_current_ds : offset-from-master : time-interval   {Config : false}
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_current_ds : mean-delay : time-interval   {Config : false}
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_current_ds : mean-path-delay : time-interval   {deprecated} {Config : false}
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_current_ds : synchronization-uncertain : boolean   {Config : false}
+class "parent-ds" as  ieee1588_ptp_I_ptp_I_instances_I_instance_I_parent_ds <<container>> 
+ieee1588_ptp_I_ptp_I_instances_I_instance *-- "1" ieee1588_ptp_I_ptp_I_instances_I_instance_I_parent_ds 
+class "parent-port-identity" as  ieee1588_ptp_I_ptp_I_instances_I_instance_I_parent_ds_I_parent_port_identity <<container>> 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_parent_ds *-- "1" ieee1588_ptp_I_ptp_I_instances_I_instance_I_parent_ds_I_parent_port_identity 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_parent_ds_I_parent_port_identity : clock-identity : clock-identity  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_parent_ds_I_parent_port_identity : port-number : uint16  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_parent_ds : parent-stats : boolean   {Config : false}
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_parent_ds : observed-parent-offset-scaled-log-variance : uint16   {Config : false}
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_parent_ds : observed-parent-clock-phase-change-rate : int32   {Config : false}
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_parent_ds : grandmaster-identity : clock-identity   {Config : false}
+class "grandmaster-clock-quality" as  ieee1588_ptp_I_ptp_I_instances_I_instance_I_parent_ds_I_grandmaster_clock_quality <<container>> 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_parent_ds *-- "1" ieee1588_ptp_I_ptp_I_instances_I_instance_I_parent_ds_I_grandmaster_clock_quality 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_parent_ds_I_grandmaster_clock_quality : clock-class : identityref {clock-class}  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_parent_ds_I_grandmaster_clock_quality : clock-accuracy : identityref {clock-accuracy}  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_parent_ds_I_grandmaster_clock_quality : offset-scaled-log-variance : uint16  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_parent_ds : grandmaster-priority1 : uint8   {Config : false}
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_parent_ds : grandmaster-priority2 : uint8   {Config : false}
+class "protocol-address" as  ieee1588_ptp_I_ptp_I_instances_I_instance_I_parent_ds_I_protocol_address <<container>> 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_parent_ds *-- "1" ieee1588_ptp_I_ptp_I_instances_I_instance_I_parent_ds_I_protocol_address 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_parent_ds_I_protocol_address : network-protocol : identityref {network-protocol}  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_parent_ds_I_protocol_address : address-length : uint16  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_parent_ds_I_protocol_address : address-field : string {pattern = [0-9A-F]{2}(-[0-9A-F...}  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_parent_ds : synchronization-uncertain : boolean   {Config : false}
+class "time-properties-ds" as  ieee1588_ptp_I_ptp_I_instances_I_instance_I_time_properties_ds <<container>> 
+ieee1588_ptp_I_ptp_I_instances_I_instance *-- "1" ieee1588_ptp_I_ptp_I_instances_I_instance_I_time_properties_ds 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_time_properties_ds : current-utc-offset : int16  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_time_properties_ds : current-utc-offset-valid : boolean  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_time_properties_ds : leap59 : boolean  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_time_properties_ds : leap61 : boolean  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_time_properties_ds : time-traceable : boolean  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_time_properties_ds : frequency-traceable : boolean  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_time_properties_ds : ptp-timescale : boolean  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_time_properties_ds : time-source : identityref {time-source}  
+class "description-ds" as  ieee1588_ptp_I_ptp_I_instances_I_instance_I_description_ds <<container>> 
+ieee1588_ptp_I_ptp_I_instances_I_instance *-- "1" ieee1588_ptp_I_ptp_I_instances_I_instance_I_description_ds 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_description_ds : manufacturer-identity : string {pattern = [0-9A-F]{2}(-[0-9A-F...}   {Config : false}
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_description_ds : product-description : string {length = 2..64}   {Config : false}
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_description_ds : product-revision : string {length = 2..32}   {Config : false}
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_description_ds : user-description : string {length = 0..128}  
+class "fault-log-ds" as  ieee1588_ptp_I_ptp_I_instances_I_instance_I_fault_log_ds <<container>> 
+ieee1588_ptp_I_ptp_I_instances_I_instance *-- "1" ieee1588_ptp_I_ptp_I_instances_I_instance_I_fault_log_ds 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_fault_log_ds : number-of-fault-records : uint16   {Config : false}
+class "fault-record-list" as ieee1588_ptp_I_ptp_I_instances_I_instance_I_fault_log_ds_I_fault_record_list << (L, #FF7700) list>> 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_fault_log_ds *-- "0..N" ieee1588_ptp_I_ptp_I_instances_I_instance_I_fault_log_ds_I_fault_record_list 
+class "time" as  ieee1588_ptp_I_ptp_I_instances_I_instance_I_fault_log_ds_I_fault_record_list_I_time <<container>> 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_fault_log_ds_I_fault_record_list *-- "1" ieee1588_ptp_I_ptp_I_instances_I_instance_I_fault_log_ds_I_fault_record_list_I_time 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_fault_log_ds_I_fault_record_list_I_time : seconds-field : uint64 [0..281474976710655]  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_fault_log_ds_I_fault_record_list_I_time : nanoseconds-field : uint32  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_fault_log_ds_I_fault_record_list : severity : fault-severity  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_fault_log_ds_I_fault_record_list : name : string  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_fault_log_ds_I_fault_record_list : value : string  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_fault_log_ds_I_fault_record_list : description : string  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_fault_log_ds : reset()
+class "path-trace-ds" as  ieee1588_ptp_I_ptp_I_instances_I_instance_I_path_trace_ds <<container>> 
+ieee1588_ptp_I_ptp_I_instances_I_instance *-- "1" ieee1588_ptp_I_ptp_I_instances_I_instance_I_path_trace_ds 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_path_trace_ds : list []: clock-identity  {Config : false}
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_path_trace_ds : enable : boolean  
+class "alternate-timescale-ds" as  ieee1588_ptp_I_ptp_I_instances_I_instance_I_alternate_timescale_ds <<container>> 
+ieee1588_ptp_I_ptp_I_instances_I_instance *-- "1" ieee1588_ptp_I_ptp_I_instances_I_instance_I_alternate_timescale_ds 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_alternate_timescale_ds : max-key : uint8   {Config : false}
+class "list" as ieee1588_ptp_I_ptp_I_instances_I_instance_I_alternate_timescale_ds_I_list << (L, #FF7700) list>> 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_alternate_timescale_ds *-- "0..N" ieee1588_ptp_I_ptp_I_instances_I_instance_I_alternate_timescale_ds_I_list 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_alternate_timescale_ds_I_list : +key-field : uint8  {key} 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_alternate_timescale_ds_I_list : enable : boolean  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_alternate_timescale_ds_I_list : current-offset : int32  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_alternate_timescale_ds_I_list : jump-seconds : int32  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_alternate_timescale_ds_I_list : time-of-next-jump : uint64  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_alternate_timescale_ds_I_list : display-name : string {length = 0..10}  
+class "holdover-upgrade-ds" as  ieee1588_ptp_I_ptp_I_instances_I_instance_I_holdover_upgrade_ds <<container>> 
+ieee1588_ptp_I_ptp_I_instances_I_instance *-- "1" ieee1588_ptp_I_ptp_I_instances_I_instance_I_holdover_upgrade_ds 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_holdover_upgrade_ds : enable : boolean  
+class "grandmaster-cluster-ds" as  ieee1588_ptp_I_ptp_I_instances_I_instance_I_grandmaster_cluster_ds <<container>> 
+ieee1588_ptp_I_ptp_I_instances_I_instance *-- "1" ieee1588_ptp_I_ptp_I_instances_I_instance_I_grandmaster_cluster_ds 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_grandmaster_cluster_ds : max-table-size : uint8   {Config : false}
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_grandmaster_cluster_ds : log-query-interval : int8  
+class "port-address" as ieee1588_ptp_I_ptp_I_instances_I_instance_I_grandmaster_cluster_ds_I_port_address << (L, #FF7700) list>> 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_grandmaster_cluster_ds *-- "0..N" ieee1588_ptp_I_ptp_I_instances_I_instance_I_grandmaster_cluster_ds_I_port_address 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_grandmaster_cluster_ds_I_port_address : +index : uint16  {key} 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_grandmaster_cluster_ds_I_port_address : network-protocol : identityref {network-protocol}  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_grandmaster_cluster_ds_I_port_address : address-length : uint16  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_grandmaster_cluster_ds_I_port_address : address-field : string {pattern = [0-9A-F]{2}(-[0-9A-F...}  
+class "acceptable-master-ds" as  ieee1588_ptp_I_ptp_I_instances_I_instance_I_acceptable_master_ds <<container>> 
+ieee1588_ptp_I_ptp_I_instances_I_instance *-- "1" ieee1588_ptp_I_ptp_I_instances_I_instance_I_acceptable_master_ds 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_acceptable_master_ds : max-table-size : uint16   {Config : false}
+class "list" as ieee1588_ptp_I_ptp_I_instances_I_instance_I_acceptable_master_ds_I_list << (L, #FF7700) list>> 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_acceptable_master_ds *-- "0..N" ieee1588_ptp_I_ptp_I_instances_I_instance_I_acceptable_master_ds_I_list 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_acceptable_master_ds_I_list : +index : uint8  {key} 
+class "acceptable-port-identity" as  ieee1588_ptp_I_ptp_I_instances_I_instance_I_acceptable_master_ds_I_list_I_acceptable_port_identity <<container>> 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_acceptable_master_ds_I_list *-- "1" ieee1588_ptp_I_ptp_I_instances_I_instance_I_acceptable_master_ds_I_list_I_acceptable_port_identity 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_acceptable_master_ds_I_list_I_acceptable_port_identity : clock-identity : clock-identity  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_acceptable_master_ds_I_list_I_acceptable_port_identity : port-number : uint16  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_acceptable_master_ds_I_list : alternate-priority1 : uint8  
+class "performance-monitoring-ds" as  ieee1588_ptp_I_ptp_I_instances_I_instance_I_performance_monitoring_ds <<container>> 
+ieee1588_ptp_I_ptp_I_instances_I_instance *-- "1" ieee1588_ptp_I_ptp_I_instances_I_instance_I_performance_monitoring_ds 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_performance_monitoring_ds : enable : boolean  
+class "record-list" as ieee1588_ptp_I_ptp_I_instances_I_instance_I_performance_monitoring_ds_I_record_list << (L, #FF7700) list>> 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_performance_monitoring_ds *-- "0..99" ieee1588_ptp_I_ptp_I_instances_I_instance_I_performance_monitoring_ds_I_record_list 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_performance_monitoring_ds_I_record_list : +index : uint16  {key} 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_performance_monitoring_ds_I_record_list : measurement-valid : boolean  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_performance_monitoring_ds_I_record_list : period-complete : boolean  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_performance_monitoring_ds_I_record_list : pm-time : yang:timestamp  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_performance_monitoring_ds_I_record_list : average-master-slave-delay : time-interval  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_performance_monitoring_ds_I_record_list : minimum-master-slave-delay : time-interval  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_performance_monitoring_ds_I_record_list : maximum-master-slave-delay : time-interval  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_performance_monitoring_ds_I_record_list : stddev-master-slave-delay : time-interval  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_performance_monitoring_ds_I_record_list : average-slave-master-delay : time-interval  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_performance_monitoring_ds_I_record_list : minimum-slave-master-delay : time-interval  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_performance_monitoring_ds_I_record_list : maximum-slave-master-delay : time-interval  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_performance_monitoring_ds_I_record_list : stddev-slave-master-delay : time-interval  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_performance_monitoring_ds_I_record_list : average-mean-path-delay : time-interval  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_performance_monitoring_ds_I_record_list : minimum-mean-path-delay : time-interval  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_performance_monitoring_ds_I_record_list : maximum-mean-path-delay : time-interval  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_performance_monitoring_ds_I_record_list : stddev-mean-path-delay : time-interval  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_performance_monitoring_ds_I_record_list : average-offset-from-master : time-interval  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_performance_monitoring_ds_I_record_list : minimum-offset-from-master : time-interval  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_performance_monitoring_ds_I_record_list : maximum-offset-from-master : time-interval  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_performance_monitoring_ds_I_record_list : stddev-offset-from-master : time-interval  
+class "enhanced-metrics-ds" as  ieee1588_ptp_I_ptp_I_instances_I_instance_I_enhanced_metrics_ds <<container>> 
+ieee1588_ptp_I_ptp_I_instances_I_instance *-- "1" ieee1588_ptp_I_ptp_I_instances_I_instance_I_enhanced_metrics_ds 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_enhanced_metrics_ds : enable : boolean  
+class "ports" as  ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports <<container>> 
+ieee1588_ptp_I_ptp_I_instances_I_instance *-- "1" ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports 
+class "port" as ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port << (L, #FF7700) list>> 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports *-- "0..N" ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port : +port-index : uint16  {key} 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port : underlying-interface : if:interface-ref  
+class "port-ds" as  ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_port_ds <<container>> 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port *-- "1" ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_port_ds 
+class "port-identity" as  ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_port_ds_I_port_identity <<container>> 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_port_ds *-- "1" ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_port_ds_I_port_identity 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_port_ds_I_port_identity : clock-identity : clock-identity  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_port_ds_I_port_identity : port-number : uint16  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_port_ds : port-state : port-state   {Config : false}
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_port_ds : log-min-delay-req-interval : int8  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_port_ds : mean-link-delay : time-interval   {Config : false}
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_port_ds : peer-mean-path-delay : time-interval   {deprecated} {Config : false}
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_port_ds : log-announce-interval : int8  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_port_ds : announce-receipt-timeout : uint8  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_port_ds : log-sync-interval : int8  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_port_ds : delay-mechanism : delay-mechanism  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_port_ds : log-min-pdelay-req-interval : int8  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_port_ds : version-number : uint8  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_port_ds : minor-version-number : uint8  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_port_ds : delay-asymmetry : time-interval  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_port_ds : port-enable : boolean  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_port_ds : master-only : boolean  
+class "timestamp-correction-port-ds" as  ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_timestamp_correction_port_ds <<container>> 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port *-- "1" ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_timestamp_correction_port_ds 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_timestamp_correction_port_ds : egress-latency : time-interval  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_timestamp_correction_port_ds : ingress-latency : time-interval  
+class "asymmetry-correction-port-ds" as  ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_asymmetry_correction_port_ds <<container>> 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port *-- "1" ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_asymmetry_correction_port_ds 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_asymmetry_correction_port_ds : constant-asymmetry : time-interval  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_asymmetry_correction_port_ds : scaled-delay-coefficient : relative-difference  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_asymmetry_correction_port_ds : enable : boolean  
+class "description-port-ds" as  ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_description_port_ds <<container>> 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port *-- "1" ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_description_port_ds 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_description_port_ds : profile-identifier : string {pattern = [0-9A-F]{2}(-[0-9A-F...}   {Config : false}
+class "protocol-address" as  ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_description_port_ds_I_protocol_address <<container>> 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_description_port_ds *-- "1" ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_description_port_ds_I_protocol_address 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_description_port_ds_I_protocol_address : network-protocol : identityref {network-protocol}  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_description_port_ds_I_protocol_address : address-length : uint16  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_description_port_ds_I_protocol_address : address-field : string {pattern = [0-9A-F]{2}(-[0-9A-F...}  
+class "unicast-negotiation-port-ds" as  ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_unicast_negotiation_port_ds <<container>> 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port *-- "1" ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_unicast_negotiation_port_ds 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_unicast_negotiation_port_ds : enable : boolean  
+class "alternate-master-port-ds" as  ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_alternate_master_port_ds <<container>> 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port *-- "1" ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_alternate_master_port_ds 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_alternate_master_port_ds : number-of-alt-masters : uint8  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_alternate_master_port_ds : tx-alt-multicast-sync : boolean  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_alternate_master_port_ds : log-alt-multicast-sync-interval : int8  
+class "unicast-discovery-port-ds" as  ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_unicast_discovery_port_ds <<container>> 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port *-- "1" ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_unicast_discovery_port_ds 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_unicast_discovery_port_ds : max-table-size : uint16   {Config : false}
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_unicast_discovery_port_ds : log-query-interval : int8  
+class "port-address" as ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_unicast_discovery_port_ds_I_port_address << (L, #FF7700) list>> 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_unicast_discovery_port_ds *-- "0..N" ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_unicast_discovery_port_ds_I_port_address 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_unicast_discovery_port_ds_I_port_address : +index : uint16  {key} 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_unicast_discovery_port_ds_I_port_address : network-protocol : identityref {network-protocol}  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_unicast_discovery_port_ds_I_port_address : address-length : uint16  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_unicast_discovery_port_ds_I_port_address : address-field : string {pattern = [0-9A-F]{2}(-[0-9A-F...}  
+class "acceptable-master-port-ds" as  ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_acceptable_master_port_ds <<container>> 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port *-- "1" ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_acceptable_master_port_ds 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_acceptable_master_port_ds : enable : boolean  
+class "l1-sync-basic-port-ds" as  ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_l1_sync_basic_port_ds <<container>> 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port *-- "1" ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_l1_sync_basic_port_ds 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_l1_sync_basic_port_ds : enabled : boolean  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_l1_sync_basic_port_ds : tx-coherent-is-required : boolean  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_l1_sync_basic_port_ds : rx-coherent-is-required : boolean  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_l1_sync_basic_port_ds : congruent-is-required : boolean  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_l1_sync_basic_port_ds : opt-params-enabled : boolean  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_l1_sync_basic_port_ds : log-l1sync-interval : int8  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_l1_sync_basic_port_ds : l1sync-receipt-timeout : uint8  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_l1_sync_basic_port_ds : link-alive : boolean   {Config : false}
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_l1_sync_basic_port_ds : is-tx-coherent : boolean   {Config : false}
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_l1_sync_basic_port_ds : is-rx-coherent : boolean   {Config : false}
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_l1_sync_basic_port_ds : is-congruent : boolean   {Config : false}
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_l1_sync_basic_port_ds : l1sync-state : l1sync-state   {Config : false}
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_l1_sync_basic_port_ds : peer-tx-coherent-is-required : boolean   {Config : false}
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_l1_sync_basic_port_ds : peer-rx-coherent-is-required : boolean   {Config : false}
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_l1_sync_basic_port_ds : peer-congruent-is-required : boolean   {Config : false}
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_l1_sync_basic_port_ds : peer-is-tx-coherent : boolean   {Config : false}
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_l1_sync_basic_port_ds : peer-is-rx-coherent : boolean   {Config : false}
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_l1_sync_basic_port_ds : peer-is-congruent : boolean   {Config : false}
+class "l1-sync-opt-params-port-ds" as  ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_l1_sync_opt_params_port_ds <<container>> 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port *-- "1" ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_l1_sync_opt_params_port_ds 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_l1_sync_opt_params_port_ds : timestamps-corrected-tx : boolean  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_l1_sync_opt_params_port_ds : phase-offset-tx-valid : boolean   {Config : false}
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_l1_sync_opt_params_port_ds : phase-offset-tx : time-interval   {Config : false}
+class "phase-offset-tx-timestamp" as  ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_l1_sync_opt_params_port_ds_I_phase_offset_tx_timestamp <<container>> 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_l1_sync_opt_params_port_ds *-- "1" ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_l1_sync_opt_params_port_ds_I_phase_offset_tx_timestamp 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_l1_sync_opt_params_port_ds_I_phase_offset_tx_timestamp : seconds-field : uint64 [0..281474976710655]  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_l1_sync_opt_params_port_ds_I_phase_offset_tx_timestamp : nanoseconds-field : uint32  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_l1_sync_opt_params_port_ds : frequency-offset-tx-valid : boolean   {Config : false}
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_l1_sync_opt_params_port_ds : frequency-offset-tx : time-interval   {Config : false}
+class "frequency-offset-tx-timestamp" as  ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_l1_sync_opt_params_port_ds_I_frequency_offset_tx_timestamp <<container>> 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_l1_sync_opt_params_port_ds *-- "1" ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_l1_sync_opt_params_port_ds_I_frequency_offset_tx_timestamp 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_l1_sync_opt_params_port_ds_I_frequency_offset_tx_timestamp : seconds-field : uint64 [0..281474976710655]  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_l1_sync_opt_params_port_ds_I_frequency_offset_tx_timestamp : nanoseconds-field : uint32  
+class "communication-cap-port-ds" as  ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_communication_cap_port_ds <<container>> 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port *-- "1" ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_communication_cap_port_ds 
+class "sync" as  ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_communication_cap_port_ds_I_sync <<container>> 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_communication_cap_port_ds *-- "1" ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_communication_cap_port_ds_I_sync 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_communication_cap_port_ds_I_sync : multicast-capable : boolean  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_communication_cap_port_ds_I_sync : unicast-capable : boolean  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_communication_cap_port_ds_I_sync : unicast-negotiation-capable : boolean  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_communication_cap_port_ds_I_sync : unicast-negotiation-required : boolean  
+class "delay-resp" as  ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_communication_cap_port_ds_I_delay_resp <<container>> 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_communication_cap_port_ds *-- "1" ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_communication_cap_port_ds_I_delay_resp 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_communication_cap_port_ds_I_delay_resp : multicast-capable : boolean  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_communication_cap_port_ds_I_delay_resp : unicast-capable : boolean  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_communication_cap_port_ds_I_delay_resp : unicast-negotiation-capable : boolean  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_communication_cap_port_ds_I_delay_resp : unicast-negotiation-required : boolean  
+class "performance-monitoring-port-ds" as  ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_performance_monitoring_port_ds <<container>> 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port *-- "1" ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_performance_monitoring_port_ds 
+class "record-list-peer-delay" as ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_performance_monitoring_port_ds_I_record_list_peer_delay << (L, #FF7700) list>> 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_performance_monitoring_port_ds *-- "0..99" ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_performance_monitoring_port_ds_I_record_list_peer_delay 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_performance_monitoring_port_ds_I_record_list_peer_delay : +index : uint16  {key} 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_performance_monitoring_port_ds_I_record_list_peer_delay : pm-time : yang:timestamp  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_performance_monitoring_port_ds_I_record_list_peer_delay : average-mean-link-delay : time-interval  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_performance_monitoring_port_ds_I_record_list_peer_delay : min-mean-link-delay : time-interval  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_performance_monitoring_port_ds_I_record_list_peer_delay : max-mean-link-delay : time-interval  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_performance_monitoring_port_ds_I_record_list_peer_delay : stddev-mean-link-delay : time-interval  
+class "record-list" as ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_performance_monitoring_port_ds_I_record_list << (L, #FF7700) list>> 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_performance_monitoring_port_ds *-- "0..99" ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_performance_monitoring_port_ds_I_record_list 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_performance_monitoring_port_ds_I_record_list : +index : uint16  {key} 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_performance_monitoring_port_ds_I_record_list : pm-time : yang:timestamp  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_performance_monitoring_port_ds_I_record_list : announce-tx : yang:zero-based-counter32  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_performance_monitoring_port_ds_I_record_list : announce-rx : yang:zero-based-counter32  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_performance_monitoring_port_ds_I_record_list : announce-foreign-rx : yang:zero-based-counter32  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_performance_monitoring_port_ds_I_record_list : sync-tx : yang:zero-based-counter32  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_performance_monitoring_port_ds_I_record_list : sync-rx : yang:zero-based-counter32  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_performance_monitoring_port_ds_I_record_list : follow-up-tx : yang:zero-based-counter32  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_performance_monitoring_port_ds_I_record_list : follow-up-rx : yang:zero-based-counter32  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_performance_monitoring_port_ds_I_record_list : delay-req-tx : yang:zero-based-counter32  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_performance_monitoring_port_ds_I_record_list : delay-req-rx : yang:zero-based-counter32  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_performance_monitoring_port_ds_I_record_list : delay-resp-tx : yang:zero-based-counter32  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_performance_monitoring_port_ds_I_record_list : delay-resp-rx : yang:zero-based-counter32  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_performance_monitoring_port_ds_I_record_list : pdelay-req-tx : yang:zero-based-counter32  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_performance_monitoring_port_ds_I_record_list : pdelay-req-rx : yang:zero-based-counter32  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_performance_monitoring_port_ds_I_record_list : pdelay-resp-tx : yang:zero-based-counter32  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_performance_monitoring_port_ds_I_record_list : pdelay-resp-rx : yang:zero-based-counter32  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_performance_monitoring_port_ds_I_record_list : pdelay-resp-follow-up-tx : yang:zero-based-counter32  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_performance_monitoring_port_ds_I_record_list : pdelay-resp-follow-up-rx : yang:zero-based-counter32  
+class "common-services-port-ds" as  ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_common_services_port_ds <<container>> 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port *-- "1" ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_common_services_port_ds 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_common_services_port_ds : cmlds-link-port-port-number : uint16   {Config : false} {if-feature : cmlds}
+class "external-port-config-port-ds" as  ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_external_port_config_port_ds <<container>> 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port *-- "1" ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_external_port_config_port_ds 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_external_port_config_port_ds : desired-state : port-state  
+class "slave-monitoring-port-ds" as  ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_slave_monitoring_port_ds <<container>> 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port *-- "1" ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_slave_monitoring_port_ds 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_slave_monitoring_port_ds : enable : bits  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_slave_monitoring_port_ds : events-per-rx-sync-timing-tlv : uint8  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_slave_monitoring_port_ds : events-per-rx-sync-computed-tlv : uint8  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_slave_monitoring_port_ds : events-per-tx-timestamps-tlv : uint8  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_slave_monitoring_port_ds : tx-event-type : uint8  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_slave_monitoring_port_ds : rx-sync-timing-tlv-message-m : uint8  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_slave_monitoring_port_ds : rx-sync-computed-tlv-message-m : uint8  
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_slave_monitoring_port_ds : tx-timestamps-tlv-message-m : uint8  
+class "transparent-clock-default-ds" as  ieee1588_ptp_I_ptp_I_transparent_clock_default_ds <<container>> 
+ieee1588_ptp_I_ptp *-- "1" ieee1588_ptp_I_ptp_I_transparent_clock_default_ds 
+ieee1588_ptp_I_ptp_I_transparent_clock_default_ds : clock-identity : clock-identity   {deprecated} {Config : false}
+ieee1588_ptp_I_ptp_I_transparent_clock_default_ds : number-ports : uint16   {deprecated} {Config : false}
+ieee1588_ptp_I_ptp_I_transparent_clock_default_ds : delay-mechanism : delay-mechanism   {deprecated}
+ieee1588_ptp_I_ptp_I_transparent_clock_default_ds : primary-domain : uint8   {deprecated}
+class "transparent-clock-ports" as  ieee1588_ptp_I_ptp_I_transparent_clock_ports <<container>> 
+ieee1588_ptp_I_ptp *-- "1" ieee1588_ptp_I_ptp_I_transparent_clock_ports 
+class "port" as ieee1588_ptp_I_ptp_I_transparent_clock_ports_I_port << (L, #FF7700) list>> 
+ieee1588_ptp_I_ptp_I_transparent_clock_ports *-- "0..N" ieee1588_ptp_I_ptp_I_transparent_clock_ports_I_port 
+ieee1588_ptp_I_ptp_I_transparent_clock_ports_I_port : +port-index : uint16  {key} 
+ieee1588_ptp_I_ptp_I_transparent_clock_ports_I_port : underlying-interface : if:interface-ref  
+class "port-ds" as  ieee1588_ptp_I_ptp_I_transparent_clock_ports_I_port_I_port_ds <<container>> 
+ieee1588_ptp_I_ptp_I_transparent_clock_ports_I_port *-- "1" ieee1588_ptp_I_ptp_I_transparent_clock_ports_I_port_I_port_ds 
+class "port-identity" as  ieee1588_ptp_I_ptp_I_transparent_clock_ports_I_port_I_port_ds_I_port_identity <<container>> 
+ieee1588_ptp_I_ptp_I_transparent_clock_ports_I_port_I_port_ds *-- "1" ieee1588_ptp_I_ptp_I_transparent_clock_ports_I_port_I_port_ds_I_port_identity 
+ieee1588_ptp_I_ptp_I_transparent_clock_ports_I_port_I_port_ds_I_port_identity : clock-identity : clock-identity  
+ieee1588_ptp_I_ptp_I_transparent_clock_ports_I_port_I_port_ds_I_port_identity : port-number : uint16  
+ieee1588_ptp_I_ptp_I_transparent_clock_ports_I_port_I_port_ds : log-min-pdelay-req-interval : int8   {deprecated}
+ieee1588_ptp_I_ptp_I_transparent_clock_ports_I_port_I_port_ds : faulty-flag : boolean   {deprecated}
+ieee1588_ptp_I_ptp_I_transparent_clock_ports_I_port_I_port_ds : peer-mean-path-delay : time-interval   {deprecated} {Config : false}
+class "common-services" as  ieee1588_ptp_I_ptp_I_common_services <<container>> 
+ieee1588_ptp_I_ptp *-- "1" ieee1588_ptp_I_ptp_I_common_services 
+class "cmlds" as  ieee1588_ptp_I_ptp_I_common_services_I_cmlds <<container>> 
+ieee1588_ptp_I_ptp_I_common_services *-- "1" ieee1588_ptp_I_ptp_I_common_services_I_cmlds 
+class "default-ds" as  ieee1588_ptp_I_ptp_I_common_services_I_cmlds_I_default_ds <<container>> 
+ieee1588_ptp_I_ptp_I_common_services_I_cmlds *-- "1" ieee1588_ptp_I_ptp_I_common_services_I_cmlds_I_default_ds 
+ieee1588_ptp_I_ptp_I_common_services_I_cmlds_I_default_ds : clock-identity : clock-identity   {Config : false}
+ieee1588_ptp_I_ptp_I_common_services_I_cmlds_I_default_ds : number-link-ports : uint16   {Config : false}
+class "ports" as  ieee1588_ptp_I_ptp_I_common_services_I_cmlds_I_ports <<container>> 
+ieee1588_ptp_I_ptp_I_common_services_I_cmlds *-- "1" ieee1588_ptp_I_ptp_I_common_services_I_cmlds_I_ports 
+class "port" as ieee1588_ptp_I_ptp_I_common_services_I_cmlds_I_ports_I_port << (L, #FF7700) list>> 
+ieee1588_ptp_I_ptp_I_common_services_I_cmlds_I_ports *-- "0..N" ieee1588_ptp_I_ptp_I_common_services_I_cmlds_I_ports_I_port 
+ieee1588_ptp_I_ptp_I_common_services_I_cmlds_I_ports_I_port : +port-index : uint16  {key} 
+ieee1588_ptp_I_ptp_I_common_services_I_cmlds_I_ports_I_port : underlying-interface : if:interface-ref  
+class "link-port-ds" as  ieee1588_ptp_I_ptp_I_common_services_I_cmlds_I_ports_I_port_I_link_port_ds <<container>> 
+ieee1588_ptp_I_ptp_I_common_services_I_cmlds_I_ports_I_port *-- "1" ieee1588_ptp_I_ptp_I_common_services_I_cmlds_I_ports_I_port_I_link_port_ds 
+class "port-identity" as  ieee1588_ptp_I_ptp_I_common_services_I_cmlds_I_ports_I_port_I_link_port_ds_I_port_identity <<container>> 
+ieee1588_ptp_I_ptp_I_common_services_I_cmlds_I_ports_I_port_I_link_port_ds *-- "1" ieee1588_ptp_I_ptp_I_common_services_I_cmlds_I_ports_I_port_I_link_port_ds_I_port_identity 
+ieee1588_ptp_I_ptp_I_common_services_I_cmlds_I_ports_I_port_I_link_port_ds_I_port_identity : clock-identity : clock-identity  
+ieee1588_ptp_I_ptp_I_common_services_I_cmlds_I_ports_I_port_I_link_port_ds_I_port_identity : port-number : uint16  
+ieee1588_ptp_I_ptp_I_common_services_I_cmlds_I_ports_I_port_I_link_port_ds : domain-number : uint8   {Config : false}
+ieee1588_ptp_I_ptp_I_common_services_I_cmlds_I_ports_I_port_I_link_port_ds : service-measurement-valid : boolean   {Config : false}
+ieee1588_ptp_I_ptp_I_common_services_I_cmlds_I_ports_I_port_I_link_port_ds : mean-link-delay : time-interval   {Config : false}
+ieee1588_ptp_I_ptp_I_common_services_I_cmlds_I_ports_I_port_I_link_port_ds : scaled-neighbor-rate-ratio : int32   {Config : false}
+ieee1588_ptp_I_ptp_I_common_services_I_cmlds_I_ports_I_port_I_link_port_ds : log-min-pdelay-req-interval : int8  
+ieee1588_ptp_I_ptp_I_common_services_I_cmlds_I_ports_I_port_I_link_port_ds : version-number : uint8  
+ieee1588_ptp_I_ptp_I_common_services_I_cmlds_I_ports_I_port_I_link_port_ds : minor-version-number : uint8  
+ieee1588_ptp_I_ptp_I_common_services_I_cmlds_I_ports_I_port_I_link_port_ds : delay-asymmetry : time-interval  
+class "timestamp-correction-port-ds" as  ieee1588_ptp_I_ptp_I_common_services_I_cmlds_I_ports_I_port_I_timestamp_correction_port_ds <<container>> 
+ieee1588_ptp_I_ptp_I_common_services_I_cmlds_I_ports_I_port *-- "1" ieee1588_ptp_I_ptp_I_common_services_I_cmlds_I_ports_I_port_I_timestamp_correction_port_ds 
+ieee1588_ptp_I_ptp_I_common_services_I_cmlds_I_ports_I_port_I_timestamp_correction_port_ds : egress-latency : time-interval  
+ieee1588_ptp_I_ptp_I_common_services_I_cmlds_I_ports_I_port_I_timestamp_correction_port_ds : ingress-latency : time-interval  
+class "asymmetry-correction-port-ds" as  ieee1588_ptp_I_ptp_I_common_services_I_cmlds_I_ports_I_port_I_asymmetry_correction_port_ds <<container>> 
+ieee1588_ptp_I_ptp_I_common_services_I_cmlds_I_ports_I_port *-- "1" ieee1588_ptp_I_ptp_I_common_services_I_cmlds_I_ports_I_port_I_asymmetry_correction_port_ds 
+ieee1588_ptp_I_ptp_I_common_services_I_cmlds_I_ports_I_port_I_asymmetry_correction_port_ds : enable : boolean  
+ieee1588_ptp_I_ptp_I_common_services_I_cmlds_I_ports_I_port_I_asymmetry_correction_port_ds : constant-asymmetry : time-interval  
+ieee1588_ptp_I_ptp_I_common_services_I_cmlds_I_ports_I_port_I_asymmetry_correction_port_ds : scaled-delay-coefficient : relative-difference  
+class "performance-monitoring-port-ds" as  ieee1588_ptp_I_ptp_I_common_services_I_cmlds_I_ports_I_port_I_performance_monitoring_port_ds <<container>> 
+ieee1588_ptp_I_ptp_I_common_services_I_cmlds_I_ports_I_port *-- "1" ieee1588_ptp_I_ptp_I_common_services_I_cmlds_I_ports_I_port_I_performance_monitoring_port_ds 
+class "record-list-peer-delay" as ieee1588_ptp_I_ptp_I_common_services_I_cmlds_I_ports_I_port_I_performance_monitoring_port_ds_I_record_list_peer_delay << (L, #FF7700) list>> 
+ieee1588_ptp_I_ptp_I_common_services_I_cmlds_I_ports_I_port_I_performance_monitoring_port_ds *-- "0..99" ieee1588_ptp_I_ptp_I_common_services_I_cmlds_I_ports_I_port_I_performance_monitoring_port_ds_I_record_list_peer_delay 
+ieee1588_ptp_I_ptp_I_common_services_I_cmlds_I_ports_I_port_I_performance_monitoring_port_ds_I_record_list_peer_delay : +index : uint16  {key} 
+ieee1588_ptp_I_ptp_I_common_services_I_cmlds_I_ports_I_port_I_performance_monitoring_port_ds_I_record_list_peer_delay : pm-time : yang:timestamp  
+ieee1588_ptp_I_ptp_I_common_services_I_cmlds_I_ports_I_port_I_performance_monitoring_port_ds_I_record_list_peer_delay : average-mean-link-delay : time-interval  
+ieee1588_ptp_I_ptp_I_common_services_I_cmlds_I_ports_I_port_I_performance_monitoring_port_ds_I_record_list_peer_delay : min-mean-link-delay : time-interval  
+ieee1588_ptp_I_ptp_I_common_services_I_cmlds_I_ports_I_port_I_performance_monitoring_port_ds_I_record_list_peer_delay : max-mean-link-delay : time-interval  
+ieee1588_ptp_I_ptp_I_common_services_I_cmlds_I_ports_I_port_I_performance_monitoring_port_ds_I_record_list_peer_delay : stddev-mean-link-delay : time-interval  
+class "record-list" as ieee1588_ptp_I_ptp_I_common_services_I_cmlds_I_ports_I_port_I_performance_monitoring_port_ds_I_record_list << (L, #FF7700) list>> 
+ieee1588_ptp_I_ptp_I_common_services_I_cmlds_I_ports_I_port_I_performance_monitoring_port_ds *-- "0..99" ieee1588_ptp_I_ptp_I_common_services_I_cmlds_I_ports_I_port_I_performance_monitoring_port_ds_I_record_list 
+ieee1588_ptp_I_ptp_I_common_services_I_cmlds_I_ports_I_port_I_performance_monitoring_port_ds_I_record_list : +index : uint16  {key} 
+ieee1588_ptp_I_ptp_I_common_services_I_cmlds_I_ports_I_port_I_performance_monitoring_port_ds_I_record_list : pm-time : yang:timestamp  
+ieee1588_ptp_I_ptp_I_common_services_I_cmlds_I_ports_I_port_I_performance_monitoring_port_ds_I_record_list : announce-tx : yang:zero-based-counter32  
+ieee1588_ptp_I_ptp_I_common_services_I_cmlds_I_ports_I_port_I_performance_monitoring_port_ds_I_record_list : announce-rx : yang:zero-based-counter32  
+ieee1588_ptp_I_ptp_I_common_services_I_cmlds_I_ports_I_port_I_performance_monitoring_port_ds_I_record_list : announce-foreign-rx : yang:zero-based-counter32  
+ieee1588_ptp_I_ptp_I_common_services_I_cmlds_I_ports_I_port_I_performance_monitoring_port_ds_I_record_list : sync-tx : yang:zero-based-counter32  
+ieee1588_ptp_I_ptp_I_common_services_I_cmlds_I_ports_I_port_I_performance_monitoring_port_ds_I_record_list : sync-rx : yang:zero-based-counter32  
+ieee1588_ptp_I_ptp_I_common_services_I_cmlds_I_ports_I_port_I_performance_monitoring_port_ds_I_record_list : follow-up-tx : yang:zero-based-counter32  
+ieee1588_ptp_I_ptp_I_common_services_I_cmlds_I_ports_I_port_I_performance_monitoring_port_ds_I_record_list : follow-up-rx : yang:zero-based-counter32  
+ieee1588_ptp_I_ptp_I_common_services_I_cmlds_I_ports_I_port_I_performance_monitoring_port_ds_I_record_list : delay-req-tx : yang:zero-based-counter32  
+ieee1588_ptp_I_ptp_I_common_services_I_cmlds_I_ports_I_port_I_performance_monitoring_port_ds_I_record_list : delay-req-rx : yang:zero-based-counter32  
+ieee1588_ptp_I_ptp_I_common_services_I_cmlds_I_ports_I_port_I_performance_monitoring_port_ds_I_record_list : delay-resp-tx : yang:zero-based-counter32  
+ieee1588_ptp_I_ptp_I_common_services_I_cmlds_I_ports_I_port_I_performance_monitoring_port_ds_I_record_list : delay-resp-rx : yang:zero-based-counter32  
+ieee1588_ptp_I_ptp_I_common_services_I_cmlds_I_ports_I_port_I_performance_monitoring_port_ds_I_record_list : pdelay-req-tx : yang:zero-based-counter32  
+ieee1588_ptp_I_ptp_I_common_services_I_cmlds_I_ports_I_port_I_performance_monitoring_port_ds_I_record_list : pdelay-req-rx : yang:zero-based-counter32  
+ieee1588_ptp_I_ptp_I_common_services_I_cmlds_I_ports_I_port_I_performance_monitoring_port_ds_I_record_list : pdelay-resp-tx : yang:zero-based-counter32  
+ieee1588_ptp_I_ptp_I_common_services_I_cmlds_I_ports_I_port_I_performance_monitoring_port_ds_I_record_list : pdelay-resp-rx : yang:zero-based-counter32  
+ieee1588_ptp_I_ptp_I_common_services_I_cmlds_I_ports_I_port_I_performance_monitoring_port_ds_I_record_list : pdelay-resp-follow-up-tx : yang:zero-based-counter32  
+ieee1588_ptp_I_ptp_I_common_services_I_cmlds_I_ports_I_port_I_performance_monitoring_port_ds_I_record_list : pdelay-resp-follow-up-rx : yang:zero-based-counter32  
+class "network-protocol" as ptp_network_protocol_identity << (I,Silver) identity>> 
+class "udp-ipv4" as ptp_udp_ipv4_identity << (I,Silver) identity>> 
+ptp_network_protocol_identity <|-- ptp_udp_ipv4_identity 
+class "udp-ipv6" as ptp_udp_ipv6_identity << (I,Silver) identity>> 
+ptp_network_protocol_identity <|-- ptp_udp_ipv6_identity 
+class "ieee802-3" as ptp_ieee802_3_identity << (I,Silver) identity>> 
+ptp_network_protocol_identity <|-- ptp_ieee802_3_identity 
+class "devicenet" as ptp_devicenet_identity << (I,Silver) identity>> 
+ptp_network_protocol_identity <|-- ptp_devicenet_identity 
+class "controlnet" as ptp_controlnet_identity << (I,Silver) identity>> 
+ptp_network_protocol_identity <|-- ptp_controlnet_identity 
+class "profinet" as ptp_profinet_identity << (I,Silver) identity>> 
+ptp_network_protocol_identity <|-- ptp_profinet_identity 
+class "otn" as ptp_otn_identity << (I,Silver) identity>> 
+ptp_network_protocol_identity <|-- ptp_otn_identity 
+class "unknown" as ptp_unknown_identity << (I,Silver) identity>> 
+ptp_network_protocol_identity <|-- ptp_unknown_identity 
+class "clock-class" as ptp_clock_class_identity << (I,Silver) identity>> 
+class "cc-primary-sync" as ptp_cc_primary_sync_identity << (I,Silver) identity>> 
+ptp_clock_class_identity <|-- ptp_cc_primary_sync_identity 
+class "cc-primary-sync-lost" as ptp_cc_primary_sync_lost_identity << (I,Silver) identity>> 
+ptp_clock_class_identity <|-- ptp_cc_primary_sync_lost_identity 
+class "cc-application-specific-sync" as ptp_cc_application_specific_sync_identity << (I,Silver) identity>> 
+ptp_clock_class_identity <|-- ptp_cc_application_specific_sync_identity 
+class "cc-application-specific-sync-lost" as ptp_cc_application_specific_sync_lost_identity << (I,Silver) identity>> 
+ptp_clock_class_identity <|-- ptp_cc_application_specific_sync_lost_identity 
+class "cc-primary-sync-alternative-a" as ptp_cc_primary_sync_alternative_a_identity << (I,Silver) identity>> 
+ptp_clock_class_identity <|-- ptp_cc_primary_sync_alternative_a_identity 
+class "cc-application-specific-alternative-a" as ptp_cc_application_specific_alternative_a_identity << (I,Silver) identity>> 
+ptp_clock_class_identity <|-- ptp_cc_application_specific_alternative_a_identity 
+class "cc-primary-sync-alternative-b" as ptp_cc_primary_sync_alternative_b_identity << (I,Silver) identity>> 
+ptp_clock_class_identity <|-- ptp_cc_primary_sync_alternative_b_identity 
+class "cc-application-specific-alternative-b" as ptp_cc_application_specific_alternative_b_identity << (I,Silver) identity>> 
+ptp_clock_class_identity <|-- ptp_cc_application_specific_alternative_b_identity 
+class "cc-default" as ptp_cc_default_identity << (I,Silver) identity>> 
+ptp_clock_class_identity <|-- ptp_cc_default_identity 
+class "cc-slave-only" as ptp_cc_slave_only_identity << (I,Silver) identity>> 
+ptp_clock_class_identity <|-- ptp_cc_slave_only_identity 
+class "clock-accuracy" as ptp_clock_accuracy_identity << (I,Silver) identity>> 
+class "ca-time-accurate-to-1000-fs" as ptp_ca_time_accurate_to_1000_fs_identity << (I,Silver) identity>> 
+ptp_clock_accuracy_identity <|-- ptp_ca_time_accurate_to_1000_fs_identity 
+class "ca-time-accurate-to-2500-fs" as ptp_ca_time_accurate_to_2500_fs_identity << (I,Silver) identity>> 
+ptp_clock_accuracy_identity <|-- ptp_ca_time_accurate_to_2500_fs_identity 
+class "ca-time-accurate-to-10-ps" as ptp_ca_time_accurate_to_10_ps_identity << (I,Silver) identity>> 
+ptp_clock_accuracy_identity <|-- ptp_ca_time_accurate_to_10_ps_identity 
+class "ca-time-accurate-to-25ps" as ptp_ca_time_accurate_to_25ps_identity << (I,Silver) identity>> 
+ptp_clock_accuracy_identity <|-- ptp_ca_time_accurate_to_25ps_identity 
+class "ca-time-accurate-to-100-ps" as ptp_ca_time_accurate_to_100_ps_identity << (I,Silver) identity>> 
+ptp_clock_accuracy_identity <|-- ptp_ca_time_accurate_to_100_ps_identity 
+class "ca-time-accurate-to-250-ps" as ptp_ca_time_accurate_to_250_ps_identity << (I,Silver) identity>> 
+ptp_clock_accuracy_identity <|-- ptp_ca_time_accurate_to_250_ps_identity 
+class "ca-time-accurate-to-1000-ps" as ptp_ca_time_accurate_to_1000_ps_identity << (I,Silver) identity>> 
+ptp_clock_accuracy_identity <|-- ptp_ca_time_accurate_to_1000_ps_identity 
+class "ca-time-accurate-to-2500-ps" as ptp_ca_time_accurate_to_2500_ps_identity << (I,Silver) identity>> 
+ptp_clock_accuracy_identity <|-- ptp_ca_time_accurate_to_2500_ps_identity 
+class "ca-time-accurate-to-10-ns" as ptp_ca_time_accurate_to_10_ns_identity << (I,Silver) identity>> 
+ptp_clock_accuracy_identity <|-- ptp_ca_time_accurate_to_10_ns_identity 
+class "ca-time-accurate-to-25-ns" as ptp_ca_time_accurate_to_25_ns_identity << (I,Silver) identity>> 
+ptp_clock_accuracy_identity <|-- ptp_ca_time_accurate_to_25_ns_identity 
+class "ca-time-accurate-to-100-ns" as ptp_ca_time_accurate_to_100_ns_identity << (I,Silver) identity>> 
+ptp_clock_accuracy_identity <|-- ptp_ca_time_accurate_to_100_ns_identity 
+class "ca-time-accurate-to-250-ns" as ptp_ca_time_accurate_to_250_ns_identity << (I,Silver) identity>> 
+ptp_clock_accuracy_identity <|-- ptp_ca_time_accurate_to_250_ns_identity 
+class "ca-time-accurate-to-1000-ns" as ptp_ca_time_accurate_to_1000_ns_identity << (I,Silver) identity>> 
+ptp_clock_accuracy_identity <|-- ptp_ca_time_accurate_to_1000_ns_identity 
+class "ca-time-accurate-to-2500-ns" as ptp_ca_time_accurate_to_2500_ns_identity << (I,Silver) identity>> 
+ptp_clock_accuracy_identity <|-- ptp_ca_time_accurate_to_2500_ns_identity 
+class "ca-time-accurate-to-10-us" as ptp_ca_time_accurate_to_10_us_identity << (I,Silver) identity>> 
+ptp_clock_accuracy_identity <|-- ptp_ca_time_accurate_to_10_us_identity 
+class "ca-time-accurate-to-25-us" as ptp_ca_time_accurate_to_25_us_identity << (I,Silver) identity>> 
+ptp_clock_accuracy_identity <|-- ptp_ca_time_accurate_to_25_us_identity 
+class "ca-time-accurate-to-100-us" as ptp_ca_time_accurate_to_100_us_identity << (I,Silver) identity>> 
+ptp_clock_accuracy_identity <|-- ptp_ca_time_accurate_to_100_us_identity 
+class "ca-time-accurate-to-250-us" as ptp_ca_time_accurate_to_250_us_identity << (I,Silver) identity>> 
+ptp_clock_accuracy_identity <|-- ptp_ca_time_accurate_to_250_us_identity 
+class "ca-time-accurate-to-1000-us" as ptp_ca_time_accurate_to_1000_us_identity << (I,Silver) identity>> 
+ptp_clock_accuracy_identity <|-- ptp_ca_time_accurate_to_1000_us_identity 
+class "ca-time-accurate-to-2500-us" as ptp_ca_time_accurate_to_2500_us_identity << (I,Silver) identity>> 
+ptp_clock_accuracy_identity <|-- ptp_ca_time_accurate_to_2500_us_identity 
+class "ca-time-accurate-to-10-ms" as ptp_ca_time_accurate_to_10_ms_identity << (I,Silver) identity>> 
+ptp_clock_accuracy_identity <|-- ptp_ca_time_accurate_to_10_ms_identity 
+class "ca-time-accurate-to-25-ms" as ptp_ca_time_accurate_to_25_ms_identity << (I,Silver) identity>> 
+ptp_clock_accuracy_identity <|-- ptp_ca_time_accurate_to_25_ms_identity 
+class "ca-time-accurate-to-100-ms" as ptp_ca_time_accurate_to_100_ms_identity << (I,Silver) identity>> 
+ptp_clock_accuracy_identity <|-- ptp_ca_time_accurate_to_100_ms_identity 
+class "ca-time-accurate-to-250-ms" as ptp_ca_time_accurate_to_250_ms_identity << (I,Silver) identity>> 
+ptp_clock_accuracy_identity <|-- ptp_ca_time_accurate_to_250_ms_identity 
+class "ca-time-accurate-to-1-s" as ptp_ca_time_accurate_to_1_s_identity << (I,Silver) identity>> 
+ptp_clock_accuracy_identity <|-- ptp_ca_time_accurate_to_1_s_identity 
+class "ca-time-accurate-to-10-s" as ptp_ca_time_accurate_to_10_s_identity << (I,Silver) identity>> 
+ptp_clock_accuracy_identity <|-- ptp_ca_time_accurate_to_10_s_identity 
+class "ca-time-accurate-to-gt-10-s" as ptp_ca_time_accurate_to_gt_10_s_identity << (I,Silver) identity>> 
+ptp_clock_accuracy_identity <|-- ptp_ca_time_accurate_to_gt_10_s_identity 
+class "time-source" as ptp_time_source_identity << (I,Silver) identity>> 
+class "atomic-clock" as ptp_atomic_clock_identity << (I,Silver) identity>> 
+ptp_time_source_identity <|-- ptp_atomic_clock_identity 
+class "gnss" as ptp_gnss_identity << (I,Silver) identity>> 
+ptp_time_source_identity <|-- ptp_gnss_identity 
+class "terrestrial-radio" as ptp_terrestrial_radio_identity << (I,Silver) identity>> 
+ptp_time_source_identity <|-- ptp_terrestrial_radio_identity 
+class "serial-time-code" as ptp_serial_time_code_identity << (I,Silver) identity>> 
+ptp_time_source_identity <|-- ptp_serial_time_code_identity 
+class "ptp" as ptp_ptp_identity << (I,Silver) identity>> 
+ptp_time_source_identity <|-- ptp_ptp_identity 
+class "ntp" as ptp_ntp_identity << (I,Silver) identity>> 
+ptp_time_source_identity <|-- ptp_ntp_identity 
+class "hand-set" as ptp_hand_set_identity << (I,Silver) identity>> 
+ptp_time_source_identity <|-- ptp_hand_set_identity 
+class "other" as ptp_other_identity << (I,Silver) identity>> 
+ptp_time_source_identity <|-- ptp_other_identity 
+class "internal-oscillator" as ptp_internal_oscillator_identity << (I,Silver) identity>> 
+ptp_time_source_identity <|-- ptp_internal_oscillator_identity 
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_default_ds_I_clock_quality-->ptp_clock_class_identity : clock-class
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_default_ds_I_clock_quality-->ptp_clock_accuracy_identity : clock-accuracy
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_parent_ds_I_grandmaster_clock_quality-->ptp_clock_class_identity : clock-class
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_parent_ds_I_grandmaster_clock_quality-->ptp_clock_accuracy_identity : clock-accuracy
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_parent_ds_I_protocol_address-->ptp_network_protocol_identity : network-protocol
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_time_properties_ds-->ptp_time_source_identity : time-source
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_grandmaster_cluster_ds_I_port_address-->ptp_network_protocol_identity : network-protocol
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_description_port_ds_I_protocol_address-->ptp_network_protocol_identity : network-protocol
+ieee1588_ptp_I_ptp_I_instances_I_instance_I_ports_I_port_I_unicast_discovery_port_ds_I_port_address-->ptp_network_protocol_identity : network-protocol
+} 
+
+yang_ietf_yang_types +-- ptp_ieee1588_ptp
+if_ietf_interfaces +-- ptp_ieee1588_ptp
+center footer
+ <size:20> UML Generated : 2023-08-09 17:12 </size>
+ endfooter 
+@enduml 

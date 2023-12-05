@@ -1,0 +1,73 @@
+@startuml
+  
+  package "openconfig-telemetry@2018-11-21 (simplified)" {
+    class "telemetry-system" as telsys
+    hide telsys members
+  
+    together {
+      class "sensor-group" as sensgrp {
+       <<key>> sensor-group-id : string
+      }
+      class hidden1
+      class "destination-group" as destgrp {
+        +group-id : string
+      }
+      class hidden2
+      class "subscriptions" as subs
+      ' hide subs members
+      hide hidden1
+      hide hidden2
+      hidden2 -[hidden]right- destgrp
+    }
+    class "sensor-path" as sensgrp_pth {
+      +<<key>> path : string
+      +exclude-filter : string
+    }
+  
+    class "persistent-subscription" as p_sub {
+      +name : string
+      +local-source-address : oc-inet:ip-address
+      +originated-qos-marking : oc-inet:dscp
+      +protocol : STREAM_PROTOCOL
+      +encoding : DATA_ENCODING_METHOD
+    }
+    class "dynamic-subscription" as d_sub {
+      +id : uint64
+      ...
+    } 
+    class "sensor-profile" as p_sub_sens_prf {
+      +sample-interval : uint64
+      +heartbeat-interval : uint64
+      +suppress-redundant : boolean
+    }
+    class "destination" as destgrp_dest {
+      +destination-address : oc-inet:ip-address 
+      +destination-port: uint16 
+    }
+    /'
+    class "destination-group" as p_sub_destgrp {
+    }
+    '/
+    
+    telsys "1" *-- "0..*" sensgrp
+    telsys "1" *-- "0..*" destgrp
+    telsys "1" *-- "0..*" subs
+    
+    sensgrp "1" *-- "0..*" sensgrp_pth 
+  
+    subs "1" *-- "0..*" p_sub
+    subs "1" *-- "0..*" d_sub
+     
+    p_sub "1" *-- "0..*" p_sub_sens_prf
+    p_sub_sens_prf "*" -up--> "1" sensgrp  #red
+    
+    
+    destgrp "1" *-right- "0..*" destgrp_dest
+    'p_sub "1" *-- "0..*" p_sub_destgrp
+    p_sub "*" -> "1" destgrp #red 
+    
+    ' aux layout links
+    destgrp_dest -[hidden]-- p_sub
+    'p_sub_sens_prf -[hidden] p_sub_destgrp
+  }
+@enduml

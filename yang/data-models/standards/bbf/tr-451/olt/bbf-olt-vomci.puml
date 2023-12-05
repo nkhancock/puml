@@ -1,0 +1,74 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/bbf-olt-vomci.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title bbf-olt-vomci 
+package "bbf-nfc:bbf-network-function-client" as bbf_nfc_bbf_network_function_client { 
+} 
+package "bbf-nfs:bbf-network-function-server" as bbf_nfs_bbf_network_function_server { 
+} 
+package "bbf-vomcit:bbf-vomci-types" as bbf_vomcit_bbf_vomci_types { 
+} 
+package "bbf-xponvani:bbf-xponvani" as bbf_xponvani_bbf_xponvani { 
+} 
+package "bbf-yang:bbf-yang-types" as bbf_yang_bbf_yang_types { 
+} 
+package "if:ietf-interfaces" as if_ietf_interfaces { 
+} 
+package "bbf-olt-vomci:bbf-olt-vomci" as bbf_olt_vomci_bbf_olt_vomci { 
+} 
+package "bbf-olt-vomci:bbf-olt-vomci" as bbf_olt_vomci_bbf_olt_vomci { 
+class "bbf-olt-vomci" as bbf_olt_vomci << (M, #33CCFF) module>> 
+bbf_olt_vomci : feature : nf-client 
+bbf_olt_vomci : feature : nf-server 
+class "remote-nf" as  bbf_olt_vomci_I_remote_nf <<container>> 
+bbf_olt_vomci *-- "0..1" bbf_olt_vomci_I_remote_nf 
+class "nf-client" as  bbf_olt_vomci_I_remote_nf_I_nf_client <<container>> 
+bbf_olt_vomci_I_remote_nf *-- "1" bbf_olt_vomci_I_remote_nf_I_nf_client 
+bbf_olt_vomci_I_remote_nf_I_nf_client : enabled : boolean   = true 
+bbf_olt_vomci_I_remote_nf_I_nf_client : bbf-nfc:nf-client {uses} 
+class "nf-server" as  bbf_olt_vomci_I_remote_nf_I_nf_server <<container>> 
+bbf_olt_vomci_I_remote_nf *-- "1" bbf_olt_vomci_I_remote_nf_I_nf_server 
+bbf_olt_vomci_I_remote_nf_I_nf_server : enabled : boolean   = true 
+bbf_olt_vomci_I_remote_nf_I_nf_server : bbf-nfs:nf-server {uses} 
+class "nf-endpoint-filter" as  bbf_olt_vomci_I_remote_nf_I_nf_endpoint_filter <<container>> 
+bbf_olt_vomci_I_remote_nf *-- "1" bbf_olt_vomci_I_remote_nf_I_nf_endpoint_filter 
+class "rule" as bbf_olt_vomci_I_remote_nf_I_nf_endpoint_filter_I_rule << (L, #FF7700) list>> 
+bbf_olt_vomci_I_remote_nf_I_nf_endpoint_filter *-- "0..N" bbf_olt_vomci_I_remote_nf_I_nf_endpoint_filter_I_rule : ordered-by : user
+bbf_olt_vomci_I_remote_nf_I_nf_endpoint_filter_I_rule : +name : bbf-yang:string-ascii64  {key} 
+bbf_olt_vomci_I_remote_nf_I_nf_endpoint_filter_I_rule : priority : uint16 [1..max]   {mandatory}
+class "match-criteria" as  bbf_olt_vomci_I_remote_nf_I_nf_endpoint_filter_I_rule_I_match_criteria <<container>> 
+bbf_olt_vomci_I_remote_nf_I_nf_endpoint_filter_I_rule *-- "1" bbf_olt_vomci_I_remote_nf_I_nf_endpoint_filter_I_rule_I_match_criteria 
+bbf_olt_vomci_I_remote_nf_I_nf_endpoint_filter_I_rule_I_match_criteria : criteria-type : identityref {bbf-vomcit:onu-endpoint-criteria}   = bbf-vomcit:any-onu 
+bbf_olt_vomci_I_remote_nf_I_nf_endpoint_filter_I_rule_I_match_criteria : onu-vendor : bbf-vomcit:onu-vendor-id   {mandatory}
+bbf_olt_vomci_I_remote_nf_I_nf_endpoint_filter_I_rule : endpoint : bbf-yang:string-ascii64  
+class "/if:interfaces/if:interface/bbf-xponvani:v-ani" as if_interfaces_if_interface_bbf_xponvani_v_ani << (A,CadetBlue) augment>>
+bbf_olt_vomci *--  if_interfaces_if_interface_bbf_xponvani_v_ani 
+class "vomci-onu" as  ietf_interfaces_I_interfaces_I_interface_I_v_ani_I_vomci_onu <<container>> 
+if_interfaces_if_interface_bbf_xponvani_v_ani *-- "1" ietf_interfaces_I_interfaces_I_interface_I_v_ani_I_vomci_onu 
+class "vomci-function" as  ietf_interfaces_I_interfaces_I_interface_I_v_ani_I_vomci_onu_I_vomci_function <<container>> 
+ietf_interfaces_I_interfaces_I_interface_I_v_ani_I_vomci_onu *-- "1" ietf_interfaces_I_interfaces_I_interface_I_v_ani_I_vomci_onu_I_vomci_function 
+ietf_interfaces_I_interfaces_I_interface_I_v_ani_I_vomci_onu_I_vomci_function : remote-endpoint : bbf-yang:string-ascii64  
+class "bbf-vomcit:onu-endpoint-criteria" as bbf_vomcit_onu_endpoint_criteria_identity << (I,Silver) identity>> 
+bbf_olt_vomci_I_remote_nf_I_nf_endpoint_filter_I_rule_I_match_criteria-->bbf_vomcit_onu_endpoint_criteria_identity : criteria-type
+} 
+
+bbf_nfc_bbf_network_function_client +-- bbf_olt_vomci_bbf_olt_vomci
+bbf_nfs_bbf_network_function_server +-- bbf_olt_vomci_bbf_olt_vomci
+bbf_vomcit_bbf_vomci_types +-- bbf_olt_vomci_bbf_olt_vomci
+bbf_xponvani_bbf_xponvani +-- bbf_olt_vomci_bbf_olt_vomci
+bbf_yang_bbf_yang_types +-- bbf_olt_vomci_bbf_olt_vomci
+if_ietf_interfaces +-- bbf_olt_vomci_bbf_olt_vomci
+center footer
+ <size:20> UML Generated : 2023-07-25 11:42 </size>
+ endfooter 
+@enduml 

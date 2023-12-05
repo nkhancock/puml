@@ -1,0 +1,85 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/bbf-vomci-proxy.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title bbf-vomci-proxy 
+package "bbf-nfc:bbf-network-function-client" as bbf_nfc_bbf_network_function_client { 
+} 
+package "bbf-nfs:bbf-network-function-server" as bbf_nfs_bbf_network_function_server { 
+} 
+package "bbf-omci-mr:bbf-omci-message-retransmission" as bbf_omci_mr_bbf_omci_message_retransmission { 
+} 
+package "bbf-vomci-c:bbf-vomci-common" as bbf_vomci_c_bbf_vomci_common { 
+} 
+package "bbf-vomcit:bbf-vomci-types" as bbf_vomcit_bbf_vomci_types { 
+} 
+package "bbf-yang:bbf-yang-types" as bbf_yang_bbf_yang_types { 
+} 
+package "bbf-vomci-proxy:bbf-vomci-proxy" as bbf_vomci_proxy_bbf_vomci_proxy { 
+} 
+package "bbf-vomci-proxy:bbf-vomci-proxy" as bbf_vomci_proxy_bbf_vomci_proxy { 
+class "bbf-vomci-proxy" as bbf_vomci_proxy << (M, #33CCFF) module>> 
+bbf_vomci_proxy : feature : nf-client 
+bbf_vomci_proxy : feature : nf-server 
+class "vomci" as  bbf_vomci_proxy_I_vomci <<container>> 
+bbf_vomci_proxy *-- "1" bbf_vomci_proxy_I_vomci 
+bbf_vomci_proxy_I_vomci : message-timeout : uint16 [10..max]   = 900  {seconds}
+class "omci-message-retransmission" as  bbf_vomci_proxy_I_vomci_I_omci_message_retransmission <<container>> 
+bbf_vomci_proxy_I_vomci *-- "1" bbf_vomci_proxy_I_vomci_I_omci_message_retransmission 
+bbf_vomci_proxy_I_vomci_I_omci_message_retransmission : bbf-omci-mr:omci-message-retransmission {uses} 
+class "remote-nf" as  bbf_vomci_proxy_I_vomci_I_remote_nf <<container>> 
+bbf_vomci_proxy_I_vomci *-- "0..1" bbf_vomci_proxy_I_vomci_I_remote_nf 
+class "nf-client" as  bbf_vomci_proxy_I_vomci_I_remote_nf_I_nf_client <<container>> 
+bbf_vomci_proxy_I_vomci_I_remote_nf *-- "1" bbf_vomci_proxy_I_vomci_I_remote_nf_I_nf_client 
+bbf_vomci_proxy_I_vomci_I_remote_nf_I_nf_client : enabled : boolean   = true 
+bbf_vomci_proxy_I_vomci_I_remote_nf_I_nf_client : bbf-nfc:nf-client {uses} 
+class "nf-server" as  bbf_vomci_proxy_I_vomci_I_remote_nf_I_nf_server <<container>> 
+bbf_vomci_proxy_I_vomci_I_remote_nf *-- "1" bbf_vomci_proxy_I_vomci_I_remote_nf_I_nf_server 
+bbf_vomci_proxy_I_vomci_I_remote_nf_I_nf_server : enabled : boolean   = true 
+bbf_vomci_proxy_I_vomci_I_remote_nf_I_nf_server : bbf-nfs:nf-server {uses} 
+class "statistics" as  bbf_vomci_proxy_I_vomci_I_statistics <<container>> 
+bbf_vomci_proxy_I_vomci *-- "1" bbf_vomci_proxy_I_vomci_I_statistics 
+bbf_vomci_proxy_I_vomci_I_statistics : reset()
+bbf_vomci_proxy_I_vomci_I_statistics : bbf-omci-mr:omci-message-retransmission-statistics {uses} 
+class "managed-onus" as  bbf_vomci_proxy_I_vomci_I_managed_onus <<container>> 
+bbf_vomci_proxy_I_vomci *-- "1" bbf_vomci_proxy_I_vomci_I_managed_onus 
+bbf_vomci_proxy_I_vomci_I_managed_onus : create-onu( in: name in: xpon_onu_type)
+class "managed-onu" as bbf_vomci_proxy_I_vomci_I_managed_onus_I_managed_onu << (L, #FF7700) list>> 
+bbf_vomci_proxy_I_vomci_I_managed_onus *-- "0..N" bbf_vomci_proxy_I_vomci_I_managed_onus_I_managed_onu 
+bbf_vomci_proxy_I_vomci_I_managed_onus_I_managed_onu : +name : bbf-vomcit:onu-name  {key} 
+bbf_vomci_proxy_I_vomci_I_managed_onus_I_managed_onu : xpon-onu-type : identityref {bbf-vomcit:xpon-onu-type}  
+bbf_vomci_proxy_I_vomci_I_managed_onus_I_managed_onu : delete-onu( in: delete_state_data)
+bbf_vomci_proxy_I_vomci_I_managed_onus_I_managed_onu : delete-only-onu-state-data()
+bbf_vomci_proxy_I_vomci_I_managed_onus_I_managed_onu : set-onu-communication( in: onu_communication_available in: olt_remote_endpoint in: vomci_function_remote_endpoint in: xpon_onu_type in: bbf_vomci_c_vomci_onu_header)
+bbf_vomci_proxy_I_vomci_I_managed_onus_I_managed_onu : bbf-vomci-c:vomci-onu-header {uses} 
+bbf_vomci_proxy_I_vomci_I_managed_onus_I_managed_onu : onu-communication-available : boolean  
+bbf_vomci_proxy_I_vomci_I_managed_onus_I_managed_onu : olt-remote-endpoint : bbf-yang:string-ascii64  
+bbf_vomci_proxy_I_vomci_I_managed_onus_I_managed_onu : vomci-function-remote-endpoint : bbf-yang:string-ascii64  
+class "statistics" as  bbf_vomci_proxy_I_vomci_I_managed_onus_I_managed_onu_I_statistics <<container>> 
+bbf_vomci_proxy_I_vomci_I_managed_onus_I_managed_onu *-- "1" bbf_vomci_proxy_I_vomci_I_managed_onus_I_managed_onu_I_statistics 
+bbf_vomci_proxy_I_vomci_I_managed_onus_I_managed_onu_I_statistics : reset()
+bbf_vomci_proxy_I_vomci_I_managed_onus_I_managed_onu_I_statistics : bbf-vomci-c:vomci-message-statistics {uses} 
+bbf_vomci_proxy_I_vomci_I_managed_onus_I_managed_onu_I_statistics : bbf-omci-mr:omci-message-retransmission-statistics {uses} 
+class "bbf-vomcit:xpon-onu-type" as bbf_vomcit_xpon_onu_type_identity << (I,Silver) identity>> 
+bbf_vomci_proxy_I_vomci_I_managed_onus_I_managed_onu-->bbf_vomcit_xpon_onu_type_identity : xpon-onu-type
+} 
+
+bbf_nfc_bbf_network_function_client +-- bbf_vomci_proxy_bbf_vomci_proxy
+bbf_nfs_bbf_network_function_server +-- bbf_vomci_proxy_bbf_vomci_proxy
+bbf_omci_mr_bbf_omci_message_retransmission +-- bbf_vomci_proxy_bbf_vomci_proxy
+bbf_vomci_c_bbf_vomci_common +-- bbf_vomci_proxy_bbf_vomci_proxy
+bbf_vomcit_bbf_vomci_types +-- bbf_vomci_proxy_bbf_vomci_proxy
+bbf_yang_bbf_yang_types +-- bbf_vomci_proxy_bbf_vomci_proxy
+center footer
+ <size:20> UML Generated : 2023-07-25 11:44 </size>
+ endfooter 
+@enduml 

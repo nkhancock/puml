@@ -1,0 +1,107 @@
+module test-augments-1a {
+  yang-version 1.1;
+  namespace "http://www.example.com/ns/yang/test-augments-1a";
+  prefix tst-aug-1a;
+  revision 2023-07-28 {
+    description
+      "Initial revision.";
+    reference
+      "None.";
+  }
+  
+  container container-a {
+    description
+      "A top-level container.";
+    list list-a {
+      key name;
+      description
+        "A list in a top-level container.";
+      leaf name {
+        type string;
+        description
+          "The name of the entry.";
+      }
+      choice a-choice {
+        case case-a {
+          leaf case-a {
+            type empty;
+            description
+              "...";
+          }
+        }
+      }
+      notification list-a-nfc {
+        description
+          "A notification in a list.";
+        leaf binary-leaf {
+          type binary;
+          description
+            "A leaf in a notification that is in a list.";
+        }
+        container container-3 {
+          description
+            "A container in a notification that is in a list.";
+          leaf another-leaf {
+            type string;
+            description
+              "Just another leaf.";
+          }
+          leaf b-list-ref {
+            type leafref {
+              path 
+                "/tst-aug-1a:container-b"
+                + "/tst-aug-1a:list-b/tst-aug-1a:name";
+            }
+          }
+        }
+      }
+    } 
+  }
+  container container-b {
+    description
+      "A another top-level container.";
+    list list-b {
+      key name;
+      description
+        "A list in a top-level container.";
+      leaf name {
+        type string;
+        description
+          "The name of the entry.";
+      }
+      leaf binary-leaf {
+        type binary;
+        description
+          "A leaf in a notification that is in a list.";
+      }
+    }
+  }
+  
+  notification top-level-nfc {
+    description
+      "A top-level notification.";
+    container container-4 {
+      description
+        "A container in a top-level notification.";
+      leaf a-leaf {
+        type uint32;
+        description
+          "Just a leaf.";
+      }
+      leaf list-b-ref {
+        type leafref {
+          path 
+            "/tst-aug-1a:container-b"
+            + "/tst-aug-1a:list-b/tst-aug-1a:name";
+        }
+      }
+    }
+    leaf just-a-leaf {
+      type string;
+      description
+        "A leaf in a top-level notification.";
+    }
+  }
+  
+}
+

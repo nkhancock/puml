@@ -1,0 +1,77 @@
+'Global settings for all PlantUML diagrams
+
+!$bbfBackgroundColor = "ffffff"
+!$bbfBoxBackgroundColor = "f5f5f5"
+
+!$bbfLighterGreen = "00c749"
+!$bbfDarkerGreen = "135056"
+!$bbfLightGrey = "e6ebef"
+!$bbfDarkerGrey = "ccd4e1"
+
+
+hide circle
+hide empty description
+hide footbox
+
+skinparam backgroundColor #$bbfBackgroundColor
+skinparam defaultFontName arial
+skinparam shadowing false
+
+skinparam arrowColor #$bbfLighterGreen
+
+skinparam Class {
+  backgroundColor #$bbfBackgroundColor
+  borderColor #$bbfLighterGreen
+  borderThickness 1
+}
+
+skinparam Activity {
+  backgroundColor #$bbfBackgroundColor
+  borderColor #$bbfLighterGreen
+  DiamondBackgroundColor #$bbfBackgroundColor
+  DiamondBorderColor #$bbfLighterGreen
+}
+
+skinparam Object {
+  backgroundColor #$bbfBackgroundColor
+  borderColor #$bbfLighterGreen
+}
+
+skinparam Component {
+  backgroundColor #$bbfBackgroundColor
+  borderColor #$bbfLighterGreen
+}
+
+skinparam Interface {
+  backgroundColor #$bbfBackgroundColor
+  borderColor #$bbfLighterGreen
+}
+
+skinparam Note {
+  backgroundColor #$bbfLightGrey
+  borderColor #$bbfDarkerGreen
+}
+
+skinparam Package {
+  backgroundColor #$bbfBackgroundColor
+  fontSize 11
+  fontStyle normal
+  borderColor #$bbfLighterGreen
+}
+
+skinparam Sequence {
+  actorBorderColor #$bbfDarkerGreen
+  boxBackgroundColor #$bbfBoxBackgroundColor
+  boxBorderColor #$bbfDarkerGrey
+  groupBorderColor #$bbfDarkerGreen
+  groupBackgroundColor #$bbfDarkerGrey
+  lifeLineBorderColor #$bbfLighterGreen
+  lifeLineBackgroundColor #$bbfLighterGreen
+  participantBackgroundColor #$bbfLighterGreen
+  participantBorderColor #$bbfLighterGreen
+}
+
+skinparam State {
+  backgroundColor #$bbfBackgroundColor
+  borderColor #$bbfLighterGreen
+}

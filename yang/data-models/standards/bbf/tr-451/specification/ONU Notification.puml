@@ -1,0 +1,24 @@
+@startuml
+
+'comment: ONU Notification
+Participant vOLTMF
+participant vOMCIFunction
+participant vOMCIProxy
+participant OLT
+participant ONU
+
+hide footbox
+ONU -> OLT: send OMCI notification
+OLT -> OLT: lookup ONU's remote endpoint\n(vOMCIProxy)
+OLT -> OLT: populate ONU header
+OLT -> vOMCIProxy: send OMCIPacket message
+vOMCIProxy -> vOMCIProxy: lookup ONU message chain\(ONU header)
+vOMCIProxy -> vOMCIProxy: populate request_payload_id
+
+vOMCIProxy -> vOMCIFunction: send OMCIPacket message
+
+alt if OMCI Packet message maps to ONU notification
+  vOMCIFunction -> vOLTMF: send ONU notification
+end
+
+@enduml

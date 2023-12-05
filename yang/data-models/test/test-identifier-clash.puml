@@ -1,0 +1,39 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/test-identifier-clash.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title test-identifier-clash 
+package "tst-id-clsh:test-identifier-clash" as tst_id_clsh_test_identifier_clash { 
+} 
+package "tst-id-clsh:test-identifier-clash" as tst_id_clsh_test_identifier_clash { 
+class "test-identifier-clash" as test_identifier_clash << (M, #33CCFF) module>> 
+test_identifier_clash : feature : direction 
+enum "direction" as test_identifier_clash_I_direction {
+up
+down
+}
+class "direction" as  test_identifier_clash_I_direction <<container>> 
+test_identifier_clash *-- "1" test_identifier_clash_I_direction 
+test_identifier_clash_I_direction : direction : direction  
+test_identifier_clash_I_direction : another-direction : identityref {direction}  
+class "direction" as direction << (I,Silver) identity>> 
+class "up" as up << (I,Silver) identity>> 
+direction <|-- up 
+class "down" as down << (I,Silver) identity>> 
+direction <|-- down 
+test_identifier_clash_I_direction-->direction: another-direction
+} 
+
+center footer
+ <size:20> UML Generated : 2023-07-18 11:39 </size>
+ endfooter 
+@enduml 

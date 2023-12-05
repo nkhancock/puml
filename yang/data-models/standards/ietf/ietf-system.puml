@@ -1,0 +1,178 @@
+@startuml
+
+hide empty fields
+hide empty methods
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1
+Title ietf-system
+package "yang:ietf-yang-types" as yang_ietf_yang_types {
+}
+package "inet:ietf-inet-types" as inet_ietf_inet_types {
+}
+package "nacm:ietf-netconf-acm" as nacm_ietf_netconf_acm {
+}
+package "ianach:iana-crypt-hash" as ianach_iana_crypt_hash {
+}
+'note top of sys_ietf_system : <b>Namespace: </b> urn:ietf:params:xml:ns:yang:ietf-system \n<b>Prefix: </b> sys \n<b>Organization : </b>\nIETF NETMOD (NETCONF Data Modeling Language) Working Group \n<b>Contact : </b>\nWG Web:   <http://tools.ietf.org/wg/netmod/> \nWG List:  <mailto:netmod@ietf.org> \n \nWG Chair: Thomas Nadeau \n          <mailto:tnadeau@lucidvision.com> \n \nWG Chair: Juergen Schoenwaelder \n          <mailto:j.schoenwaelder@jacobs-university.de> \n \nEditor:   Andy Bierman \n          <mailto:andy@yumaworks.com> \n \nEditor:   Martin Bjorklund \n          <mailto:mbj@tail-f.com> \n<b>Revision : </b> 2014-08-06 \n
+package "sys:ietf-system" as sys_ietf_system {
+yang_ietf_yang_types +-- sys_ietf_system
+inet_ietf_inet_types +-- sys_ietf_system
+nacm_ietf_netconf_acm +-- sys_ietf_system
+ianach_iana_crypt_hash +-- sys_ietf_system
+class "ietf-system" as ietf_system << (M, #33CCFF) module>>
+class "timezone-name" as timezone_name << (T, YellowGreen) typedef>>
+timezone_name : string
+ietf_system : feature : radius
+ietf_system : feature : authentication
+ietf_system : feature : local_users
+ietf_system : feature : radius_authentication
+ietf_system : feature : ntp
+ietf_system : feature : ntp_udp_port
+ietf_system : feature : timezone_name
+ietf_system : feature : dns_udp_tcp_port
+class "system" as  ietf_system_I_system <<container>>
+ietf_system *-- "1" ietf_system_I_system
+ietf_system_I_system : contact : string
+ietf_system_I_system : hostname : inet:domain-name
+ietf_system_I_system : location : string
+class "clock" as  ietf_system_I_system_I_clock <<container>>
+ietf_system_I_system *-- "1" ietf_system_I_system_I_clock
+class "timezone" as ietf_system_I_system_I_clock_I_timezone <<choice>>
+ietf_system_I_system_I_clock .. ietf_system_I_system_I_clock_I_timezone : choice
+class "timezone-name" as ietf_system_I_system_I_clock_I_timezone_I_timezone_name_case <<case>>
+ietf_system_I_system_I_clock_I_timezone .. ietf_system_I_system_I_clock_I_timezone_I_timezone_name_case  : choice timezone
+note bottom of ietf_system_I_system_I_clock_I_timezone_I_timezone_name_case
+<b>if-feature: </b>timezone-name
+end note
+ietf_system_I_system_I_clock_I_timezone_I_timezone_name_case : timezone-name : timezone-name
+class "timezone-utc-offset" as ietf_system_I_system_I_clock_I_timezone_I_timezone_utc_offset_case <<case>>
+ietf_system_I_system_I_clock_I_timezone .. ietf_system_I_system_I_clock_I_timezone_I_timezone_utc_offset_case  : choice timezone
+ietf_system_I_system_I_clock_I_timezone_I_timezone_utc_offset_case : timezone-utc-offset : int16 [-1500 .. 1500]   {minutes}
+class "ntp" as  ietf_system_I_system_I_ntp <<container>>
+ietf_system_I_system *-- "0..1" ietf_system_I_system_I_ntp
+note bottom of ietf_system_I_system_I_ntp
+<b>if-feature: </b>ntp
+end note
+note bottom of ietf_system_I_system_I_ntp
+<b>Presence: </b>Enables the NTP client unless the 'enabled' leaf
+(which defaults to 'true') is set to 'false'
+end note
+ietf_system_I_system_I_ntp : enabled : boolean   = true
+class "server" as ietf_system_I_system_I_ntp_I_server << (L, #FF7700) list>>
+ietf_system_I_system_I_ntp *-- "0..N" ietf_system_I_system_I_ntp_I_server
+ietf_system_I_system_I_ntp_I_server : +name : string  {key}
+class "transport" as ietf_system_I_system_I_ntp_I_server_I_transport <<choice>>
+ietf_system_I_system_I_ntp_I_server .. ietf_system_I_system_I_ntp_I_server_I_transport : choice
+class "udp" as ietf_system_I_system_I_ntp_I_server_I_transport_I_udp_case <<case>>
+ietf_system_I_system_I_ntp_I_server_I_transport .. ietf_system_I_system_I_ntp_I_server_I_transport_I_udp_case  : choice transport
+class "udp" as  ietf_system_I_system_I_ntp_I_server_I_transport_I_udp_I_udp <<container>>
+ietf_system_I_system_I_ntp_I_server_I_transport_I_udp_case *-- "1" ietf_system_I_system_I_ntp_I_server_I_transport_I_udp_I_udp
+ietf_system_I_system_I_ntp_I_server_I_transport_I_udp_I_udp : address : inet:host   {mandatory}
+ietf_system_I_system_I_ntp_I_server_I_transport_I_udp_I_udp : port : inet:port-number   = 123  {if-feature : ntp-udp-port}
+ietf_system_I_system_I_ntp_I_server : association-type : enumeration : {server,peer,pool,}   = server
+ietf_system_I_system_I_ntp_I_server : iburst : boolean   = false
+ietf_system_I_system_I_ntp_I_server : prefer : boolean   = false
+class "dns-resolver" as  ietf_system_I_system_I_dns_resolver <<container>>
+ietf_system_I_system *-- "1" ietf_system_I_system_I_dns_resolver
+ietf_system_I_system_I_dns_resolver : search []: inet:domain-name
+class "server" as ietf_system_I_system_I_dns_resolver_I_server << (L, #FF7700) list>>
+ietf_system_I_system_I_dns_resolver *-- "0..N" ietf_system_I_system_I_dns_resolver_I_server : ordered-by : user
+ietf_system_I_system_I_dns_resolver_I_server : +name : string  {key}
+class "transport" as ietf_system_I_system_I_dns_resolver_I_server_I_transport <<choice>>
+ietf_system_I_system_I_dns_resolver_I_server .. ietf_system_I_system_I_dns_resolver_I_server_I_transport : choice
+class "udp-and-tcp" as ietf_system_I_system_I_dns_resolver_I_server_I_transport_I_udp_and_tcp_case <<case>>
+ietf_system_I_system_I_dns_resolver_I_server_I_transport .. ietf_system_I_system_I_dns_resolver_I_server_I_transport_I_udp_and_tcp_case  : choice transport
+class "udp-and-tcp" as  ietf_system_I_system_I_dns_resolver_I_server_I_transport_I_udp_and_tcp_I_udp_and_tcp <<container>>
+ietf_system_I_system_I_dns_resolver_I_server_I_transport_I_udp_and_tcp_case *-- "1" ietf_system_I_system_I_dns_resolver_I_server_I_transport_I_udp_and_tcp_I_udp_and_tcp
+ietf_system_I_system_I_dns_resolver_I_server_I_transport_I_udp_and_tcp_I_udp_and_tcp : address : inet:ip-address   {mandatory}
+ietf_system_I_system_I_dns_resolver_I_server_I_transport_I_udp_and_tcp_I_udp_and_tcp : port : inet:port-number   = 53  {if-feature : dns-udp-tcp-port}
+class "options" as  ietf_system_I_system_I_dns_resolver_I_options <<container>>
+ietf_system_I_system_I_dns_resolver *-- "1" ietf_system_I_system_I_dns_resolver_I_options
+ietf_system_I_system_I_dns_resolver_I_options : timeout : uint8 [1..max]   = 5  {seconds}
+ietf_system_I_system_I_dns_resolver_I_options : attempts : uint8 [1..max]   = 2
+class "radius" as  ietf_system_I_system_I_radius <<container>>
+ietf_system_I_system *-- "1" ietf_system_I_system_I_radius
+note bottom of ietf_system_I_system_I_radius
+<b>if-feature: </b>radius
+end note
+class "server" as ietf_system_I_system_I_radius_I_server << (L, #FF7700) list>>
+ietf_system_I_system_I_radius *-- "0..N" ietf_system_I_system_I_radius_I_server : ordered-by : user
+ietf_system_I_system_I_radius_I_server : +name : string  {key}
+class "transport" as ietf_system_I_system_I_radius_I_server_I_transport <<choice>>
+ietf_system_I_system_I_radius_I_server .. ietf_system_I_system_I_radius_I_server_I_transport : choice
+class "udp" as ietf_system_I_system_I_radius_I_server_I_transport_I_udp_case <<case>>
+ietf_system_I_system_I_radius_I_server_I_transport .. ietf_system_I_system_I_radius_I_server_I_transport_I_udp_case  : choice transport
+class "udp" as  ietf_system_I_system_I_radius_I_server_I_transport_I_udp_I_udp <<container>>
+ietf_system_I_system_I_radius_I_server_I_transport_I_udp_case *-- "1" ietf_system_I_system_I_radius_I_server_I_transport_I_udp_I_udp
+ietf_system_I_system_I_radius_I_server_I_transport_I_udp_I_udp : address : inet:host   {mandatory}
+ietf_system_I_system_I_radius_I_server_I_transport_I_udp_I_udp : authentication-port : inet:port-number   = 1812
+ietf_system_I_system_I_radius_I_server_I_transport_I_udp_I_udp : shared-secret : string   {mandatory}
+ietf_system_I_system_I_radius_I_server : authentication-type : identityref {radius-authentication-type}   = radius-pap
+class "options" as  ietf_system_I_system_I_radius_I_options <<container>>
+ietf_system_I_system_I_radius *-- "1" ietf_system_I_system_I_radius_I_options
+ietf_system_I_system_I_radius_I_options : timeout : uint8 [1..max]   = 5  {seconds}
+ietf_system_I_system_I_radius_I_options : attempts : uint8 [1..max]   = 2
+class "authentication" as  ietf_system_I_system_I_authentication <<container>>
+ietf_system_I_system *-- "1" ietf_system_I_system_I_authentication
+note bottom of ietf_system_I_system_I_authentication
+<b>if-feature: </b>authentication
+end note
+ietf_system_I_system_I_authentication : user-authentication-order []: identityref {authentication-method}
+note bottom of ietf_system_I_system_I_authentication
+<b>Must</b> (user-authentication-order):
+(. != "sys:radius" or ../../radius/server)
+
+end note
+class "user" as ietf_system_I_system_I_authentication_I_user << (L, #FF7700) list>>
+ietf_system_I_system_I_authentication *-- "0..N" ietf_system_I_system_I_authentication_I_user
+note bottom of ietf_system_I_system_I_authentication_I_user
+<b>if-feature: </b>local-users
+end note
+ietf_system_I_system_I_authentication_I_user : +name : string  {key}
+ietf_system_I_system_I_authentication_I_user : password : ianach:crypt-hash
+class "authorized-key" as ietf_system_I_system_I_authentication_I_user_I_authorized_key << (L, #FF7700) list>>
+ietf_system_I_system_I_authentication_I_user *-- "0..N" ietf_system_I_system_I_authentication_I_user_I_authorized_key
+ietf_system_I_system_I_authentication_I_user_I_authorized_key : +name : string  {key}
+ietf_system_I_system_I_authentication_I_user_I_authorized_key : algorithm : string   {mandatory}
+ietf_system_I_system_I_authentication_I_user_I_authorized_key : key-data : binary   {mandatory}
+class "system-state" as  ietf_system_I_system_state <<container>>
+ietf_system *-- "1" ietf_system_I_system_state
+note bottom of ietf_system_I_system_state
+<b>Config = </b>false
+end note
+class "platform" as  ietf_system_I_system_state_I_platform <<container>>
+ietf_system_I_system_state *-- "1" ietf_system_I_system_state_I_platform
+ietf_system_I_system_state_I_platform : os-name : string
+ietf_system_I_system_state_I_platform : os-release : string
+ietf_system_I_system_state_I_platform : os-version : string
+ietf_system_I_system_state_I_platform : machine : string
+class "clock" as  ietf_system_I_system_state_I_clock <<container>>
+ietf_system_I_system_state *-- "1" ietf_system_I_system_state_I_clock
+ietf_system_I_system_state_I_clock : current-datetime : yang:date-and-time
+ietf_system_I_system_state_I_clock : boot-datetime : yang:date-and-time
+ietf_system : set-current-datetime( in: current_datetime)
+ietf_system : system-restart()
+ietf_system : system-shutdown()
+class "authentication-method" as authentication_method << (I,Silver) identity>>
+class "radius" as radius << (I,Silver) identity>>
+authentication_method <|-- radius
+class "local-users" as local_users << (I,Silver) identity>>
+authentication_method <|-- local_users
+class "radius-authentication-type" as radius_authentication_type << (I,Silver) identity>>
+class "radius-pap" as radius_pap << (I,Silver) identity>>
+radius_authentication_type <|-- radius_pap
+class "radius-chap" as radius_chap << (I,Silver) identity>>
+radius_authentication_type <|-- radius_chap
+ietf_system_I_system_I_radius_I_server-->radius_authentication_type: authentication-type
+ietf_system_I_system_I_authentication-->authentication_method: user-authentication-order
+}
+
+center footer
+ <size:20> UML Generated : 2023-06-09 14:56 </size>
+ endfooter
+
+@enduml

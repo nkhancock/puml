@@ -1,0 +1,66 @@
+module test-augments-2 {
+  yang-version 1.1;
+  namespace "http://www.example.com/ns/yang/test-augments-2";
+  prefix tst-aug-2;
+  import test-augments-1 {
+    prefix tst-aug-1;
+  }
+  revision 2023-11-13 {
+    description
+      "Initial revision.";
+    reference
+      "None.";
+  }
+  augment "/tst-aug-1:container-a/tst-aug-1:list-a" {
+    description
+      "...";
+    leaf augmented-leaf {
+      type string;
+      description
+        "...";
+    }
+  }
+  augment "/tst-aug-1:top-level-nfc" {
+    description
+      "...";
+    leaf just-an-augmented-leaf {
+      type string;
+      description
+        "...";
+    }
+  }
+  augment 
+    "/tst-aug-1:container-a/tst-aug-1:list-a/tst-aug-1:a-choice" {
+    description
+      "...";
+    case case-b {
+      leaf case-b {
+        type string;
+        description
+          "...";
+      }
+    }
+  }
+  augment 
+    "/tst-aug-1:container-a/tst-aug-1:list-a/tst-aug-1:a-choice" {
+    description
+      "Shorthand case.";
+    leaf shorthand-case {
+      type string;
+      description
+        "...";
+    }
+  }
+  augment 
+    "/tst-aug-1:container-a/tst-aug-1:list-a/tst-aug-1:a-choice"
+    + "/tst-aug-1:case-a" {
+    description
+      "...";
+    leaf another-case-leaf {
+      type string;
+      description
+        "...";
+    }
+  }
+}
+

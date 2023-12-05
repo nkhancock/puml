@@ -1,0 +1,58 @@
+module test-identifier-clash {
+  yang-version 1.1;
+  namespace "http://www.example.com/ns/yang/test-identifier-clash";
+  prefix tst-id-clsh;
+  revision 2023-07-17 {
+    description
+      "Initial revision.";
+    reference
+      "None.";
+  }
+  feature direction {
+    description
+      "Indicates that directions as typedef are supported.";
+  }
+  identity direction {
+    if-feature direction;
+    description
+      "Base identity for my identities.";
+  }
+  identity up {
+    base direction;
+    description
+      "...";
+  }
+  identity down {
+    base direction;
+    description
+      "...";
+  }
+  typedef direction {
+    type enumeration {
+      enum up {
+        description
+          "...";
+      }
+      enum down {
+        description
+          "...";
+      }
+    } 
+  }
+  container direction {
+    description
+      "";
+    leaf direction {
+      type direction;
+      description
+        "...";
+    }
+    leaf another-direction {
+      type identityref {
+        base direction;
+      }
+      description
+        "...";
+    }
+  }
+}

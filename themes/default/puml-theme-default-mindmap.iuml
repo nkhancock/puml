@@ -1,0 +1,14 @@
+'Default settings for all PlantUML Mindmap diagrams
+
+!include puml-theme-default-colors.iuml
+
+  <style>
+    mindmapDiagram {
+      node {
+        BackgroundColor white
+        LineColor $defaultTeal
+        MaximumWidth 250
+      }
+    }
+  </style>
+

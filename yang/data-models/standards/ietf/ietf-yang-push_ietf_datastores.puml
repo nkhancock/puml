@@ -1,0 +1,235 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/ietf-yang-push_ietf-datastores.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title ietf-yang-push_ietf-datastores 
+
+package "yang:ietf-yang-types" as yang_ietf_yang_types { 
+} 
+
+package "sn:ietf-subscribed-notifications" as sn_ietf_subscribed_notifications { 
+} 
+
+package "ds:ietf-datastores" as ds_ietf_datastores { 
+} 
+
+package "rc:ietf-restconf" as rc_ietf_restconf { 
+} 
+
+package "ypatch:ietf-yang-patch" as ypatch_ietf_yang_patch { 
+} 
+
+package "yp:ietf-yang-push" as yp_ietf_yang_push { 
+} 
+note top of yp_ietf_yang_push : <b>Namespace: </b> urn:ietf:params:xml:ns:yang:ietf-yang-push \n<b>Prefix: </b> yp \n<b>Organization : </b>\nIETF NETCONF (Network Configuration) Working Group \n<b>Contact : </b>\nWG Web:  <https:/datatracker.ietf.org/wg/netconf/> \nWG List: <mailto:netconf@ietf.org> \n \nAuthor:  Alexander Clemm \n         <mailto:ludwig@clemm.org> \n \nAuthor:  Eric Voit \n         <mailto:evoit@cisco.com> \n<b>Revision : </b> 2019-09-09 \n
+
+package "yp:ietf-yang-push" as yp_ietf_yang_push { 
+class "ietf-yang-push" as ietf_yang_push << (M, #33CCFF) module>> 
+ietf_yang_push : feature : on-change 
+enum "change-type" as yp_change_type_typedef <<enumeration>> {
+create
+delete
+insert
+MORE
+}
+class "selection-filter-ref" as yp_selection_filter_ref_typedef << (T, YellowGreen) typedef>>
+yp_selection_filter_ref_typedef : leafref : /sn:filters/yp:selection-filter/yp:filter-id
+class "centiseconds" as yp_centiseconds_typedef << (T, YellowGreen) typedef>>
+yp_centiseconds_typedef : uint32
+class "datastore-criteria" as ietf_yang_push_I_datastore_criteria_grouping <<(G,Lime) grouping>> 
+ietf_yang_push_I_datastore_criteria_grouping : datastore : identityref {ds:datastore}   {mandatory}
+ietf_yang_push_I_datastore_criteria_grouping : selection-filter-objects {uses} 
+class "selection-filter-types" as ietf_yang_push_I_selection_filter_types_grouping <<(G,Lime) grouping>> 
+class "filter-spec" as ietf_yang_push_I_selection_filter_types_I_filter_spec <<choice>> 
+ietf_yang_push_I_selection_filter_types_grouping .. ietf_yang_push_I_selection_filter_types_I_filter_spec : choice 
+class "datastore-xpath-filter" as ietf_yang_push_I_selection_filter_types_I_filter_spec_I_datastore_xpath_filter_case <<case>> 
+ietf_yang_push_I_selection_filter_types_I_filter_spec .. ietf_yang_push_I_selection_filter_types_I_filter_spec_I_datastore_xpath_filter_case : choice datastore-xpath-filter
+ietf_yang_push_I_selection_filter_types_I_filter_spec_I_datastore_xpath_filter_case : datastore-xpath-filter : yang:xpath1.0   {if-feature : sn:xpath}
+class "selection-filter-objects" as ietf_yang_push_I_selection_filter_objects_grouping <<(G,Lime) grouping>> 
+class "selection-filter" as ietf_yang_push_I_selection_filter_objects_I_selection_filter <<choice>> 
+ietf_yang_push_I_selection_filter_objects_grouping .. ietf_yang_push_I_selection_filter_objects_I_selection_filter : choice 
+class "by-reference" as ietf_yang_push_I_selection_filter_objects_I_selection_filter_I_by_reference_case <<case>>
+ietf_yang_push_I_selection_filter_objects_I_selection_filter .. ietf_yang_push_I_selection_filter_objects_I_selection_filter_I_by_reference_case  : choice selection-filter
+ietf_yang_push_I_selection_filter_objects_I_selection_filter_I_by_reference_case : selection-filter-ref : selection-filter-ref   {mandatory}
+class "within-subscription" as ietf_yang_push_I_selection_filter_objects_I_selection_filter_I_within_subscription_case <<case>>
+ietf_yang_push_I_selection_filter_objects_I_selection_filter .. ietf_yang_push_I_selection_filter_objects_I_selection_filter_I_within_subscription_case  : choice selection-filter
+ietf_yang_push_I_selection_filter_objects_I_selection_filter_I_within_subscription_case : selection-filter-types {uses} 
+class "update-policy-modifiable" as ietf_yang_push_I_update_policy_modifiable_grouping <<(G,Lime) grouping>> 
+class "update-trigger" as ietf_yang_push_I_update_policy_modifiable_I_update_trigger <<choice>> 
+ietf_yang_push_I_update_policy_modifiable_grouping .. ietf_yang_push_I_update_policy_modifiable_I_update_trigger : choice 
+class "periodic" as ietf_yang_push_I_update_policy_modifiable_I_update_trigger_I_periodic_case <<case>>
+ietf_yang_push_I_update_policy_modifiable_I_update_trigger .. ietf_yang_push_I_update_policy_modifiable_I_update_trigger_I_periodic_case  : choice update-trigger
+class "periodic" as  ietf_yang_push_I_update_policy_modifiable_I_update_trigger_I_periodic_I_periodic <<container>> 
+ietf_yang_push_I_update_policy_modifiable_I_update_trigger_I_periodic_case *-- "0..1" ietf_yang_push_I_update_policy_modifiable_I_update_trigger_I_periodic_I_periodic 
+note bottom of ietf_yang_push_I_update_policy_modifiable_I_update_trigger_I_periodic_I_periodic
+<b>Presence: </b>indicates a periodic subscription
+end note 
+ietf_yang_push_I_update_policy_modifiable_I_update_trigger_I_periodic_I_periodic : period : centiseconds   {mandatory}
+ietf_yang_push_I_update_policy_modifiable_I_update_trigger_I_periodic_I_periodic : anchor-time : yang:date-and-time  
+class "on-change" as ietf_yang_push_I_update_policy_modifiable_I_update_trigger_I_on_change_case <<case>>
+ietf_yang_push_I_update_policy_modifiable_I_update_trigger .. ietf_yang_push_I_update_policy_modifiable_I_update_trigger_I_on_change_case  : choice update-trigger
+note bottom of ietf_yang_push_I_update_policy_modifiable_I_update_trigger_I_on_change_case
+<b>if-feature: </b>on-change
+end note 
+class "on-change" as  ietf_yang_push_I_update_policy_modifiable_I_update_trigger_I_on_change_I_on_change <<container>> 
+ietf_yang_push_I_update_policy_modifiable_I_update_trigger_I_on_change_case *-- "0..1" ietf_yang_push_I_update_policy_modifiable_I_update_trigger_I_on_change_I_on_change 
+note bottom of ietf_yang_push_I_update_policy_modifiable_I_update_trigger_I_on_change_I_on_change
+<b>Presence: </b>indicates an on-change subscription
+end note 
+ietf_yang_push_I_update_policy_modifiable_I_update_trigger_I_on_change_I_on_change : dampening-period : centiseconds   = 0 
+class "update-policy" as ietf_yang_push_I_update_policy_grouping <<(G,Lime) grouping>> 
+ietf_yang_push_I_update_policy_grouping : update-policy-modifiable {uses} 
+class "hints" as ietf_yang_push_I_hints_grouping <<(G,Lime) grouping>> 
+ietf_yang_push_I_hints_grouping : period-hint : centiseconds  
+ietf_yang_push_I_hints_grouping : filter-failure-hint : string  
+ietf_yang_push_I_hints_grouping : object-count-estimate : uint32  
+ietf_yang_push_I_hints_grouping : object-count-limit : uint32  
+ietf_yang_push_I_hints_grouping : kilobytes-estimate : uint32  
+ietf_yang_push_I_hints_grouping : kilobytes-limit : uint32  
+ietf_yang_push : resync-subscription( in: id)
+class "/sn:establish-subscription/sn:input" as sn_establish_subscription_sn_input << (A,CadetBlue) augment>>
+ietf_yang_push *--  sn_establish_subscription_sn_input 
+sn_establish_subscription_sn_input : update-policy {uses} 
+class "/sn:establish-subscription/sn:input/sn:target" as sn_establish_subscription_sn_input_sn_target << (A,CadetBlue) augment>>
+ietf_yang_push *--  sn_establish_subscription_sn_input_sn_target 
+class "datastore" as ietf_subscribed_notifications_I_establish_subscription_I_input_I_target_I_datastore_case <<case>>
+sn_establish_subscription_sn_input_sn_target .. ietf_subscribed_notifications_I_establish_subscription_I_input_I_target_I_datastore_case  : choice target
+ietf_subscribed_notifications_I_establish_subscription_I_input_I_target_I_datastore_case : datastore-criteria {uses} 
+class "/sn:modify-subscription/sn:input" as sn_modify_subscription_sn_input << (A,CadetBlue) augment>>
+ietf_yang_push *--  sn_modify_subscription_sn_input 
+sn_modify_subscription_sn_input : update-policy-modifiable {uses} 
+class "/sn:modify-subscription/sn:input/sn:target" as sn_modify_subscription_sn_input_sn_target << (A,CadetBlue) augment>>
+ietf_yang_push *--  sn_modify_subscription_sn_input_sn_target 
+class "datastore" as ietf_subscribed_notifications_I_modify_subscription_I_input_I_target_I_datastore_case <<case>>
+sn_modify_subscription_sn_input_sn_target .. ietf_subscribed_notifications_I_modify_subscription_I_input_I_target_I_datastore_case  : choice target
+ietf_subscribed_notifications_I_modify_subscription_I_input_I_target_I_datastore_case : datastore-criteria {uses} 
+class "push-update" as ietf_yang_push_I_push_update << (N,#00D1B2) notification>> 
+ietf_yang_push -- ietf_yang_push_I_push_update : notification 
+ietf_yang_push_I_push_update : id : sn:subscription-id  
+ietf_yang_push_I_push_update : incomplete-update : empty  
+class "push-change-update" as ietf_yang_push_I_push_change_update << (N,#00D1B2) notification>> 
+ietf_yang_push -- ietf_yang_push_I_push_change_update : notification 
+note bottom of ietf_yang_push_I_push_change_update
+<b>if-feature: </b>on-change
+end note 
+ietf_yang_push_I_push_change_update : id : sn:subscription-id  
+class "datastore-changes" as  ietf_yang_push_I_push_change_update_I_datastore_changes <<container>> 
+ietf_yang_push_I_push_change_update *-- "1" ietf_yang_push_I_push_change_update_I_datastore_changes 
+ietf_yang_push_I_push_change_update_I_datastore_changes : ypatch:yang-patch {uses} 
+ietf_yang_push_I_push_change_update : incomplete-update : empty  
+class "/sn:subscription-started" as sn_subscription_started << (A,CadetBlue) augment>>
+ietf_yang_push *--  sn_subscription_started 
+sn_subscription_started : update-policy {uses} 
+class "/sn:subscription-started/sn:target" as sn_subscription_started_sn_target << (A,CadetBlue) augment>>
+ietf_yang_push *--  sn_subscription_started_sn_target 
+class "datastore" as ietf_subscribed_notifications_I_subscription_started_I_target_I_datastore_case <<case>>
+sn_subscription_started_sn_target .. ietf_subscribed_notifications_I_subscription_started_I_target_I_datastore_case  : choice target
+ietf_subscribed_notifications_I_subscription_started_I_target_I_datastore_case : datastore-criteria {uses} 
+class "/sn:subscription-modified" as sn_subscription_modified << (A,CadetBlue) augment>>
+ietf_yang_push *--  sn_subscription_modified 
+sn_subscription_modified : update-policy {uses} 
+class "/sn:subscription-modified/sn:target" as sn_subscription_modified_sn_target << (A,CadetBlue) augment>>
+ietf_yang_push *--  sn_subscription_modified_sn_target 
+class "datastore" as ietf_subscribed_notifications_I_subscription_modified_I_target_I_datastore_case <<case>>
+sn_subscription_modified_sn_target .. ietf_subscribed_notifications_I_subscription_modified_I_target_I_datastore_case  : choice target
+ietf_subscribed_notifications_I_subscription_modified_I_target_I_datastore_case : datastore-criteria {uses} 
+class "/sn:filters" as sn_filters << (A,CadetBlue) augment>>
+ietf_yang_push *--  sn_filters 
+class "selection-filter" as ietf_subscribed_notifications_I_filters_I_selection_filter << (L, #FF7700) list>> 
+sn_filters *-- "0..N" ietf_subscribed_notifications_I_filters_I_selection_filter 
+ietf_subscribed_notifications_I_filters_I_selection_filter : +filter-id : string  {key} 
+ietf_subscribed_notifications_I_filters_I_selection_filter : selection-filter-types {uses} 
+class "/sn:subscriptions/sn:subscription" as sn_subscriptions_sn_subscription << (A,CadetBlue) augment>>
+ietf_yang_push *--  sn_subscriptions_sn_subscription 
+note bottom of sn_subscriptions_sn_subscription
+<b>When: </b>yp:datastore
+end note 
+sn_subscriptions_sn_subscription : update-policy {uses} 
+class "/sn:subscriptions/sn:subscription/sn:target" as sn_subscriptions_sn_subscription_sn_target << (A,CadetBlue) augment>>
+ietf_yang_push *--  sn_subscriptions_sn_subscription_sn_target 
+class "datastore" as ietf_subscribed_notifications_I_subscriptions_I_subscription_I_target_I_datastore_case <<case>>
+sn_subscriptions_sn_subscription_sn_target .. ietf_subscribed_notifications_I_subscriptions_I_subscription_I_target_I_datastore_case  : choice target
+ietf_subscribed_notifications_I_subscriptions_I_subscription_I_target_I_datastore_case : datastore-criteria {uses} 
+class "sn:establish-subscription-error" as sn_establish_subscription_error_identity << (I,Silver) identity>> 
+class "resync-subscription-error" as yp_resync_subscription_error_identity << (I,Silver) identity>> 
+class "cant-exclude" as yp_cant_exclude_identity << (I,Silver) identity>> 
+sn_establish_subscription_error_identity <|-- yp_cant_exclude_identity 
+class "datastore-not-subscribable" as yp_datastore_not_subscribable_identity << (I,Silver) identity>> 
+sn_establish_subscription_error_identity <|-- yp_datastore_not_subscribable_identity 
+class "no-such-subscription-resync" as yp_no_such_subscription_resync_identity << (I,Silver) identity>> 
+yp_resync_subscription_error_identity <|-- yp_no_such_subscription_resync_identity 
+class "on-change-unsupported" as yp_on_change_unsupported_identity << (I,Silver) identity>> 
+sn_establish_subscription_error_identity <|-- yp_on_change_unsupported_identity 
+class "on-change-sync-unsupported" as yp_on_change_sync_unsupported_identity << (I,Silver) identity>> 
+sn_establish_subscription_error_identity <|-- yp_on_change_sync_unsupported_identity 
+class "period-unsupported" as yp_period_unsupported_identity << (I,Silver) identity>> 
+sn_establish_subscription_error_identity <|-- yp_period_unsupported_identity 
+class "update-too-big" as yp_update_too_big_identity << (I,Silver) identity>> 
+sn_establish_subscription_error_identity <|-- yp_update_too_big_identity 
+class "sync-too-big" as yp_sync_too_big_identity << (I,Silver) identity>> 
+sn_establish_subscription_error_identity <|-- yp_sync_too_big_identity 
+class "unchanging-selection" as yp_unchanging_selection_identity << (I,Silver) identity>> 
+sn_establish_subscription_error_identity <|-- yp_unchanging_selection_identity 
+} 
+
+yang_ietf_yang_types +-- yp_ietf_yang_push
+sn_ietf_subscribed_notifications +-- yp_ietf_yang_push
+ds_ietf_datastores +-- yp_ietf_yang_push
+rc_ietf_restconf +-- yp_ietf_yang_push
+ypatch_ietf_yang_patch +-- yp_ietf_yang_push
+
+package "ds:ietf-datastores" as ds_ietf_datastores { 
+} 
+note top of ds_ietf_datastores : <b>Namespace: </b> urn:ietf:params:xml:ns:yang:ietf-datastores \n<b>Prefix: </b> ds \n<b>Organization : </b>\nIETF Network Modeling (NETMOD) Working Group \n<b>Contact : </b>\nWG Web:   <https://datatracker.ietf.org/wg/netmod/> \n \nWG List:  <mailto:netmod@ietf.org> \n \nAuthor:   Martin Bjorklund \n          <mailto:mbj@tail-f.com> \n \nAuthor:   Juergen Schoenwaelder \n          <mailto:j.schoenwaelder@jacobs-university.de> \n \nAuthor:   Phil Shafer \n          <mailto:phil@juniper.net> \n \nAuthor:   Kent Watsen \n          <mailto:kwatsen@juniper.net> \n \nAuthor:   Rob Wilton \n          <rwilton@cisco.com> \n<b>Revision : </b> 2018-02-14 \n
+
+package "ds:ietf-datastores" as ds_ietf_datastores { 
+class "ietf-datastores" as ietf_datastores << (M, #33CCFF) module>> 
+class "datastore-ref" as ds_datastore_ref_typedef << (T, YellowGreen) typedef>>
+ds_datastore_ref_typedef : identityref {datastore}
+class "datastore" as ds_datastore_identity << (I,Silver) identity>> 
+class "conventional" as ds_conventional_identity << (I,Silver) identity>> 
+ds_datastore_identity <|-- ds_conventional_identity 
+class "running" as ds_running_identity << (I,Silver) identity>> 
+ds_conventional_identity <|-- ds_running_identity 
+class "candidate" as ds_candidate_identity << (I,Silver) identity>> 
+ds_conventional_identity <|-- ds_candidate_identity 
+class "startup" as ds_startup_identity << (I,Silver) identity>> 
+ds_conventional_identity <|-- ds_startup_identity 
+class "intended" as ds_intended_identity << (I,Silver) identity>> 
+ds_conventional_identity <|-- ds_intended_identity 
+class "dynamic" as ds_dynamic_identity << (I,Silver) identity>> 
+ds_datastore_identity <|-- ds_dynamic_identity 
+class "operational" as ds_operational_identity << (I,Silver) identity>> 
+ds_datastore_identity <|-- ds_operational_identity 
+ds_datastore_ref_typedef-->ds_datastore_identity : datastore-ref
+} 
+
+ietf_yang_push_I_datastore_criteria_grouping --> ietf_yang_push_I_selection_filter_objects_grouping : uses 
+ietf_yang_push_I_selection_filter_objects_I_selection_filter_I_within_subscription_case --> ietf_yang_push_I_selection_filter_types_grouping : uses 
+ietf_yang_push_I_update_policy_grouping --> ietf_yang_push_I_update_policy_modifiable_grouping : uses 
+sn_establish_subscription_sn_input --> ietf_yang_push_I_update_policy_grouping : uses 
+ietf_subscribed_notifications_I_establish_subscription_I_input_I_target_I_datastore_case --> ietf_yang_push_I_datastore_criteria_grouping : uses 
+sn_modify_subscription_sn_input --> ietf_yang_push_I_update_policy_modifiable_grouping : uses 
+ietf_subscribed_notifications_I_modify_subscription_I_input_I_target_I_datastore_case --> ietf_yang_push_I_datastore_criteria_grouping : uses 
+sn_subscription_started --> ietf_yang_push_I_update_policy_grouping : uses 
+ietf_subscribed_notifications_I_subscription_started_I_target_I_datastore_case --> ietf_yang_push_I_datastore_criteria_grouping : uses 
+sn_subscription_modified --> ietf_yang_push_I_update_policy_grouping : uses 
+ietf_subscribed_notifications_I_subscription_modified_I_target_I_datastore_case --> ietf_yang_push_I_datastore_criteria_grouping : uses 
+ietf_subscribed_notifications_I_filters_I_selection_filter --> ietf_yang_push_I_selection_filter_types_grouping : uses 
+sn_subscriptions_sn_subscription --> ietf_yang_push_I_update_policy_grouping : uses 
+ietf_subscribed_notifications_I_subscriptions_I_subscription_I_target_I_datastore_case --> ietf_yang_push_I_datastore_criteria_grouping : uses 
+yp_selection_filter_ref_typedef-->"yp:filter-id"ietf_subscribed_notifications_I_filters_I_selection_filter: selection-filter-ref
+ietf_yang_push_I_datastore_criteria_grouping-->ds_datastore_identity : datastore
+center footer
+ <size:20> UML Generated : 2023-11-06 17:23 </size>
+ endfooter 
+@enduml 

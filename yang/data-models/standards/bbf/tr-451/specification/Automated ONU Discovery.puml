@@ -1,0 +1,25 @@
+@startuml
+'comment: Successful ONU automatic discovery
+skinparam maxMessageSize 100
+participant ONU
+participant OLT
+participant vOLTMF
+participant vOMCIFunction
+participant Access_SDN_M_C
+hide footbox
+
+note over ONU, OLT
+The ONU has entered O5-06 state
+end note
+
+OLT -> vOLTMF: 1)ONU state change notification(including serial number and optional PLOAM password)
+vOLTMF -> vOLTMF: 2) Identifies vOMCIFunction function to obtain device and software information
+group 3) Get ME operation for SW and Hardware properties of the ONU
+vOLTMF -> vOMCIFunction: 3a) vOLTMF sends a GetData request for the device information including the software version
+vOMCIFunction -> ONU: 3b) ONU-G ME get operation from clause 9.1.1
+vOMCIFunction -> ONU: 3c) ONU2-G ME get operation from clause 9.1.2
+vOMCIFunction -> ONU: 3d) Software image ME get operation from clause 9.1.4
+vOMCIFunction -> vOLTMF: 3e) GetDataResp response for the ONU device info
+end
+vOLTMF -> Access_SDN_M_C: 4) Report successful automatically discovered ONU that includes information about ONU device and software information obtained in the get response to the Access SDN M_C
+@enduml

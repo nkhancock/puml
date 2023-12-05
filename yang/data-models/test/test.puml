@@ -1,0 +1,13 @@
+@startuml
+
+package "Package A" as pkg_a {
+}
+package "Package B" as pkg_b {
+}
+
+package "Package C" as pkg_c {
+pkg_a +-- pkg_c
+pkg_b +-- pkg_c
+}
+
+@enduml

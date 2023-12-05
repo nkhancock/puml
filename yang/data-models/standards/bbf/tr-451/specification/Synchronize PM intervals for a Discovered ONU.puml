@@ -1,0 +1,27 @@
+@startuml
+'comment: Synchronize PM interval
+skinparam maxMessageSize 100
+participant ONU
+participant OLT
+participant vOLTMF
+participant vOMCIFunction
+participant Access_SDN_M_C
+hide footbox
+
+note over ONU, OLT
+The ONU has entered O5-06 state
+end note
+
+OLT -> vOLTMF: 1) ONU state change notification(include serial number and optional PLOAM password)
+vOLTMF -> vOMCIFunction: 2) Action: set-onu-communication
+vOMCIFunction -> ONU: 3) Get MIB data sync
+vOMCIFunction -> vOLTMF: 4) Report configuration alignment result
+group 5) if configuration misaligned
+vOLTMF -> vOMCIFunction: 5a) ReplaceConfig to upload ONU configuration
+vOMCIFunction -> ONU: 5b) MibUpLoad
+vOMCIFunction -> ONU:  5c) OMCI configuration provisioning
+vOMCIFunction -> ONU: 5d) OMCI synchronize time message from clause A.2.33
+vOMCIFunction -> vOLTMF: 5e) ONU ReplaceConfig complete response
+end
+vOLTMF -> Access_SDN_M_C: 6) Report configured ONU online is done
+@enduml

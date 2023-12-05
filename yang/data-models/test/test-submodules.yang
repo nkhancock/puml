@@ -1,0 +1,10 @@
+module test-submodules {
+  namespace "http://www.example.com/ns/yang/test-submodules";
+  prefix tst-subs;
+  revision 2023-11-09 {
+    description
+      "Initial revision.";
+    reference
+      "None.";
+  }
+}

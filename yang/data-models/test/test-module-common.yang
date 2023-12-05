@@ -1,0 +1,14 @@
+module test-module-common {
+  namespace "http://www.example.com/ns/yang/test-module-common";
+  prefix tst-mod-c;
+  revision 2023-07-17 {
+    description
+      "Initial revision.";
+    reference
+      "None.";
+  }
+  identity base-identity {
+    description
+      "...";
+  }
+}

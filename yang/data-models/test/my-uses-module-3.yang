@@ -1,0 +1,63 @@
+module my-uses-module-3 {
+  /* Delete all generated comments when finished */
+  namespace "http://www.adtran.com/ns/yang/my-uses-module-3";
+  /* Prefix - make this shorter if possible */
+  prefix my-uses-md-3; 
+
+  /* Imports */
+  import my-grouping-module-3 {
+    prefix my-grp-md;
+  }
+
+  /* Includes */
+
+  organization
+    "Adtran, Inc.";
+
+  contact
+    "<http://www.adtran.com/>";
+
+  description
+    "<INSERT A DESCRIPTION OF THE OVERALL INTENTION OF THE MODEL>
+
+     Copyright (c) 2023 Adtran, Inc.  All rights reserved.";
+
+  revision 2023-06-23 {
+    description
+      "Initial revision.";
+    reference
+      "None.";
+  }
+
+  /* Features */
+
+  /* Identities */
+
+  /* Typedefs */
+
+  /* Groupings */
+  container container-3 {
+    description
+      "Another container.";
+      
+    grouping a-scoped-grouping {
+      description
+        "Bla bla.";
+      leaf a-string {
+        type string;
+        description
+          "Bla, bla.";
+      }
+    }
+    uses my-grp-md:grouping-in-module-3;
+    
+    
+  }
+
+  /* Containers */
+
+  /* RPCs */
+
+  /* Notifications */
+
+}

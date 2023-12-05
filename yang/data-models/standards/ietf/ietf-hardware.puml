@@ -1,0 +1,166 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/ietf-hardware.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title ietf-hardware 
+package "inet:ietf-inet-types" as inet_ietf_inet_types { 
+} 
+package "yang:ietf-yang-types" as yang_ietf_yang_types { 
+} 
+package "ianahw:iana-hardware" as ianahw_iana_hardware { 
+} 
+package "hw:ietf-hardware" as hw_ietf_hardware { 
+} 
+note top of hw_ietf_hardware : <b>Namespace: </b> urn:ietf:params:xml:ns:yang:ietf-hardware \n<b>Prefix: </b> hw \n<b>Organization : </b>\nIETF NETMOD (Network Modeling) Working Group \n<b>Contact : </b>\nWG Web:   <https://datatracker.ietf.org/wg/netmod/> \nWG List:  <mailto:netmod@ietf.org> \n \nEditor:   Andy Bierman \n          <mailto:andy@yumaworks.com> \n \nEditor:   Martin Bjorklund \n          <mailto:mbj@tail-f.com> \n \nEditor:   Jie Dong \n          <mailto:jie.dong@huawei.com> \n \nEditor:   Dan Romascanu \n          <mailto:dromasca@gmail.com> \n<b>Revision : </b> 2018-03-13 \n
+package "hw:ietf-hardware" as hw_ietf_hardware { 
+class "ietf-hardware" as ietf_hardware << (M, #33CCFF) module>> 
+ietf_hardware : feature : entity-mib 
+ietf_hardware : feature : hardware-state 
+ietf_hardware : feature : hardware-sensor 
+enum "admin-state" as ietf_hardware_I_admin_state {
+unknown
+locked
+shutting-down
+MORE
+}
+enum "oper-state" as ietf_hardware_I_oper_state {
+unknown
+disabled
+enabled
+MORE
+}
+enum "usage-state" as ietf_hardware_I_usage_state {
+unknown
+idle
+active
+MORE
+}
+class "alarm-state" as alarm_state << (T, YellowGreen) typedef>>
+alarm_state : bits
+enum "standby-state" as ietf_hardware_I_standby_state {
+unknown
+hot-standby
+cold-standby
+MORE
+}
+enum "sensor-value-type" as ietf_hardware_I_sensor_value_type {
+other
+unknown
+volts-AC
+MORE
+}
+enum "sensor-value-scale" as ietf_hardware_I_sensor_value_scale {
+yocto
+zepto
+atto
+MORE
+}
+class "sensor-value-precision" as sensor_value_precision << (T, YellowGreen) typedef>>
+sensor_value_precision : int8 [-8 .. 9]
+class "sensor-value" as sensor_value << (T, YellowGreen) typedef>>
+sensor_value : int32 [-1000000000 .. 1000000000]
+enum "sensor-status" as ietf_hardware_I_sensor_status {
+ok
+unavailable
+nonoperational
+}
+class "hardware" as  ietf_hardware_I_hardware <<container>> 
+ietf_hardware *-- "1" ietf_hardware_I_hardware 
+ietf_hardware_I_hardware : last-change : yang:date-and-time   {Config : false}
+class "component" as ietf_hardware_I_hardware_I_component << (L, #FF7700) list>> 
+ietf_hardware_I_hardware *-- "0..N" ietf_hardware_I_hardware_I_component 
+ietf_hardware_I_hardware_I_component : +name : string  {key} 
+ietf_hardware_I_hardware_I_component : class : identityref {ianahw:hardware-class}   {mandatory}
+ietf_hardware_I_hardware_I_component : physical-index : int32 [1..2147483647]   {Config : false} {if-feature : entity-mib}
+ietf_hardware_I_hardware_I_component : description : string   {Config : false}
+ietf_hardware_I_hardware_I_component : parent : leafref : ../../component/name  
+ietf_hardware_I_hardware_I_component : parent-rel-pos : int32 [0 .. 2147483647]  
+ietf_hardware_I_hardware_I_component : contains-child []: leafref : ../../component/name  {Config : false}
+ietf_hardware_I_hardware_I_component : hardware-rev : string   {Config : false}
+ietf_hardware_I_hardware_I_component : firmware-rev : string   {Config : false}
+ietf_hardware_I_hardware_I_component : software-rev : string   {Config : false}
+ietf_hardware_I_hardware_I_component : serial-num : string   {Config : false}
+ietf_hardware_I_hardware_I_component : mfg-name : string   {Config : false}
+ietf_hardware_I_hardware_I_component : model-name : string   {Config : false}
+ietf_hardware_I_hardware_I_component : alias : string  
+ietf_hardware_I_hardware_I_component : asset-id : string  
+ietf_hardware_I_hardware_I_component : is-fru : boolean   {Config : false}
+ietf_hardware_I_hardware_I_component : mfg-date : yang:date-and-time   {Config : false}
+ietf_hardware_I_hardware_I_component : uri []: inet:uri 
+ietf_hardware_I_hardware_I_component : uuid : yang:uuid   {Config : false}
+class "state" as  ietf_hardware_I_hardware_I_component_I_state <<container>> 
+ietf_hardware_I_hardware_I_component *-- "1" ietf_hardware_I_hardware_I_component_I_state 
+note bottom of ietf_hardware_I_hardware_I_component_I_state
+<b>if-feature: </b>hardware-state
+end note 
+ietf_hardware_I_hardware_I_component_I_state : state-last-changed : yang:date-and-time   {Config : false}
+ietf_hardware_I_hardware_I_component_I_state : admin-state : admin-state  
+ietf_hardware_I_hardware_I_component_I_state : oper-state : oper-state   {Config : false}
+ietf_hardware_I_hardware_I_component_I_state : usage-state : usage-state   {Config : false}
+ietf_hardware_I_hardware_I_component_I_state : alarm-state : alarm-state   {Config : false}
+ietf_hardware_I_hardware_I_component_I_state : standby-state : standby-state   {Config : false}
+class "sensor-data" as  ietf_hardware_I_hardware_I_component_I_sensor_data <<container>> 
+ietf_hardware_I_hardware_I_component *-- "1" ietf_hardware_I_hardware_I_component_I_sensor_data 
+note bottom of ietf_hardware_I_hardware_I_component_I_sensor_data
+<b>When: </b>derived-from-or-self(../class,
+                                   "ianahw:sensor")
+end note 
+note bottom of ietf_hardware_I_hardware_I_component_I_sensor_data
+<b>if-feature: </b>hardware-sensor
+end note 
+note bottom of ietf_hardware_I_hardware_I_component_I_sensor_data
+<b>Config = </b>false
+end note 
+ietf_hardware_I_hardware_I_component_I_sensor_data : value : sensor-value  
+ietf_hardware_I_hardware_I_component_I_sensor_data : value-type : sensor-value-type  
+ietf_hardware_I_hardware_I_component_I_sensor_data : value-scale : sensor-value-scale  
+ietf_hardware_I_hardware_I_component_I_sensor_data : value-precision : sensor-value-precision  
+ietf_hardware_I_hardware_I_component_I_sensor_data : oper-status : sensor-status  
+ietf_hardware_I_hardware_I_component_I_sensor_data : units-display : string  
+ietf_hardware_I_hardware_I_component_I_sensor_data : value-timestamp : yang:date-and-time  
+ietf_hardware_I_hardware_I_component_I_sensor_data : value-update-rate : uint32   {milliseconds}
+class "hardware-state-change" as ietf_hardware_I_hardware_state_change << (N,#00D1B2) notification>> 
+ietf_hardware -- ietf_hardware_I_hardware_state_change : notification 
+class "hardware-state-oper-enabled" as ietf_hardware_I_hardware_state_oper_enabled << (N,#00D1B2) notification>> 
+ietf_hardware -- ietf_hardware_I_hardware_state_oper_enabled : notification 
+note bottom of ietf_hardware_I_hardware_state_oper_enabled
+<b>if-feature: </b>hardware-state
+end note 
+ietf_hardware_I_hardware_state_oper_enabled : +name : leafref : /hardware/component/name  {key} 
+ietf_hardware_I_hardware_state_oper_enabled : admin-state : leafref : /hardware/component/state/admin-state  
+ietf_hardware_I_hardware_state_oper_enabled : alarm-state : leafref : /hardware/component/state/alarm-state  
+class "hardware-state-oper-disabled" as ietf_hardware_I_hardware_state_oper_disabled << (N,#00D1B2) notification>> 
+ietf_hardware -- ietf_hardware_I_hardware_state_oper_disabled : notification 
+note bottom of ietf_hardware_I_hardware_state_oper_disabled
+<b>if-feature: </b>hardware-state
+end note 
+ietf_hardware_I_hardware_state_oper_disabled : +name : leafref : /hardware/component/name  {key} 
+ietf_hardware_I_hardware_state_oper_disabled : admin-state : leafref : /hardware/component/state/admin-state  
+ietf_hardware_I_hardware_state_oper_disabled : alarm-state : leafref : /hardware/component/state/alarm-state  
+ietf_hardware_I_hardware_I_component-->ianahw_hardware_class: class
+} 
+
+inet_ietf_inet_types +-- hw_ietf_hardware
+yang_ietf_yang_types +-- hw_ietf_hardware
+ianahw_iana_hardware +-- hw_ietf_hardware
+ietf_hardware_I_hardware_I_component-->"name"ietf_hardware_I_hardware_I_component: parent
+ietf_hardware_I_hardware_I_component-->"name"ietf_hardware_I_hardware_I_component: contains-child
+ietf_hardware_I_hardware_state_oper_enabled-->"name"ietf_hardware_I_hardware_I_component: name
+ietf_hardware_I_hardware_state_oper_enabled-->"admin-state"ietf_hardware_I_hardware_I_component_I_state: admin-state
+ietf_hardware_I_hardware_state_oper_enabled-->"alarm-state"ietf_hardware_I_hardware_I_component_I_state: alarm-state
+ietf_hardware_I_hardware_state_oper_disabled-->"name"ietf_hardware_I_hardware_I_component: name
+ietf_hardware_I_hardware_state_oper_disabled-->"admin-state"ietf_hardware_I_hardware_I_component_I_state: admin-state
+ietf_hardware_I_hardware_state_oper_disabled-->"alarm-state"ietf_hardware_I_hardware_I_component_I_state: alarm-state
+center footer
+ <size:20> UML Generated : 2023-07-21 16:22 </size>
+ endfooter 
+@enduml 

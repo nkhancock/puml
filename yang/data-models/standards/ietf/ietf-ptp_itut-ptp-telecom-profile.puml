@@ -1,0 +1,170 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/ietf-ptp_itut-ptp-telecom-profil.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title ietf-ptp_itut-ptp-telecom-profil 
+package "if:ietf-interfaces" as if_ietf_interfaces { 
+} 
+package "ptp:ietf-ptp" as ptp_ietf_ptp { 
+} 
+package "ptp:ietf-ptp" as ptp_ietf_ptp { 
+class "ietf-ptp" as ietf_ptp << (M, #33CCFF) module>> 
+enum "delay-mechanism-enumeration" as ptp_delay_mechanism_enumeration_typedef <<enumeration>> {
+e2e
+p2p
+disabled
+}
+enum "port-state-enumeration" as ptp_port_state_enumeration_typedef <<enumeration>> {
+initializing
+faulty
+disabled
+listening
+pre-master
+master
+passive
+uncalibrated
+slave
+}
+class "time-interval-type" as ptp_time_interval_type_typedef << (T, YellowGreen) typedef>>
+ptp_time_interval_type_typedef : int64
+class "clock-identity-type" as ptp_clock_identity_type_typedef << (T, YellowGreen) typedef>>
+ptp_clock_identity_type_typedef : binary {length = 8}
+class "ptp" as  ietf_ptp_I_ptp <<container>> 
+ietf_ptp *-- "1" ietf_ptp_I_ptp 
+class "instance-list" as ietf_ptp_I_ptp_I_instance_list << (L, #FF7700) list>> 
+ietf_ptp_I_ptp *-- "0..N" ietf_ptp_I_ptp_I_instance_list 
+ietf_ptp_I_ptp_I_instance_list : +instance-number : uint32  {key} 
+class "default-ds" as  ietf_ptp_I_ptp_I_instance_list_I_default_ds <<container>> 
+ietf_ptp_I_ptp_I_instance_list *-- "1" ietf_ptp_I_ptp_I_instance_list_I_default_ds 
+ietf_ptp_I_ptp_I_instance_list_I_default_ds : two-step-flag : boolean  
+ietf_ptp_I_ptp_I_instance_list_I_default_ds : clock-identity : clock-identity-type   {Config : false}
+ietf_ptp_I_ptp_I_instance_list_I_default_ds : number-ports : uint16  
+class "clock-quality" as  ietf_ptp_I_ptp_I_instance_list_I_default_ds_I_clock_quality <<container>> 
+ietf_ptp_I_ptp_I_instance_list_I_default_ds *-- "1" ietf_ptp_I_ptp_I_instance_list_I_default_ds_I_clock_quality 
+ietf_ptp_I_ptp_I_instance_list_I_default_ds_I_clock_quality : clock-class : uint8   = 248 
+ietf_ptp_I_ptp_I_instance_list_I_default_ds_I_clock_quality : clock-accuracy : uint8  
+ietf_ptp_I_ptp_I_instance_list_I_default_ds_I_clock_quality : offset-scaled-log-variance : uint16  
+ietf_ptp_I_ptp_I_instance_list_I_default_ds : priority1 : uint8  
+ietf_ptp_I_ptp_I_instance_list_I_default_ds : priority2 : uint8  
+ietf_ptp_I_ptp_I_instance_list_I_default_ds : domain-number : uint8  
+ietf_ptp_I_ptp_I_instance_list_I_default_ds : slave-only : boolean  
+class "current-ds" as  ietf_ptp_I_ptp_I_instance_list_I_current_ds <<container>> 
+ietf_ptp_I_ptp_I_instance_list *-- "1" ietf_ptp_I_ptp_I_instance_list_I_current_ds 
+ietf_ptp_I_ptp_I_instance_list_I_current_ds : steps-removed : uint16   = 0 
+ietf_ptp_I_ptp_I_instance_list_I_current_ds : offset-from-master : time-interval-type  
+ietf_ptp_I_ptp_I_instance_list_I_current_ds : mean-path-delay : time-interval-type  
+class "parent-ds" as  ietf_ptp_I_ptp_I_instance_list_I_parent_ds <<container>> 
+ietf_ptp_I_ptp_I_instance_list *-- "1" ietf_ptp_I_ptp_I_instance_list_I_parent_ds 
+class "parent-port-identity" as  ietf_ptp_I_ptp_I_instance_list_I_parent_ds_I_parent_port_identity <<container>> 
+ietf_ptp_I_ptp_I_instance_list_I_parent_ds *-- "1" ietf_ptp_I_ptp_I_instance_list_I_parent_ds_I_parent_port_identity 
+ietf_ptp_I_ptp_I_instance_list_I_parent_ds_I_parent_port_identity : clock-identity : clock-identity-type  
+ietf_ptp_I_ptp_I_instance_list_I_parent_ds_I_parent_port_identity : port-number : uint16  
+ietf_ptp_I_ptp_I_instance_list_I_parent_ds : parent-stats : boolean   = false 
+ietf_ptp_I_ptp_I_instance_list_I_parent_ds : observed-parent-offset-scaled-log-variance : uint16   = 65535 
+ietf_ptp_I_ptp_I_instance_list_I_parent_ds : observed-parent-clock-phase-change-rate : int32  
+ietf_ptp_I_ptp_I_instance_list_I_parent_ds : grandmaster-identity : clock-identity-type  
+class "grandmaster-clock-quality" as  ietf_ptp_I_ptp_I_instance_list_I_parent_ds_I_grandmaster_clock_quality <<container>> 
+ietf_ptp_I_ptp_I_instance_list_I_parent_ds *-- "1" ietf_ptp_I_ptp_I_instance_list_I_parent_ds_I_grandmaster_clock_quality 
+ietf_ptp_I_ptp_I_instance_list_I_parent_ds_I_grandmaster_clock_quality : clock-class : uint8   = 248 
+ietf_ptp_I_ptp_I_instance_list_I_parent_ds_I_grandmaster_clock_quality : clock-accuracy : uint8  
+ietf_ptp_I_ptp_I_instance_list_I_parent_ds_I_grandmaster_clock_quality : offset-scaled-log-variance : uint16  
+ietf_ptp_I_ptp_I_instance_list_I_parent_ds : grandmaster-priority1 : uint8  
+ietf_ptp_I_ptp_I_instance_list_I_parent_ds : grandmaster-priority2 : uint8  
+class "time-properties-ds" as  ietf_ptp_I_ptp_I_instance_list_I_time_properties_ds <<container>> 
+ietf_ptp_I_ptp_I_instance_list *-- "1" ietf_ptp_I_ptp_I_instance_list_I_time_properties_ds 
+ietf_ptp_I_ptp_I_instance_list_I_time_properties_ds : current-utc-offset-valid : boolean  
+ietf_ptp_I_ptp_I_instance_list_I_time_properties_ds : current-utc-offset : int16  
+ietf_ptp_I_ptp_I_instance_list_I_time_properties_ds : leap59 : boolean  
+ietf_ptp_I_ptp_I_instance_list_I_time_properties_ds : leap61 : boolean  
+ietf_ptp_I_ptp_I_instance_list_I_time_properties_ds : time-traceable : boolean  
+ietf_ptp_I_ptp_I_instance_list_I_time_properties_ds : frequency-traceable : boolean  
+ietf_ptp_I_ptp_I_instance_list_I_time_properties_ds : ptp-timescale : boolean  
+ietf_ptp_I_ptp_I_instance_list_I_time_properties_ds : time-source : uint8  
+class "port-ds-list" as ietf_ptp_I_ptp_I_instance_list_I_port_ds_list << (L, #FF7700) list>> 
+ietf_ptp_I_ptp_I_instance_list *-- "0..N" ietf_ptp_I_ptp_I_instance_list_I_port_ds_list 
+ietf_ptp_I_ptp_I_instance_list_I_port_ds_list : +port-number : uint16  {key} 
+ietf_ptp_I_ptp_I_instance_list_I_port_ds_list : port-state : port-state-enumeration   = initializing 
+ietf_ptp_I_ptp_I_instance_list_I_port_ds_list : underlying-interface : if:interface-ref  
+ietf_ptp_I_ptp_I_instance_list_I_port_ds_list : log-min-delay-req-interval : int8  
+ietf_ptp_I_ptp_I_instance_list_I_port_ds_list : peer-mean-path-delay : time-interval-type   = 0 
+ietf_ptp_I_ptp_I_instance_list_I_port_ds_list : log-announce-interval : int8  
+ietf_ptp_I_ptp_I_instance_list_I_port_ds_list : announce-receipt-timeout : uint8  
+ietf_ptp_I_ptp_I_instance_list_I_port_ds_list : log-sync-interval : int8  
+ietf_ptp_I_ptp_I_instance_list_I_port_ds_list : delay-mechanism : delay-mechanism-enumeration  
+ietf_ptp_I_ptp_I_instance_list_I_port_ds_list : log-min-pdelay-req-interval : int8  
+ietf_ptp_I_ptp_I_instance_list_I_port_ds_list : version-number : uint8  
+class "transparent-clock-default-ds" as  ietf_ptp_I_ptp_I_transparent_clock_default_ds <<container>> 
+ietf_ptp_I_ptp *-- "1" ietf_ptp_I_ptp_I_transparent_clock_default_ds 
+ietf_ptp_I_ptp_I_transparent_clock_default_ds : clock-identity : clock-identity-type   {Config : false}
+ietf_ptp_I_ptp_I_transparent_clock_default_ds : number-ports : uint16  
+ietf_ptp_I_ptp_I_transparent_clock_default_ds : delay-mechanism : delay-mechanism-enumeration  
+ietf_ptp_I_ptp_I_transparent_clock_default_ds : primary-domain : uint8   = 0 
+class "transparent-clock-port-ds-list" as ietf_ptp_I_ptp_I_transparent_clock_port_ds_list << (L, #FF7700) list>> 
+ietf_ptp_I_ptp *-- "0..N" ietf_ptp_I_ptp_I_transparent_clock_port_ds_list 
+ietf_ptp_I_ptp_I_transparent_clock_port_ds_list : +port-number : uint16  {key} 
+ietf_ptp_I_ptp_I_transparent_clock_port_ds_list : log-min-pdelay-req-interval : int8  
+ietf_ptp_I_ptp_I_transparent_clock_port_ds_list : faulty-flag : boolean   = false 
+ietf_ptp_I_ptp_I_transparent_clock_port_ds_list : peer-mean-path-delay : time-interval-type   = 0 
+} 
+
+if_ietf_interfaces +-- ptp_ietf_ptp
+package "ptp:ietf-ptp" as ptp_ietf_ptp { 
+} 
+package "ptp-tlp:itut-ptp-telecom-profile" as ptp_tlp_itut_ptp_telecom_profile { 
+} 
+package "ptp-tlp:itut-ptp-telecom-profile" as ptp_tlp_itut_ptp_telecom_profile { 
+class "itut-ptp-telecom-profile" as itut_ptp_telecom_profile << (M, #33CCFF) module>> 
+enum "ptp-telecom-profile-type" as ptp_tlp_ptp_telecom_profile_type_typedef <<enumeration>> {
+G.8265.1
+G.8275.1
+G.8275.2
+}
+enum "G.8275.1-clock-type" as ptp_tlp_G__8275__1_clock_type_typedef <<enumeration>> {
+t-gm
+t-tsc
+t-bc
+}
+enum "G.8275.2-clock-type" as ptp_tlp_G__8275__2_clock_type_typedef <<enumeration>> {
+t-gm
+t-tsc-a
+t-tsc-p
+t-bc-a
+t-bc-p
+}
+class "ptp-telecom-profile" as  ietf_ptp_I_ptp_I_instance_list_I_default_ds_I_ptp_telecom_profile <<container>> 
+ietf_ptp_I_ptp_I_instance_list_I_default_ds *-- "0..1" ietf_ptp_I_ptp_I_instance_list_I_default_ds_I_ptp_telecom_profile 
+ietf_ptp_I_ptp_I_instance_list_I_default_ds_I_ptp_telecom_profile : profile : ptp-telecom-profile-type   {mandatory}
+class "profile-version" as  ietf_ptp_I_ptp_I_instance_list_I_default_ds_I_ptp_telecom_profile_I_profile_version <<container>> 
+ietf_ptp_I_ptp_I_instance_list_I_default_ds_I_ptp_telecom_profile *-- "1" ietf_ptp_I_ptp_I_instance_list_I_default_ds_I_ptp_telecom_profile_I_profile_version 
+ietf_ptp_I_ptp_I_instance_list_I_default_ds_I_ptp_telecom_profile_I_profile_version : primary-version : uint8  
+ietf_ptp_I_ptp_I_instance_list_I_default_ds_I_ptp_telecom_profile_I_profile_version : revision-number : uint8  
+ietf_ptp_I_ptp_I_instance_list_I_default_ds_I_ptp_telecom_profile : clock-type : union{G.8275.1-clock-type, G.8275.2-clock-type}   {mandatory}
+ietf_ptp_I_ptp_I_instance_list_I_default_ds_I_ptp_telecom_profile : local-priority : uint8  
+ietf_ptp_I_ptp_I_instance_list_I_default_ds_I_ptp_telecom_profile : max-steps-removed : uint8  
+class "ptp-telecom-profile" as  ietf_ptp_I_ptp_I_instance_list_I_port_ds_list_I_ptp_telecom_profile <<container>> 
+ietf_ptp_I_ptp_I_instance_list_I_port_ds_list *-- "1" ietf_ptp_I_ptp_I_instance_list_I_port_ds_list_I_ptp_telecom_profile 
+ietf_ptp_I_ptp_I_instance_list_I_port_ds_list_I_ptp_telecom_profile : master-only : uint8  
+ietf_ptp_I_ptp_I_instance_list_I_port_ds_list_I_ptp_telecom_profile : local-priority : uint8  
+ietf_ptp_I_ptp_I_instance_list_I_port_ds_list_I_ptp_telecom_profile : sf : boolean  
+class "ptp-telecom-profile" as  ietf_ptp_I_ptp_I_transparent_clock_default_ds_I_ptp_telecom_profile <<container>> 
+ietf_ptp_I_ptp_I_transparent_clock_default_ds *-- "0..1" ietf_ptp_I_ptp_I_transparent_clock_default_ds_I_ptp_telecom_profile 
+class "profile-version" as  ietf_ptp_I_ptp_I_transparent_clock_default_ds_I_ptp_telecom_profile_I_profile_version <<container>> 
+ietf_ptp_I_ptp_I_transparent_clock_default_ds_I_ptp_telecom_profile *-- "1" ietf_ptp_I_ptp_I_transparent_clock_default_ds_I_ptp_telecom_profile_I_profile_version 
+ietf_ptp_I_ptp_I_transparent_clock_default_ds_I_ptp_telecom_profile_I_profile_version : primary-version : uint8  
+ietf_ptp_I_ptp_I_transparent_clock_default_ds_I_ptp_telecom_profile_I_profile_version : revision-number : uint8  
+} 
+
+ptp_ietf_ptp +-- ptp_tlp_itut_ptp_telecom_profile
+center footer
+ <size:20> UML Generated : 2023-08-07 17:52 </size>
+ endfooter 
+@enduml 

@@ -1,0 +1,57 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/test-notifications.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title test-notifications 
+package "tst-nfc:test-notifications" as tst_nfc_test_notifications { 
+} 
+note top of tst_nfc_test_notifications : <b>Namespace: </b> http://www.example.com/ns/yang/test-notifications \n<b>Prefix: </b> tst-nfc \n<b>Revision : </b> 2023-07-21 \n
+package "tst-nfc:test-notifications" as tst_nfc_test_notifications { 
+class "test-notifications" as test_notifications << (M, #33CCFF) module>> 
+class "notificatication-grouping" as test_notifications_I_notificatication_grouping_grouping <<(G,Lime) grouping>> 
+class "grp-nfc" as test_notifications_I_notificatication_grouping_I_grp_nfc << (N,#00D1B2) notification>> 
+test_notifications_I_notificatication_grouping_grouping -- test_notifications_I_notificatication_grouping_I_grp_nfc : notification 
+test_notifications_I_notificatication_grouping_I_grp_nfc : binary-leaf : binary  
+class "container-a" as  test_notifications_I_container_a <<container>> 
+test_notifications *-- "1" test_notifications_I_container_a 
+class "list-a" as test_notifications_I_container_a_I_list_a << (L, #FF7700) list>> 
+test_notifications_I_container_a *-- "0..N" test_notifications_I_container_a_I_list_a 
+test_notifications_I_container_a_I_list_a : +name : string  {key} 
+class "list-a-nfc" as test_notifications_I_container_a_I_list_a_I_list_a_nfc << (N,#00D1B2) notification>> 
+test_notifications_I_container_a_I_list_a -- test_notifications_I_container_a_I_list_a_I_list_a_nfc : notification 
+test_notifications_I_container_a_I_list_a_I_list_a_nfc : binary-leaf : binary  
+class "container-3" as  test_notifications_I_container_a_I_list_a_I_list_a_nfc_I_container_3 <<container>> 
+test_notifications_I_container_a_I_list_a_I_list_a_nfc *-- "1" test_notifications_I_container_a_I_list_a_I_list_a_nfc_I_container_3 
+test_notifications_I_container_a_I_list_a_I_list_a_nfc_I_container_3 : another-leaf : string  
+test_notifications_I_container_a_I_list_a_I_list_a_nfc_I_container_3 : b-list-ref : leafref : /tst-nfc:container-b/tst-nfc:list-b/tst-nfc:name  
+class "container-b" as  test_notifications_I_container_b <<container>> 
+test_notifications *-- "1" test_notifications_I_container_b 
+class "list-b" as test_notifications_I_container_b_I_list_b << (L, #FF7700) list>> 
+test_notifications_I_container_b *-- "0..N" test_notifications_I_container_b_I_list_b 
+test_notifications_I_container_b_I_list_b : +name : string  {key} 
+test_notifications_I_container_b_I_list_b : notificatication-grouping {uses} 
+class "top-level-nfc" as test_notifications_I_top_level_nfc << (N,#00D1B2) notification>> 
+test_notifications -- test_notifications_I_top_level_nfc : notification 
+class "container-4" as  test_notifications_I_top_level_nfc_I_container_4 <<container>> 
+test_notifications_I_top_level_nfc *-- "1" test_notifications_I_top_level_nfc_I_container_4 
+test_notifications_I_top_level_nfc_I_container_4 : a-leaf : uint32  
+test_notifications_I_top_level_nfc_I_container_4 : list-b-ref : leafref : /tst-nfc:container-b/tst-nfc:list-b/tst-nfc:name  
+test_notifications_I_top_level_nfc : just-a-leaf : string  
+} 
+
+test_notifications_I_container_b_I_list_b --> test_notifications_I_notificatication_grouping_grouping : uses 
+test_notifications_I_container_a_I_list_a_I_list_a_nfc_I_container_3-->"tst-nfc:name"test_notifications_I_container_b_I_list_b: b-list-ref
+test_notifications_I_top_level_nfc_I_container_4-->"tst-nfc:name"test_notifications_I_container_b_I_list_b: list-b-ref
+center footer
+ <size:20> UML Generated : 2023-11-03 12:36 </size>
+ endfooter 
+@enduml 

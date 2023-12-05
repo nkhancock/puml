@@ -1,0 +1,85 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/%filename() (PlantUML %version()).png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title %filename() (PlantUML %version()) 
+center header
+ <size:48> %date('dd MMM yyyy HH:mm:ss') </size>
+ endheader 
+package "tst-aug-1a:test-augments-1a" as tst_aug_1a_test_augments_1a { 
+} 
+package "tst-aug-1a:test-augments-1a" as tst_aug_1a_test_augments_1a { 
+class "test-augments-1a" as test_augments_1a << (M, #33CCFF) module>> 
+class "container-a" as  test_augments_1a_I_container_a <<container>> 
+test_augments_1a *-- "1" test_augments_1a_I_container_a 
+class "list-a" as test_augments_1a_I_container_a_I_list_a << (L, #FF7700) list>> 
+test_augments_1a_I_container_a *-- "0..N" test_augments_1a_I_container_a_I_list_a 
+test_augments_1a_I_container_a_I_list_a : +name : string  {key} 
+class "a-choice" as test_augments_1a_I_container_a_I_list_a_I_a_choice <<choice>> 
+test_augments_1a_I_container_a_I_list_a *-- test_augments_1a_I_container_a_I_list_a_I_a_choice : choice 
+class "case-a" as test_augments_1a_I_container_a_I_list_a_I_a_choice_I_case_a_case <<case>>
+test_augments_1a_I_container_a_I_list_a_I_a_choice <|-- test_augments_1a_I_container_a_I_list_a_I_a_choice_I_case_a_case  : choice a-choice
+test_augments_1a_I_container_a_I_list_a_I_a_choice_I_case_a_case : case-a : empty  
+class "list-a-nfc" as test_augments_1a_I_container_a_I_list_a_I_list_a_nfc << (N,#00D1B2) notification>> 
+test_augments_1a_I_container_a_I_list_a -- test_augments_1a_I_container_a_I_list_a_I_list_a_nfc : notification 
+test_augments_1a_I_container_a_I_list_a_I_list_a_nfc : binary-leaf : binary  
+class "container-3" as  test_augments_1a_I_container_a_I_list_a_I_list_a_nfc_I_container_3 <<container>> 
+test_augments_1a_I_container_a_I_list_a_I_list_a_nfc *-- "1" test_augments_1a_I_container_a_I_list_a_I_list_a_nfc_I_container_3 
+test_augments_1a_I_container_a_I_list_a_I_list_a_nfc_I_container_3 : another-leaf : string  
+test_augments_1a_I_container_a_I_list_a_I_list_a_nfc_I_container_3 : b-list-ref : leafref : /tst-aug-1a:container-b/tst-aug-1a:list-b/tst-aug-1a:name  
+class "container-b" as  test_augments_1a_I_container_b <<container>> 
+test_augments_1a *-- "1" test_augments_1a_I_container_b 
+class "list-b" as test_augments_1a_I_container_b_I_list_b << (L, #FF7700) list>> 
+test_augments_1a_I_container_b *-- "0..N" test_augments_1a_I_container_b_I_list_b 
+test_augments_1a_I_container_b_I_list_b : +name : string  {key} 
+test_augments_1a_I_container_b_I_list_b : binary-leaf : binary  
+class "top-level-nfc" as test_augments_1a_I_top_level_nfc << (N,#00D1B2) notification>> 
+test_augments_1a -- test_augments_1a_I_top_level_nfc : notification 
+class "container-4" as  test_augments_1a_I_top_level_nfc_I_container_4 <<container>> 
+test_augments_1a_I_top_level_nfc *-- "1" test_augments_1a_I_top_level_nfc_I_container_4 
+test_augments_1a_I_top_level_nfc_I_container_4 : a-leaf : uint32  
+test_augments_1a_I_top_level_nfc_I_container_4 : list-b-ref : leafref : /tst-aug-1a:container-b/tst-aug-1a:list-b/tst-aug-1a:name  
+test_augments_1a_I_top_level_nfc : just-a-leaf : string  
+} 
+
+package "tst-aug-1a:test-augments-1a" as tst_aug_1a_test_augments_1a { 
+} 
+package "tst-aug-2a:test-augments-2a" as tst_aug_2a_test_augments_2a { 
+} 
+package "tst-aug-2a:test-augments-2a" as tst_aug_2a_test_augments_2a { 
+class "test-augments-2a" as test_augments_2a << (M, #33CCFF) module>> 
+class "list-a" as test_augments_1a_I_container_a_I_list_a << (L, #FF7700) list>> 
+test_augments_1a_I_container_a *-- "0..N" test_augments_1a_I_container_a_I_list_a 
+test_augments_1a_I_container_a_I_list_a : augmented-leaf : string  
+class "top-level-nfc" as test_augments_1a_I_top_level_nfc << (N,#00D1B2) notification>> 
+test_augments_1a -- test_augments_1a_I_top_level_nfc : notification 
+test_augments_1a_I_top_level_nfc : just-an-augmented-leaf : string  
+class "a-choice" as test_augments_1a_I_container_a_I_list_a_I_a_choice <<choice>> 
+test_augments_1a_I_container_a_I_list_a *-- test_augments_1a_I_container_a_I_list_a_I_a_choice : choice 
+class "case-b" as test_augments_1a_I_container_a_I_list_a_I_a_choice_I_case_b_case <<case>>
+test_augments_1a_I_container_a_I_list_a_I_a_choice <|-- test_augments_1a_I_container_a_I_list_a_I_a_choice_I_case_b_case  : choice a-choice
+test_augments_1a_I_container_a_I_list_a_I_a_choice_I_case_b_case : case-b : string  
+class "case-a" as test_augments_1a_I_container_a_I_list_a_I_a_choice_I_case_a_case <<case>>
+test_augments_1a_I_container_a_I_list_a_I_a_choice <|-- test_augments_1a_I_container_a_I_list_a_I_a_choice_I_case_a_case  : choice a-choice
+test_augments_1a_I_container_a_I_list_a_I_a_choice_I_case_a_case : another-case-leaf : string  
+class "list-a-nfc" as test_augments_1a_I_container_a_I_list_a_I_list_a_nfc << (N,#00D1B2) notification>> 
+test_augments_1a_I_container_a_I_list_a -- test_augments_1a_I_container_a_I_list_a_I_list_a_nfc : notification 
+test_augments_1a_I_container_a_I_list_a_I_list_a_nfc : yet-another-augmented-leaf : string  
+} 
+
+tst_aug_1a_test_augments_1a +-- tst_aug_2a_test_augments_2a
+test_augments_1a_I_container_a_I_list_a_I_list_a_nfc_I_container_3-->"tst-aug-1a:name"test_augments_1a_I_container_b_I_list_b: b-list-ref
+test_augments_1a_I_top_level_nfc_I_container_4-->"tst-aug-1a:name"test_augments_1a_I_container_b_I_list_b: list-b-ref
+center footer
+ <size:20> UML Generated : 2023-11-03 15:18 </size>
+ endfooter 
+@enduml 

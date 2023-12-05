@@ -1,0 +1,640 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/bbf-voip-sip.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title bbf-voip-sip 
+package "bbf-yang:bbf-yang-types" as bbf_yang_bbf_yang_types { 
+} 
+package "if:ietf-interfaces" as if_ietf_interfaces { 
+} 
+package "inet:ietf-inet-types" as inet_ietf_inet_types { 
+} 
+package "yang:ietf-yang-types" as yang_ietf_yang_types { 
+} 
+package "bbfift:bbf-if-type" as bbfift_bbf_if_type { 
+} 
+package "bbf-ipif:bbf-ip-interfaces" as bbf_ipif_bbf_ip_interfaces { 
+} 
+package "ianaift:iana-if-type" as ianaift_iana_if_type { 
+} 
+package "ianach:iana-crypt-hash" as ianach_iana_crypt_hash { 
+} 
+package "tlsc:ietf-tls-client" as tlsc_ietf_tls_client { 
+} 
+package "ks:ietf-keystore" as ks_ietf_keystore { 
+} 
+package "bbf-voip-media:bbf-voip-media" as bbf_voip_media_bbf_voip_media { 
+} 
+package "bbf-voip-sip:bbf-voip-sip" as bbf_voip_sip_bbf_voip_sip { 
+} 
+package "bbf-voip-sip:bbf-voip-sip" as bbf_voip_sip_bbf_voip_sip { 
+class "bbf-voip-sip" as bbf_voip_sip << (M, #33CCFF) module>> 
+bbf_voip_sip : feature : sip-server-redundancy 
+bbf_voip_sip : feature : sip-timers 
+bbf_voip_sip : feature : voice-mail-servers 
+bbf_voip_sip : feature : event-package-subscriptions 
+bbf_voip_sip : feature : statistics 
+bbf_voip_sip : feature : symmetric-keys 
+bbf_voip_sip : feature : sip-service-profile 
+enum "transport-protocol" as bbf_voip_sip_transport_protocol_typedef <<enumeration>> {
+udp
+tcp
+tls
+}
+enum "call-direction" as bbf_voip_sip_call_direction_typedef <<enumeration>> {
+incoming
+outgoing
+}
+class "failure-response-code" as bbf_voip_sip_failure_response_code_typedef << (T, YellowGreen) typedef>>
+bbf_voip_sip_failure_response_code_typedef : uint16 [400..699]
+enum "supplementary-service-control-basic" as bbf_voip_sip_supplementary_service_control_basic_typedef <<enumeration>> {
+disabled
+operator
+}
+class "supplementary-service-control-enhanced" as bbf_voip_sip_supplementary_service_control_enhanced_typedef << (T, YellowGreen) typedef>>
+bbf_voip_sip_supplementary_service_control_enhanced_typedef : union{bbf-voip-sip:supplementary-service-control-basic, enumeration}
+class "supplementary-service-control-full" as bbf_voip_sip_supplementary_service_control_full_typedef << (T, YellowGreen) typedef>>
+bbf_voip_sip_supplementary_service_control_full_typedef : union{bbf-voip-sip:supplementary-service-control-enhanced, enumeration}
+class "service-code-command" as bbf_voip_sip_service_code_command_typedef << (T, YellowGreen) typedef>>
+bbf_voip_sip_service_code_command_typedef : string {pattern = [0..9]*#}
+enum "priority" as bbf_voip_sip_priority_typedef <<enumeration>> {
+primary
+secondary
+}
+class "supplementary-services-profile-ref" as bbf_voip_sip_supplementary_services_profile_ref_typedef << (T, YellowGreen) typedef>>
+bbf_voip_sip_supplementary_services_profile_ref_typedef : leafref : /bbf-voip-sip:sip/bbf-voip-sip:supplementary-services-profiles/bbf-voip-sip:supplementary-services-profile/bbf-voip-sip:name
+class "dial-plan-profile-ref" as bbf_voip_sip_dial_plan_profile_ref_typedef << (T, YellowGreen) typedef>>
+bbf_voip_sip_dial_plan_profile_ref_typedef : leafref : /bbf-voip-sip:sip/bbf-voip-sip:dial-plan-profiles/bbf-voip-sip:dial-plan-profile/bbf-voip-sip:name
+class "event-package-subscription-profile-ref" as bbf_voip_sip_event_package_subscription_profile_ref_typedef << (T, YellowGreen) typedef>>
+bbf_voip_sip_event_package_subscription_profile_ref_typedef : leafref : /bbf-voip-sip:sip/bbf-voip-sip:event-package-subscription-profiles/bbf-voip-sip:event-package-subscription-profile/bbf-voip-sip:name
+class "service-code-commands-profile-ref" as bbf_voip_sip_service_code_commands_profile_ref_typedef << (T, YellowGreen) typedef>>
+bbf_voip_sip_service_code_commands_profile_ref_typedef : leafref : /bbf-voip-sip:sip/bbf-voip-sip:service-code-commands-profiles/bbf-voip-sip:service-code-commands-profile/bbf-voip-sip:name
+class "registration-profile-ref" as bbf_voip_sip_registration_profile_ref_typedef << (T, YellowGreen) typedef>>
+bbf_voip_sip_registration_profile_ref_typedef : leafref : /bbf-voip-sip:sip/bbf-voip-sip:registration-profiles/bbf-voip-sip:registration-profile/bbf-voip-sip:name
+class "sip-timers-profile-ref" as bbf_voip_sip_sip_timers_profile_ref_typedef << (T, YellowGreen) typedef>>
+bbf_voip_sip_sip_timers_profile_ref_typedef : leafref : /bbf-voip-sip:sip/bbf-voip-sip:sip-timers-profiles/bbf-voip-sip:sip-timers-profile/bbf-voip-sip:name
+class "transport-profile-ref" as bbf_voip_sip_transport_profile_ref_typedef << (T, YellowGreen) typedef>>
+bbf_voip_sip_transport_profile_ref_typedef : leafref : /bbf-voip-sip:sip/bbf-voip-sip:transport-profiles/bbf-voip-sip:transport-profile/bbf-voip-sip:name
+class "user-agent-ref" as bbf_voip_sip_user_agent_ref_typedef << (T, YellowGreen) typedef>>
+bbf_voip_sip_user_agent_ref_typedef : leafref : /bbf-voip-sip:sip/bbf-voip-sip:user-agents/bbf-voip-sip:user-agent/bbf-voip-sip:name
+class "sip-termination-ref" as bbf_voip_sip_sip_termination_ref_typedef << (T, YellowGreen) typedef>>
+bbf_voip_sip_sip_termination_ref_typedef : leafref : /bbf-voip-sip:sip/bbf-voip-sip:sip-terminations/bbf-voip-sip:sip-termination/bbf-voip-sip:user-name
+class "voip-service-gateway-ref" as bbf_voip_sip_voip_service_gateway_ref_typedef << (T, YellowGreen) typedef>>
+bbf_voip_sip_voip_service_gateway_ref_typedef : leafref : /bbf-voip-sip:sip/bbf-voip-sip:voip-service-gateways/bbf-voip-sip:voip-service-gateway/bbf-voip-sip:name
+class "sip-server-pool-ref" as bbf_voip_sip_sip_server_pool_ref_typedef << (T, YellowGreen) typedef>>
+bbf_voip_sip_sip_server_pool_ref_typedef : leafref : /bbf-voip-sip:sip/bbf-voip-sip:sip-server-pools/bbf-voip-sip:sip-server-pool/bbf-voip-sip:name
+class "sip-server-ref" as bbf_voip_sip_sip_server_ref_typedef << (T, YellowGreen) typedef>>
+bbf_voip_sip_sip_server_ref_typedef : leafref : /bbf-voip-sip:sip/bbf-voip-sip:sip-servers/bbf-voip-sip:sip-server/bbf-voip-sip:name
+class "voip-access-gateway-ref" as bbf_voip_sip_voip_access_gateway_ref_typedef << (T, YellowGreen) typedef>>
+bbf_voip_sip_voip_access_gateway_ref_typedef : leafref : /bbf-voip-sip:sip/bbf-voip-sip:voip-access-gateways/bbf-voip-sip:voip-access-gateway/bbf-voip-sip:name
+class "voip-service-provider-ref" as bbf_voip_sip_voip_service_provider_ref_typedef << (T, YellowGreen) typedef>>
+bbf_voip_sip_voip_service_provider_ref_typedef : leafref : /bbf-voip-sip:sip/bbf-voip-sip:voip-service-providers/bbf-voip-sip:voip-service-provider/bbf-voip-sip:name
+class "voice-mail-server-ref" as bbf_voip_sip_voice_mail_server_ref_typedef << (T, YellowGreen) typedef>>
+bbf_voip_sip_voice_mail_server_ref_typedef : leafref : /bbf-voip-sip:sip/bbf-voip-sip:voice-mail-servers/bbf-voip-sip:voice-mail-server/bbf-voip-sip:name
+class "registration-statistics" as bbf_voip_sip_I_registration_statistics_grouping <<(G,Lime) grouping>> 
+bbf_voip_sip_I_registration_statistics_grouping : successful-registration-requests : yang:counter64   {mandatory}
+bbf_voip_sip_I_registration_statistics_grouping : failed-registration-requests : yang:counter64   {mandatory}
+bbf_voip_sip_I_registration_statistics_grouping : active-registrations : yang:counter64   {mandatory}
+class "session-initiation-statistics" as bbf_voip_sip_I_session_initiation_statistics_grouping <<(G,Lime) grouping>> 
+bbf_voip_sip_I_session_initiation_statistics_grouping : outgoing-call-attempts : yang:counter64   {mandatory}
+bbf_voip_sip_I_session_initiation_statistics_grouping : outgoing-successful-initial-invites : yang:counter64   {mandatory}
+bbf_voip_sip_I_session_initiation_statistics_grouping : outgoing-answered-calls : yang:counter64   {mandatory}
+bbf_voip_sip_I_session_initiation_statistics_grouping : outgoing-failed-call-attempts-lost-seizure : yang:counter64   {mandatory}
+bbf_voip_sip_I_session_initiation_statistics_grouping : outgoing-call-attempts-port-seizure-duration : uint16   {mandatory} {seconds}
+bbf_voip_sip_I_session_initiation_statistics_grouping : incoming-call-attempts : yang:counter64   {mandatory}
+bbf_voip_sip_I_session_initiation_statistics_grouping : incoming-answered-calls : yang:counter64   {mandatory}
+bbf_voip_sip_I_session_initiation_statistics_grouping : incoming-call-fail-lost-seizure : yang:counter64   {mandatory}
+bbf_voip_sip_I_session_initiation_statistics_grouping : incoming-call-attempts-port-seizure-duration : uint16   {mandatory} {seconds}
+class "server-monitoring" as bbf_voip_sip_I_server_monitoring_grouping <<(G,Lime) grouping>> 
+bbf_voip_sip_I_server_monitoring_grouping : method : enumeration : {register,options,}  
+bbf_voip_sip_I_server_monitoring_grouping : interval : uint32 [60..86400]   {seconds}
+class "media-session" as bbf_voip_sip_I_media_session_grouping <<(G,Lime) grouping>> 
+class "rtp" as  bbf_voip_sip_I_media_session_I_rtp <<container>> 
+bbf_voip_sip_I_media_session_grouping *-- "1" bbf_voip_sip_I_media_session_I_rtp 
+bbf_voip_sip_I_media_session_I_rtp : remote-ip-address : inet:ip-address   {mandatory}
+bbf_voip_sip_I_media_session_I_rtp : remote-port : inet:port-number   {mandatory}
+bbf_voip_sip_I_media_session_I_rtp : local-port : inet:port-number   {mandatory}
+bbf_voip_sip_I_media_session_grouping : codec-or-fax-relay : union{identityref, identityref}   {mandatory}
+bbf_voip_sip_I_media_session_grouping : packet-period : uint8 [10|20|30|40]   {mandatory} {milliseconds}
+bbf_voip_sip_I_media_session_grouping : is-voice-band-data : boolean   {mandatory}
+class "sip" as  bbf_voip_sip_I_sip <<container>> 
+bbf_voip_sip *-- "0..1" bbf_voip_sip_I_sip 
+class "dial-plan-profiles" as  bbf_voip_sip_I_sip_I_dial_plan_profiles <<container>> 
+bbf_voip_sip_I_sip *-- "1" bbf_voip_sip_I_sip_I_dial_plan_profiles 
+class "dial-plan-profile" as bbf_voip_sip_I_sip_I_dial_plan_profiles_I_dial_plan_profile << (L, #FF7700) list>> 
+bbf_voip_sip_I_sip_I_dial_plan_profiles *-- "0..N" bbf_voip_sip_I_sip_I_dial_plan_profiles_I_dial_plan_profile 
+bbf_voip_sip_I_sip_I_dial_plan_profiles_I_dial_plan_profile : +name : bbf-yang:string-ascii64  {key} 
+bbf_voip_sip_I_sip_I_dial_plan_profiles_I_dial_plan_profile : partial-dial-timeout : uint8 [1..60]   = 16  {seconds}
+bbf_voip_sip_I_sip_I_dial_plan_profiles_I_dial_plan_profile : critical-dial-timeout : uint8 [1..60]   = 4  {seconds}
+bbf_voip_sip_I_sip_I_dial_plan_profiles_I_dial_plan_profile : format : identityref {bbf-voip-sip:dial-plan-format}  
+class "digit-map" as  bbf_voip_sip_I_sip_I_dial_plan_profiles_I_dial_plan_profile_I_digit_map <<container>> 
+bbf_voip_sip_I_sip_I_dial_plan_profiles_I_dial_plan_profile *-- "1" bbf_voip_sip_I_sip_I_dial_plan_profiles_I_dial_plan_profile_I_digit_map 
+bbf_voip_sip_I_sip_I_dial_plan_profiles_I_dial_plan_profile_I_digit_map : digit-map-pattern []: string 
+class "event-package-subscription-profiles" as  bbf_voip_sip_I_sip_I_event_package_subscription_profiles <<container>> 
+bbf_voip_sip_I_sip *-- "1" bbf_voip_sip_I_sip_I_event_package_subscription_profiles 
+class "event-package-subscription-profile" as bbf_voip_sip_I_sip_I_event_package_subscription_profiles_I_event_package_subscription_profile << (L, #FF7700) list>> 
+bbf_voip_sip_I_sip_I_event_package_subscription_profiles *-- "0..N" bbf_voip_sip_I_sip_I_event_package_subscription_profiles_I_event_package_subscription_profile 
+bbf_voip_sip_I_sip_I_event_package_subscription_profiles_I_event_package_subscription_profile : +name : bbf-yang:string-ascii64  {key} 
+class "event-package" as bbf_voip_sip_I_sip_I_event_package_subscription_profiles_I_event_package_subscription_profile_I_event_package << (L, #FF7700) list>> 
+bbf_voip_sip_I_sip_I_event_package_subscription_profiles_I_event_package_subscription_profile *-- "1..N" bbf_voip_sip_I_sip_I_event_package_subscription_profiles_I_event_package_subscription_profile_I_event_package 
+bbf_voip_sip_I_sip_I_event_package_subscription_profiles_I_event_package_subscription_profile_I_event_package : +name : bbf-yang:string-ascii64  {key} 
+bbf_voip_sip_I_sip_I_event_package_subscription_profiles_I_event_package_subscription_profile_I_event_package : enabled : boolean   = true 
+class "explicit-subscription" as  bbf_voip_sip_I_sip_I_event_package_subscription_profiles_I_event_package_subscription_profile_I_event_package_I_explicit_subscription <<container>> 
+bbf_voip_sip_I_sip_I_event_package_subscription_profiles_I_event_package_subscription_profile_I_event_package *-- "0..1" bbf_voip_sip_I_sip_I_event_package_subscription_profiles_I_event_package_subscription_profile_I_event_package_I_explicit_subscription 
+bbf_voip_sip_I_sip_I_event_package_subscription_profiles_I_event_package_subscription_profile_I_event_package_I_explicit_subscription : request-uri : inet:uri  
+bbf_voip_sip_I_sip_I_event_package_subscription_profiles_I_event_package_subscription_profile_I_event_package_I_explicit_subscription : expiration-time : union{uint32, enumeration}   = 3600  {seconds}
+bbf_voip_sip_I_sip_I_event_package_subscription_profiles_I_event_package_subscription_profile_I_event_package_I_explicit_subscription : head-start-time : union{uint32, enumeration}   = 600  {seconds}
+class "notifications" as  bbf_voip_sip_I_sip_I_event_package_subscription_profiles_I_event_package_subscription_profile_I_event_package_I_notifications <<container>> 
+bbf_voip_sip_I_sip_I_event_package_subscription_profiles_I_event_package_subscription_profile_I_event_package *-- "1" bbf_voip_sip_I_sip_I_event_package_subscription_profiles_I_event_package_subscription_profile_I_event_package_I_notifications 
+bbf_voip_sip_I_sip_I_event_package_subscription_profiles_I_event_package_subscription_profile_I_event_package_I_notifications : led : boolean   = false 
+bbf_voip_sip_I_sip_I_event_package_subscription_profiles_I_event_package_subscription_profile_I_event_package_I_notifications : tone : boolean   = false 
+bbf_voip_sip_I_sip_I_event_package_subscription_profiles_I_event_package_subscription_profile_I_event_package_I_notifications : short-ring : boolean   = false 
+class "registration-profiles" as  bbf_voip_sip_I_sip_I_registration_profiles <<container>> 
+bbf_voip_sip_I_sip *-- "1" bbf_voip_sip_I_sip_I_registration_profiles 
+class "registration-profile" as bbf_voip_sip_I_sip_I_registration_profiles_I_registration_profile << (L, #FF7700) list>> 
+bbf_voip_sip_I_sip_I_registration_profiles *-- "0..N" bbf_voip_sip_I_sip_I_registration_profiles_I_registration_profile 
+bbf_voip_sip_I_sip_I_registration_profiles_I_registration_profile : +name : bbf-yang:string-ascii64  {key} 
+bbf_voip_sip_I_sip_I_registration_profiles_I_registration_profile : request-uri : inet:uri   {mandatory}
+bbf_voip_sip_I_sip_I_registration_profiles_I_registration_profile : realm : bbf-yang:name-string   {mandatory}
+bbf_voip_sip_I_sip_I_registration_profiles_I_registration_profile : registration-expiration-time : union{uint32, enumeration}   = 3600  {seconds}
+bbf_voip_sip_I_sip_I_registration_profiles_I_registration_profile : re-registration-head-start-time : union{uint32, enumeration}   = 600  {seconds}
+class "service-code-commands-profiles" as  bbf_voip_sip_I_sip_I_service_code_commands_profiles <<container>> 
+bbf_voip_sip_I_sip *-- "1" bbf_voip_sip_I_sip_I_service_code_commands_profiles 
+class "service-code-commands-profile" as bbf_voip_sip_I_sip_I_service_code_commands_profiles_I_service_code_commands_profile << (L, #FF7700) list>> 
+bbf_voip_sip_I_sip_I_service_code_commands_profiles *-- "0..N" bbf_voip_sip_I_sip_I_service_code_commands_profiles_I_service_code_commands_profile 
+bbf_voip_sip_I_sip_I_service_code_commands_profiles_I_service_code_commands_profile : +name : bbf-yang:string-ascii64  {key} 
+class "service-code-commands" as bbf_voip_sip_I_sip_I_service_code_commands_profiles_I_service_code_commands_profile_I_service_code_commands << (L, #FF7700) list>> 
+bbf_voip_sip_I_sip_I_service_code_commands_profiles_I_service_code_commands_profile *-- "1..N" bbf_voip_sip_I_sip_I_service_code_commands_profiles_I_service_code_commands_profile_I_service_code_commands 
+bbf_voip_sip_I_sip_I_service_code_commands_profiles_I_service_code_commands_profile_I_service_code_commands : +service : identityref {bbf-voip-sip:subscriber-controlled-feature}  {key} 
+bbf_voip_sip_I_sip_I_service_code_commands_profiles_I_service_code_commands_profile_I_service_code_commands : activation-code : bbf-voip-sip:service-code-command   {mandatory}
+bbf_voip_sip_I_sip_I_service_code_commands_profiles_I_service_code_commands_profile_I_service_code_commands : deactivation-code : bbf-voip-sip:service-code-command  
+bbf_voip_sip_I_sip_I_service_code_commands_profiles_I_service_code_commands_profile_I_service_code_commands : interrogation-code : bbf-voip-sip:service-code-command  
+bbf_voip_sip_I_sip_I_service_code_commands_profiles_I_service_code_commands_profile_I_service_code_commands : pin-change-code : bbf-voip-sip:service-code-command  
+class "sip-timers-profiles" as  bbf_voip_sip_I_sip_I_sip_timers_profiles <<container>> 
+bbf_voip_sip_I_sip *-- "1" bbf_voip_sip_I_sip_I_sip_timers_profiles 
+class "sip-timers-profile" as bbf_voip_sip_I_sip_I_sip_timers_profiles_I_sip_timers_profile << (L, #FF7700) list>> 
+bbf_voip_sip_I_sip_I_sip_timers_profiles *-- "0..N" bbf_voip_sip_I_sip_I_sip_timers_profiles_I_sip_timers_profile 
+bbf_voip_sip_I_sip_I_sip_timers_profiles_I_sip_timers_profile : +name : bbf-yang:string-ascii64  {key} 
+bbf_voip_sip_I_sip_I_sip_timers_profiles_I_sip_timers_profile : timer-a : union{enumeration, uint16}   = timer-t1  {milliseconds}
+bbf_voip_sip_I_sip_I_sip_timers_profiles_I_sip_timers_profile : timer-b : union{enumeration, uint16}   = t1-multiplied-by-64  {milliseconds}
+bbf_voip_sip_I_sip_I_sip_timers_profiles_I_sip_timers_profile : timer-c : uint32 [180..300]   = 180  {seconds}
+bbf_voip_sip_I_sip_I_sip_timers_profiles_I_sip_timers_profile : timer-d : uint32 [0..64000]   = 32001  {milliseconds}
+bbf_voip_sip_I_sip_I_sip_timers_profiles_I_sip_timers_profile : timer-e : union{enumeration, uint16}   = timer-t1  {milliseconds}
+bbf_voip_sip_I_sip_I_sip_timers_profiles_I_sip_timers_profile : timer-f : union{enumeration, uint16}   = t1-multiplied-by-64  {milliseconds}
+bbf_voip_sip_I_sip_I_sip_timers_profiles_I_sip_timers_profile : timer-g : union{enumeration, uint16}   = timer-t1  {milliseconds}
+bbf_voip_sip_I_sip_I_sip_timers_profiles_I_sip_timers_profile : timer-h : union{enumeration, uint16}   = t1-multiplied-by-64  {milliseconds}
+bbf_voip_sip_I_sip_I_sip_timers_profiles_I_sip_timers_profile : timer-i : union{enumeration, uint16}   = timer-t4  {seconds}
+bbf_voip_sip_I_sip_I_sip_timers_profiles_I_sip_timers_profile : timer-j : union{enumeration, uint16}   = t1-multiplied-by-64  {milliseconds}
+bbf_voip_sip_I_sip_I_sip_timers_profiles_I_sip_timers_profile : timer-k : union{enumeration, uint16}   = timer-t4  {seconds}
+bbf_voip_sip_I_sip_I_sip_timers_profiles_I_sip_timers_profile : timer-l : union{enumeration, uint16}   = t1-multiplied-by-64  {milliseconds}
+bbf_voip_sip_I_sip_I_sip_timers_profiles_I_sip_timers_profile : timer-m : union{enumeration, uint16}   = t1-multiplied-by-64  {milliseconds}
+bbf_voip_sip_I_sip_I_sip_timers_profiles_I_sip_timers_profile : timer-t1 : uint16 [200..1000]   = 500  {milliseconds}
+bbf_voip_sip_I_sip_I_sip_timers_profiles_I_sip_timers_profile : timer-t2 : uint16 [1..10]   = 4  {seconds}
+bbf_voip_sip_I_sip_I_sip_timers_profiles_I_sip_timers_profile : timer-t4 : uint16 [1..10]   = 5  {seconds}
+class "supplementary-services-profiles" as  bbf_voip_sip_I_sip_I_supplementary_services_profiles <<container>> 
+bbf_voip_sip_I_sip *-- "1" bbf_voip_sip_I_sip_I_supplementary_services_profiles 
+class "supplementary-services-profile" as bbf_voip_sip_I_sip_I_supplementary_services_profiles_I_supplementary_services_profile << (L, #FF7700) list>> 
+bbf_voip_sip_I_sip_I_supplementary_services_profiles *-- "0..N" bbf_voip_sip_I_sip_I_supplementary_services_profiles_I_supplementary_services_profile 
+bbf_voip_sip_I_sip_I_supplementary_services_profiles_I_supplementary_services_profile : +name : bbf-yang:string-ascii64  {key} 
+class "direct-connect" as  bbf_voip_sip_I_sip_I_supplementary_services_profiles_I_supplementary_services_profile_I_direct_connect <<container>> 
+bbf_voip_sip_I_sip_I_supplementary_services_profiles_I_supplementary_services_profile *-- "0..1" bbf_voip_sip_I_sip_I_supplementary_services_profiles_I_supplementary_services_profile_I_direct_connect 
+bbf_voip_sip_I_sip_I_supplementary_services_profiles_I_supplementary_services_profile_I_direct_connect : control : bbf-voip-sip:supplementary-service-control-full   = disabled 
+bbf_voip_sip_I_sip_I_supplementary_services_profiles_I_supplementary_services_profile_I_direct_connect : immediate : boolean   = false 
+bbf_voip_sip_I_sip_I_supplementary_services_profiles_I_supplementary_services_profile_I_direct_connect : delay-timer : uint8 [1..60]   = 10  {seconds}
+bbf_voip_sip_I_sip_I_supplementary_services_profiles_I_supplementary_services_profile_I_direct_connect : uri : inet:uri  
+class "call-waiting" as  bbf_voip_sip_I_sip_I_supplementary_services_profiles_I_supplementary_services_profile_I_call_waiting <<container>> 
+bbf_voip_sip_I_sip_I_supplementary_services_profiles_I_supplementary_services_profile *-- "0..1" bbf_voip_sip_I_sip_I_supplementary_services_profiles_I_supplementary_services_profile_I_call_waiting 
+bbf_voip_sip_I_sip_I_supplementary_services_profiles_I_supplementary_services_profile_I_call_waiting : control : bbf-voip-sip:supplementary-service-control-full   = disabled 
+bbf_voip_sip_I_sip_I_supplementary_services_profiles_I_supplementary_services_profile_I_call_waiting : no-answer-timer : uint16   = 120  {seconds}
+bbf_voip_sip_I_sip_I_supplementary_services_profiles_I_supplementary_services_profile_I_call_waiting : reject-response-code : bbf-voip-sip:failure-response-code   = 603 
+bbf_voip_sip_I_sip_I_supplementary_services_profiles_I_supplementary_services_profile_I_call_waiting : caller-id-announcement : boolean   = false 
+class "attended-call-transfer" as  bbf_voip_sip_I_sip_I_supplementary_services_profiles_I_supplementary_services_profile_I_attended_call_transfer <<container>> 
+bbf_voip_sip_I_sip_I_supplementary_services_profiles_I_supplementary_services_profile *-- "0..1" bbf_voip_sip_I_sip_I_supplementary_services_profiles_I_supplementary_services_profile_I_attended_call_transfer 
+bbf_voip_sip_I_sip_I_supplementary_services_profiles_I_supplementary_services_profile_I_attended_call_transfer : control : bbf-voip-sip:supplementary-service-control-full   = disabled 
+class "unattended-call-transfer" as  bbf_voip_sip_I_sip_I_supplementary_services_profiles_I_supplementary_services_profile_I_unattended_call_transfer <<container>> 
+bbf_voip_sip_I_sip_I_supplementary_services_profiles_I_supplementary_services_profile *-- "0..1" bbf_voip_sip_I_sip_I_supplementary_services_profiles_I_supplementary_services_profile_I_unattended_call_transfer 
+bbf_voip_sip_I_sip_I_supplementary_services_profiles_I_supplementary_services_profile_I_unattended_call_transfer : control : bbf-voip-sip:supplementary-service-control-full   = disabled 
+class "three-party-conference" as  bbf_voip_sip_I_sip_I_supplementary_services_profiles_I_supplementary_services_profile_I_three_party_conference <<container>> 
+bbf_voip_sip_I_sip_I_supplementary_services_profiles_I_supplementary_services_profile *-- "0..1" bbf_voip_sip_I_sip_I_supplementary_services_profiles_I_supplementary_services_profile_I_three_party_conference 
+bbf_voip_sip_I_sip_I_supplementary_services_profiles_I_supplementary_services_profile_I_three_party_conference : control : bbf-voip-sip:supplementary-service-control-enhanced   = disabled 
+bbf_voip_sip_I_sip_I_supplementary_services_profiles_I_supplementary_services_profile_I_three_party_conference : conference-uri : inet:uri  
+class "call-hold" as  bbf_voip_sip_I_sip_I_supplementary_services_profiles_I_supplementary_services_profile_I_call_hold <<container>> 
+bbf_voip_sip_I_sip_I_supplementary_services_profiles_I_supplementary_services_profile *-- "0..1" bbf_voip_sip_I_sip_I_supplementary_services_profiles_I_supplementary_services_profile_I_call_hold 
+bbf_voip_sip_I_sip_I_supplementary_services_profiles_I_supplementary_services_profile_I_call_hold : control : bbf-voip-sip:supplementary-service-control-full   = disabled 
+bbf_voip_sip_I_sip_I_supplementary_services_profiles_I_supplementary_services_profile_I_call_hold : media-direction-override : enumeration : {sendonly,inactive,dependent-on-media-stream-direction,}   = sendonly 
+bbf_voip_sip_I_sip_I_supplementary_services_profiles_I_supplementary_services_profile_I_call_hold : hold-resume-method : enumeration : {re-invite,update,}   = re-invite 
+bbf_voip_sip_I_sip_I_supplementary_services_profiles_I_supplementary_services_profile_I_call_hold : conference-hold-timer : uint16   = 120  {seconds}
+bbf_voip_sip_I_sip_I_supplementary_services_profiles_I_supplementary_services_profile_I_call_hold : reject-response-code : bbf-voip-sip:failure-response-code   = 603 
+class "call-park" as  bbf_voip_sip_I_sip_I_supplementary_services_profiles_I_supplementary_services_profile_I_call_park <<container>> 
+bbf_voip_sip_I_sip_I_supplementary_services_profiles_I_supplementary_services_profile *-- "0..1" bbf_voip_sip_I_sip_I_supplementary_services_profiles_I_supplementary_services_profile_I_call_park 
+bbf_voip_sip_I_sip_I_supplementary_services_profiles_I_supplementary_services_profile_I_call_park : control : bbf-voip-sip:supplementary-service-control-full   = disabled 
+class "do-not-disturb" as  bbf_voip_sip_I_sip_I_supplementary_services_profiles_I_supplementary_services_profile_I_do_not_disturb <<container>> 
+bbf_voip_sip_I_sip_I_supplementary_services_profiles_I_supplementary_services_profile *-- "0..1" bbf_voip_sip_I_sip_I_supplementary_services_profiles_I_supplementary_services_profile_I_do_not_disturb 
+bbf_voip_sip_I_sip_I_supplementary_services_profiles_I_supplementary_services_profile_I_do_not_disturb : control : bbf-voip-sip:supplementary-service-control-full   = disabled 
+class "calling-id" as  bbf_voip_sip_I_sip_I_supplementary_services_profiles_I_supplementary_services_profile_I_calling_id <<container>> 
+bbf_voip_sip_I_sip_I_supplementary_services_profiles_I_supplementary_services_profile *-- "0..1" bbf_voip_sip_I_sip_I_supplementary_services_profiles_I_supplementary_services_profile_I_calling_id 
+class "calling-name-delivery" as  bbf_voip_sip_I_sip_I_supplementary_services_profiles_I_supplementary_services_profile_I_calling_id_I_calling_name_delivery <<container>> 
+bbf_voip_sip_I_sip_I_supplementary_services_profiles_I_supplementary_services_profile_I_calling_id *-- "1" bbf_voip_sip_I_sip_I_supplementary_services_profiles_I_supplementary_services_profile_I_calling_id_I_calling_name_delivery 
+bbf_voip_sip_I_sip_I_supplementary_services_profiles_I_supplementary_services_profile_I_calling_id_I_calling_name_delivery : control : bbf-voip-sip:supplementary-service-control-full   = disabled 
+bbf_voip_sip_I_sip_I_supplementary_services_profiles_I_supplementary_services_profile_I_calling_id_I_calling_name_delivery : permanent-presentation-status : enumeration : {public,private,}   = public 
+class "calling-number" as  bbf_voip_sip_I_sip_I_supplementary_services_profiles_I_supplementary_services_profile_I_calling_id_I_calling_number <<container>> 
+bbf_voip_sip_I_sip_I_supplementary_services_profiles_I_supplementary_services_profile_I_calling_id *-- "1" bbf_voip_sip_I_sip_I_supplementary_services_profiles_I_supplementary_services_profile_I_calling_id_I_calling_number 
+bbf_voip_sip_I_sip_I_supplementary_services_profiles_I_supplementary_services_profile_I_calling_id_I_calling_number : control : bbf-voip-sip:supplementary-service-control-basic   = disabled 
+bbf_voip_sip_I_sip_I_supplementary_services_profiles_I_supplementary_services_profile_I_calling_id_I_calling_number : permanent-presentation-status : enumeration : {public,private,}   = public 
+class "call-forwarding-indication" as  bbf_voip_sip_I_sip_I_supplementary_services_profiles_I_supplementary_services_profile_I_call_forwarding_indication <<container>> 
+bbf_voip_sip_I_sip_I_supplementary_services_profiles_I_supplementary_services_profile *-- "0..1" bbf_voip_sip_I_sip_I_supplementary_services_profiles_I_supplementary_services_profile_I_call_forwarding_indication 
+bbf_voip_sip_I_sip_I_supplementary_services_profiles_I_supplementary_services_profile_I_call_forwarding_indication : control : bbf-voip-sip:supplementary-service-control-basic   = disabled 
+class "flash-on-emergency--service-call" as  bbf_voip_sip_I_sip_I_supplementary_services_profiles_I_supplementary_services_profile_I_flash_on_emergency__service_call <<container>> 
+bbf_voip_sip_I_sip_I_supplementary_services_profiles_I_supplementary_services_profile *-- "0..1" bbf_voip_sip_I_sip_I_supplementary_services_profiles_I_supplementary_services_profile_I_flash_on_emergency__service_call 
+bbf_voip_sip_I_sip_I_supplementary_services_profiles_I_supplementary_services_profile_I_flash_on_emergency__service_call : control : bbf-voip-sip:supplementary-service-control-basic   = disabled 
+class "emergency-service-originating-hold" as  bbf_voip_sip_I_sip_I_supplementary_services_profiles_I_supplementary_services_profile_I_emergency_service_originating_hold <<container>> 
+bbf_voip_sip_I_sip_I_supplementary_services_profiles_I_supplementary_services_profile *-- "0..1" bbf_voip_sip_I_sip_I_supplementary_services_profiles_I_supplementary_services_profile_I_emergency_service_originating_hold 
+bbf_voip_sip_I_sip_I_supplementary_services_profiles_I_supplementary_services_profile_I_emergency_service_originating_hold : control : bbf-voip-sip:supplementary-service-control-basic   = disabled 
+class "transport-profiles" as  bbf_voip_sip_I_sip_I_transport_profiles <<container>> 
+bbf_voip_sip_I_sip *-- "1" bbf_voip_sip_I_sip_I_transport_profiles 
+class "transport-profile" as bbf_voip_sip_I_sip_I_transport_profiles_I_transport_profile << (L, #FF7700) list>> 
+bbf_voip_sip_I_sip_I_transport_profiles *-- "0..N" bbf_voip_sip_I_sip_I_transport_profiles_I_transport_profile 
+bbf_voip_sip_I_sip_I_transport_profiles_I_transport_profile : +name : bbf-yang:string-ascii64  {key} 
+class "transport" as bbf_voip_sip_I_sip_I_transport_profiles_I_transport_profile_I_transport << (L, #FF7700) list>> 
+bbf_voip_sip_I_sip_I_transport_profiles_I_transport_profile *-- "1..N" bbf_voip_sip_I_sip_I_transport_profiles_I_transport_profile_I_transport : ordered-by : user
+bbf_voip_sip_I_sip_I_transport_profiles_I_transport_profile_I_transport : +protocol : bbf-voip-sip:transport-protocol  {key} 
+class "udp" as  bbf_voip_sip_I_sip_I_transport_profiles_I_transport_profile_I_transport_I_udp <<container>> 
+bbf_voip_sip_I_sip_I_transport_profiles_I_transport_profile_I_transport *-- "1" bbf_voip_sip_I_sip_I_transport_profiles_I_transport_profile_I_transport_I_udp 
+bbf_voip_sip_I_sip_I_transport_profiles_I_transport_profile_I_transport_I_udp : port : inet:port-number   = 5060 
+class "tcp" as  bbf_voip_sip_I_sip_I_transport_profiles_I_transport_profile_I_transport_I_tcp <<container>> 
+bbf_voip_sip_I_sip_I_transport_profiles_I_transport_profile_I_transport *-- "1" bbf_voip_sip_I_sip_I_transport_profiles_I_transport_profile_I_transport_I_tcp 
+bbf_voip_sip_I_sip_I_transport_profiles_I_transport_profile_I_transport_I_tcp : port : inet:port-number   = 5060 
+bbf_voip_sip_I_sip_I_transport_profiles_I_transport_profile_I_transport_I_tcp : idle-timeout : uint16 [32..3600]   = 64  {seconds}
+class "tls" as  bbf_voip_sip_I_sip_I_transport_profiles_I_transport_profile_I_transport_I_tls <<container>> 
+bbf_voip_sip_I_sip_I_transport_profiles_I_transport_profile_I_transport *-- "1" bbf_voip_sip_I_sip_I_transport_profiles_I_transport_profile_I_transport_I_tls 
+bbf_voip_sip_I_sip_I_transport_profiles_I_transport_profile_I_transport_I_tls : port : inet:port-number   = 5061 
+bbf_voip_sip_I_sip_I_transport_profiles_I_transport_profile_I_transport_I_tls : tlsc:tls-client-grouping {uses} 
+class "sip-servers" as  bbf_voip_sip_I_sip_I_sip_servers <<container>> 
+bbf_voip_sip_I_sip *-- "1" bbf_voip_sip_I_sip_I_sip_servers 
+class "sip-server" as bbf_voip_sip_I_sip_I_sip_servers_I_sip_server << (L, #FF7700) list>> 
+bbf_voip_sip_I_sip_I_sip_servers *-- "1..N" bbf_voip_sip_I_sip_I_sip_servers_I_sip_server 
+bbf_voip_sip_I_sip_I_sip_servers_I_sip_server : +name : bbf-yang:string-ascii64  {key} 
+bbf_voip_sip_I_sip_I_sip_servers_I_sip_server : enabled : boolean   = true 
+class "address-type" as bbf_voip_sip_I_sip_I_sip_servers_I_sip_server_I_address_type <<choice>> 
+bbf_voip_sip_I_sip_I_sip_servers_I_sip_server .. bbf_voip_sip_I_sip_I_sip_servers_I_sip_server_I_address_type : choice 
+class "host" as bbf_voip_sip_I_sip_I_sip_servers_I_sip_server_I_address_type_I_host_case <<case>>
+bbf_voip_sip_I_sip_I_sip_servers_I_sip_server_I_address_type .. bbf_voip_sip_I_sip_I_sip_servers_I_sip_server_I_address_type_I_host_case  : choice address-type
+class "host" as  bbf_voip_sip_I_sip_I_sip_servers_I_sip_server_I_address_type_I_host_I_host <<container>> 
+bbf_voip_sip_I_sip_I_sip_servers_I_sip_server_I_address_type_I_host_case *-- "1" bbf_voip_sip_I_sip_I_sip_servers_I_sip_server_I_address_type_I_host_I_host 
+bbf_voip_sip_I_sip_I_sip_servers_I_sip_server_I_address_type_I_host_I_host : address : inet:host   {mandatory}
+bbf_voip_sip_I_sip_I_sip_servers_I_sip_server : transport-profile : bbf-voip-sip:transport-profile-ref   {mandatory}
+class "state" as  bbf_voip_sip_I_sip_I_sip_servers_I_sip_server_I_state <<container>> 
+bbf_voip_sip_I_sip_I_sip_servers_I_sip_server *-- "1" bbf_voip_sip_I_sip_I_sip_servers_I_sip_server_I_state 
+bbf_voip_sip_I_sip_I_sip_servers_I_sip_server_I_state : oper-state : enumeration : {enabled,disabled,}   {Config : false}
+class "sip-server-pools" as  bbf_voip_sip_I_sip_I_sip_server_pools <<container>> 
+bbf_voip_sip_I_sip *-- "1" bbf_voip_sip_I_sip_I_sip_server_pools 
+class "sip-server-pool" as bbf_voip_sip_I_sip_I_sip_server_pools_I_sip_server_pool << (L, #FF7700) list>> 
+bbf_voip_sip_I_sip_I_sip_server_pools *-- "0..N" bbf_voip_sip_I_sip_I_sip_server_pools_I_sip_server_pool 
+bbf_voip_sip_I_sip_I_sip_server_pools_I_sip_server_pool : +name : bbf-yang:string-ascii64  {key} 
+bbf_voip_sip_I_sip_I_sip_server_pools_I_sip_server_pool : enabled : boolean   = true 
+class "sip-server" as bbf_voip_sip_I_sip_I_sip_server_pools_I_sip_server_pool_I_sip_server << (L, #FF7700) list>> 
+bbf_voip_sip_I_sip_I_sip_server_pools_I_sip_server_pool *-- "1..N" bbf_voip_sip_I_sip_I_sip_server_pools_I_sip_server_pool_I_sip_server 
+bbf_voip_sip_I_sip_I_sip_server_pools_I_sip_server_pool_I_sip_server : +sip-server : bbf-voip-sip:sip-server-ref  {key} 
+bbf_voip_sip_I_sip_I_sip_server_pools_I_sip_server_pool_I_sip_server : role []: enumeration : {proxy,registrar,outbound-proxy,...}  = proxy 
+class "session-timer" as  bbf_voip_sip_I_sip_I_sip_server_pools_I_sip_server_pool_I_sip_server_I_session_timer <<container>> 
+bbf_voip_sip_I_sip_I_sip_server_pools_I_sip_server_pool_I_sip_server *-- "1" bbf_voip_sip_I_sip_I_sip_server_pools_I_sip_server_pool_I_sip_server_I_session_timer 
+bbf_voip_sip_I_sip_I_sip_server_pools_I_sip_server_pool_I_sip_server_I_session_timer : session-expiration-time : uint16 [90..65535]   = 1800  {seconds}
+bbf_voip_sip_I_sip_I_sip_server_pools_I_sip_server_pool_I_sip_server_I_session_timer : minimum-session-expiration : uint16 [90..65535]   = 90  {seconds}
+bbf_voip_sip_I_sip_I_sip_server_pools_I_sip_server_pool_I_sip_server_I_session_timer : refresh-by-uac : boolean   = false 
+class "state" as  bbf_voip_sip_I_sip_I_sip_server_pools_I_sip_server_pool_I_sip_server_I_state <<container>> 
+bbf_voip_sip_I_sip_I_sip_server_pools_I_sip_server_pool_I_sip_server *-- "1" bbf_voip_sip_I_sip_I_sip_server_pools_I_sip_server_pool_I_sip_server_I_state 
+bbf_voip_sip_I_sip_I_sip_server_pools_I_sip_server_pool_I_sip_server_I_state : oper-state : enumeration : {enabled,disabled,}   {Config : false}
+bbf_voip_sip_I_sip_I_sip_server_pools_I_sip_server_pool_I_sip_server_I_state : received-minimum-registration-expiration-time : uint16   {seconds} {Config : false}
+bbf_voip_sip_I_sip_I_sip_server_pools_I_sip_server_pool_I_sip_server_I_state : received-minimum-session-expiration-time : uint16 [90..65535]   {seconds} {Config : false}
+class "sip-terminations" as  bbf_voip_sip_I_sip_I_sip_terminations <<container>> 
+bbf_voip_sip_I_sip *-- "1" bbf_voip_sip_I_sip_I_sip_terminations 
+class "sip-termination" as bbf_voip_sip_I_sip_I_sip_terminations_I_sip_termination << (L, #FF7700) list>> 
+bbf_voip_sip_I_sip_I_sip_terminations *-- "0..N" bbf_voip_sip_I_sip_I_sip_terminations_I_sip_termination 
+bbf_voip_sip_I_sip_I_sip_terminations_I_sip_termination : enabled : boolean   = true 
+bbf_voip_sip_I_sip_I_sip_terminations_I_sip_termination : voip-service-gateway : bbf-voip-sip:voip-service-gateway-ref   {mandatory}
+bbf_voip_sip_I_sip_I_sip_terminations_I_sip_termination : +user-name : bbf-yang:string-ascii64  {key} 
+class "digest-authentication" as  bbf_voip_sip_I_sip_I_sip_terminations_I_sip_termination_I_digest_authentication <<container>> 
+bbf_voip_sip_I_sip_I_sip_terminations_I_sip_termination *-- "1" bbf_voip_sip_I_sip_I_sip_terminations_I_sip_termination_I_digest_authentication 
+bbf_voip_sip_I_sip_I_sip_terminations_I_sip_termination_I_digest_authentication : +user-name : bbf-yang:name-string  {key} 
+bbf_voip_sip_I_sip_I_sip_terminations_I_sip_termination_I_digest_authentication : password : ianach:crypt-hash  
+class "aka-secret-key" as  bbf_voip_sip_I_sip_I_sip_terminations_I_sip_termination_I_digest_authentication_I_aka_secret_key <<container>> 
+bbf_voip_sip_I_sip_I_sip_terminations_I_sip_termination_I_digest_authentication *-- "1" bbf_voip_sip_I_sip_I_sip_terminations_I_sip_termination_I_digest_authentication_I_aka_secret_key 
+bbf_voip_sip_I_sip_I_sip_terminations_I_sip_termination_I_digest_authentication_I_aka_secret_key : ks:encrypted-by-choice-grouping {uses} 
+bbf_voip_sip_I_sip_I_sip_terminations_I_sip_termination : directory-number : string {length = 1..32} {pattern = [+*#0-9]+}  
+bbf_voip_sip_I_sip_I_sip_terminations_I_sip_termination : display-name : bbf-yang:string-ascii64  
+bbf_voip_sip_I_sip_I_sip_terminations_I_sip_termination : uri : inet:uri  
+bbf_voip_sip_I_sip_I_sip_terminations_I_sip_termination : voice-interface : if:interface-ref   {mandatory}
+bbf_voip_sip_I_sip_I_sip_terminations_I_sip_termination : supplementary-services-profile : bbf-voip-sip:supplementary-services-profile-ref  
+bbf_voip_sip_I_sip_I_sip_terminations_I_sip_termination : try-t38 : boolean   = false 
+class "state" as  bbf_voip_sip_I_sip_I_sip_terminations_I_sip_termination_I_state <<container>> 
+bbf_voip_sip_I_sip_I_sip_terminations_I_sip_termination *-- "1" bbf_voip_sip_I_sip_I_sip_terminations_I_sip_termination_I_state 
+bbf_voip_sip_I_sip_I_sip_terminations_I_sip_termination_I_state : call-state : enumeration : {onhook,offhook-dialtone,dialing,...}   {mandatory} {Config : false}
+bbf_voip_sip_I_sip_I_sip_terminations_I_sip_termination_I_state : registration-state : enumeration : {initial,registered,reg-fail-auth,...}   {mandatory} {Config : false}
+bbf_voip_sip_I_sip_I_sip_terminations_I_sip_termination_I_state : emergency-call-state : enumeration : {no-emergency,emergency-in-progress,}   {mandatory} {Config : false}
+bbf_voip_sip_I_sip_I_sip_terminations_I_sip_termination_I_state : voip-access-gateway : bbf-voip-sip:voip-access-gateway-ref   {mandatory} {Config : false}
+class "sessions" as  bbf_voip_sip_I_sip_I_sip_terminations_I_sip_termination_I_state_I_sessions <<container>> 
+bbf_voip_sip_I_sip_I_sip_terminations_I_sip_termination_I_state *-- "1" bbf_voip_sip_I_sip_I_sip_terminations_I_sip_termination_I_state_I_sessions 
+class "session" as bbf_voip_sip_I_sip_I_sip_terminations_I_sip_termination_I_state_I_sessions_I_session << (L, #FF7700) list>> 
+bbf_voip_sip_I_sip_I_sip_terminations_I_sip_termination_I_state_I_sessions *-- "0..N" bbf_voip_sip_I_sip_I_sip_terminations_I_sip_termination_I_state_I_sessions_I_session 
+bbf_voip_sip_I_sip_I_sip_terminations_I_sip_termination_I_state_I_sessions_I_session : ip-address : inet:ip-address  
+bbf_voip_sip_I_sip_I_sip_terminations_I_sip_termination_I_state_I_sessions_I_session : remote-port : inet:port-number  
+bbf_voip_sip_I_sip_I_sip_terminations_I_sip_termination_I_state_I_sessions_I_session : protocol : bbf-voip-sip:transport-protocol  
+bbf_voip_sip_I_sip_I_sip_terminations_I_sip_termination_I_state_I_sessions_I_session : start-time : yang:date-and-time  
+bbf_voip_sip_I_sip_I_sip_terminations_I_sip_termination_I_state_I_sessions_I_session : calling-number : string  
+bbf_voip_sip_I_sip_I_sip_terminations_I_sip_termination_I_state_I_sessions_I_session : called-number : string  
+bbf_voip_sip_I_sip_I_sip_terminations_I_sip_termination_I_state_I_sessions_I_session : call-direction : bbf-voip-sip:call-direction  
+bbf_voip_sip_I_sip_I_sip_terminations_I_sip_termination_I_state_I_sessions_I_session : duration : uint16   {seconds}
+bbf_voip_sip_I_sip_I_sip_terminations_I_sip_termination_I_state_I_sessions_I_session : failure-cause : identityref {bbf-voip-sip:failure-cause}  
+bbf_voip_sip_I_sip_I_sip_terminations_I_sip_termination_I_state_I_sessions_I_session : bbf-voip-sip:media-session {uses} 
+class "statistics" as  bbf_voip_sip_I_sip_I_sip_terminations_I_sip_termination_I_statistics <<container>> 
+bbf_voip_sip_I_sip_I_sip_terminations_I_sip_termination *-- "1" bbf_voip_sip_I_sip_I_sip_terminations_I_sip_termination_I_statistics 
+bbf_voip_sip_I_sip_I_sip_terminations_I_sip_termination_I_statistics : user-enabled-duration : uint16   {seconds}
+class "registration" as  bbf_voip_sip_I_sip_I_sip_terminations_I_sip_termination_I_statistics_I_registration <<container>> 
+bbf_voip_sip_I_sip_I_sip_terminations_I_sip_termination_I_statistics *-- "1" bbf_voip_sip_I_sip_I_sip_terminations_I_sip_termination_I_statistics_I_registration 
+bbf_voip_sip_I_sip_I_sip_terminations_I_sip_termination_I_statistics_I_registration : registration-duration : uint16   {seconds}
+bbf_voip_sip_I_sip_I_sip_terminations_I_sip_termination_I_statistics_I_registration : bbf-voip-sip:registration-statistics {uses} 
+class "session-initiation" as  bbf_voip_sip_I_sip_I_sip_terminations_I_sip_termination_I_statistics_I_session_initiation <<container>> 
+bbf_voip_sip_I_sip_I_sip_terminations_I_sip_termination_I_statistics *-- "1" bbf_voip_sip_I_sip_I_sip_terminations_I_sip_termination_I_statistics_I_session_initiation 
+bbf_voip_sip_I_sip_I_sip_terminations_I_sip_termination_I_statistics_I_session_initiation : bbf-voip-sip:session-initiation-statistics {uses} 
+class "media" as  bbf_voip_sip_I_sip_I_sip_terminations_I_sip_termination_I_statistics_I_session_initiation_I_media <<container>> 
+bbf_voip_sip_I_sip_I_sip_terminations_I_sip_termination_I_statistics_I_session_initiation *-- "1" bbf_voip_sip_I_sip_I_sip_terminations_I_sip_termination_I_statistics_I_session_initiation_I_media 
+bbf_voip_sip_I_sip_I_sip_terminations_I_sip_termination_I_statistics_I_session_initiation_I_media : out-rtp-packets : yang:counter64   {mandatory}
+bbf_voip_sip_I_sip_I_sip_terminations_I_sip_termination_I_statistics_I_session_initiation_I_media : in-rtp-packets : yang:counter64   {mandatory}
+bbf_voip_sip_I_sip_I_sip_terminations_I_sip_termination_I_statistics_I_session_initiation_I_media : rtp-packet-errors : yang:counter64   {mandatory}
+bbf_voip_sip_I_sip_I_sip_terminations_I_sip_termination_I_statistics_I_session_initiation_I_media : maximum-time-between-rtcp-packets : uint32   {mandatory} {milliseconds}
+bbf_voip_sip_I_sip_I_sip_terminations_I_sip_termination_I_statistics_I_session_initiation_I_media : maximum-jitter : yang:counter64   {mandatory}
+bbf_voip_sip_I_sip_I_sip_terminations_I_sip_termination_I_statistics_I_session_initiation_I_media : buffer-underflows : yang:counter64   {mandatory}
+bbf_voip_sip_I_sip_I_sip_terminations_I_sip_termination_I_statistics_I_session_initiation_I_media : buffer-overflows : yang:counter64   {mandatory}
+class "user-agents" as  bbf_voip_sip_I_sip_I_user_agents <<container>> 
+bbf_voip_sip_I_sip *-- "1" bbf_voip_sip_I_sip_I_user_agents 
+class "user-agent" as bbf_voip_sip_I_sip_I_user_agents_I_user_agent << (L, #FF7700) list>> 
+bbf_voip_sip_I_sip_I_user_agents *-- "0..N" bbf_voip_sip_I_sip_I_user_agents_I_user_agent 
+bbf_voip_sip_I_sip_I_user_agents_I_user_agent : +name : bbf-yang:string-ascii64  {key} 
+bbf_voip_sip_I_sip_I_user_agents_I_user_agent : enabled : boolean   = true 
+bbf_voip_sip_I_sip_I_user_agents_I_user_agent : sip-timers-profile : bbf-voip-sip:sip-timers-profile-ref   {if-feature : bbf-voip-sip:sip-timers}
+bbf_voip_sip_I_sip_I_user_agents_I_user_agent : ip-interface : if:interface-ref   {mandatory}
+bbf_voip_sip_I_sip_I_user_agents_I_user_agent : transport-profile : bbf-voip-sip:transport-profile-ref   {mandatory}
+class "state" as  bbf_voip_sip_I_sip_I_user_agents_I_user_agent_I_state <<container>> 
+bbf_voip_sip_I_sip_I_user_agents_I_user_agent *-- "1" bbf_voip_sip_I_sip_I_user_agents_I_user_agent_I_state 
+bbf_voip_sip_I_sip_I_user_agents_I_user_agent_I_state : oper-state : enumeration : {enabled,disabled,}   {Config : false}
+bbf_voip_sip_I_sip_I_user_agents_I_user_agent_I_state : connection-state : enumeration : {idle,initial,connected,...}   {Config : false}
+class "servers" as  bbf_voip_sip_I_sip_I_user_agents_I_user_agent_I_state_I_servers <<container>> 
+bbf_voip_sip_I_sip_I_user_agents_I_user_agent_I_state *-- "1" bbf_voip_sip_I_sip_I_user_agents_I_user_agent_I_state_I_servers 
+class "server" as bbf_voip_sip_I_sip_I_user_agents_I_user_agent_I_state_I_servers_I_server << (L, #FF7700) list>> 
+bbf_voip_sip_I_sip_I_user_agents_I_user_agent_I_state_I_servers *-- "0..N" bbf_voip_sip_I_sip_I_user_agents_I_user_agent_I_state_I_servers_I_server 
+bbf_voip_sip_I_sip_I_user_agents_I_user_agent_I_state_I_servers_I_server : +ip-address : inet:ip-address  {key} 
+bbf_voip_sip_I_sip_I_user_agents_I_user_agent_I_state_I_servers_I_server : remote-port : inet:port-number   {mandatory}
+bbf_voip_sip_I_sip_I_user_agents_I_user_agent_I_state_I_servers_I_server : protocol : bbf-voip-sip:transport-protocol   {mandatory}
+bbf_voip_sip_I_sip_I_user_agents_I_user_agent_I_state_I_servers_I_server : sip-server-pool : bbf-voip-sip:sip-server-pool-ref  
+class "sessions" as  bbf_voip_sip_I_sip_I_user_agents_I_user_agent_I_state_I_servers_I_server_I_sessions <<container>> 
+bbf_voip_sip_I_sip_I_user_agents_I_user_agent_I_state_I_servers_I_server *-- "1" bbf_voip_sip_I_sip_I_user_agents_I_user_agent_I_state_I_servers_I_server_I_sessions 
+class "session" as bbf_voip_sip_I_sip_I_user_agents_I_user_agent_I_state_I_servers_I_server_I_sessions_I_session << (L, #FF7700) list>> 
+bbf_voip_sip_I_sip_I_user_agents_I_user_agent_I_state_I_servers_I_server_I_sessions *-- "0..N" bbf_voip_sip_I_sip_I_user_agents_I_user_agent_I_state_I_servers_I_server_I_sessions_I_session 
+bbf_voip_sip_I_sip_I_user_agents_I_user_agent_I_state_I_servers_I_server_I_sessions_I_session : start-time : yang:date-and-time  
+bbf_voip_sip_I_sip_I_user_agents_I_user_agent_I_state_I_servers_I_server_I_sessions_I_session : calling-number : string  
+bbf_voip_sip_I_sip_I_user_agents_I_user_agent_I_state_I_servers_I_server_I_sessions_I_session : called-number : string  
+bbf_voip_sip_I_sip_I_user_agents_I_user_agent_I_state_I_servers_I_server_I_sessions_I_session : call-direction : bbf-voip-sip:call-direction  
+bbf_voip_sip_I_sip_I_user_agents_I_user_agent_I_state_I_servers_I_server_I_sessions_I_session : duration : uint16   {seconds}
+bbf_voip_sip_I_sip_I_user_agents_I_user_agent_I_state_I_servers_I_server_I_sessions_I_session : failure-cause : identityref {bbf-voip-sip:failure-cause}  
+class "statistics" as  bbf_voip_sip_I_sip_I_user_agents_I_user_agent_I_statistics <<container>> 
+bbf_voip_sip_I_sip_I_user_agents_I_user_agent *-- "1" bbf_voip_sip_I_sip_I_user_agents_I_user_agent_I_statistics 
+class "protocol" as  bbf_voip_sip_I_sip_I_user_agents_I_user_agent_I_statistics_I_protocol <<container>> 
+bbf_voip_sip_I_sip_I_user_agents_I_user_agent_I_statistics *-- "1" bbf_voip_sip_I_sip_I_user_agents_I_user_agent_I_statistics_I_protocol 
+bbf_voip_sip_I_sip_I_user_agents_I_user_agent_I_statistics_I_protocol : total-transactions : yang:counter64  
+bbf_voip_sip_I_sip_I_user_agents_I_user_agent_I_statistics_I_protocol : incoming-invite-requests : yang:counter64  
+bbf_voip_sip_I_sip_I_user_agents_I_user_agent_I_statistics_I_protocol : incoming-invite-retransmit-requests : yang:counter64  
+bbf_voip_sip_I_sip_I_user_agents_I_user_agent_I_statistics_I_protocol : incoming-noninvite-requests : yang:counter64  
+bbf_voip_sip_I_sip_I_user_agents_I_user_agent_I_statistics_I_protocol : incoming-noninvite-retransmit-requests : yang:counter64  
+bbf_voip_sip_I_sip_I_user_agents_I_user_agent_I_statistics_I_protocol : incoming-responses : yang:counter64  
+bbf_voip_sip_I_sip_I_user_agents_I_user_agent_I_statistics_I_protocol : incoming-retransmit-responses : yang:counter64   {Config : false}
+bbf_voip_sip_I_sip_I_user_agents_I_user_agent_I_statistics_I_protocol : outgoing-invite-requests : yang:counter64  
+bbf_voip_sip_I_sip_I_user_agents_I_user_agent_I_statistics_I_protocol : outgoing-invite-retransmit-requests : yang:counter64  
+bbf_voip_sip_I_sip_I_user_agents_I_user_agent_I_statistics_I_protocol : outgoing-noninvite-requests : yang:counter64  
+bbf_voip_sip_I_sip_I_user_agents_I_user_agent_I_statistics_I_protocol : outgoing-noninvite-retransmit-requests : yang:counter64  
+bbf_voip_sip_I_sip_I_user_agents_I_user_agent_I_statistics_I_protocol : outgoing-responses : yang:counter64  
+bbf_voip_sip_I_sip_I_user_agents_I_user_agent_I_statistics_I_protocol : outgoing-retransmit-responses : yang:counter64  
+class "registration" as  bbf_voip_sip_I_sip_I_user_agents_I_user_agent_I_statistics_I_registration <<container>> 
+bbf_voip_sip_I_sip_I_user_agents_I_user_agent_I_statistics *-- "1" bbf_voip_sip_I_sip_I_user_agents_I_user_agent_I_statistics_I_registration 
+bbf_voip_sip_I_sip_I_user_agents_I_user_agent_I_statistics_I_registration : bbf-voip-sip:registration-statistics {uses} 
+class "session-initiation" as  bbf_voip_sip_I_sip_I_user_agents_I_user_agent_I_statistics_I_session_initiation <<container>> 
+bbf_voip_sip_I_sip_I_user_agents_I_user_agent_I_statistics *-- "1" bbf_voip_sip_I_sip_I_user_agents_I_user_agent_I_statistics_I_session_initiation 
+bbf_voip_sip_I_sip_I_user_agents_I_user_agent_I_statistics_I_session_initiation : bbf-voip-sip:session-initiation-statistics {uses} 
+class "voice-mail-servers" as  bbf_voip_sip_I_sip_I_voice_mail_servers <<container>> 
+bbf_voip_sip_I_sip *-- "1" bbf_voip_sip_I_sip_I_voice_mail_servers 
+class "voice-mail-server" as bbf_voip_sip_I_sip_I_voice_mail_servers_I_voice_mail_server << (L, #FF7700) list>> 
+bbf_voip_sip_I_sip_I_voice_mail_servers *-- "0..N" bbf_voip_sip_I_sip_I_voice_mail_servers_I_voice_mail_server 
+bbf_voip_sip_I_sip_I_voice_mail_servers_I_voice_mail_server : +name : bbf-yang:string-ascii64  {key} 
+bbf_voip_sip_I_sip_I_voice_mail_servers_I_voice_mail_server : enabled : boolean   = true 
+bbf_voip_sip_I_sip_I_voice_mail_servers_I_voice_mail_server : request-uri : inet:uri   {mandatory}
+class "address-type" as bbf_voip_sip_I_sip_I_voice_mail_servers_I_voice_mail_server_I_address_type <<choice>> 
+bbf_voip_sip_I_sip_I_voice_mail_servers_I_voice_mail_server .. bbf_voip_sip_I_sip_I_voice_mail_servers_I_voice_mail_server_I_address_type : choice 
+class "host" as bbf_voip_sip_I_sip_I_voice_mail_servers_I_voice_mail_server_I_address_type_I_host_case <<case>>
+bbf_voip_sip_I_sip_I_voice_mail_servers_I_voice_mail_server_I_address_type .. bbf_voip_sip_I_sip_I_voice_mail_servers_I_voice_mail_server_I_address_type_I_host_case  : choice address-type
+class "host" as  bbf_voip_sip_I_sip_I_voice_mail_servers_I_voice_mail_server_I_address_type_I_host_I_host <<container>> 
+bbf_voip_sip_I_sip_I_voice_mail_servers_I_voice_mail_server_I_address_type_I_host_case *-- "1" bbf_voip_sip_I_sip_I_voice_mail_servers_I_voice_mail_server_I_address_type_I_host_I_host 
+bbf_voip_sip_I_sip_I_voice_mail_servers_I_voice_mail_server_I_address_type_I_host_I_host : address : inet:host   {mandatory}
+bbf_voip_sip_I_sip_I_voice_mail_servers_I_voice_mail_server : transport-profile : bbf-voip-sip:transport-profile-ref   {mandatory}
+bbf_voip_sip_I_sip_I_voice_mail_servers_I_voice_mail_server : subscription-expiration-time : uint16 [90..65535]   = 3600  {seconds}
+class "state" as  bbf_voip_sip_I_sip_I_voice_mail_servers_I_voice_mail_server_I_state <<container>> 
+bbf_voip_sip_I_sip_I_voice_mail_servers_I_voice_mail_server *-- "1" bbf_voip_sip_I_sip_I_voice_mail_servers_I_voice_mail_server_I_state 
+bbf_voip_sip_I_sip_I_voice_mail_servers_I_voice_mail_server_I_state : oper-state : enumeration : {enabled,disabled,}   {Config : false}
+class "voip-access-gateways" as  bbf_voip_sip_I_sip_I_voip_access_gateways <<container>> 
+bbf_voip_sip_I_sip *-- "1" bbf_voip_sip_I_sip_I_voip_access_gateways 
+class "voip-access-gateway" as bbf_voip_sip_I_sip_I_voip_access_gateways_I_voip_access_gateway << (L, #FF7700) list>> 
+bbf_voip_sip_I_sip_I_voip_access_gateways *-- "0..N" bbf_voip_sip_I_sip_I_voip_access_gateways_I_voip_access_gateway 
+bbf_voip_sip_I_sip_I_voip_access_gateways_I_voip_access_gateway : +name : bbf-yang:string-ascii64  {key} 
+bbf_voip_sip_I_sip_I_voip_access_gateways_I_voip_access_gateway : enabled : boolean   = true 
+bbf_voip_sip_I_sip_I_voip_access_gateways_I_voip_access_gateway : voip-service-provider : bbf-voip-sip:voip-service-provider-ref   {mandatory}
+bbf_voip_sip_I_sip_I_voip_access_gateways_I_voip_access_gateway : registration-profile : bbf-voip-sip:registration-profile-ref   {mandatory}
+class "sip-service-profile" as  bbf_voip_sip_I_sip_I_voip_access_gateways_I_voip_access_gateway_I_sip_service_profile <<container>> 
+bbf_voip_sip_I_sip_I_voip_access_gateways_I_voip_access_gateway *-- "0..1" bbf_voip_sip_I_sip_I_voip_access_gateways_I_voip_access_gateway_I_sip_service_profile 
+class "source" as bbf_voip_sip_I_sip_I_voip_access_gateways_I_voip_access_gateway_I_sip_service_profile_I_source <<choice>> 
+bbf_voip_sip_I_sip_I_voip_access_gateways_I_voip_access_gateway_I_sip_service_profile .. bbf_voip_sip_I_sip_I_voip_access_gateways_I_voip_access_gateway_I_sip_service_profile_I_source : choice 
+class "file" as bbf_voip_sip_I_sip_I_voip_access_gateways_I_voip_access_gateway_I_sip_service_profile_I_source_I_file_case <<case>>
+bbf_voip_sip_I_sip_I_voip_access_gateways_I_voip_access_gateway_I_sip_service_profile_I_source .. bbf_voip_sip_I_sip_I_voip_access_gateways_I_voip_access_gateway_I_sip_service_profile_I_source_I_file_case  : choice source
+class "ssp-file" as  bbf_voip_sip_I_sip_I_voip_access_gateways_I_voip_access_gateway_I_sip_service_profile_I_source_I_file_I_ssp_file <<container>> 
+bbf_voip_sip_I_sip_I_voip_access_gateways_I_voip_access_gateway_I_sip_service_profile_I_source_I_file_case *-- "1" bbf_voip_sip_I_sip_I_voip_access_gateways_I_voip_access_gateway_I_sip_service_profile_I_source_I_file_I_ssp_file 
+class "location" as bbf_voip_sip_I_sip_I_voip_access_gateways_I_voip_access_gateway_I_sip_service_profile_I_source_I_file_I_ssp_file_I_location <<choice>> 
+bbf_voip_sip_I_sip_I_voip_access_gateways_I_voip_access_gateway_I_sip_service_profile_I_source_I_file_I_ssp_file .. bbf_voip_sip_I_sip_I_voip_access_gateways_I_voip_access_gateway_I_sip_service_profile_I_source_I_file_I_ssp_file_I_location : choice 
+class "url" as bbf_voip_sip_I_sip_I_voip_access_gateways_I_voip_access_gateway_I_sip_service_profile_I_source_I_file_I_ssp_file_I_location_I_url_case <<case>>
+bbf_voip_sip_I_sip_I_voip_access_gateways_I_voip_access_gateway_I_sip_service_profile_I_source_I_file_I_ssp_file_I_location .. bbf_voip_sip_I_sip_I_voip_access_gateways_I_voip_access_gateway_I_sip_service_profile_I_source_I_file_I_ssp_file_I_location_I_url_case  : choice location
+bbf_voip_sip_I_sip_I_voip_access_gateways_I_voip_access_gateway_I_sip_service_profile_I_source_I_file_I_ssp_file_I_location_I_url_case : url : inet:uri  
+bbf_voip_sip_I_sip_I_voip_access_gateways_I_voip_access_gateway_I_sip_service_profile : call-flow-id : bbf-yang:string-ascii64  
+bbf_voip_sip_I_sip_I_voip_access_gateways_I_voip_access_gateway_I_sip_service_profile : ssp-configuration-state : enumeration : {inactive,initializing,active,...}   {Config : false}
+class "server-configuration-method" as bbf_voip_sip_I_sip_I_voip_access_gateways_I_voip_access_gateway_I_server_configuration_method <<choice>> 
+bbf_voip_sip_I_sip_I_voip_access_gateways_I_voip_access_gateway .. bbf_voip_sip_I_sip_I_voip_access_gateways_I_voip_access_gateway_I_server_configuration_method : choice 
+class "dhcp" as bbf_voip_sip_I_sip_I_voip_access_gateways_I_voip_access_gateway_I_server_configuration_method_I_dhcp_case <<case>>
+bbf_voip_sip_I_sip_I_voip_access_gateways_I_voip_access_gateway_I_server_configuration_method .. bbf_voip_sip_I_sip_I_voip_access_gateways_I_voip_access_gateway_I_server_configuration_method_I_dhcp_case  : choice server-configuration-method
+bbf_voip_sip_I_sip_I_voip_access_gateways_I_voip_access_gateway_I_server_configuration_method_I_dhcp_case : dhcp : empty  
+class "server-pool" as bbf_voip_sip_I_sip_I_voip_access_gateways_I_voip_access_gateway_I_server_configuration_method_I_server_pool_case <<case>>
+bbf_voip_sip_I_sip_I_voip_access_gateways_I_voip_access_gateway_I_server_configuration_method .. bbf_voip_sip_I_sip_I_voip_access_gateways_I_voip_access_gateway_I_server_configuration_method_I_server_pool_case  : choice server-configuration-method
+bbf_voip_sip_I_sip_I_voip_access_gateways_I_voip_access_gateway_I_server_configuration_method_I_server_pool_case : sip-server-pools []: bbf-voip-sip:sip-server-pool-ref 
+class "redundancy" as  bbf_voip_sip_I_sip_I_voip_access_gateways_I_voip_access_gateway_I_redundancy <<container>> 
+bbf_voip_sip_I_sip_I_voip_access_gateways_I_voip_access_gateway *-- "1" bbf_voip_sip_I_sip_I_voip_access_gateways_I_voip_access_gateway_I_redundancy 
+class "foreground-monitoring" as  bbf_voip_sip_I_sip_I_voip_access_gateways_I_voip_access_gateway_I_redundancy_I_foreground_monitoring <<container>> 
+bbf_voip_sip_I_sip_I_voip_access_gateways_I_voip_access_gateway_I_redundancy *-- "0..1" bbf_voip_sip_I_sip_I_voip_access_gateways_I_voip_access_gateway_I_redundancy_I_foreground_monitoring 
+bbf_voip_sip_I_sip_I_voip_access_gateways_I_voip_access_gateway_I_redundancy_I_foreground_monitoring : bbf-voip-sip:server-monitoring {uses} 
+class "background-monitoring" as  bbf_voip_sip_I_sip_I_voip_access_gateways_I_voip_access_gateway_I_redundancy_I_background_monitoring <<container>> 
+bbf_voip_sip_I_sip_I_voip_access_gateways_I_voip_access_gateway_I_redundancy *-- "0..1" bbf_voip_sip_I_sip_I_voip_access_gateways_I_voip_access_gateway_I_redundancy_I_background_monitoring 
+bbf_voip_sip_I_sip_I_voip_access_gateways_I_voip_access_gateway_I_redundancy_I_background_monitoring : bbf-voip-sip:server-monitoring {uses} 
+bbf_voip_sip_I_sip_I_voip_access_gateways_I_voip_access_gateway_I_redundancy : connection-state : identityref {bbf-voip-sip:connection-state}   {Config : false}
+bbf_voip_sip_I_sip_I_voip_access_gateways_I_voip_access_gateway : voice-mail-server : bbf-voip-sip:voice-mail-server-ref   {if-feature : bbf-voip-sip:voice-mail-servers}
+class "state" as  bbf_voip_sip_I_sip_I_voip_access_gateways_I_voip_access_gateway_I_state <<container>> 
+bbf_voip_sip_I_sip_I_voip_access_gateways_I_voip_access_gateway *-- "1" bbf_voip_sip_I_sip_I_voip_access_gateways_I_voip_access_gateway_I_state 
+bbf_voip_sip_I_sip_I_voip_access_gateways_I_voip_access_gateway_I_state : oper-state : enumeration : {enabled,disabled,}   {Config : false}
+class "sip-server" as bbf_voip_sip_I_sip_I_voip_access_gateways_I_voip_access_gateway_I_state_I_sip_server << (L, #FF7700) list>> 
+bbf_voip_sip_I_sip_I_voip_access_gateways_I_voip_access_gateway_I_state *-- "0..N" bbf_voip_sip_I_sip_I_voip_access_gateways_I_voip_access_gateway_I_state_I_sip_server 
+bbf_voip_sip_I_sip_I_voip_access_gateways_I_voip_access_gateway_I_state_I_sip_server : address : inet:host  
+class "voip-service-gateways" as  bbf_voip_sip_I_sip_I_voip_service_gateways <<container>> 
+bbf_voip_sip_I_sip *-- "1" bbf_voip_sip_I_sip_I_voip_service_gateways 
+class "voip-service-gateway" as bbf_voip_sip_I_sip_I_voip_service_gateways_I_voip_service_gateway << (L, #FF7700) list>> 
+bbf_voip_sip_I_sip_I_voip_service_gateways *-- "0..N" bbf_voip_sip_I_sip_I_voip_service_gateways_I_voip_service_gateway 
+bbf_voip_sip_I_sip_I_voip_service_gateways_I_voip_service_gateway : +name : bbf-yang:string-ascii64  {key} 
+bbf_voip_sip_I_sip_I_voip_service_gateways_I_voip_service_gateway : enabled : boolean   = true 
+bbf_voip_sip_I_sip_I_voip_service_gateways_I_voip_service_gateway : user-agent : bbf-voip-sip:user-agent-ref   {mandatory}
+bbf_voip_sip_I_sip_I_voip_service_gateways_I_voip_service_gateway : media-forwarder : bbf-voip-media:forwarder-ref   {mandatory}
+bbf_voip_sip_I_sip_I_voip_service_gateways_I_voip_service_gateway : voip-access-gateway []: bbf-voip-sip:voip-access-gateway-ref 
+class "provider" as  bbf_voip_sip_I_sip_I_voip_service_gateways_I_voip_service_gateway_I_provider <<container>> 
+bbf_voip_sip_I_sip_I_voip_service_gateways_I_voip_service_gateway *-- "1" bbf_voip_sip_I_sip_I_voip_service_gateways_I_voip_service_gateway_I_provider 
+bbf_voip_sip_I_sip_I_voip_service_gateways_I_voip_service_gateway_I_provider : +name : bbf-yang:string-ascii64  {key} 
+bbf_voip_sip_I_sip_I_voip_service_gateways_I_voip_service_gateway_I_provider : contact []: bbf-yang:string-ascii64 
+bbf_voip_sip_I_sip_I_voip_service_gateways_I_voip_service_gateway : domain-name : inet:domain-name  
+bbf_voip_sip_I_sip_I_voip_service_gateways_I_voip_service_gateway : authentication-scheme : identityref {bbf-voip-sip:authentication-scheme}   {mandatory}
+bbf_voip_sip_I_sip_I_voip_service_gateways_I_voip_service_gateway : dscp-mark : inet:dscp   = 46 
+bbf_voip_sip_I_sip_I_voip_service_gateways_I_voip_service_gateway : release-timer : uint8 [1..255]   = 10  {seconds}
+class "sip-response-code" as bbf_voip_sip_I_sip_I_voip_service_gateways_I_voip_service_gateway_I_sip_response_code << (L, #FF7700) list>> 
+bbf_voip_sip_I_sip_I_voip_service_gateways_I_voip_service_gateway *-- "0..N" bbf_voip_sip_I_sip_I_voip_service_gateways_I_voip_service_gateway_I_sip_response_code 
+bbf_voip_sip_I_sip_I_voip_service_gateways_I_voip_service_gateway_I_sip_response_code : +sip-response-code : uint16  {key} 
+bbf_voip_sip_I_sip_I_voip_service_gateways_I_voip_service_gateway_I_sip_response_code : reason-phrase : bbf-yang:string-ascii64-or-empty  
+bbf_voip_sip_I_sip_I_voip_service_gateways_I_voip_service_gateway_I_sip_response_code : tone-pattern : bbf-yang:string-ascii64  
+class "state" as  bbf_voip_sip_I_sip_I_voip_service_gateways_I_voip_service_gateway_I_state <<container>> 
+bbf_voip_sip_I_sip_I_voip_service_gateways_I_voip_service_gateway *-- "1" bbf_voip_sip_I_sip_I_voip_service_gateways_I_voip_service_gateway_I_state 
+bbf_voip_sip_I_sip_I_voip_service_gateways_I_voip_service_gateway_I_state : oper-state : enumeration : {enabled,disabled,}   {Config : false}
+class "voip-service-providers" as  bbf_voip_sip_I_sip_I_voip_service_providers <<container>> 
+bbf_voip_sip_I_sip *-- "1" bbf_voip_sip_I_sip_I_voip_service_providers 
+class "voip-service-provider" as bbf_voip_sip_I_sip_I_voip_service_providers_I_voip_service_provider << (L, #FF7700) list>> 
+bbf_voip_sip_I_sip_I_voip_service_providers *-- "0..N" bbf_voip_sip_I_sip_I_voip_service_providers_I_voip_service_provider 
+bbf_voip_sip_I_sip_I_voip_service_providers_I_voip_service_provider : +name : bbf-yang:string-ascii64  {key} 
+bbf_voip_sip_I_sip_I_voip_service_providers_I_voip_service_provider : enabled : boolean   = true 
+bbf_voip_sip_I_sip_I_voip_service_providers_I_voip_service_provider : dial-plan-profile : bbf-voip-sip:dial-plan-profile-ref   {mandatory}
+bbf_voip_sip_I_sip_I_voip_service_providers_I_voip_service_provider : service-code-commands-profile : bbf-voip-sip:service-code-commands-profile-ref  
+bbf_voip_sip_I_sip_I_voip_service_providers_I_voip_service_provider : event-package-subscription-profile : bbf-voip-sip:event-package-subscription-profile-ref   {if-feature : bbf-voip-sip:event-package-subscriptions}
+bbf_voip_sip_I_sip_I_voip_service_providers_I_voip_service_provider : uri-scheme : enumeration : {sip,tel,sips,}   = sip 
+class "state" as  bbf_voip_sip_I_sip_I_voip_service_providers_I_voip_service_provider_I_state <<container>> 
+bbf_voip_sip_I_sip_I_voip_service_providers_I_voip_service_provider *-- "1" bbf_voip_sip_I_sip_I_voip_service_providers_I_voip_service_provider_I_state 
+bbf_voip_sip_I_sip_I_voip_service_providers_I_voip_service_provider_I_state : oper-state : enumeration : {enabled,disabled,}   {Config : false}
+class "connection-state" as bbf_voip_sip_connection_state_identity << (I,Silver) identity>> 
+class "connected-to-primary" as bbf_voip_sip_connected_to_primary_identity << (I,Silver) identity>> 
+bbf_voip_sip_connection_state_identity <|-- bbf_voip_sip_connected_to_primary_identity 
+class "server-failover-ongoing" as bbf_voip_sip_server_failover_ongoing_identity << (I,Silver) identity>> 
+bbf_voip_sip_connection_state_identity <|-- bbf_voip_sip_server_failover_ongoing_identity 
+class "server-failback-ongoing" as bbf_voip_sip_server_failback_ongoing_identity << (I,Silver) identity>> 
+bbf_voip_sip_connection_state_identity <|-- bbf_voip_sip_server_failback_ongoing_identity 
+class "connected-to-backup" as bbf_voip_sip_connected_to_backup_identity << (I,Silver) identity>> 
+bbf_voip_sip_connection_state_identity <|-- bbf_voip_sip_connected_to_backup_identity 
+class "subscriber-controlled-activation" as bbf_voip_sip_subscriber_controlled_activation_identity << (I,Silver) identity>> 
+class "subscriber-controlled-deactivation" as bbf_voip_sip_subscriber_controlled_deactivation_identity << (I,Silver) identity>> 
+class "subscriber-controlled-interrogation" as bbf_voip_sip_subscriber_controlled_interrogation_identity << (I,Silver) identity>> 
+class "subscriber-controlled-pin-change-code" as bbf_voip_sip_subscriber_controlled_pin_change_code_identity << (I,Silver) identity>> 
+class "subscriber-controlled-feature" as bbf_voip_sip_subscriber_controlled_feature_identity << (I,Silver) identity>> 
+class "call-waiting" as bbf_voip_sip_call_waiting_identity << (I,Silver) identity>> 
+bbf_voip_sip_subscriber_controlled_feature_identity <|-- bbf_voip_sip_call_waiting_identity 
+class "cancel-call-waiting" as bbf_voip_sip_cancel_call_waiting_identity << (I,Silver) identity>> 
+bbf_voip_sip_subscriber_controlled_feature_identity <|-- bbf_voip_sip_cancel_call_waiting_identity 
+class "call-hold" as bbf_voip_sip_call_hold_identity << (I,Silver) identity>> 
+bbf_voip_sip_subscriber_controlled_feature_identity <|-- bbf_voip_sip_call_hold_identity 
+class "three-party-conference" as bbf_voip_sip_three_party_conference_identity << (I,Silver) identity>> 
+bbf_voip_sip_subscriber_controlled_feature_identity <|-- bbf_voip_sip_three_party_conference_identity 
+class "call-park" as bbf_voip_sip_call_park_identity << (I,Silver) identity>> 
+bbf_voip_sip_subscriber_controlled_feature_identity <|-- bbf_voip_sip_call_park_identity 
+class "unattended-call-transfer" as bbf_voip_sip_unattended_call_transfer_identity << (I,Silver) identity>> 
+bbf_voip_sip_subscriber_controlled_feature_identity <|-- bbf_voip_sip_unattended_call_transfer_identity 
+class "attended-call-transfer" as bbf_voip_sip_attended_call_transfer_identity << (I,Silver) identity>> 
+bbf_voip_sip_subscriber_controlled_feature_identity <|-- bbf_voip_sip_attended_call_transfer_identity 
+class "do-not-disturb" as bbf_voip_sip_do_not_disturb_identity << (I,Silver) identity>> 
+bbf_voip_sip_subscriber_controlled_feature_identity <|-- bbf_voip_sip_do_not_disturb_identity 
+class "caller-id" as bbf_voip_sip_caller_id_identity << (I,Silver) identity>> 
+bbf_voip_sip_subscriber_controlled_feature_identity <|-- bbf_voip_sip_caller_id_identity 
+class "direct-connect-delayed" as bbf_voip_sip_direct_connect_delayed_identity << (I,Silver) identity>> 
+bbf_voip_sip_subscriber_controlled_feature_identity <|-- bbf_voip_sip_direct_connect_delayed_identity 
+class "failure-cause" as bbf_voip_sip_failure_cause_identity << (I,Silver) identity>> 
+class "timer-b-expired" as bbf_voip_sip_timer_b_expired_identity << (I,Silver) identity>> 
+bbf_voip_sip_failure_cause_identity <|-- bbf_voip_sip_timer_b_expired_identity 
+class "call-cancelled" as bbf_voip_sip_call_cancelled_identity << (I,Silver) identity>> 
+bbf_voip_sip_failure_cause_identity <|-- bbf_voip_sip_call_cancelled_identity 
+class "final-3xx-failure-response-received" as bbf_voip_sip_final_3xx_failure_response_received_identity << (I,Silver) identity>> 
+bbf_voip_sip_failure_cause_identity <|-- bbf_voip_sip_final_3xx_failure_response_received_identity 
+class "final-4xx-failure-response-received" as bbf_voip_sip_final_4xx_failure_response_received_identity << (I,Silver) identity>> 
+bbf_voip_sip_failure_cause_identity <|-- bbf_voip_sip_final_4xx_failure_response_received_identity 
+class "final-5xx-failure-response-received" as bbf_voip_sip_final_5xx_failure_response_received_identity << (I,Silver) identity>> 
+bbf_voip_sip_failure_cause_identity <|-- bbf_voip_sip_final_5xx_failure_response_received_identity 
+class "final-6xx-failure-response-received" as bbf_voip_sip_final_6xx_failure_response_received_identity << (I,Silver) identity>> 
+bbf_voip_sip_failure_cause_identity <|-- bbf_voip_sip_final_6xx_failure_response_received_identity 
+class "dial-plan-format" as bbf_voip_sip_dial_plan_format_identity << (I,Silver) identity>> 
+class "format-h248" as bbf_voip_sip_format_h248_identity << (I,Silver) identity>> 
+bbf_voip_sip_dial_plan_format_identity <|-- bbf_voip_sip_format_h248_identity 
+class "authentication-scheme" as bbf_voip_sip_authentication_scheme_identity << (I,Silver) identity>> 
+class "auth-disabled" as bbf_voip_sip_auth_disabled_identity << (I,Silver) identity>> 
+bbf_voip_sip_authentication_scheme_identity <|-- bbf_voip_sip_auth_disabled_identity 
+class "md5-digest" as bbf_voip_sip_md5_digest_identity << (I,Silver) identity>> 
+bbf_voip_sip_authentication_scheme_identity <|-- bbf_voip_sip_md5_digest_identity 
+class "aka" as bbf_voip_sip_aka_identity << (I,Silver) identity>> 
+bbf_voip_sip_authentication_scheme_identity <|-- bbf_voip_sip_aka_identity 
+class "format-ncs" as bbf_voip_sip_format_ncs_identity << (I,Silver) identity>> 
+bbf_voip_sip_dial_plan_format_identity <|-- bbf_voip_sip_format_ncs_identity 
+class "format-vendor-specific" as bbf_voip_sip_format_vendor_specific_identity << (I,Silver) identity>> 
+bbf_voip_sip_dial_plan_format_identity <|-- bbf_voip_sip_format_vendor_specific_identity 
+bbf_voip_sip_I_sip_I_dial_plan_profiles_I_dial_plan_profile-->bbf_voip_sip_dial_plan_format_identity : format
+bbf_voip_sip_I_sip_I_service_code_commands_profiles_I_service_code_commands_profile_I_service_code_commands-->bbf_voip_sip_subscriber_controlled_feature_identity : service
+bbf_voip_sip_I_sip_I_sip_terminations_I_sip_termination_I_state_I_sessions_I_session-->bbf_voip_sip_failure_cause_identity : failure-cause
+bbf_voip_sip_I_sip_I_user_agents_I_user_agent_I_state_I_servers_I_server_I_sessions_I_session-->bbf_voip_sip_failure_cause_identity : failure-cause
+bbf_voip_sip_I_sip_I_voip_access_gateways_I_voip_access_gateway_I_redundancy-->bbf_voip_sip_connection_state_identity : connection-state
+bbf_voip_sip_I_sip_I_voip_service_gateways_I_voip_service_gateway-->bbf_voip_sip_authentication_scheme_identity : authentication-scheme
+} 
+
+bbf_yang_bbf_yang_types +-- bbf_voip_sip_bbf_voip_sip
+if_ietf_interfaces +-- bbf_voip_sip_bbf_voip_sip
+inet_ietf_inet_types +-- bbf_voip_sip_bbf_voip_sip
+yang_ietf_yang_types +-- bbf_voip_sip_bbf_voip_sip
+bbfift_bbf_if_type +-- bbf_voip_sip_bbf_voip_sip
+bbf_ipif_bbf_ip_interfaces +-- bbf_voip_sip_bbf_voip_sip
+ianaift_iana_if_type +-- bbf_voip_sip_bbf_voip_sip
+ianach_iana_crypt_hash +-- bbf_voip_sip_bbf_voip_sip
+tlsc_ietf_tls_client +-- bbf_voip_sip_bbf_voip_sip
+ks_ietf_keystore +-- bbf_voip_sip_bbf_voip_sip
+bbf_voip_media_bbf_voip_media +-- bbf_voip_sip_bbf_voip_sip
+bbf_voip_sip_I_sip_I_sip_terminations_I_sip_termination_I_state_I_sessions_I_session --> bbf_voip_sip_I_media_session_grouping : uses 
+bbf_voip_sip_I_sip_I_sip_terminations_I_sip_termination_I_statistics_I_registration --> bbf_voip_sip_I_registration_statistics_grouping : uses 
+bbf_voip_sip_I_sip_I_sip_terminations_I_sip_termination_I_statistics_I_session_initiation --> bbf_voip_sip_I_session_initiation_statistics_grouping : uses 
+bbf_voip_sip_I_sip_I_user_agents_I_user_agent_I_statistics_I_registration --> bbf_voip_sip_I_registration_statistics_grouping : uses 
+bbf_voip_sip_I_sip_I_user_agents_I_user_agent_I_statistics_I_session_initiation --> bbf_voip_sip_I_session_initiation_statistics_grouping : uses 
+bbf_voip_sip_I_sip_I_voip_access_gateways_I_voip_access_gateway_I_redundancy_I_foreground_monitoring --> bbf_voip_sip_I_server_monitoring_grouping : uses 
+bbf_voip_sip_I_sip_I_voip_access_gateways_I_voip_access_gateway_I_redundancy_I_background_monitoring --> bbf_voip_sip_I_server_monitoring_grouping : uses 
+bbf_voip_sip_supplementary_services_profile_ref_typedef-->"bbf-voip-sip:name"bbf_voip_sip_I_sip_I_supplementary_services_profiles_I_supplementary_services_profile: supplementary-services-profile-ref
+bbf_voip_sip_dial_plan_profile_ref_typedef-->"bbf-voip-sip:name"bbf_voip_sip_I_sip_I_dial_plan_profiles_I_dial_plan_profile: dial-plan-profile-ref
+bbf_voip_sip_event_package_subscription_profile_ref_typedef-->"bbf-voip-sip:name"bbf_voip_sip_I_sip_I_event_package_subscription_profiles_I_event_package_subscription_profile: event-package-subscription-profile-ref
+bbf_voip_sip_service_code_commands_profile_ref_typedef-->"bbf-voip-sip:name"bbf_voip_sip_I_sip_I_service_code_commands_profiles_I_service_code_commands_profile: service-code-commands-profile-ref
+bbf_voip_sip_registration_profile_ref_typedef-->"bbf-voip-sip:name"bbf_voip_sip_I_sip_I_registration_profiles_I_registration_profile: registration-profile-ref
+bbf_voip_sip_sip_timers_profile_ref_typedef-->"bbf-voip-sip:name"bbf_voip_sip_I_sip_I_sip_timers_profiles_I_sip_timers_profile: sip-timers-profile-ref
+bbf_voip_sip_transport_profile_ref_typedef-->"bbf-voip-sip:name"bbf_voip_sip_I_sip_I_transport_profiles_I_transport_profile: transport-profile-ref
+bbf_voip_sip_user_agent_ref_typedef-->"bbf-voip-sip:name"bbf_voip_sip_I_sip_I_user_agents_I_user_agent: user-agent-ref
+bbf_voip_sip_sip_termination_ref_typedef-->"bbf-voip-sip:user-name"bbf_voip_sip_I_sip_I_sip_terminations_I_sip_termination: sip-termination-ref
+bbf_voip_sip_voip_service_gateway_ref_typedef-->"bbf-voip-sip:name"bbf_voip_sip_I_sip_I_voip_service_gateways_I_voip_service_gateway: voip-service-gateway-ref
+bbf_voip_sip_sip_server_pool_ref_typedef-->"bbf-voip-sip:name"bbf_voip_sip_I_sip_I_sip_server_pools_I_sip_server_pool: sip-server-pool-ref
+bbf_voip_sip_sip_server_ref_typedef-->"bbf-voip-sip:name"bbf_voip_sip_I_sip_I_sip_servers_I_sip_server: sip-server-ref
+bbf_voip_sip_voip_access_gateway_ref_typedef-->"bbf-voip-sip:name"bbf_voip_sip_I_sip_I_voip_access_gateways_I_voip_access_gateway: voip-access-gateway-ref
+bbf_voip_sip_voip_service_provider_ref_typedef-->"bbf-voip-sip:name"bbf_voip_sip_I_sip_I_voip_service_providers_I_voip_service_provider: voip-service-provider-ref
+bbf_voip_sip_voice_mail_server_ref_typedef-->"bbf-voip-sip:name"bbf_voip_sip_I_sip_I_voice_mail_servers_I_voice_mail_server: voice-mail-server-ref
+center footer
+ <size:20> UML Generated : 2023-07-25 11:41 </size>
+ endfooter 
+@enduml 

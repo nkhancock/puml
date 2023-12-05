@@ -1,0 +1,31 @@
+@startuml
+'comment: ONU bring up
+participant ONU
+participant OLT
+participant vOLTMF
+participant vOMCIFunction
+participant Access_SDN_M_C
+hide footbox
+
+note over ONU, OLT
+The ONU has entered O5-06 state
+end note
+
+OLT -> vOLTMF: 1) ONU state change notification(include serial number and optional PLOAM password)
+vOLTMF -> vOMCIFunction: 2) Action: set-onu-communication
+vOMCIFunction -> ONU: 3) Get MIB data sync
+vOMCIFunction -> vOLTMF: 4) Report configuration alignment result
+group 5) if configuration misaligned
+vOLTMF -> vOMCIFunction: 5a) ReplaceConfig to upload ONU configuration
+vOMCIFunction -> ONU: 5b) MibReset
+vOMCIFunction -> ONU: 5c) MibUpLoad
+vOMCIFunction -> ONU: 5d) OMCI configuration provisioning
+vOMCIFunction -> vOLTMF: 5e) ONU ReplaceConfigResp complete response
+end
+group 6) if configuration aligned
+vOLTMF -> vOMCIFunction: 6a) Get all alarms using the GetData request operation
+vOMCIFunction -> ONU: 6b) Get all alarms
+end
+vOLTMF -> OLT: 7) OLT configuration provisioning
+vOLTMF -> Access_SDN_M_C: 8) Report configured ONU online is done
+@enduml

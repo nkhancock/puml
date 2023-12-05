@@ -1,0 +1,29 @@
+@startuml
+
+'comment: vOLTMF Command
+participant vOLTMF
+participant vOMCIFunction
+participant vOMCIProxy
+participant OLT
+participant ONU
+
+hide footbox
+vOLTMF -> vOLTMF: lookup remote endpoint\n (vOMCIFunction)
+vOLTMF -> vOLTMF: populate ONU command\n (Request payload id,\n onu-name)
+vOLTMF -> vOMCIFunction: send ONU command
+
+vOMCIFunction -> vOMCIFunction: retain request_payload_id
+vOMCIFunction -> vOMCIFunction: lookup ONU message chain (onu-name)
+vOMCIFunction -> vOMCIFunction: populate request_payload_id
+vOMCIFunction -> vOMCIFunction: populate message info
+vOMCIFunction -> vOMCIFunction: populate ONU header
+vOMCIFunction -> vOMCIProxy: send OMCIPacket message
+
+vOMCIProxy -> vOMCIProxy: lookup next from ONU message chain\n (ONU header)
+vOMCIProxy -> vOMCIProxy: retain ONU header, \n request_payload_id
+vOMCIProxy -> OLT: send OMCIPacket message
+
+OLT -> OLT: deencapsulate OMCI message
+OLT -> ONU: send OMCI message
+
+@enduml

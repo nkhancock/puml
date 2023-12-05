@@ -1,0 +1,176 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/bbf-voip-media.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title bbf-voip-media 
+package "inet:ietf-inet-types" as inet_ietf_inet_types { 
+} 
+package "if:ietf-interfaces" as if_ietf_interfaces { 
+} 
+package "bbfift:bbf-if-type" as bbfift_bbf_if_type { 
+} 
+package "bbf-ipif:bbf-ip-interfaces" as bbf_ipif_bbf_ip_interfaces { 
+} 
+package "ianaift:iana-if-type" as ianaift_iana_if_type { 
+} 
+package "bbf-yang:bbf-yang-types" as bbf_yang_bbf_yang_types { 
+} 
+package "bbf-voip-media:bbf-voip-media" as bbf_voip_media_bbf_voip_media { 
+} 
+package "bbf-voip-media:bbf-voip-media" as bbf_voip_media_bbf_voip_media { 
+class "bbf-voip-media" as bbf_voip_media << (M, #33CCFF) module>> 
+bbf_voip_media : feature : jitter-buffer-configuration 
+bbf_voip_media : feature : forwarder 
+class "forwarder-ref" as bbf_voip_media_forwarder_ref_typedef << (T, YellowGreen) typedef>>
+bbf_voip_media_forwarder_ref_typedef : leafref : /bbf-voip-media:voip-media/bbf-voip-media:forwarders/bbf-voip-media:forwarder/bbf-voip-media:name
+class "codec-profile-ref" as bbf_voip_media_codec_profile_ref_typedef << (T, YellowGreen) typedef>>
+bbf_voip_media_codec_profile_ref_typedef : leafref : /bbf-voip-media:voip-media/bbf-voip-media:codec-profiles/bbf-voip-media:codec-profile/bbf-voip-media:name
+class "voice-profile-ref" as bbf_voip_media_voice_profile_ref_typedef << (T, YellowGreen) typedef>>
+bbf_voip_media_voice_profile_ref_typedef : leafref : /bbf-voip-media:voip-media/bbf-voip-media:voice-profiles/bbf-voip-media:voice-profile/bbf-voip-media:name
+class "transport" as bbf_voip_media_I_transport_grouping <<(G,Lime) grouping>> 
+bbf_voip_media_I_transport_grouping : local-port-minimum : uint32   = 50000 
+bbf_voip_media_I_transport_grouping : local-port-maximum : uint32   = 64000 
+class "jitter" as bbf_voip_media_I_jitter_grouping <<(G,Lime) grouping>> 
+bbf_voip_media_I_jitter_grouping : initial-depth : uint8 [1..200]   = 50  {milliseconds}
+bbf_voip_media_I_jitter_grouping : minimum-depth : uint8 [1..200]   = 20  {milliseconds}
+bbf_voip_media_I_jitter_grouping : maximum-depth : uint8 [1..200]   = 100  {milliseconds}
+class "voip-media" as  bbf_voip_media_I_voip_media <<container>> 
+bbf_voip_media *-- "0..1" bbf_voip_media_I_voip_media 
+class "codec-profiles" as  bbf_voip_media_I_voip_media_I_codec_profiles <<container>> 
+bbf_voip_media_I_voip_media *-- "1" bbf_voip_media_I_voip_media_I_codec_profiles 
+class "codec-profile" as bbf_voip_media_I_voip_media_I_codec_profiles_I_codec_profile << (L, #FF7700) list>> 
+bbf_voip_media_I_voip_media_I_codec_profiles *-- "0..N" bbf_voip_media_I_voip_media_I_codec_profiles_I_codec_profile 
+bbf_voip_media_I_voip_media_I_codec_profiles_I_codec_profile : +name : bbf-yang:string-ascii64  {key} 
+class "codec-selection" as bbf_voip_media_I_voip_media_I_codec_profiles_I_codec_profile_I_codec_selection << (L, #FF7700) list>> 
+bbf_voip_media_I_voip_media_I_codec_profiles_I_codec_profile *-- "1..N" bbf_voip_media_I_voip_media_I_codec_profiles_I_codec_profile_I_codec_selection : ordered-by : user
+bbf_voip_media_I_voip_media_I_codec_profiles_I_codec_profile_I_codec_selection : +codec : identityref {bbf-voip-media:voice-codec}  {key} 
+bbf_voip_media_I_voip_media_I_codec_profiles_I_codec_profile_I_codec_selection : packet-period : uint8 [10|20|30|40]   = 10  {milliseconds}
+bbf_voip_media_I_voip_media_I_codec_profiles_I_codec_profile_I_codec_selection : silence-suppression : boolean   = false 
+class "voice-profiles" as  bbf_voip_media_I_voip_media_I_voice_profiles <<container>> 
+bbf_voip_media_I_voip_media *-- "1" bbf_voip_media_I_voip_media_I_voice_profiles 
+class "voice-profile" as bbf_voip_media_I_voip_media_I_voice_profiles_I_voice_profile << (L, #FF7700) list>> 
+bbf_voip_media_I_voip_media_I_voice_profiles *-- "0..N" bbf_voip_media_I_voip_media_I_voice_profiles_I_voice_profile 
+bbf_voip_media_I_voip_media_I_voice_profiles_I_voice_profile : +name : bbf-yang:string-ascii64  {key} 
+bbf_voip_media_I_voip_media_I_voice_profiles_I_voice_profile : codec-profile : bbf-voip-media:codec-profile-ref   {mandatory}
+class "jitter-buffer" as  bbf_voip_media_I_voip_media_I_voice_profiles_I_voice_profile_I_jitter_buffer <<container>> 
+bbf_voip_media_I_voip_media_I_voice_profiles_I_voice_profile *-- "0..1" bbf_voip_media_I_voip_media_I_voice_profiles_I_voice_profile_I_jitter_buffer 
+bbf_voip_media_I_voip_media_I_voice_profiles_I_voice_profile_I_jitter_buffer : bbf-voip-media:jitter {uses} 
+bbf_voip_media_I_voip_media_I_voice_profiles_I_voice_profile : voice-activity-detection : boolean   = false 
+class "rtp" as  bbf_voip_media_I_voip_media_I_voice_profiles_I_voice_profile_I_rtp <<container>> 
+bbf_voip_media_I_voip_media_I_voice_profiles_I_voice_profile *-- "1" bbf_voip_media_I_voip_media_I_voice_profiles_I_voice_profile_I_rtp 
+bbf_voip_media_I_voip_media_I_voice_profiles_I_voice_profile_I_rtp : symmetrical-rtp-rtcp-required : boolean   = true 
+class "transport" as  bbf_voip_media_I_voip_media_I_voice_profiles_I_voice_profile_I_rtp_I_transport <<container>> 
+bbf_voip_media_I_voip_media_I_voice_profiles_I_voice_profile_I_rtp *-- "1" bbf_voip_media_I_voip_media_I_voice_profiles_I_voice_profile_I_rtp_I_transport 
+bbf_voip_media_I_voip_media_I_voice_profiles_I_voice_profile_I_rtp_I_transport : bbf-voip-media:transport {uses} 
+class "forwarders" as  bbf_voip_media_I_voip_media_I_forwarders <<container>> 
+bbf_voip_media_I_voip_media *-- "1" bbf_voip_media_I_voip_media_I_forwarders 
+class "forwarder" as bbf_voip_media_I_voip_media_I_forwarders_I_forwarder << (L, #FF7700) list>> 
+bbf_voip_media_I_voip_media_I_forwarders *-- "0..N" bbf_voip_media_I_voip_media_I_forwarders_I_forwarder 
+bbf_voip_media_I_voip_media_I_forwarders_I_forwarder : +name : bbf-yang:string-ascii64  {key} 
+bbf_voip_media_I_voip_media_I_forwarders_I_forwarder : enabled : boolean   = true 
+bbf_voip_media_I_voip_media_I_forwarders_I_forwarder : ip-interface : if:interface-ref   {mandatory}
+class "configuration-file" as  bbf_voip_media_I_voip_media_I_forwarders_I_forwarder_I_configuration_file <<container>> 
+bbf_voip_media_I_voip_media_I_forwarders_I_forwarder *-- "0..1" bbf_voip_media_I_voip_media_I_forwarders_I_forwarder_I_configuration_file 
+class "location" as bbf_voip_media_I_voip_media_I_forwarders_I_forwarder_I_configuration_file_I_location <<choice>> 
+bbf_voip_media_I_voip_media_I_forwarders_I_forwarder_I_configuration_file .. bbf_voip_media_I_voip_media_I_forwarders_I_forwarder_I_configuration_file_I_location : choice 
+class "url" as bbf_voip_media_I_voip_media_I_forwarders_I_forwarder_I_configuration_file_I_location_I_url_case <<case>>
+bbf_voip_media_I_voip_media_I_forwarders_I_forwarder_I_configuration_file_I_location .. bbf_voip_media_I_voip_media_I_forwarders_I_forwarder_I_configuration_file_I_location_I_url_case  : choice location
+bbf_voip_media_I_voip_media_I_forwarders_I_forwarder_I_configuration_file_I_location_I_url_case : url : inet:uri  
+bbf_voip_media_I_voip_media_I_forwarders_I_forwarder : tone-event-mode : identityref {bbf-voip-media:tone-event-mode}   = bbf-voip-media:in-band-audio 
+class "rtp" as  bbf_voip_media_I_voip_media_I_forwarders_I_forwarder_I_rtp <<container>> 
+bbf_voip_media_I_voip_media_I_forwarders_I_forwarder *-- "1" bbf_voip_media_I_voip_media_I_forwarders_I_forwarder_I_rtp 
+bbf_voip_media_I_voip_media_I_forwarders_I_forwarder_I_rtp : dynamic-rtp-payload-type-number : uint8 [96..127]   = 96 
+bbf_voip_media_I_voip_media_I_forwarders_I_forwarder_I_rtp : piggyback-events : boolean   = false 
+bbf_voip_media_I_voip_media_I_forwarders_I_forwarder_I_rtp : dtmf-events : boolean   = false 
+bbf_voip_media_I_voip_media_I_forwarders_I_forwarder_I_rtp : tone-events : boolean   = false 
+bbf_voip_media_I_voip_media_I_forwarders_I_forwarder_I_rtp : cas-events : boolean   = false 
+class "media-x-connect" as bbf_voip_media_I_voip_media_I_forwarders_I_forwarder_I_media_x_connect << (L, #FF7700) list>> 
+bbf_voip_media_I_voip_media_I_forwarders_I_forwarder *-- "1..N" bbf_voip_media_I_voip_media_I_forwarders_I_forwarder_I_media_x_connect 
+bbf_voip_media_I_voip_media_I_forwarders_I_forwarder_I_media_x_connect : +name : bbf-yang:string-ascii64  {key} 
+bbf_voip_media_I_voip_media_I_forwarders_I_forwarder_I_media_x_connect : dscp-mark : inet:dscp   = 46 
+bbf_voip_media_I_voip_media_I_forwarders_I_forwarder_I_media_x_connect : voice-profile : bbf-voip-media:voice-profile-ref   {mandatory}
+class "jitter-buffer" as  bbf_voip_media_I_voip_media_I_forwarders_I_forwarder_I_media_x_connect_I_jitter_buffer <<container>> 
+bbf_voip_media_I_voip_media_I_forwarders_I_forwarder_I_media_x_connect *-- "0..1" bbf_voip_media_I_voip_media_I_forwarders_I_forwarder_I_media_x_connect_I_jitter_buffer 
+bbf_voip_media_I_voip_media_I_forwarders_I_forwarder_I_media_x_connect_I_jitter_buffer : bbf-voip-media:jitter {uses} 
+class "v152" as  bbf_voip_media_I_voip_media_I_forwarders_I_forwarder_I_media_x_connect_I_v152 <<container>> 
+bbf_voip_media_I_voip_media_I_forwarders_I_forwarder_I_media_x_connect *-- "1" bbf_voip_media_I_voip_media_I_forwarders_I_forwarder_I_media_x_connect_I_v152 
+bbf_voip_media_I_voip_media_I_forwarders_I_forwarder_I_media_x_connect_I_v152 : voice-band-data-mode : enumeration : {auto-switch,re-negotiation,}   = auto-switch 
+class "codec-selection" as bbf_voip_media_I_voip_media_I_forwarders_I_forwarder_I_media_x_connect_I_v152_I_codec_selection << (L, #FF7700) list>> 
+bbf_voip_media_I_voip_media_I_forwarders_I_forwarder_I_media_x_connect_I_v152 *-- "1..N" bbf_voip_media_I_voip_media_I_forwarders_I_forwarder_I_media_x_connect_I_v152_I_codec_selection : ordered-by : user
+bbf_voip_media_I_voip_media_I_forwarders_I_forwarder_I_media_x_connect_I_v152_I_codec_selection : +codec : identityref {bbf-voip-media:fax-codec}  {key} 
+class "t38" as  bbf_voip_media_I_voip_media_I_forwarders_I_forwarder_I_media_x_connect_I_t38 <<container>> 
+bbf_voip_media_I_voip_media_I_forwarders_I_forwarder_I_media_x_connect *-- "0..1" bbf_voip_media_I_voip_media_I_forwarders_I_forwarder_I_media_x_connect_I_t38 
+class "transport" as  bbf_voip_media_I_voip_media_I_forwarders_I_forwarder_I_media_x_connect_I_t38_I_transport <<container>> 
+bbf_voip_media_I_voip_media_I_forwarders_I_forwarder_I_media_x_connect_I_t38 *-- "0..1" bbf_voip_media_I_voip_media_I_forwarders_I_forwarder_I_media_x_connect_I_t38_I_transport 
+bbf_voip_media_I_voip_media_I_forwarders_I_forwarder_I_media_x_connect_I_t38_I_transport : bbf-voip-media:transport {uses} 
+class "state" as  bbf_voip_media_I_voip_media_I_forwarders_I_forwarder_I_state <<container>> 
+bbf_voip_media_I_voip_media_I_forwarders_I_forwarder *-- "1" bbf_voip_media_I_voip_media_I_forwarders_I_forwarder_I_state 
+bbf_voip_media_I_voip_media_I_forwarders_I_forwarder_I_state : oper-state : enumeration : {enabled,disabled,}   {Config : false}
+class "voice-codec" as bbf_voip_media_voice_codec_identity << (I,Silver) identity>> 
+class "g711-a-law" as bbf_voip_media_g711_a_law_identity << (I,Silver) identity>> 
+bbf_voip_media_voice_codec_identity <|-- bbf_voip_media_g711_a_law_identity 
+class "g711-u-law" as bbf_voip_media_g711_u_law_identity << (I,Silver) identity>> 
+bbf_voip_media_voice_codec_identity <|-- bbf_voip_media_g711_u_law_identity 
+class "g722" as bbf_voip_media_g722_identity << (I,Silver) identity>> 
+bbf_voip_media_voice_codec_identity <|-- bbf_voip_media_g722_identity 
+class "g722.1" as bbf_voip_media_g722__1_identity << (I,Silver) identity>> 
+bbf_voip_media_voice_codec_identity <|-- bbf_voip_media_g722__1_identity 
+class "g722.2" as bbf_voip_media_g722__2_identity << (I,Silver) identity>> 
+bbf_voip_media_voice_codec_identity <|-- bbf_voip_media_g722__2_identity 
+class "g723.1-5.3kb" as bbf_voip_media_g723__1_5__3kb_identity << (I,Silver) identity>> 
+bbf_voip_media_voice_codec_identity <|-- bbf_voip_media_g723__1_5__3kb_identity 
+class "g723.1-6.3kb" as bbf_voip_media_g723__1_6__3kb_identity << (I,Silver) identity>> 
+bbf_voip_media_voice_codec_identity <|-- bbf_voip_media_g723__1_6__3kb_identity 
+class "g726-16kb" as bbf_voip_media_g726_16kb_identity << (I,Silver) identity>> 
+bbf_voip_media_voice_codec_identity <|-- bbf_voip_media_g726_16kb_identity 
+class "g726-24kb" as bbf_voip_media_g726_24kb_identity << (I,Silver) identity>> 
+bbf_voip_media_voice_codec_identity <|-- bbf_voip_media_g726_24kb_identity 
+class "g726-32kb" as bbf_voip_media_g726_32kb_identity << (I,Silver) identity>> 
+bbf_voip_media_voice_codec_identity <|-- bbf_voip_media_g726_32kb_identity 
+class "g726-40kb" as bbf_voip_media_g726_40kb_identity << (I,Silver) identity>> 
+bbf_voip_media_voice_codec_identity <|-- bbf_voip_media_g726_40kb_identity 
+class "g729" as bbf_voip_media_g729_identity << (I,Silver) identity>> 
+bbf_voip_media_voice_codec_identity <|-- bbf_voip_media_g729_identity 
+class "g729-a" as bbf_voip_media_g729_a_identity << (I,Silver) identity>> 
+bbf_voip_media_voice_codec_identity <|-- bbf_voip_media_g729_a_identity 
+class "g729-b" as bbf_voip_media_g729_b_identity << (I,Silver) identity>> 
+bbf_voip_media_voice_codec_identity <|-- bbf_voip_media_g729_b_identity 
+class "g729-ab" as bbf_voip_media_g729_ab_identity << (I,Silver) identity>> 
+bbf_voip_media_voice_codec_identity <|-- bbf_voip_media_g729_ab_identity 
+class "fax-codec" as bbf_voip_media_fax_codec_identity << (I,Silver) identity>> 
+class "tone-event-mode" as bbf_voip_media_tone_event_mode_identity << (I,Silver) identity>> 
+class "in-band-audio" as bbf_voip_media_in_band_audio_identity << (I,Silver) identity>> 
+bbf_voip_media_tone_event_mode_identity <|-- bbf_voip_media_in_band_audio_identity 
+class "rtp-payload" as bbf_voip_media_rtp_payload_identity << (I,Silver) identity>> 
+bbf_voip_media_tone_event_mode_identity <|-- bbf_voip_media_rtp_payload_identity 
+bbf_voip_media_I_voip_media_I_codec_profiles_I_codec_profile_I_codec_selection-->bbf_voip_media_voice_codec_identity : codec
+bbf_voip_media_I_voip_media_I_forwarders_I_forwarder-->bbf_voip_media_tone_event_mode_identity : tone-event-mode
+bbf_voip_media_I_voip_media_I_forwarders_I_forwarder_I_media_x_connect_I_v152_I_codec_selection-->bbf_voip_media_fax_codec_identity : codec
+} 
+
+inet_ietf_inet_types +-- bbf_voip_media_bbf_voip_media
+if_ietf_interfaces +-- bbf_voip_media_bbf_voip_media
+bbfift_bbf_if_type +-- bbf_voip_media_bbf_voip_media
+bbf_ipif_bbf_ip_interfaces +-- bbf_voip_media_bbf_voip_media
+ianaift_iana_if_type +-- bbf_voip_media_bbf_voip_media
+bbf_yang_bbf_yang_types +-- bbf_voip_media_bbf_voip_media
+bbf_voip_media_I_voip_media_I_voice_profiles_I_voice_profile_I_jitter_buffer --> bbf_voip_media_I_jitter_grouping : uses 
+bbf_voip_media_I_voip_media_I_voice_profiles_I_voice_profile_I_rtp_I_transport --> bbf_voip_media_I_transport_grouping : uses 
+bbf_voip_media_I_voip_media_I_forwarders_I_forwarder_I_media_x_connect_I_jitter_buffer --> bbf_voip_media_I_jitter_grouping : uses 
+bbf_voip_media_I_voip_media_I_forwarders_I_forwarder_I_media_x_connect_I_t38_I_transport --> bbf_voip_media_I_transport_grouping : uses 
+bbf_voip_media_forwarder_ref_typedef-->"bbf-voip-media:name"bbf_voip_media_I_voip_media_I_forwarders_I_forwarder: forwarder-ref
+bbf_voip_media_codec_profile_ref_typedef-->"bbf-voip-media:name"bbf_voip_media_I_voip_media_I_codec_profiles_I_codec_profile: codec-profile-ref
+bbf_voip_media_voice_profile_ref_typedef-->"bbf-voip-media:name"bbf_voip_media_I_voip_media_I_voice_profiles_I_voice_profile: voice-profile-ref
+center footer
+ <size:20> UML Generated : 2023-07-25 11:40 </size>
+ endfooter 
+@enduml 

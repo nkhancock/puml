@@ -1,0 +1,17 @@
+'Deafult color settings
+
+' Define the Adtran colors
+!$defaultOffWhite = "f4f9fA"
+!$defaultTeal = "00a0c8"
+!$defaultLightTeal = "00c8e6"
+!$defaultAegeanTeal = "006e8c"
+!$defaultDarkTeal = "02434f"
+!$defaultGrey = "a7a7a7"
+!$defaultDarkGrey = "535353"
+!$defaultRose = "ff7878"
+!$defaultPink = "d00059"
+!$defaultSalmon = "ff7878"
+!$defaultVividBlue = "3264f0"
+!$defaultGreen = "87c252"
+!$defaultYellow = "ffc800"
+!$defaultDarkPurple = "3c1b5a"

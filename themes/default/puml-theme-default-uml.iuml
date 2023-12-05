@@ -1,0 +1,95 @@
+'Default settings for all PlantUML UML diagrams
+
+!include puml-theme-default-colors.iuml
+
+' Apply colors
+!$defaultLineColor = $defaultTeal
+!$defautBackgroundColor = White
+
+' Special usage
+!$newlElementLineColor = $defaultGreen
+!$movedElementLineColor = $defaultVividBlue
+!$futureElementLineColor = $defaultRose
+
+!$unavailableElementLineColor = $defaultLightTeal
+!$unavailableElementTextColor = $defaultGrey
+!$unavailableFutureElementLineColor = $defaultSalmon
+!$unavailableFutureElementTextColor = $defaultGrey
+
+skinparam style strictuml
+
+skinparam class {
+  BorderColor<<implicit>> silver
+}
+
+
+hide circle
+hide empty description
+hide footbox
+
+skinparam backgroundColor #$defautBackgroundColor
+skinparam defaultFontName arial
+skinparam shadowing false
+
+skinparam arrowColor #$defaultLineColor
+
+skinparam Class {
+  backgroundColor #$defautBackgroundColor
+  borderColor #$defaultLineColor
+  borderThickness 1
+}
+
+skinparam Activity {
+  backgroundColor #$defautBackgroundColor
+  borderColor #$defaultLineColor
+  DiamondBackgroundColor White
+  DiamondBorderColor #$defaultLineColor
+}
+
+skinparam Object {
+  backgroundColor #$defautBackgroundColor
+  borderColor #$defaultLineColor
+}
+
+skinparam Component {
+  backgroundColor #$defautBackgroundColor
+  borderColor #$defaultLineColor
+}
+
+skinparam Interface {
+  backgroundColor #$defautBackgroundColor
+  borderColor #$defaultLineColor
+}
+
+skinparam Note {
+  backgroundColor #$defaultOffWhite
+  borderColor #$defaultLineColor
+}
+
+skinparam Package {
+  backgroundColor #$defautBackgroundColor
+  fontSize 11
+  fontStyle normal
+  borderColor #$defaultLineColor
+}
+
+skinparam Sequence {
+  actorBorderColor #$defaultDarkTeal
+  boxBackgroundColor #$defaultOffWhite
+  boxBorderColor #$defaultDarkGrey
+  groupBorderColor #$defaultDarkTeal
+  groupBackgroundColor #$defaultDarkGrey
+  lifeLineBorderColor #$defaultLineColor
+  lifeLineBackgroundColor #$defaultLineColor
+  participantBackgroundColor #$defaultLineColor
+  participantBorderColor #$defaultLineColor
+  ParticipantFontColor white
+}
+
+skinparam State {
+  backgroundColor #$defautBackgroundColor
+  borderColor #$defaultLineColor
+}
+
+hide <<choice>> members
+

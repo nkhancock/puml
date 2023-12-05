@@ -1,0 +1,84 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/test-module-1_test-module-1.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title test-module-1_test-module-1 
+package "tst-mod-c:test-module-common" as tst_mod_c_test_module_common { 
+} 
+package "tst-mod-1:test-module-1" as tst_mod_1_test_module_1 { 
+} 
+package "tst-mod-1:test-module-1" as tst_mod_1_test_module_1 { 
+class "test-module-1" as test_module_1 << (M, #33CCFF) module>> 
+enum "direction" as tst_mod_1_direction_typedef <<enumeration>> {
+up
+down
+}
+class "base-id-ref" as tst_mod_1_base_id_ref_typedef << (T, YellowGreen) typedef>>
+tst_mod_1_base_id_ref_typedef : identityref {base-id}
+class "refs" as  test_module_1_I_refs <<container>> 
+test_module_1 *-- "1" test_module_1_I_refs 
+class "list" as test_module_1_I_refs_I_list << (L, #FF7700) list>> 
+test_module_1_I_refs *-- "0..N" test_module_1_I_refs_I_list 
+test_module_1_I_refs_I_list : +name : string  {key} 
+test_module_1_I_refs_I_list : id : identityref {base-id}  
+class "tst-mod-c:base-identity" as tst_mod_c_base_identity_identity << (I,Silver) identity>> 
+class "base-id" as tst_mod_1_base_id_identity << (I,Silver) identity>> 
+class "id-1" as tst_mod_1_id_1_identity << (I,Silver) identity>> 
+tst_mod_1_base_id_identity <|-- tst_mod_1_id_1_identity 
+class "id-2" as tst_mod_1_id_2_identity << (I,Silver) identity>> 
+tst_mod_1_base_id_identity <|-- tst_mod_1_id_2_identity 
+class "id-3" as tst_mod_1_id_3_identity << (I,Silver) identity>> 
+tst_mod_1_id_2_identity <|-- tst_mod_1_id_3_identity 
+class "module-1-identity" as tst_mod_1_module_1_identity_identity << (I,Silver) identity>> 
+tst_mod_c_base_identity_identity <|-- tst_mod_1_module_1_identity_identity 
+tst_mod_1_base_id_ref_typedef-->tst_mod_1_base_id_identity : base-id-ref
+test_module_1_I_refs_I_list-->tst_mod_1_base_id_identity : id
+} 
+
+tst_mod_c_test_module_common +-- tst_mod_1_test_module_1
+package "tst-mod-c:test-module-common" as tst_mod_c_test_module_common { 
+} 
+package "tst-mod-1:test-module-1" as tst_mod_1_test_module_1 { 
+} 
+package "tst-mod-1:test-module-1" as tst_mod_1_test_module_1 { 
+class "test-module-1" as test_module_1 << (M, #33CCFF) module>> 
+enum "direction" as tst_mod_1_direction_typedef <<enumeration>> {
+up
+down
+}
+class "base-id-ref" as tst_mod_1_base_id_ref_typedef << (T, YellowGreen) typedef>>
+tst_mod_1_base_id_ref_typedef : identityref {base-id}
+class "refs" as  test_module_1_I_refs <<container>> 
+test_module_1 *-- "1" test_module_1_I_refs 
+class "list" as test_module_1_I_refs_I_list << (L, #FF7700) list>> 
+test_module_1_I_refs *-- "0..N" test_module_1_I_refs_I_list 
+test_module_1_I_refs_I_list : +name : string  {key} 
+test_module_1_I_refs_I_list : id : identityref {base-id}  
+class "tst-mod-c:base-identity" as tst_mod_c_base_identity_identity << (I,Silver) identity>> 
+class "base-id" as tst_mod_1_base_id_identity << (I,Silver) identity>> 
+class "id-1" as tst_mod_1_id_1_identity << (I,Silver) identity>> 
+tst_mod_1_base_id_identity <|-- tst_mod_1_id_1_identity 
+class "id-2" as tst_mod_1_id_2_identity << (I,Silver) identity>> 
+tst_mod_1_base_id_identity <|-- tst_mod_1_id_2_identity 
+class "id-3" as tst_mod_1_id_3_identity << (I,Silver) identity>> 
+tst_mod_1_id_2_identity <|-- tst_mod_1_id_3_identity 
+class "module-1-identity" as tst_mod_1_module_1_identity_identity << (I,Silver) identity>> 
+tst_mod_c_base_identity_identity <|-- tst_mod_1_module_1_identity_identity 
+tst_mod_1_base_id_ref_typedef-->tst_mod_1_base_id_identity : base-id-ref
+test_module_1_I_refs_I_list-->tst_mod_1_base_id_identity : id
+} 
+
+tst_mod_c_test_module_common +-- tst_mod_1_test_module_1
+center footer
+ <size:20> UML Generated : 2023-11-06 14:25 </size>
+ endfooter 
+@enduml 

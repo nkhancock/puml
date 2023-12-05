@@ -1,0 +1,103 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/bbf-onu-management-proxy.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title bbf-onu-management-proxy 
+package "bbf-nf:bbf-network-function" as bbf_nf_bbf_network_function { 
+} 
+package "bbf-nfc:bbf-network-function-client" as bbf_nfc_bbf_network_function_client { 
+} 
+package "bbf-nfs:bbf-network-function-server" as bbf_nfs_bbf_network_function_server { 
+} 
+package "bbf-nft:bbf-network-function-types" as bbf_nft_bbf_network_function_types { 
+} 
+package "bbf-voltmf-c:bbf-voltmf-common" as bbf_voltmf_c_bbf_voltmf_common { 
+} 
+package "bbf-voltmf-msg-mon:bbf-voltmf-message-monitor" as bbf_voltmf_msg_mon_bbf_voltmf_message_monitor { 
+} 
+package "bbf-vomci-c:bbf-vomci-common" as bbf_vomci_c_bbf_vomci_common { 
+} 
+package "bbf-vomcit:bbf-vomci-types" as bbf_vomcit_bbf_vomci_types { 
+} 
+package "bbf-yang:bbf-yang-types" as bbf_yang_bbf_yang_types { 
+} 
+package "yangmnt:ietf-yang-schema-mount" as yangmnt_ietf_yang_schema_mount { 
+} 
+package "bbf-onu-mgmt-p:bbf-onu-management-proxy" as bbf_onu_mgmt_p_bbf_onu_management_proxy { 
+} 
+package "bbf-onu-mgmt-p:bbf-onu-management-proxy" as bbf_onu_mgmt_p_bbf_onu_management_proxy { 
+class "bbf-onu-management-proxy" as bbf_onu_management_proxy << (M, #33CCFF) module>> 
+bbf_onu_management_proxy : feature : nf-client 
+bbf_onu_management_proxy : feature : nf-server 
+class "onu-management-proxy" as  bbf_onu_management_proxy_I_onu_management_proxy <<container>> 
+bbf_onu_management_proxy *-- "1" bbf_onu_management_proxy_I_onu_management_proxy 
+bbf_onu_management_proxy_I_onu_management_proxy : message-timeout : uint16 [10..max]   = 900  {seconds}
+class "nf-topology" as  bbf_onu_management_proxy_I_onu_management_proxy_I_nf_topology <<container>> 
+bbf_onu_management_proxy_I_onu_management_proxy *-- "1" bbf_onu_management_proxy_I_onu_management_proxy_I_nf_topology 
+bbf_onu_management_proxy_I_onu_management_proxy_I_nf_topology : bbf-nf:nf-topology {uses} 
+class "onu-vomci-assignment-policy" as  bbf_onu_management_proxy_I_onu_management_proxy_I_onu_vomci_assignment_policy <<container>> 
+bbf_onu_management_proxy_I_onu_management_proxy *-- "1" bbf_onu_management_proxy_I_onu_management_proxy_I_onu_vomci_assignment_policy 
+bbf_onu_management_proxy_I_onu_management_proxy_I_onu_vomci_assignment_policy : bbf-voltmf-c:onu-vomci-assignment-policy {uses} 
+class "remote-nf" as  bbf_onu_management_proxy_I_onu_management_proxy_I_remote_nf <<container>> 
+bbf_onu_management_proxy_I_onu_management_proxy *-- "0..1" bbf_onu_management_proxy_I_onu_management_proxy_I_remote_nf 
+class "nf-client" as  bbf_onu_management_proxy_I_onu_management_proxy_I_remote_nf_I_nf_client <<container>> 
+bbf_onu_management_proxy_I_onu_management_proxy_I_remote_nf *-- "1" bbf_onu_management_proxy_I_onu_management_proxy_I_remote_nf_I_nf_client 
+bbf_onu_management_proxy_I_onu_management_proxy_I_remote_nf_I_nf_client : enabled : boolean   = true 
+bbf_onu_management_proxy_I_onu_management_proxy_I_remote_nf_I_nf_client : bbf-nfc:nf-client {uses} 
+class "nf-server" as  bbf_onu_management_proxy_I_onu_management_proxy_I_remote_nf_I_nf_server <<container>> 
+bbf_onu_management_proxy_I_onu_management_proxy_I_remote_nf *-- "1" bbf_onu_management_proxy_I_onu_management_proxy_I_remote_nf_I_nf_server 
+bbf_onu_management_proxy_I_onu_management_proxy_I_remote_nf_I_nf_server : enabled : boolean   = true 
+bbf_onu_management_proxy_I_onu_management_proxy_I_remote_nf_I_nf_server : bbf-nfs:nf-server {uses} 
+class "statistics" as  bbf_onu_management_proxy_I_onu_management_proxy_I_statistics <<container>> 
+bbf_onu_management_proxy_I_onu_management_proxy *-- "1" bbf_onu_management_proxy_I_onu_management_proxy_I_statistics 
+bbf_onu_management_proxy_I_onu_management_proxy_I_statistics : reset()
+bbf_onu_management_proxy_I_onu_management_proxy_I_statistics : bbf-voltmf-msg-mon:voltmf-message-statistics {uses} 
+class "managed-onus" as  bbf_onu_management_proxy_I_onu_management_proxy_I_managed_onus <<container>> 
+bbf_onu_management_proxy_I_onu_management_proxy *-- "1" bbf_onu_management_proxy_I_onu_management_proxy_I_managed_onus 
+bbf_onu_management_proxy_I_onu_management_proxy_I_managed_onus : create-onu( in: name in: xpon_onu_type in: vendor_id in: software_version)
+class "managed-onu" as bbf_onu_management_proxy_I_onu_management_proxy_I_managed_onus_I_managed_onu << (L, #FF7700) list>> 
+bbf_onu_management_proxy_I_onu_management_proxy_I_managed_onus *-- "0..N" bbf_onu_management_proxy_I_onu_management_proxy_I_managed_onus_I_managed_onu 
+bbf_onu_management_proxy_I_onu_management_proxy_I_managed_onus_I_managed_onu : +name : bbf-vomcit:onu-name  {key} 
+bbf_onu_management_proxy_I_onu_management_proxy_I_managed_onus_I_managed_onu : xpon-onu-type : identityref {bbf-vomcit:xpon-onu-type}  
+bbf_onu_management_proxy_I_onu_management_proxy_I_managed_onus_I_managed_onu : delete-onu( in: delete_state_data)
+bbf_onu_management_proxy_I_onu_management_proxy_I_managed_onus_I_managed_onu : delete-only-onu-state-data()
+bbf_onu_management_proxy_I_onu_management_proxy_I_managed_onus_I_managed_onu : set-onu-communication( in: onu_communication_available in: software_version in: onu_management_chain_selection in: xpon_onu_type in: onu_management_chain in: bbf_vomci_c_vomci_onu_header)
+bbf_onu_management_proxy_I_onu_management_proxy_I_managed_onus_I_managed_onu : bbf-vomci-c:vomci-onu-header {uses} 
+bbf_onu_management_proxy_I_onu_management_proxy_I_managed_onus_I_managed_onu : vendor-id : bbf-vomcit:onu-vendor-id  
+bbf_onu_management_proxy_I_onu_management_proxy_I_managed_onus_I_managed_onu : software-version : bbf-vomcit:onu-software-version  
+bbf_onu_management_proxy_I_onu_management_proxy_I_managed_onus_I_managed_onu : voltmf-remote-endpoint : bbf-yang:string-ascii64  
+class "onu-management-chain" as bbf_onu_management_proxy_I_onu_management_proxy_I_managed_onus_I_managed_onu_I_onu_management_chain << (L, #FF7700) list>> 
+bbf_onu_management_proxy_I_onu_management_proxy_I_managed_onus_I_managed_onu *-- "0..N" bbf_onu_management_proxy_I_onu_management_proxy_I_managed_onus_I_managed_onu_I_onu_management_chain : ordered-by : user
+bbf_onu_management_proxy_I_onu_management_proxy_I_managed_onus_I_managed_onu_I_onu_management_chain : +nf-type : identityref {bbf-nft:vnf-type}  {key} 
+bbf_onu_management_proxy_I_onu_management_proxy_I_managed_onus_I_managed_onu_I_onu_management_chain : +nf-instance : bbf-yang:string-ascii64  {key} 
+class "statistics" as  bbf_onu_management_proxy_I_onu_management_proxy_I_managed_onus_I_managed_onu_I_statistics <<container>> 
+bbf_onu_management_proxy_I_onu_management_proxy_I_managed_onus_I_managed_onu *-- "1" bbf_onu_management_proxy_I_onu_management_proxy_I_managed_onus_I_managed_onu_I_statistics 
+bbf_onu_management_proxy_I_onu_management_proxy_I_managed_onus_I_managed_onu_I_statistics : reset()
+bbf_onu_management_proxy_I_onu_management_proxy_I_managed_onus_I_managed_onu_I_statistics : bbf-voltmf-msg-mon:voltmf-message-statistics {uses} 
+bbf_onu_management_proxy_I_onu_management_proxy_I_managed_onus_I_managed_onu-->bbf_vomcit_xpon_onu_type: xpon-onu-type
+bbf_onu_management_proxy_I_onu_management_proxy_I_managed_onus_I_managed_onu_I_onu_management_chain-->bbf_nft_vnf_type: nf-type
+} 
+
+bbf_nf_bbf_network_function +-- bbf_onu_mgmt_p_bbf_onu_management_proxy
+bbf_nfc_bbf_network_function_client +-- bbf_onu_mgmt_p_bbf_onu_management_proxy
+bbf_nfs_bbf_network_function_server +-- bbf_onu_mgmt_p_bbf_onu_management_proxy
+bbf_nft_bbf_network_function_types +-- bbf_onu_mgmt_p_bbf_onu_management_proxy
+bbf_voltmf_c_bbf_voltmf_common +-- bbf_onu_mgmt_p_bbf_onu_management_proxy
+bbf_voltmf_msg_mon_bbf_voltmf_message_monitor +-- bbf_onu_mgmt_p_bbf_onu_management_proxy
+bbf_vomci_c_bbf_vomci_common +-- bbf_onu_mgmt_p_bbf_onu_management_proxy
+bbf_vomcit_bbf_vomci_types +-- bbf_onu_mgmt_p_bbf_onu_management_proxy
+bbf_yang_bbf_yang_types +-- bbf_onu_mgmt_p_bbf_onu_management_proxy
+yangmnt_ietf_yang_schema_mount +-- bbf_onu_mgmt_p_bbf_onu_management_proxy
+center footer
+ <size:20> UML Generated : 2023-07-28 16:50 </size>
+ endfooter 
+@enduml 

@@ -1,0 +1,259 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/ietf-crypto-types.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title ietf-crypto-types 
+package "yang:ietf-yang-types" as yang_ietf_yang_types { 
+} 
+package "nacm:ietf-netconf-acm" as nacm_ietf_netconf_acm { 
+} 
+package "ct:ietf-crypto-types" as ct_ietf_crypto_types { 
+} 
+note top of ct_ietf_crypto_types : <b>Namespace: </b> urn:ietf:params:xml:ns:yang:ietf-crypto-types \n<b>Prefix: </b> ct \n<b>Organization : </b>\nIETF NETCONF (Network Configuration) Working Group \n<b>Contact : </b>\nWG Web:   https://datatracker.ietf.org/wg/netconf \nWG List:  NETCONF WG list <mailto:netconf@ietf.org> \nAuthor:   Kent Watsen <mailto:kent+ietf@watsen.net> \n<b>Revision : </b> 2023-04-17 \n
+package "ct:ietf-crypto-types" as ct_ietf_crypto_types { 
+class "ietf-crypto-types" as ietf_crypto_types << (M, #33CCFF) module>> 
+ietf_crypto_types : feature : one-symmetric-key-format 
+ietf_crypto_types : feature : one-asymmetric-key-format 
+ietf_crypto_types : feature : symmetrically-encrypted-value-format 
+ietf_crypto_types : feature : asymmetrically-encrypted-value-format 
+ietf_crypto_types : feature : cms-enveloped-data-format 
+ietf_crypto_types : feature : cms-encrypted-data-format 
+ietf_crypto_types : feature : p10-csr-format 
+ietf_crypto_types : feature : csr-generation 
+ietf_crypto_types : feature : certificate-expiration-notification 
+ietf_crypto_types : feature : cleartext-passwords 
+ietf_crypto_types : feature : encrypted-passwords 
+ietf_crypto_types : feature : cleartext-symmetric-keys 
+ietf_crypto_types : feature : hidden-symmetric-keys 
+ietf_crypto_types : feature : encrypted-symmetric-keys 
+ietf_crypto_types : feature : cleartext-private-keys 
+ietf_crypto_types : feature : hidden-private-keys 
+ietf_crypto_types : feature : encrypted-private-keys 
+class "csr-info" as csr_info << (T, YellowGreen) typedef>>
+csr_info : binary
+class "p10-csr" as p10_csr << (T, YellowGreen) typedef>>
+p10_csr : binary
+class "x509" as x509 << (T, YellowGreen) typedef>>
+x509 : binary
+class "crl" as crl << (T, YellowGreen) typedef>>
+crl : binary
+class "oscp-request" as oscp_request << (T, YellowGreen) typedef>>
+oscp_request : binary
+class "oscp-response" as oscp_response << (T, YellowGreen) typedef>>
+oscp_response : binary
+class "cms" as cms << (T, YellowGreen) typedef>>
+cms : binary
+class "data-content-cms" as data_content_cms << (T, YellowGreen) typedef>>
+data_content_cms : cms
+class "signed-data-cms" as signed_data_cms << (T, YellowGreen) typedef>>
+signed_data_cms : cms
+class "enveloped-data-cms" as enveloped_data_cms << (T, YellowGreen) typedef>>
+enveloped_data_cms : cms
+class "digested-data-cms" as digested_data_cms << (T, YellowGreen) typedef>>
+digested_data_cms : cms
+class "encrypted-data-cms" as encrypted_data_cms << (T, YellowGreen) typedef>>
+encrypted_data_cms : cms
+class "authenticated-data-cms" as authenticated_data_cms << (T, YellowGreen) typedef>>
+authenticated_data_cms : cms
+class "trust-anchor-cert-x509" as trust_anchor_cert_x509 << (T, YellowGreen) typedef>>
+trust_anchor_cert_x509 : x509
+class "end-entity-cert-x509" as end_entity_cert_x509 << (T, YellowGreen) typedef>>
+end_entity_cert_x509 : x509
+class "trust-anchor-cert-cms" as trust_anchor_cert_cms << (T, YellowGreen) typedef>>
+trust_anchor_cert_cms : signed-data-cms
+class "end-entity-cert-cms" as end_entity_cert_cms << (T, YellowGreen) typedef>>
+end_entity_cert_cms : signed-data-cms
+class "encrypted-value-grouping" as ietf_crypto_types_I_encrypted_value_grouping_grouping <<(G,Lime) grouping>> 
+class "encrypted-by" as  ietf_crypto_types_I_encrypted_value_grouping_I_encrypted_by <<container>> 
+ietf_crypto_types_I_encrypted_value_grouping_grouping *-- "1" ietf_crypto_types_I_encrypted_value_grouping_I_encrypted_by 
+ietf_crypto_types_I_encrypted_value_grouping_grouping : encrypted-value-format : identityref {encrypted-value-format}   {mandatory}
+ietf_crypto_types_I_encrypted_value_grouping_grouping : encrypted-value : binary   {mandatory}
+note bottom of ietf_crypto_types_I_encrypted_value_grouping_grouping
+<b>Must</b> (encrypted-value):
+../encrypted-by
+
+end note 
+class "password-grouping" as ietf_crypto_types_I_password_grouping_grouping <<(G,Lime) grouping>> 
+class "password-type" as ietf_crypto_types_I_password_grouping_I_password_type <<choice>> 
+ietf_crypto_types_I_password_grouping_grouping .. ietf_crypto_types_I_password_grouping_I_password_type : choice 
+class "cleartext-password" as ietf_crypto_types_I_password_grouping_I_password_type_I_cleartext_password_case <<case>>
+ietf_crypto_types_I_password_grouping_I_password_type .. ietf_crypto_types_I_password_grouping_I_password_type_I_cleartext_password_case  : choice password-type
+note bottom of ietf_crypto_types_I_password_grouping_I_password_type_I_cleartext_password_case
+<b>if-feature: </b>cleartext-passwords
+end note 
+ietf_crypto_types_I_password_grouping_I_password_type_I_cleartext_password_case : cleartext-password : string  
+class "encrypted-password" as ietf_crypto_types_I_password_grouping_I_password_type_I_encrypted_password_case <<case>>
+ietf_crypto_types_I_password_grouping_I_password_type .. ietf_crypto_types_I_password_grouping_I_password_type_I_encrypted_password_case  : choice password-type
+note bottom of ietf_crypto_types_I_password_grouping_I_password_type_I_encrypted_password_case
+<b>if-feature: </b>encrypted-passwords
+end note 
+class "encrypted-password" as  ietf_crypto_types_I_password_grouping_I_password_type_I_encrypted_password_I_encrypted_password <<container>> 
+ietf_crypto_types_I_password_grouping_I_password_type_I_encrypted_password_case *-- "1" ietf_crypto_types_I_password_grouping_I_password_type_I_encrypted_password_I_encrypted_password 
+ietf_crypto_types_I_password_grouping_I_password_type_I_encrypted_password_I_encrypted_password : encrypted-value-grouping {uses} 
+class "symmetric-key-grouping" as ietf_crypto_types_I_symmetric_key_grouping_grouping <<(G,Lime) grouping>> 
+ietf_crypto_types_I_symmetric_key_grouping_grouping : key-format : identityref {symmetric-key-format}  
+class "key-type" as ietf_crypto_types_I_symmetric_key_grouping_I_key_type <<choice>> 
+ietf_crypto_types_I_symmetric_key_grouping_grouping .. ietf_crypto_types_I_symmetric_key_grouping_I_key_type : choice 
+class "cleartext-key" as ietf_crypto_types_I_symmetric_key_grouping_I_key_type_I_cleartext_key_case <<case>>
+ietf_crypto_types_I_symmetric_key_grouping_I_key_type .. ietf_crypto_types_I_symmetric_key_grouping_I_key_type_I_cleartext_key_case  : choice key-type
+ietf_crypto_types_I_symmetric_key_grouping_I_key_type_I_cleartext_key_case : cleartext-key : binary   {if-feature : cleartext-symmetric-keys}
+note bottom of ietf_crypto_types_I_symmetric_key_grouping_I_key_type_I_cleartext_key_case
+<b>Must</b> (cleartext-key):
+../key-format
+
+end note 
+class "hidden-key" as ietf_crypto_types_I_symmetric_key_grouping_I_key_type_I_hidden_key_case <<case>>
+ietf_crypto_types_I_symmetric_key_grouping_I_key_type .. ietf_crypto_types_I_symmetric_key_grouping_I_key_type_I_hidden_key_case  : choice key-type
+note bottom of ietf_crypto_types_I_symmetric_key_grouping_I_key_type_I_hidden_key_case
+<b>if-feature: </b>hidden-symmetric-keys
+end note 
+ietf_crypto_types_I_symmetric_key_grouping_I_key_type_I_hidden_key_case : hidden-key : empty  
+note bottom of ietf_crypto_types_I_symmetric_key_grouping_I_key_type_I_hidden_key_case
+<b>Must</b> (hidden-key):
+not(../key-format)
+
+end note 
+class "encrypted-key" as ietf_crypto_types_I_symmetric_key_grouping_I_key_type_I_encrypted_key_case <<case>>
+ietf_crypto_types_I_symmetric_key_grouping_I_key_type .. ietf_crypto_types_I_symmetric_key_grouping_I_key_type_I_encrypted_key_case  : choice key-type
+note bottom of ietf_crypto_types_I_symmetric_key_grouping_I_key_type_I_encrypted_key_case
+<b>if-feature: </b>encrypted-symmetric-keys
+end note 
+class "encrypted-key" as  ietf_crypto_types_I_symmetric_key_grouping_I_key_type_I_encrypted_key_I_encrypted_key <<container>> 
+ietf_crypto_types_I_symmetric_key_grouping_I_key_type_I_encrypted_key_case *-- "1" ietf_crypto_types_I_symmetric_key_grouping_I_key_type_I_encrypted_key_I_encrypted_key 
+note bottom of ietf_crypto_types_I_symmetric_key_grouping_I_key_type_I_encrypted_key_I_encrypted_key
+<b>Must:</b>
+../key-format
+end note 
+ietf_crypto_types_I_symmetric_key_grouping_I_key_type_I_encrypted_key_I_encrypted_key : encrypted-value-grouping {uses} 
+class "public-key-grouping" as ietf_crypto_types_I_public_key_grouping_grouping <<(G,Lime) grouping>> 
+ietf_crypto_types_I_public_key_grouping_grouping : public-key-format : identityref {public-key-format}   {mandatory}
+ietf_crypto_types_I_public_key_grouping_grouping : public-key : binary   {mandatory}
+class "asymmetric-key-pair-grouping" as ietf_crypto_types_I_asymmetric_key_pair_grouping_grouping <<(G,Lime) grouping>> 
+ietf_crypto_types_I_asymmetric_key_pair_grouping_grouping : public-key-grouping {uses} 
+ietf_crypto_types_I_asymmetric_key_pair_grouping_grouping : private-key-format : identityref {private-key-format}  
+class "private-key-type" as ietf_crypto_types_I_asymmetric_key_pair_grouping_I_private_key_type <<choice>> 
+ietf_crypto_types_I_asymmetric_key_pair_grouping_grouping .. ietf_crypto_types_I_asymmetric_key_pair_grouping_I_private_key_type : choice 
+class "cleartext-private-key" as ietf_crypto_types_I_asymmetric_key_pair_grouping_I_private_key_type_I_cleartext_private_key_case <<case>>
+ietf_crypto_types_I_asymmetric_key_pair_grouping_I_private_key_type .. ietf_crypto_types_I_asymmetric_key_pair_grouping_I_private_key_type_I_cleartext_private_key_case  : choice private-key-type
+note bottom of ietf_crypto_types_I_asymmetric_key_pair_grouping_I_private_key_type_I_cleartext_private_key_case
+<b>if-feature: </b>cleartext-private-keys
+end note 
+ietf_crypto_types_I_asymmetric_key_pair_grouping_I_private_key_type_I_cleartext_private_key_case : cleartext-private-key : binary  
+note bottom of ietf_crypto_types_I_asymmetric_key_pair_grouping_I_private_key_type_I_cleartext_private_key_case
+<b>Must</b> (cleartext-private-key):
+../private-key-format
+
+end note 
+class "hidden-private-key" as ietf_crypto_types_I_asymmetric_key_pair_grouping_I_private_key_type_I_hidden_private_key_case <<case>>
+ietf_crypto_types_I_asymmetric_key_pair_grouping_I_private_key_type .. ietf_crypto_types_I_asymmetric_key_pair_grouping_I_private_key_type_I_hidden_private_key_case  : choice private-key-type
+note bottom of ietf_crypto_types_I_asymmetric_key_pair_grouping_I_private_key_type_I_hidden_private_key_case
+<b>if-feature: </b>hidden-private-keys
+end note 
+ietf_crypto_types_I_asymmetric_key_pair_grouping_I_private_key_type_I_hidden_private_key_case : hidden-private-key : empty  
+note bottom of ietf_crypto_types_I_asymmetric_key_pair_grouping_I_private_key_type_I_hidden_private_key_case
+<b>Must</b> (hidden-private-key):
+not(../private-key-format)
+
+end note 
+class "encrypted-private-key" as ietf_crypto_types_I_asymmetric_key_pair_grouping_I_private_key_type_I_encrypted_private_key_case <<case>>
+ietf_crypto_types_I_asymmetric_key_pair_grouping_I_private_key_type .. ietf_crypto_types_I_asymmetric_key_pair_grouping_I_private_key_type_I_encrypted_private_key_case  : choice private-key-type
+note bottom of ietf_crypto_types_I_asymmetric_key_pair_grouping_I_private_key_type_I_encrypted_private_key_case
+<b>if-feature: </b>encrypted-private-keys
+end note 
+class "encrypted-private-key" as  ietf_crypto_types_I_asymmetric_key_pair_grouping_I_private_key_type_I_encrypted_private_key_I_encrypted_private_key <<container>> 
+ietf_crypto_types_I_asymmetric_key_pair_grouping_I_private_key_type_I_encrypted_private_key_case *-- "1" ietf_crypto_types_I_asymmetric_key_pair_grouping_I_private_key_type_I_encrypted_private_key_I_encrypted_private_key 
+note bottom of ietf_crypto_types_I_asymmetric_key_pair_grouping_I_private_key_type_I_encrypted_private_key_I_encrypted_private_key
+<b>Must:</b>
+../private-key-format
+end note 
+ietf_crypto_types_I_asymmetric_key_pair_grouping_I_private_key_type_I_encrypted_private_key_I_encrypted_private_key : encrypted-value-grouping {uses} 
+class "certificate-expiration-grouping" as ietf_crypto_types_I_certificate_expiration_grouping_grouping <<(G,Lime) grouping>> 
+class "certificate-expiration" as ietf_crypto_types_I_certificate_expiration_grouping_I_certificate_expiration << (N,#00D1B2) notification>> 
+ietf_crypto_types_I_certificate_expiration_grouping_grouping -- ietf_crypto_types_I_certificate_expiration_grouping_I_certificate_expiration : notification 
+note bottom of ietf_crypto_types_I_certificate_expiration_grouping_I_certificate_expiration
+<b>if-feature: </b>certificate-expiration-notification
+end note 
+ietf_crypto_types_I_certificate_expiration_grouping_I_certificate_expiration : expiration-date : yang:date-and-time   {mandatory}
+class "trust-anchor-cert-grouping" as ietf_crypto_types_I_trust_anchor_cert_grouping_grouping <<(G,Lime) grouping>> 
+ietf_crypto_types_I_trust_anchor_cert_grouping_grouping : cert-data : trust-anchor-cert-cms  
+ietf_crypto_types_I_trust_anchor_cert_grouping_grouping : certificate-expiration-grouping {uses} 
+class "end-entity-cert-grouping" as ietf_crypto_types_I_end_entity_cert_grouping_grouping <<(G,Lime) grouping>> 
+ietf_crypto_types_I_end_entity_cert_grouping_grouping : cert-data : end-entity-cert-cms  
+ietf_crypto_types_I_end_entity_cert_grouping_grouping : certificate-expiration-grouping {uses} 
+class "generate-csr-grouping" as ietf_crypto_types_I_generate_csr_grouping_grouping <<(G,Lime) grouping>> 
+ietf_crypto_types_I_generate_csr_grouping_grouping : generate-csr( in: csr_format in: csr_info)
+class "asymmetric-key-pair-with-cert-grouping" as ietf_crypto_types_I_asymmetric_key_pair_with_cert_grouping_grouping <<(G,Lime) grouping>> 
+ietf_crypto_types_I_asymmetric_key_pair_with_cert_grouping_grouping : asymmetric-key-pair-grouping {uses} 
+ietf_crypto_types_I_asymmetric_key_pair_with_cert_grouping_grouping : end-entity-cert-grouping {uses} 
+ietf_crypto_types_I_asymmetric_key_pair_with_cert_grouping_grouping : generate-csr-grouping {uses} 
+class "asymmetric-key-pair-with-certs-grouping" as ietf_crypto_types_I_asymmetric_key_pair_with_certs_grouping_grouping <<(G,Lime) grouping>> 
+ietf_crypto_types_I_asymmetric_key_pair_with_certs_grouping_grouping : asymmetric-key-pair-grouping {uses} 
+class "certificates" as  ietf_crypto_types_I_asymmetric_key_pair_with_certs_grouping_I_certificates <<container>> 
+ietf_crypto_types_I_asymmetric_key_pair_with_certs_grouping_grouping *-- "1" ietf_crypto_types_I_asymmetric_key_pair_with_certs_grouping_I_certificates 
+class "certificate" as ietf_crypto_types_I_asymmetric_key_pair_with_certs_grouping_I_certificates_I_certificate << (L, #FF7700) list>> 
+ietf_crypto_types_I_asymmetric_key_pair_with_certs_grouping_I_certificates *-- "0..N" ietf_crypto_types_I_asymmetric_key_pair_with_certs_grouping_I_certificates_I_certificate 
+ietf_crypto_types_I_asymmetric_key_pair_with_certs_grouping_I_certificates_I_certificate : +name : string  {key} 
+ietf_crypto_types_I_asymmetric_key_pair_with_certs_grouping_I_certificates_I_certificate : end-entity-cert-grouping {uses} 
+ietf_crypto_types_I_asymmetric_key_pair_with_certs_grouping_grouping : generate-csr-grouping {uses} 
+class "symmetric-key-format" as symmetric_key_format << (I,Silver) identity>> 
+class "public-key-format" as public_key_format << (I,Silver) identity>> 
+class "private-key-format" as private_key_format << (I,Silver) identity>> 
+class "rsa-private-key-format" as rsa_private_key_format << (I,Silver) identity>> 
+private_key_format <|-- rsa_private_key_format 
+class "ec-private-key-format" as ec_private_key_format << (I,Silver) identity>> 
+private_key_format <|-- ec_private_key_format 
+class "one-asymmetric-key-format" as one_asymmetric_key_format << (I,Silver) identity>> 
+private_key_format <|-- one_asymmetric_key_format 
+class "ssh-public-key-format" as ssh_public_key_format << (I,Silver) identity>> 
+public_key_format <|-- ssh_public_key_format 
+class "subject-public-key-info-format" as subject_public_key_info_format << (I,Silver) identity>> 
+public_key_format <|-- subject_public_key_info_format 
+class "octet-string-key-format" as octet_string_key_format << (I,Silver) identity>> 
+symmetric_key_format <|-- octet_string_key_format 
+class "one-symmetric-key-format" as one_symmetric_key_format << (I,Silver) identity>> 
+symmetric_key_format <|-- one_symmetric_key_format 
+class "encrypted-value-format" as encrypted_value_format << (I,Silver) identity>> 
+class "symmetrically-encrypted-value-format" as symmetrically_encrypted_value_format << (I,Silver) identity>> 
+encrypted_value_format <|-- symmetrically_encrypted_value_format 
+class "asymmetrically-encrypted-value-format" as asymmetrically_encrypted_value_format << (I,Silver) identity>> 
+encrypted_value_format <|-- asymmetrically_encrypted_value_format 
+class "cms-encrypted-data-format" as cms_encrypted_data_format << (I,Silver) identity>> 
+symmetrically_encrypted_value_format <|-- cms_encrypted_data_format 
+class "cms-enveloped-data-format" as cms_enveloped_data_format << (I,Silver) identity>> 
+asymmetrically_encrypted_value_format <|-- cms_enveloped_data_format 
+class "csr-format" as csr_format << (I,Silver) identity>> 
+class "p10-csr-format" as p10_csr_format << (I,Silver) identity>> 
+csr_format <|-- p10_csr_format 
+ietf_crypto_types_I_encrypted_value_grouping_grouping-->encrypted_value_format: encrypted-value-format
+ietf_crypto_types_I_symmetric_key_grouping_grouping-->symmetric_key_format: key-format
+ietf_crypto_types_I_public_key_grouping_grouping-->public_key_format: public-key-format
+ietf_crypto_types_I_asymmetric_key_pair_grouping_grouping-->private_key_format: private-key-format
+} 
+
+yang_ietf_yang_types +-- ct_ietf_crypto_types
+nacm_ietf_netconf_acm +-- ct_ietf_crypto_types
+ietf_crypto_types_I_password_grouping_I_password_type_I_encrypted_password_I_encrypted_password --> ietf_crypto_types_I_encrypted_value_grouping_grouping : uses 
+ietf_crypto_types_I_symmetric_key_grouping_I_key_type_I_encrypted_key_I_encrypted_key --> ietf_crypto_types_I_encrypted_value_grouping_grouping : uses 
+ietf_crypto_types_I_asymmetric_key_pair_grouping_grouping --> ietf_crypto_types_I_public_key_grouping_grouping : uses 
+ietf_crypto_types_I_asymmetric_key_pair_grouping_I_private_key_type_I_encrypted_private_key_I_encrypted_private_key --> ietf_crypto_types_I_encrypted_value_grouping_grouping : uses 
+ietf_crypto_types_I_trust_anchor_cert_grouping_grouping --> ietf_crypto_types_I_certificate_expiration_grouping_grouping : uses 
+ietf_crypto_types_I_end_entity_cert_grouping_grouping --> ietf_crypto_types_I_certificate_expiration_grouping_grouping : uses 
+ietf_crypto_types_I_asymmetric_key_pair_with_cert_grouping_grouping --> ietf_crypto_types_I_asymmetric_key_pair_grouping_grouping : uses 
+ietf_crypto_types_I_asymmetric_key_pair_with_cert_grouping_grouping --> ietf_crypto_types_I_end_entity_cert_grouping_grouping : uses 
+ietf_crypto_types_I_asymmetric_key_pair_with_cert_grouping_grouping --> ietf_crypto_types_I_generate_csr_grouping_grouping : uses 
+ietf_crypto_types_I_asymmetric_key_pair_with_certs_grouping_grouping --> ietf_crypto_types_I_asymmetric_key_pair_grouping_grouping : uses 
+ietf_crypto_types_I_asymmetric_key_pair_with_certs_grouping_I_certificates_I_certificate --> ietf_crypto_types_I_end_entity_cert_grouping_grouping : uses 
+ietf_crypto_types_I_asymmetric_key_pair_with_certs_grouping_grouping --> ietf_crypto_types_I_generate_csr_grouping_grouping : uses 
+center footer
+ <size:20> UML Generated : 2023-07-21 15:21 </size>
+ endfooter 
+@enduml 

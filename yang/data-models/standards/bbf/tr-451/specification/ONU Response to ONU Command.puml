@@ -1,0 +1,24 @@
+@startuml
+'comment: ONU Response
+Participant vOLTMF
+participant vOMCIFunction
+participant vOMCIProxy
+participant OLT
+participant ONU
+
+hide footbox
+ONU -> OLT: send OMCI message response
+OLT -> OLT: encapsulate OMCI message into OMCIPacket (ONUHeader)
+OLT -> OLT: lookup next from ONU message chain (ONU header)
+OLT -> vOMCIProxy: send OMCIPacket message
+
+vOMCIProxy -> vOMCIProxy: lookup next from ONU message chain (ONU header)
+vOMCIProxy -> vOMCIProxy: populate request_payload_id (if not present)
+vOMCIProxy -> vOMCIFunction: send OMCIPacket message
+
+vOMCIFunction -> vOMCIFunction: process response
+alt if complete:
+  vOMCIFunction -> vOLTMF: send ONU command response
+end
+
+@enduml

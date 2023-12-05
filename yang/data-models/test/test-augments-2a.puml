@@ -1,0 +1,47 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/%filename() (PlantUML %version()).png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title %filename() (PlantUML %version()) 
+center header
+ <size:48> %date('dd MMM yyyy HH:mm:ss') </size>
+ endheader 
+package "tst-aug-1a:test-augments-1a" as tst_aug_1a_test_augments_1a { 
+} 
+package "tst-aug-2a:test-augments-2a" as tst_aug_2a_test_augments_2a { 
+} 
+package "tst-aug-2a:test-augments-2a" as tst_aug_2a_test_augments_2a { 
+class "test-augments-2a" as test_augments_2a << (M, #33CCFF) module>> 
+class "/tst-aug-1a:container-a/tst-aug-1a:list-a" as tst_aug_1a_container_a_tst_aug_1a_list_a << (A,CadetBlue) augment>>
+test_augments_2a *--  tst_aug_1a_container_a_tst_aug_1a_list_a 
+tst_aug_1a_container_a_tst_aug_1a_list_a : augmented-leaf : string  
+class "/tst-aug-1a:top-level-nfc" as tst_aug_1a_top_level_nfc << (A,CadetBlue) augment>>
+test_augments_2a *--  tst_aug_1a_top_level_nfc 
+tst_aug_1a_top_level_nfc : just-an-augmented-leaf : string  
+class "/tst-aug-1a:container-a/tst-aug-1a:list-a/tst-aug-1a:a-choice" as tst_aug_1a_container_a_tst_aug_1a_list_a_tst_aug_1a_a_choice << (A,CadetBlue) augment>>
+test_augments_2a *--  tst_aug_1a_container_a_tst_aug_1a_list_a_tst_aug_1a_a_choice 
+class "case-b" as test_augments_1a_I_container_a_I_list_a_I_a_choice_I_case_b_case <<case>>
+tst_aug_1a_container_a_tst_aug_1a_list_a_tst_aug_1a_a_choice .. test_augments_1a_I_container_a_I_list_a_I_a_choice_I_case_b_case  : choice a-choice
+test_augments_1a_I_container_a_I_list_a_I_a_choice_I_case_b_case : case-b : string  
+class "/tst-aug-1a:container-a/tst-aug-1a:list-a/tst-aug-1a:a-choice/tst-aug-1a:case-a" as tst_aug_1a_container_a_tst_aug_1a_list_a_tst_aug_1a_a_choice_tst_aug_1a_case_a << (A,CadetBlue) augment>>
+test_augments_2a *--  tst_aug_1a_container_a_tst_aug_1a_list_a_tst_aug_1a_a_choice_tst_aug_1a_case_a 
+tst_aug_1a_container_a_tst_aug_1a_list_a_tst_aug_1a_a_choice_tst_aug_1a_case_a : another-case-leaf : string  
+class "/tst-aug-1a:container-a/tst-aug-1a:list-a/tst-aug-1a:list-a-nfc" as tst_aug_1a_container_a_tst_aug_1a_list_a_tst_aug_1a_list_a_nfc << (A,CadetBlue) augment>>
+test_augments_2a *--  tst_aug_1a_container_a_tst_aug_1a_list_a_tst_aug_1a_list_a_nfc 
+tst_aug_1a_container_a_tst_aug_1a_list_a_tst_aug_1a_list_a_nfc : yet-another-augmented-leaf : string  
+} 
+
+tst_aug_1a_test_augments_1a +-- tst_aug_2a_test_augments_2a
+center footer
+ <size:20> UML Generated : 2023-11-03 12:32 </size>
+ endfooter 
+@enduml 

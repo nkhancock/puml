@@ -1,0 +1,45 @@
+module test-identifier-dots {
+  yang-version 1.1;
+  namespace "http://www.example.com/ns/yang/test-identifier-dots";
+  prefix tst-id-dots;
+  revision 2023-07-17 {
+    description
+      "Initial revision.";
+    reference
+      "None.";
+  }
+  identity base-identity {
+    description
+      "Base identity for identities.";
+  }
+  identity a {
+    base base-identity;
+    description
+      "...";
+  }
+  identity a.1 {
+    base a;
+    description
+      "...";
+  }
+  identity a-1 {
+    base a;
+    description
+      "...";
+  }
+  identity a.2 {
+    base a;
+    description
+      "...";
+  }
+  identity a-2 {
+    base a;
+    description
+      "...";
+  }
+  identity a.2-b.1 {
+    base a.2;
+    description
+      "...";
+  }
+}

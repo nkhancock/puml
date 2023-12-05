@@ -1,0 +1,4 @@
+'Repo-specific settings for all PlantUML diagrams
+
+  footer Created by %getenv("username"), %date("dd.MM.yyyy")
+

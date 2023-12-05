@@ -1,0 +1,310 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/%filename() (PlantUML %version()).png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title %filename() (PlantUML %version()) 
+package "yang:ietf-yang-types" as yang_ietf_yang_types { 
+} 
+package "al:ietf-alarms" as al_ietf_alarms { 
+} 
+package "al:ietf-alarms" as al_ietf_alarms { 
+class "ietf-alarms" as ietf_alarms << (M, #33CCFF) module>> 
+ietf_alarms : feature : operator-actions 
+ietf_alarms : feature : alarm-shelving 
+ietf_alarms : feature : alarm-history 
+ietf_alarms : feature : alarm-summary 
+ietf_alarms : feature : alarm-profile 
+ietf_alarms : feature : severity-assignment 
+ietf_alarms : feature : root-cause-analysis 
+ietf_alarms : feature : service-impact-analysis 
+ietf_alarms : feature : alarm-correlation 
+class "resource" as resource << (T, YellowGreen) typedef>>
+resource : union{instance-identifier, yang:object-identifier,..}
+class "resource-match" as resource_match << (T, YellowGreen) typedef>>
+resource_match : union{yang:xpath1.0, yang:object-identifier}
+class "alarm-text" as alarm_text << (T, YellowGreen) typedef>>
+alarm_text : string
+enum "severity" as ietf_alarms_I_severity {
+indeterminate
+warning
+minor
+MORE
+}
+class "severity-with-clear" as severity_with_clear << (T, YellowGreen) typedef>>
+severity_with_clear : union{enumeration, severity}
+enum "writable-operator-state" as ietf_alarms_I_writable_operator_state {
+none
+ack
+closed
+}
+class "operator-state" as operator_state << (T, YellowGreen) typedef>>
+operator_state : union{writable-operator-state, enumeration}
+class "alarm-type-id" as alarm_type_id << (T, YellowGreen) typedef>>
+alarm_type_id : identityref {alarm-type-id}
+class "alarm-type-qualifier" as alarm_type_qualifier << (T, YellowGreen) typedef>>
+alarm_type_qualifier : string
+class "common-alarm-parameters" as ietf_alarms_I_common_alarm_parameters_grouping <<(G,Lime) grouping>> 
+ietf_alarms_I_common_alarm_parameters_grouping : resource : resource   {mandatory}
+ietf_alarms_I_common_alarm_parameters_grouping : alarm-type-id : alarm-type-id   {mandatory}
+ietf_alarms_I_common_alarm_parameters_grouping : alarm-type-qualifier : alarm-type-qualifier  
+ietf_alarms_I_common_alarm_parameters_grouping : alt-resource []: resource 
+class "related-alarm" as ietf_alarms_I_common_alarm_parameters_I_related_alarm << (L, #FF7700) list>> 
+ietf_alarms_I_common_alarm_parameters_grouping *-- "0..N" ietf_alarms_I_common_alarm_parameters_I_related_alarm 
+ietf_alarms_I_common_alarm_parameters_I_related_alarm : +resource : leafref : /alarms/alarm-list/alarm/resource  {key} 
+ietf_alarms_I_common_alarm_parameters_I_related_alarm : +alarm-type-id : leafref : /alarms/alarm-list/alarm[resource=current{}/../resource]/alarm-type-id  {key} 
+ietf_alarms_I_common_alarm_parameters_I_related_alarm : +alarm-type-qualifier : leafref : /alarms/alarm-list/alarm[resource=current{}/../resource][alarm-type-id=current{}/../alarm-type-id]/alarm-type-qualifier  {key} 
+ietf_alarms_I_common_alarm_parameters_grouping : impacted-resource []: resource  {if-feature : service-impact-analysis}
+ietf_alarms_I_common_alarm_parameters_grouping : root-cause-resource []: resource  {if-feature : root-cause-analysis}
+class "alarm-state-change-parameters" as ietf_alarms_I_alarm_state_change_parameters_grouping <<(G,Lime) grouping>> 
+ietf_alarms_I_alarm_state_change_parameters_grouping : time : yang:date-and-time   {mandatory}
+ietf_alarms_I_alarm_state_change_parameters_grouping : perceived-severity : severity-with-clear   {mandatory}
+ietf_alarms_I_alarm_state_change_parameters_grouping : alarm-text : alarm-text   {mandatory}
+class "operator-parameters" as ietf_alarms_I_operator_parameters_grouping <<(G,Lime) grouping>> 
+ietf_alarms_I_operator_parameters_grouping : time : yang:date-and-time   {mandatory}
+ietf_alarms_I_operator_parameters_grouping : operator : string   {mandatory}
+ietf_alarms_I_operator_parameters_grouping : state : operator-state   {mandatory}
+ietf_alarms_I_operator_parameters_grouping : text : string  
+class "resource-alarm-parameters" as ietf_alarms_I_resource_alarm_parameters_grouping <<(G,Lime) grouping>> 
+ietf_alarms_I_resource_alarm_parameters_grouping : is-cleared : boolean   {mandatory}
+ietf_alarms_I_resource_alarm_parameters_grouping : last-raised : yang:date-and-time   {mandatory}
+ietf_alarms_I_resource_alarm_parameters_grouping : last-changed : yang:date-and-time   {mandatory}
+ietf_alarms_I_resource_alarm_parameters_grouping : perceived-severity : severity   {mandatory}
+ietf_alarms_I_resource_alarm_parameters_grouping : alarm-text : alarm-text   {mandatory}
+class "status-change" as ietf_alarms_I_resource_alarm_parameters_I_status_change << (L, #FF7700) list>> 
+ietf_alarms_I_resource_alarm_parameters_grouping *-- "1..N" ietf_alarms_I_resource_alarm_parameters_I_status_change 
+ietf_alarms_I_resource_alarm_parameters_I_status_change : alarm-state-change-parameters {uses} 
+class "filter-input" as ietf_alarms_I_filter_input_grouping <<(G,Lime) grouping>> 
+ietf_alarms_I_filter_input_grouping : alarm-clearance-status : enumeration : {any,cleared,not-cleared,}   {mandatory}
+class "older-than" as  ietf_alarms_I_filter_input_I_older_than <<container>> 
+ietf_alarms_I_filter_input_grouping *-- "0..1" ietf_alarms_I_filter_input_I_older_than 
+class "age-spec" as ietf_alarms_I_filter_input_I_older_than_I_age_spec <<choice>> 
+ietf_alarms_I_filter_input_I_older_than .. ietf_alarms_I_filter_input_I_older_than_I_age_spec : choice 
+class "seconds" as ietf_alarms_I_filter_input_I_older_than_I_age_spec_I_seconds_case <<case>>
+ietf_alarms_I_filter_input_I_older_than_I_age_spec .. ietf_alarms_I_filter_input_I_older_than_I_age_spec_I_seconds_case  : choice age-spec
+ietf_alarms_I_filter_input_I_older_than_I_age_spec_I_seconds_case : seconds : uint16  
+class "minutes" as ietf_alarms_I_filter_input_I_older_than_I_age_spec_I_minutes_case <<case>>
+ietf_alarms_I_filter_input_I_older_than_I_age_spec .. ietf_alarms_I_filter_input_I_older_than_I_age_spec_I_minutes_case  : choice age-spec
+ietf_alarms_I_filter_input_I_older_than_I_age_spec_I_minutes_case : minutes : uint16  
+class "hours" as ietf_alarms_I_filter_input_I_older_than_I_age_spec_I_hours_case <<case>>
+ietf_alarms_I_filter_input_I_older_than_I_age_spec .. ietf_alarms_I_filter_input_I_older_than_I_age_spec_I_hours_case  : choice age-spec
+ietf_alarms_I_filter_input_I_older_than_I_age_spec_I_hours_case : hours : uint16  
+class "days" as ietf_alarms_I_filter_input_I_older_than_I_age_spec_I_days_case <<case>>
+ietf_alarms_I_filter_input_I_older_than_I_age_spec .. ietf_alarms_I_filter_input_I_older_than_I_age_spec_I_days_case  : choice age-spec
+ietf_alarms_I_filter_input_I_older_than_I_age_spec_I_days_case : days : uint16  
+class "weeks" as ietf_alarms_I_filter_input_I_older_than_I_age_spec_I_weeks_case <<case>>
+ietf_alarms_I_filter_input_I_older_than_I_age_spec .. ietf_alarms_I_filter_input_I_older_than_I_age_spec_I_weeks_case  : choice age-spec
+ietf_alarms_I_filter_input_I_older_than_I_age_spec_I_weeks_case : weeks : uint16  
+class "severity" as  ietf_alarms_I_filter_input_I_severity <<container>> 
+ietf_alarms_I_filter_input_grouping *-- "0..1" ietf_alarms_I_filter_input_I_severity 
+class "sev-spec" as ietf_alarms_I_filter_input_I_severity_I_sev_spec <<choice>> 
+ietf_alarms_I_filter_input_I_severity .. ietf_alarms_I_filter_input_I_severity_I_sev_spec : choice 
+class "below" as ietf_alarms_I_filter_input_I_severity_I_sev_spec_I_below_case <<case>> 
+ietf_alarms_I_filter_input_I_severity_I_sev_spec .. ietf_alarms_I_filter_input_I_severity_I_sev_spec_I_below_case : choice below
+ietf_alarms_I_filter_input_I_severity_I_sev_spec_I_below_case : below : severity  
+class "is" as ietf_alarms_I_filter_input_I_severity_I_sev_spec_I_is_case <<case>> 
+ietf_alarms_I_filter_input_I_severity_I_sev_spec .. ietf_alarms_I_filter_input_I_severity_I_sev_spec_I_is_case : choice is
+ietf_alarms_I_filter_input_I_severity_I_sev_spec_I_is_case : is : severity  
+class "above" as ietf_alarms_I_filter_input_I_severity_I_sev_spec_I_above_case <<case>> 
+ietf_alarms_I_filter_input_I_severity_I_sev_spec .. ietf_alarms_I_filter_input_I_severity_I_sev_spec_I_above_case : choice above
+ietf_alarms_I_filter_input_I_severity_I_sev_spec_I_above_case : above : severity  
+class "operator-state-filter" as  ietf_alarms_I_filter_input_I_operator_state_filter <<container>> 
+ietf_alarms_I_filter_input_grouping *-- "0..1" ietf_alarms_I_filter_input_I_operator_state_filter 
+ietf_alarms_I_filter_input_I_operator_state_filter : state : operator-state  
+ietf_alarms_I_filter_input_I_operator_state_filter : user : string  
+class "alarms" as  ietf_alarms_I_alarms <<container>> 
+ietf_alarms *-- "1" ietf_alarms_I_alarms 
+class "control" as  ietf_alarms_I_alarms_I_control <<container>> 
+ietf_alarms_I_alarms *-- "1" ietf_alarms_I_alarms_I_control 
+ietf_alarms_I_alarms_I_control : max-alarm-status-changes : union{uint16, enumeration}   = 32 
+ietf_alarms_I_alarms_I_control : notify-status-changes : enumeration : {all-state-changes,raise-and-clear,severity-level,}   = all-state-changes 
+ietf_alarms_I_alarms_I_control : notify-severity-level : severity  
+class "alarm-shelving" as  ietf_alarms_I_alarms_I_control_I_alarm_shelving <<container>> 
+ietf_alarms_I_alarms_I_control *-- "1" ietf_alarms_I_alarms_I_control_I_alarm_shelving 
+class "shelf" as ietf_alarms_I_alarms_I_control_I_alarm_shelving_I_shelf << (L, #FF7700) list>> 
+ietf_alarms_I_alarms_I_control_I_alarm_shelving *-- "0..N" ietf_alarms_I_alarms_I_control_I_alarm_shelving_I_shelf : ordered-by : user
+ietf_alarms_I_alarms_I_control_I_alarm_shelving_I_shelf : +name : string  {key} 
+ietf_alarms_I_alarms_I_control_I_alarm_shelving_I_shelf : resource []: resource-match 
+class "alarm-type" as ietf_alarms_I_alarms_I_control_I_alarm_shelving_I_shelf_I_alarm_type << (L, #FF7700) list>> 
+ietf_alarms_I_alarms_I_control_I_alarm_shelving_I_shelf *-- "0..N" ietf_alarms_I_alarms_I_control_I_alarm_shelving_I_shelf_I_alarm_type 
+ietf_alarms_I_alarms_I_control_I_alarm_shelving_I_shelf_I_alarm_type : +alarm-type-id : alarm-type-id  {key} 
+ietf_alarms_I_alarms_I_control_I_alarm_shelving_I_shelf_I_alarm_type : +alarm-type-qualifier-match : string  {key} 
+ietf_alarms_I_alarms_I_control_I_alarm_shelving_I_shelf : description : string  
+class "alarm-inventory" as  ietf_alarms_I_alarms_I_alarm_inventory <<container>> 
+ietf_alarms_I_alarms *-- "1" ietf_alarms_I_alarms_I_alarm_inventory 
+class "alarm-type" as ietf_alarms_I_alarms_I_alarm_inventory_I_alarm_type << (L, #FF7700) list>> 
+ietf_alarms_I_alarms_I_alarm_inventory *-- "0..N" ietf_alarms_I_alarms_I_alarm_inventory_I_alarm_type 
+ietf_alarms_I_alarms_I_alarm_inventory_I_alarm_type : +alarm-type-id : alarm-type-id  {key} 
+ietf_alarms_I_alarms_I_alarm_inventory_I_alarm_type : +alarm-type-qualifier : alarm-type-qualifier  {key} 
+ietf_alarms_I_alarms_I_alarm_inventory_I_alarm_type : resource []: resource-match 
+ietf_alarms_I_alarms_I_alarm_inventory_I_alarm_type : will-clear : boolean   {mandatory}
+ietf_alarms_I_alarms_I_alarm_inventory_I_alarm_type : severity-level []: severity 
+ietf_alarms_I_alarms_I_alarm_inventory_I_alarm_type : description : string   {mandatory}
+class "summary" as  ietf_alarms_I_alarms_I_summary <<container>> 
+ietf_alarms_I_alarms *-- "1" ietf_alarms_I_alarms_I_summary 
+class "alarm-summary" as ietf_alarms_I_alarms_I_summary_I_alarm_summary << (L, #FF7700) list>> 
+ietf_alarms_I_alarms_I_summary *-- "0..N" ietf_alarms_I_alarms_I_summary_I_alarm_summary 
+ietf_alarms_I_alarms_I_summary_I_alarm_summary : +severity : severity  {key} 
+ietf_alarms_I_alarms_I_summary_I_alarm_summary : total : yang:gauge32  
+ietf_alarms_I_alarms_I_summary_I_alarm_summary : not-cleared : yang:gauge32  
+ietf_alarms_I_alarms_I_summary_I_alarm_summary : cleared : yang:gauge32  
+ietf_alarms_I_alarms_I_summary_I_alarm_summary : cleared-not-closed : yang:gauge32   {if-feature : operator-actions}
+ietf_alarms_I_alarms_I_summary_I_alarm_summary : cleared-closed : yang:gauge32   {if-feature : operator-actions}
+ietf_alarms_I_alarms_I_summary_I_alarm_summary : not-cleared-closed : yang:gauge32   {if-feature : operator-actions}
+ietf_alarms_I_alarms_I_summary_I_alarm_summary : not-cleared-not-closed : yang:gauge32   {if-feature : operator-actions}
+ietf_alarms_I_alarms_I_summary : shelves-active : empty   {if-feature : alarm-shelving}
+class "alarm-list" as  ietf_alarms_I_alarms_I_alarm_list <<container>> 
+ietf_alarms_I_alarms *-- "1" ietf_alarms_I_alarms_I_alarm_list 
+ietf_alarms_I_alarms_I_alarm_list : number-of-alarms : yang:gauge32  
+ietf_alarms_I_alarms_I_alarm_list : last-changed : yang:date-and-time  
+class "alarm" as ietf_alarms_I_alarms_I_alarm_list_I_alarm << (L, #FF7700) list>> 
+ietf_alarms_I_alarms_I_alarm_list *-- "0..N" ietf_alarms_I_alarms_I_alarm_list_I_alarm 
+ietf_alarms_I_alarms_I_alarm_list_I_alarm : common-alarm-parameters {uses} 
+ietf_alarms_I_alarms_I_alarm_list_I_alarm : time-created : yang:date-and-time   {mandatory}
+ietf_alarms_I_alarms_I_alarm_list_I_alarm : resource-alarm-parameters {uses} 
+class "operator-state-change" as ietf_alarms_I_alarms_I_alarm_list_I_alarm_I_operator_state_change << (L, #FF7700) list>> 
+ietf_alarms_I_alarms_I_alarm_list_I_alarm *-- "0..N" ietf_alarms_I_alarms_I_alarm_list_I_alarm_I_operator_state_change 
+ietf_alarms_I_alarms_I_alarm_list_I_alarm_I_operator_state_change : operator-parameters {uses} 
+ietf_alarms_I_alarms_I_alarm_list_I_alarm : set-operator-state( in: state in: text)
+ietf_alarms_I_alarms_I_alarm_list : purge-alarms( in: filter_input out: purged_alarms)
+ietf_alarms_I_alarms_I_alarm_list : compress-alarms( in: resource in: alarm_type_id in: alarm_type_qualifier out: compressed_alarms)
+class "shelved-alarms" as  ietf_alarms_I_alarms_I_shelved_alarms <<container>> 
+ietf_alarms_I_alarms *-- "1" ietf_alarms_I_alarms_I_shelved_alarms 
+ietf_alarms_I_alarms_I_shelved_alarms : number-of-shelved-alarms : yang:gauge32  
+ietf_alarms_I_alarms_I_shelved_alarms : shelved-alarms-last-changed : yang:date-and-time  
+class "shelved-alarm" as ietf_alarms_I_alarms_I_shelved_alarms_I_shelved_alarm << (L, #FF7700) list>> 
+ietf_alarms_I_alarms_I_shelved_alarms *-- "0..N" ietf_alarms_I_alarms_I_shelved_alarms_I_shelved_alarm 
+ietf_alarms_I_alarms_I_shelved_alarms_I_shelved_alarm : common-alarm-parameters {uses} 
+ietf_alarms_I_alarms_I_shelved_alarms_I_shelved_alarm : shelf-name : leafref : /alarms/control/alarm-shelving/shelf/name  
+ietf_alarms_I_alarms_I_shelved_alarms_I_shelved_alarm : resource-alarm-parameters {uses} 
+class "operator-state-change" as ietf_alarms_I_alarms_I_shelved_alarms_I_shelved_alarm_I_operator_state_change << (L, #FF7700) list>> 
+ietf_alarms_I_alarms_I_shelved_alarms_I_shelved_alarm *-- "0..N" ietf_alarms_I_alarms_I_shelved_alarms_I_shelved_alarm_I_operator_state_change 
+ietf_alarms_I_alarms_I_shelved_alarms_I_shelved_alarm_I_operator_state_change : operator-parameters {uses} 
+ietf_alarms_I_alarms_I_shelved_alarms : purge-shelved-alarms( in: filter_input out: purged_alarms)
+ietf_alarms_I_alarms_I_shelved_alarms : compress-shelved-alarms( in: resource in: alarm_type_id in: alarm_type_qualifier out: compressed_alarms)
+class "alarm-profile" as ietf_alarms_I_alarms_I_alarm_profile << (L, #FF7700) list>> 
+ietf_alarms_I_alarms *-- "0..N" ietf_alarms_I_alarms_I_alarm_profile : ordered-by : user
+ietf_alarms_I_alarms_I_alarm_profile : +alarm-type-id : alarm-type-id  {key} 
+ietf_alarms_I_alarms_I_alarm_profile : +alarm-type-qualifier-match : string  {key} 
+ietf_alarms_I_alarms_I_alarm_profile : +resource : resource-match  {key} 
+ietf_alarms_I_alarms_I_alarm_profile : description : string   {mandatory}
+class "alarm-severity-assignment-profile" as  ietf_alarms_I_alarms_I_alarm_profile_I_alarm_severity_assignment_profile <<container>> 
+ietf_alarms_I_alarms_I_alarm_profile *-- "1" ietf_alarms_I_alarms_I_alarm_profile_I_alarm_severity_assignment_profile 
+ietf_alarms_I_alarms_I_alarm_profile_I_alarm_severity_assignment_profile : severity-level []: severity 
+class "alarm-notification" as ietf_alarms_I_alarm_notification << (N,#00D1B2) notification>> 
+ietf_alarms -- ietf_alarms_I_alarm_notification : notification 
+ietf_alarms_I_alarm_notification : common-alarm-parameters {uses} 
+ietf_alarms_I_alarm_notification : alarm-state-change-parameters {uses} 
+class "alarm-inventory-changed" as ietf_alarms_I_alarm_inventory_changed << (N,#00D1B2) notification>> 
+ietf_alarms -- ietf_alarms_I_alarm_inventory_changed : notification 
+class "alarm-type-id" as alarm_type_id << (I,Silver) identity>> 
+ietf_alarms-->alarm_type_id: alarm-type-id
+} 
+
+yang_ietf_yang_types +-- al_ietf_alarms
+package "al:ietf-alarms" as al_ietf_alarms { 
+} 
+package "yang:ietf-yang-types" as yang_ietf_yang_types { 
+} 
+package "x733:ietf-alarms-x733" as x733_ietf_alarms_x733 { 
+} 
+package "x733:ietf-alarms-x733" as x733_ietf_alarms_x733 { 
+class "ietf-alarms-x733" as ietf_alarms_x733 << (M, #33CCFF) module>> 
+ietf_alarms_x733 : feature : configure-x733-mapping 
+enum "event-type" as ietf_alarms_x733_I_event_type {
+other
+communications-alarm
+quality-of-service-alarm
+MORE
+}
+enum "trend" as ietf_alarms_x733_I_trend {
+less-severe
+no-change
+more-severe
+}
+class "value-type" as value_type << (T, YellowGreen) typedef>>
+value_type : union{int64, uint64}
+class "x733-alarm-parameters" as ietf_alarms_x733_I_x733_alarm_parameters_grouping <<(G,Lime) grouping>> 
+ietf_alarms_x733_I_x733_alarm_parameters_grouping : event-type : event-type  
+ietf_alarms_x733_I_x733_alarm_parameters_grouping : probable-cause : uint32  
+ietf_alarms_x733_I_x733_alarm_parameters_grouping : probable-cause-string : string  
+class "threshold-information" as  ietf_alarms_x733_I_x733_alarm_parameters_I_threshold_information <<container>> 
+ietf_alarms_x733_I_x733_alarm_parameters_grouping *-- "1" ietf_alarms_x733_I_x733_alarm_parameters_I_threshold_information 
+ietf_alarms_x733_I_x733_alarm_parameters_I_threshold_information : triggered-threshold : string  
+ietf_alarms_x733_I_x733_alarm_parameters_I_threshold_information : observed-value : value-type  
+class "threshold-level" as ietf_alarms_x733_I_x733_alarm_parameters_I_threshold_information_I_threshold_level <<choice>> 
+ietf_alarms_x733_I_x733_alarm_parameters_I_threshold_information .. ietf_alarms_x733_I_x733_alarm_parameters_I_threshold_information_I_threshold_level : choice 
+class "up" as ietf_alarms_x733_I_x733_alarm_parameters_I_threshold_information_I_threshold_level_I_up_case <<case>>
+ietf_alarms_x733_I_x733_alarm_parameters_I_threshold_information_I_threshold_level .. ietf_alarms_x733_I_x733_alarm_parameters_I_threshold_information_I_threshold_level_I_up_case  : choice threshold-level
+ietf_alarms_x733_I_x733_alarm_parameters_I_threshold_information_I_threshold_level_I_up_case : up-high : value-type  
+ietf_alarms_x733_I_x733_alarm_parameters_I_threshold_information_I_threshold_level_I_up_case : up-low : value-type  
+class "down" as ietf_alarms_x733_I_x733_alarm_parameters_I_threshold_information_I_threshold_level_I_down_case <<case>>
+ietf_alarms_x733_I_x733_alarm_parameters_I_threshold_information_I_threshold_level .. ietf_alarms_x733_I_x733_alarm_parameters_I_threshold_information_I_threshold_level_I_down_case  : choice threshold-level
+ietf_alarms_x733_I_x733_alarm_parameters_I_threshold_information_I_threshold_level_I_down_case : down-low : value-type  
+ietf_alarms_x733_I_x733_alarm_parameters_I_threshold_information_I_threshold_level_I_down_case : down-high : value-type  
+ietf_alarms_x733_I_x733_alarm_parameters_I_threshold_information : arm-time : yang:date-and-time  
+class "monitored-attributes" as ietf_alarms_x733_I_x733_alarm_parameters_I_monitored_attributes << (L, #FF7700) list>> 
+ietf_alarms_x733_I_x733_alarm_parameters_grouping *-- "0..N" ietf_alarms_x733_I_x733_alarm_parameters_I_monitored_attributes 
+ietf_alarms_x733_I_x733_alarm_parameters_I_monitored_attributes : attribute {uses} 
+ietf_alarms_x733_I_x733_alarm_parameters_grouping : proposed-repair-actions []: string 
+ietf_alarms_x733_I_x733_alarm_parameters_grouping : trend-indication : trend  
+ietf_alarms_x733_I_x733_alarm_parameters_grouping : backedup-status : boolean  
+ietf_alarms_x733_I_x733_alarm_parameters_grouping : backup-object : al:resource  
+class "additional-information" as ietf_alarms_x733_I_x733_alarm_parameters_I_additional_information << (L, #FF7700) list>> 
+ietf_alarms_x733_I_x733_alarm_parameters_grouping *-- "0..N" ietf_alarms_x733_I_x733_alarm_parameters_I_additional_information 
+ietf_alarms_x733_I_x733_alarm_parameters_I_additional_information : +identifier : string  {key} 
+ietf_alarms_x733_I_x733_alarm_parameters_I_additional_information : significant : boolean  
+ietf_alarms_x733_I_x733_alarm_parameters_I_additional_information : information : string  
+ietf_alarms_x733_I_x733_alarm_parameters_grouping : security-alarm-detector : al:resource  
+ietf_alarms_x733_I_x733_alarm_parameters_grouping : service-user : al:resource  
+ietf_alarms_x733_I_x733_alarm_parameters_grouping : service-provider : al:resource  
+class "x733-alarm-definition-parameters" as ietf_alarms_x733_I_x733_alarm_definition_parameters_grouping <<(G,Lime) grouping>> 
+ietf_alarms_x733_I_x733_alarm_definition_parameters_grouping : event-type : event-type  
+ietf_alarms_x733_I_x733_alarm_definition_parameters_grouping : probable-cause : uint32  
+ietf_alarms_x733_I_x733_alarm_definition_parameters_grouping : probable-cause-string : string  
+class "attribute" as ietf_alarms_x733_I_attribute_grouping <<(G,Lime) grouping>> 
+ietf_alarms_x733_I_attribute_grouping : id : al:resource  
+ietf_alarms_x733_I_attribute_grouping : value : string  
+ietf_alarms_I_alarms_I_alarm_inventory_I_alarm_type : x733-alarm-definition-parameters {uses} 
+class "x733-mapping" as ietf_alarms_I_alarms_I_control_I_x733_mapping << (L, #FF7700) list>> 
+ietf_alarms_I_alarms_I_control *-- "0..N" ietf_alarms_I_alarms_I_control_I_x733_mapping 
+ietf_alarms_I_alarms_I_control_I_x733_mapping : +alarm-type-id : al:alarm-type-id  {key} 
+ietf_alarms_I_alarms_I_control_I_x733_mapping : +alarm-type-qualifier-match : string  {key} 
+ietf_alarms_I_alarms_I_control_I_x733_mapping : x733-alarm-definition-parameters {uses} 
+ietf_alarms_I_alarms_I_alarm_list_I_alarm : x733-alarm-parameters {uses} 
+ietf_alarms_I_alarms_I_shelved_alarms_I_shelved_alarm : x733-alarm-parameters {uses} 
+ietf_alarms_I_alarm_notification : x733-alarm-parameters {uses} 
+} 
+
+al_ietf_alarms +-- x733_ietf_alarms_x733
+yang_ietf_yang_types +-- x733_ietf_alarms_x733
+ietf_alarms_I_resource_alarm_parameters_I_status_change --> ietf_alarms_I_alarm_state_change_parameters_grouping : uses 
+ietf_alarms_I_alarms_I_alarm_list_I_alarm --> ietf_alarms_I_common_alarm_parameters_grouping : uses 
+ietf_alarms_I_alarms_I_alarm_list_I_alarm --> ietf_alarms_I_resource_alarm_parameters_grouping : uses 
+ietf_alarms_I_alarms_I_alarm_list_I_alarm_I_operator_state_change --> ietf_alarms_I_operator_parameters_grouping : uses 
+ietf_alarms_I_alarms_I_alarm_list --> ietf_alarms_I_filter_input_grouping : uses 
+ietf_alarms_I_alarms_I_shelved_alarms_I_shelved_alarm --> ietf_alarms_I_common_alarm_parameters_grouping : uses 
+ietf_alarms_I_alarms_I_shelved_alarms_I_shelved_alarm --> ietf_alarms_I_resource_alarm_parameters_grouping : uses 
+ietf_alarms_I_alarms_I_shelved_alarms_I_shelved_alarm_I_operator_state_change --> ietf_alarms_I_operator_parameters_grouping : uses 
+ietf_alarms_I_alarms_I_shelved_alarms --> ietf_alarms_I_filter_input_grouping : uses 
+ietf_alarms_I_alarm_notification --> ietf_alarms_I_common_alarm_parameters_grouping : uses 
+ietf_alarms_I_alarm_notification --> ietf_alarms_I_alarm_state_change_parameters_grouping : uses 
+ietf_alarms_x733_I_x733_alarm_parameters_I_monitored_attributes --> ietf_alarms_x733_I_attribute_grouping : uses 
+ietf_alarms_I_alarms_I_alarm_inventory_I_alarm_type --> ietf_alarms_x733_I_x733_alarm_definition_parameters_grouping : uses 
+ietf_alarms_I_alarms_I_control_I_x733_mapping --> ietf_alarms_x733_I_x733_alarm_definition_parameters_grouping : uses 
+ietf_alarms_I_alarms_I_alarm_list_I_alarm --> ietf_alarms_x733_I_x733_alarm_parameters_grouping : uses 
+ietf_alarms_I_alarms_I_shelved_alarms_I_shelved_alarm --> ietf_alarms_x733_I_x733_alarm_parameters_grouping : uses 
+ietf_alarms_I_alarm_notification --> ietf_alarms_x733_I_x733_alarm_parameters_grouping : uses 
+ietf_alarms_I_alarms_I_shelved_alarms_I_shelved_alarm-->"name"ietf_alarms_I_alarms_I_control_I_alarm_shelving_I_shelf: shelf-name
+center footer
+ <size:20> UML Generated : 2023-07-28 16:52 </size>
+ endfooter 
+@enduml 

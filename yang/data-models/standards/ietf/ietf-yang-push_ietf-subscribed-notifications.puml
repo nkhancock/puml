@@ -1,0 +1,751 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/%filename() generated with PlantUML Release %version().png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title %filename() generated with PlantUML Release %version() 
+
+package "inet:ietf-inet-types" as inet_ietf_inet_types { 
+} 
+
+package "if:ietf-interfaces" as if_ietf_interfaces { 
+} 
+
+package "nacm:ietf-netconf-acm" as nacm_ietf_netconf_acm { 
+} 
+
+package "ni:ietf-network-instance" as ni_ietf_network_instance { 
+} 
+
+package "rc:ietf-restconf" as rc_ietf_restconf { 
+} 
+
+package "yang:ietf-yang-types" as yang_ietf_yang_types { 
+} 
+
+package "sn:ietf-subscribed-notifications" as sn_ietf_subscribed_notifications { 
+} 
+note top of sn_ietf_subscribed_notifications : <b>Namespace: </b> urn:ietf:params:xml:ns:yang:ietf-subscribed-notifications \n<b>Prefix: </b> sn \n<b>Organization : </b>\nIETF NETCONF (Network Configuration) Working Group \n<b>Contact : </b>\nWG Web:  <https:/datatracker.ietf.org/wg/netconf/> \nWG List: <mailto:netconf@ietf.org> \n \nAuthor:  Alexander Clemm \n         <mailto:ludwig@clemm.org> \n \nAuthor:  Eric Voit \n         <mailto:evoit@cisco.com> \n \nAuthor:  Alberto Gonzalez Prieto \n         <mailto:alberto.gonzalez@microsoft.com> \n \nAuthor:  Einar Nilsen-Nygaard \n         <mailto:einarnn@cisco.com> \n \nAuthor:  Ambika Prasad Tripathy \n         <mailto:ambtripa@cisco.com> \n<b>Revision : </b> 2019-09-09 \n
+
+package "sn:ietf-subscribed-notifications" as sn_ietf_subscribed_notifications { 
+class "ietf-subscribed-notifications" as ietf_subscribed_notifications << (M, #33CCFF) module>> 
+ietf_subscribed_notifications : feature : configured 
+ietf_subscribed_notifications : feature : dscp 
+ietf_subscribed_notifications : feature : encode-json 
+ietf_subscribed_notifications : feature : encode-xml 
+ietf_subscribed_notifications : feature : interface-designation 
+ietf_subscribed_notifications : feature : qos 
+ietf_subscribed_notifications : feature : replay 
+ietf_subscribed_notifications : feature : subtree 
+ietf_subscribed_notifications : feature : supports-vrf 
+ietf_subscribed_notifications : feature : xpath 
+class "encoding" as sn_encoding_typedef << (T, YellowGreen) typedef>>
+sn_encoding_typedef : identityref {encoding}
+class "stream-filter-ref" as sn_stream_filter_ref_typedef << (T, YellowGreen) typedef>>
+sn_stream_filter_ref_typedef : leafref : /sn:filters/sn:stream-filter/sn:name
+class "stream-ref" as sn_stream_ref_typedef << (T, YellowGreen) typedef>>
+sn_stream_ref_typedef : leafref : /sn:streams/sn:stream/sn:name
+class "subscription-id" as sn_subscription_id_typedef << (T, YellowGreen) typedef>>
+sn_subscription_id_typedef : uint32
+class "transport" as sn_transport_typedef << (T, YellowGreen) typedef>>
+sn_transport_typedef : identityref {transport}
+ietf_subscribed_notifications : establish-subscription( in: encoding in: subscription_policy_dynamic out: id out: replay_start_time_revision)
+ietf_subscribed_notifications : modify-subscription( in: id in: subscription_policy_modifiable)
+ietf_subscribed_notifications : delete-subscription( in: id)
+ietf_subscribed_notifications : kill-subscription( in: id)
+class "replay-completed" as ietf_subscribed_notifications_I_replay_completed << (N,#00D1B2) notification>> 
+ietf_subscribed_notifications -- ietf_subscribed_notifications_I_replay_completed : notification 
+note bottom of ietf_subscribed_notifications_I_replay_completed
+<b>if-feature: </b>replay
+end note 
+ietf_subscribed_notifications_I_replay_completed : id : subscription-id   {mandatory}
+class "subscription-completed" as ietf_subscribed_notifications_I_subscription_completed << (N,#00D1B2) notification>> 
+ietf_subscribed_notifications -- ietf_subscribed_notifications_I_subscription_completed : notification 
+note bottom of ietf_subscribed_notifications_I_subscription_completed
+<b>if-feature: </b>configured
+end note 
+ietf_subscribed_notifications_I_subscription_completed : id : subscription-id   {mandatory}
+class "subscription-modified" as ietf_subscribed_notifications_I_subscription_modified << (N,#00D1B2) notification>> 
+ietf_subscribed_notifications -- ietf_subscribed_notifications_I_subscription_modified : notification 
+ietf_subscribed_notifications_I_subscription_modified : id : subscription-id   {mandatory}
+class "target" as ietf_subscribed_notifications_I_subscription_modified_I_target <<choice>> 
+ietf_subscribed_notifications_I_subscription_modified .. ietf_subscribed_notifications_I_subscription_modified_I_target : choice 
+class "stream" as ietf_subscribed_notifications_I_subscription_modified_I_target_I_stream_case <<case>>
+ietf_subscribed_notifications_I_subscription_modified_I_target .. ietf_subscribed_notifications_I_subscription_modified_I_target_I_stream_case  : choice target
+class "stream-filter" as ietf_subscribed_notifications_I_subscription_modified_I_target_I_stream_I_stream_filter <<choice>> 
+ietf_subscribed_notifications_I_subscription_modified_I_target_I_stream_case .. ietf_subscribed_notifications_I_subscription_modified_I_target_I_stream_I_stream_filter : choice 
+class "by-reference" as ietf_subscribed_notifications_I_subscription_modified_I_target_I_stream_I_stream_filter_I_by_reference_case <<case>>
+ietf_subscribed_notifications_I_subscription_modified_I_target_I_stream_I_stream_filter .. ietf_subscribed_notifications_I_subscription_modified_I_target_I_stream_I_stream_filter_I_by_reference_case  : choice stream-filter
+ietf_subscribed_notifications_I_subscription_modified_I_target_I_stream_I_stream_filter_I_by_reference_case : stream-filter-name : stream-filter-ref   {mandatory}
+class "within-subscription" as ietf_subscribed_notifications_I_subscription_modified_I_target_I_stream_I_stream_filter_I_within_subscription_case <<case>>
+ietf_subscribed_notifications_I_subscription_modified_I_target_I_stream_I_stream_filter .. ietf_subscribed_notifications_I_subscription_modified_I_target_I_stream_I_stream_filter_I_within_subscription_case  : choice stream-filter
+class "filter-spec" as ietf_subscribed_notifications_I_subscription_modified_I_target_I_stream_I_stream_filter_I_within_subscription_I_filter_spec <<choice>> 
+ietf_subscribed_notifications_I_subscription_modified_I_target_I_stream_I_stream_filter_I_within_subscription_case .. ietf_subscribed_notifications_I_subscription_modified_I_target_I_stream_I_stream_filter_I_within_subscription_I_filter_spec : choice 
+class "stream-xpath-filter" as ietf_subscribed_notifications_I_subscription_modified_I_target_I_stream_I_stream_filter_I_within_subscription_I_filter_spec_I_stream_xpath_filter_case <<case>> 
+ietf_subscribed_notifications_I_subscription_modified_I_target_I_stream_I_stream_filter_I_within_subscription_I_filter_spec .. ietf_subscribed_notifications_I_subscription_modified_I_target_I_stream_I_stream_filter_I_within_subscription_I_filter_spec_I_stream_xpath_filter_case : choice stream-xpath-filter
+ietf_subscribed_notifications_I_subscription_modified_I_target_I_stream_I_stream_filter_I_within_subscription_I_filter_spec_I_stream_xpath_filter_case : stream-xpath-filter : yang:xpath1.0   {if-feature : xpath}
+ietf_subscribed_notifications_I_subscription_modified : stop-time : yang:date-and-time  
+ietf_subscribed_notifications_I_subscription_modified : dscp : inet:dscp   = 0  {if-feature : dscp}
+ietf_subscribed_notifications_I_subscription_modified : weighting : uint8 [0 .. 255]   {if-feature : qos}
+ietf_subscribed_notifications_I_subscription_modified : dependency : subscription-id   {if-feature : qos}
+ietf_subscribed_notifications_I_subscription_modified : transport : transport   {if-feature : configured}
+ietf_subscribed_notifications_I_subscription_modified : encoding : encoding  
+note bottom of ietf_subscribed_notifications_I_subscription_modified
+<b>When</b> (encoding):
+not(../transport) or derived-from(../transport,
+      "sn:configurable-encoding")
+
+end note 
+ietf_subscribed_notifications_I_subscription_modified : purpose : string   {if-feature : configured}
+class "subscription-resumed" as ietf_subscribed_notifications_I_subscription_resumed << (N,#00D1B2) notification>> 
+ietf_subscribed_notifications -- ietf_subscribed_notifications_I_subscription_resumed : notification 
+ietf_subscribed_notifications_I_subscription_resumed : id : subscription-id   {mandatory}
+class "subscription-started" as ietf_subscribed_notifications_I_subscription_started << (N,#00D1B2) notification>> 
+ietf_subscribed_notifications -- ietf_subscribed_notifications_I_subscription_started : notification 
+note bottom of ietf_subscribed_notifications_I_subscription_started
+<b>if-feature: </b>configured
+end note 
+ietf_subscribed_notifications_I_subscription_started : id : subscription-id   {mandatory}
+class "target" as ietf_subscribed_notifications_I_subscription_started_I_target <<choice>> 
+ietf_subscribed_notifications_I_subscription_started .. ietf_subscribed_notifications_I_subscription_started_I_target : choice 
+class "stream" as ietf_subscribed_notifications_I_subscription_started_I_target_I_stream_case <<case>>
+ietf_subscribed_notifications_I_subscription_started_I_target .. ietf_subscribed_notifications_I_subscription_started_I_target_I_stream_case  : choice target
+class "stream-filter" as ietf_subscribed_notifications_I_subscription_started_I_target_I_stream_I_stream_filter <<choice>> 
+ietf_subscribed_notifications_I_subscription_started_I_target_I_stream_case .. ietf_subscribed_notifications_I_subscription_started_I_target_I_stream_I_stream_filter : choice 
+class "by-reference" as ietf_subscribed_notifications_I_subscription_started_I_target_I_stream_I_stream_filter_I_by_reference_case <<case>>
+ietf_subscribed_notifications_I_subscription_started_I_target_I_stream_I_stream_filter .. ietf_subscribed_notifications_I_subscription_started_I_target_I_stream_I_stream_filter_I_by_reference_case  : choice stream-filter
+ietf_subscribed_notifications_I_subscription_started_I_target_I_stream_I_stream_filter_I_by_reference_case : stream-filter-name : stream-filter-ref   {mandatory}
+class "within-subscription" as ietf_subscribed_notifications_I_subscription_started_I_target_I_stream_I_stream_filter_I_within_subscription_case <<case>>
+ietf_subscribed_notifications_I_subscription_started_I_target_I_stream_I_stream_filter .. ietf_subscribed_notifications_I_subscription_started_I_target_I_stream_I_stream_filter_I_within_subscription_case  : choice stream-filter
+class "filter-spec" as ietf_subscribed_notifications_I_subscription_started_I_target_I_stream_I_stream_filter_I_within_subscription_I_filter_spec <<choice>> 
+ietf_subscribed_notifications_I_subscription_started_I_target_I_stream_I_stream_filter_I_within_subscription_case .. ietf_subscribed_notifications_I_subscription_started_I_target_I_stream_I_stream_filter_I_within_subscription_I_filter_spec : choice 
+class "stream-xpath-filter" as ietf_subscribed_notifications_I_subscription_started_I_target_I_stream_I_stream_filter_I_within_subscription_I_filter_spec_I_stream_xpath_filter_case <<case>> 
+ietf_subscribed_notifications_I_subscription_started_I_target_I_stream_I_stream_filter_I_within_subscription_I_filter_spec .. ietf_subscribed_notifications_I_subscription_started_I_target_I_stream_I_stream_filter_I_within_subscription_I_filter_spec_I_stream_xpath_filter_case : choice stream-xpath-filter
+ietf_subscribed_notifications_I_subscription_started_I_target_I_stream_I_stream_filter_I_within_subscription_I_filter_spec_I_stream_xpath_filter_case : stream-xpath-filter : yang:xpath1.0   {if-feature : xpath}
+ietf_subscribed_notifications_I_subscription_started : stop-time : yang:date-and-time  
+ietf_subscribed_notifications_I_subscription_started : dscp : inet:dscp   = 0  {if-feature : dscp}
+ietf_subscribed_notifications_I_subscription_started : weighting : uint8 [0 .. 255]   {if-feature : qos}
+ietf_subscribed_notifications_I_subscription_started : dependency : subscription-id   {if-feature : qos}
+ietf_subscribed_notifications_I_subscription_started : transport : transport   {if-feature : configured}
+ietf_subscribed_notifications_I_subscription_started : encoding : encoding  
+note bottom of ietf_subscribed_notifications_I_subscription_started
+<b>When</b> (encoding):
+not(../transport) or derived-from(../transport,
+      "sn:configurable-encoding")
+
+end note 
+ietf_subscribed_notifications_I_subscription_started : purpose : string   {if-feature : configured}
+class "subscription-suspended" as ietf_subscribed_notifications_I_subscription_suspended << (N,#00D1B2) notification>> 
+ietf_subscribed_notifications -- ietf_subscribed_notifications_I_subscription_suspended : notification 
+ietf_subscribed_notifications_I_subscription_suspended : id : subscription-id   {mandatory}
+ietf_subscribed_notifications_I_subscription_suspended : reason : identityref {subscription-suspended-reason}   {mandatory}
+class "subscription-terminated" as ietf_subscribed_notifications_I_subscription_terminated << (N,#00D1B2) notification>> 
+ietf_subscribed_notifications -- ietf_subscribed_notifications_I_subscription_terminated : notification 
+ietf_subscribed_notifications_I_subscription_terminated : id : subscription-id   {mandatory}
+ietf_subscribed_notifications_I_subscription_terminated : reason : identityref {subscription-terminated-reason}   {mandatory}
+class "streams" as  ietf_subscribed_notifications_I_streams <<container>> 
+ietf_subscribed_notifications *-- "1" ietf_subscribed_notifications_I_streams 
+note bottom of ietf_subscribed_notifications_I_streams
+<b>Config = </b>false
+end note 
+class "stream" as ietf_subscribed_notifications_I_streams_I_stream << (L, #FF7700) list>> 
+ietf_subscribed_notifications_I_streams *-- "0..N" ietf_subscribed_notifications_I_streams_I_stream 
+ietf_subscribed_notifications_I_streams_I_stream : +name : string  {key} 
+ietf_subscribed_notifications_I_streams_I_stream : description : string  
+ietf_subscribed_notifications_I_streams_I_stream : replay-support : empty   {if-feature : replay}
+ietf_subscribed_notifications_I_streams_I_stream : replay-log-creation-time : yang:date-and-time   {mandatory} {if-feature : replay}
+note bottom of ietf_subscribed_notifications_I_streams_I_stream
+<b>When</b> (replay-log-creation-time):
+../replay-support
+
+end note 
+ietf_subscribed_notifications_I_streams_I_stream : replay-log-aged-time : yang:date-and-time   {if-feature : replay}
+note bottom of ietf_subscribed_notifications_I_streams_I_stream
+<b>When</b> (replay-log-aged-time):
+../replay-support
+
+end note 
+class "filters" as  ietf_subscribed_notifications_I_filters <<container>> 
+ietf_subscribed_notifications *-- "1" ietf_subscribed_notifications_I_filters 
+class "stream-filter" as ietf_subscribed_notifications_I_filters_I_stream_filter << (L, #FF7700) list>> 
+ietf_subscribed_notifications_I_filters *-- "0..N" ietf_subscribed_notifications_I_filters_I_stream_filter 
+ietf_subscribed_notifications_I_filters_I_stream_filter : +name : string  {key} 
+class "filter-spec" as ietf_subscribed_notifications_I_filters_I_stream_filter_I_filter_spec <<choice>> 
+ietf_subscribed_notifications_I_filters_I_stream_filter .. ietf_subscribed_notifications_I_filters_I_stream_filter_I_filter_spec : choice 
+class "stream-xpath-filter" as ietf_subscribed_notifications_I_filters_I_stream_filter_I_filter_spec_I_stream_xpath_filter_case <<case>> 
+ietf_subscribed_notifications_I_filters_I_stream_filter_I_filter_spec .. ietf_subscribed_notifications_I_filters_I_stream_filter_I_filter_spec_I_stream_xpath_filter_case : choice stream-xpath-filter
+ietf_subscribed_notifications_I_filters_I_stream_filter_I_filter_spec_I_stream_xpath_filter_case : stream-xpath-filter : yang:xpath1.0   {if-feature : xpath}
+class "subscriptions" as  ietf_subscribed_notifications_I_subscriptions <<container>> 
+ietf_subscribed_notifications *-- "1" ietf_subscribed_notifications_I_subscriptions 
+class "subscription" as ietf_subscribed_notifications_I_subscriptions_I_subscription << (L, #FF7700) list>> 
+ietf_subscribed_notifications_I_subscriptions *-- "0..N" ietf_subscribed_notifications_I_subscriptions_I_subscription 
+ietf_subscribed_notifications_I_subscriptions_I_subscription : +id : subscription-id  {key} 
+class "target" as ietf_subscribed_notifications_I_subscriptions_I_subscription_I_target <<choice>> 
+ietf_subscribed_notifications_I_subscriptions_I_subscription .. ietf_subscribed_notifications_I_subscriptions_I_subscription_I_target : choice 
+class "stream" as ietf_subscribed_notifications_I_subscriptions_I_subscription_I_target_I_stream_case <<case>>
+ietf_subscribed_notifications_I_subscriptions_I_subscription_I_target .. ietf_subscribed_notifications_I_subscriptions_I_subscription_I_target_I_stream_case  : choice target
+class "stream-filter" as ietf_subscribed_notifications_I_subscriptions_I_subscription_I_target_I_stream_I_stream_filter <<choice>> 
+ietf_subscribed_notifications_I_subscriptions_I_subscription_I_target_I_stream_case .. ietf_subscribed_notifications_I_subscriptions_I_subscription_I_target_I_stream_I_stream_filter : choice 
+class "by-reference" as ietf_subscribed_notifications_I_subscriptions_I_subscription_I_target_I_stream_I_stream_filter_I_by_reference_case <<case>>
+ietf_subscribed_notifications_I_subscriptions_I_subscription_I_target_I_stream_I_stream_filter .. ietf_subscribed_notifications_I_subscriptions_I_subscription_I_target_I_stream_I_stream_filter_I_by_reference_case  : choice stream-filter
+ietf_subscribed_notifications_I_subscriptions_I_subscription_I_target_I_stream_I_stream_filter_I_by_reference_case : stream-filter-name : stream-filter-ref   {mandatory}
+class "within-subscription" as ietf_subscribed_notifications_I_subscriptions_I_subscription_I_target_I_stream_I_stream_filter_I_within_subscription_case <<case>>
+ietf_subscribed_notifications_I_subscriptions_I_subscription_I_target_I_stream_I_stream_filter .. ietf_subscribed_notifications_I_subscriptions_I_subscription_I_target_I_stream_I_stream_filter_I_within_subscription_case  : choice stream-filter
+class "filter-spec" as ietf_subscribed_notifications_I_subscriptions_I_subscription_I_target_I_stream_I_stream_filter_I_within_subscription_I_filter_spec <<choice>> 
+ietf_subscribed_notifications_I_subscriptions_I_subscription_I_target_I_stream_I_stream_filter_I_within_subscription_case .. ietf_subscribed_notifications_I_subscriptions_I_subscription_I_target_I_stream_I_stream_filter_I_within_subscription_I_filter_spec : choice 
+class "stream-xpath-filter" as ietf_subscribed_notifications_I_subscriptions_I_subscription_I_target_I_stream_I_stream_filter_I_within_subscription_I_filter_spec_I_stream_xpath_filter_case <<case>> 
+ietf_subscribed_notifications_I_subscriptions_I_subscription_I_target_I_stream_I_stream_filter_I_within_subscription_I_filter_spec .. ietf_subscribed_notifications_I_subscriptions_I_subscription_I_target_I_stream_I_stream_filter_I_within_subscription_I_filter_spec_I_stream_xpath_filter_case : choice stream-xpath-filter
+ietf_subscribed_notifications_I_subscriptions_I_subscription_I_target_I_stream_I_stream_filter_I_within_subscription_I_filter_spec_I_stream_xpath_filter_case : stream-xpath-filter : yang:xpath1.0   {if-feature : xpath}
+ietf_subscribed_notifications_I_subscriptions_I_subscription : stop-time : yang:date-and-time  
+ietf_subscribed_notifications_I_subscriptions_I_subscription : dscp : inet:dscp   = 0  {if-feature : dscp}
+ietf_subscribed_notifications_I_subscriptions_I_subscription : weighting : uint8 [0 .. 255]   {if-feature : qos}
+ietf_subscribed_notifications_I_subscriptions_I_subscription : dependency : subscription-id   {if-feature : qos}
+ietf_subscribed_notifications_I_subscriptions_I_subscription : transport : transport   {if-feature : configured}
+ietf_subscribed_notifications_I_subscriptions_I_subscription : encoding : encoding  
+note bottom of ietf_subscribed_notifications_I_subscriptions_I_subscription
+<b>When</b> (encoding):
+not(../transport) or derived-from(../transport,
+      "sn:configurable-encoding")
+
+end note 
+ietf_subscribed_notifications_I_subscriptions_I_subscription : purpose : string   {if-feature : configured}
+class "notification-message-origin" as ietf_subscribed_notifications_I_subscriptions_I_subscription_I_notification_message_origin <<choice>> 
+ietf_subscribed_notifications_I_subscriptions_I_subscription .. ietf_subscribed_notifications_I_subscriptions_I_subscription_I_notification_message_origin : choice 
+note bottom of ietf_subscribed_notifications_I_subscriptions_I_subscription_I_notification_message_origin
+<b>if-feature: </b>configured
+end note 
+class "interface-originated" as ietf_subscribed_notifications_I_subscriptions_I_subscription_I_notification_message_origin_I_interface_originated_case <<case>>
+ietf_subscribed_notifications_I_subscriptions_I_subscription_I_notification_message_origin .. ietf_subscribed_notifications_I_subscriptions_I_subscription_I_notification_message_origin_I_interface_originated_case  : choice notification-message-origin
+ietf_subscribed_notifications_I_subscriptions_I_subscription_I_notification_message_origin_I_interface_originated_case : source-interface : if:interface-ref   {if-feature : interface-designation}
+class "address-originated" as ietf_subscribed_notifications_I_subscriptions_I_subscription_I_notification_message_origin_I_address_originated_case <<case>>
+ietf_subscribed_notifications_I_subscriptions_I_subscription_I_notification_message_origin .. ietf_subscribed_notifications_I_subscriptions_I_subscription_I_notification_message_origin_I_address_originated_case  : choice notification-message-origin
+ietf_subscribed_notifications_I_subscriptions_I_subscription_I_notification_message_origin_I_address_originated_case : source-vrf : leafref : /ni:network-instances/ni:network-instance/ni:name   {if-feature : supports-vrf}
+ietf_subscribed_notifications_I_subscriptions_I_subscription_I_notification_message_origin_I_address_originated_case : source-address : inet:ip-address-no-zone  
+ietf_subscribed_notifications_I_subscriptions_I_subscription : configured-subscription-state : enumeration : {valid,invalid,concluded,}   {Config : false} {if-feature : configured}
+class "receivers" as  ietf_subscribed_notifications_I_subscriptions_I_subscription_I_receivers <<container>> 
+ietf_subscribed_notifications_I_subscriptions_I_subscription *-- "1" ietf_subscribed_notifications_I_subscriptions_I_subscription_I_receivers 
+class "receiver" as ietf_subscribed_notifications_I_subscriptions_I_subscription_I_receivers_I_receiver << (L, #FF7700) list>> 
+ietf_subscribed_notifications_I_subscriptions_I_subscription_I_receivers *-- "1..N" ietf_subscribed_notifications_I_subscriptions_I_subscription_I_receivers_I_receiver 
+ietf_subscribed_notifications_I_subscriptions_I_subscription_I_receivers_I_receiver : +name : string  {key} 
+ietf_subscribed_notifications_I_subscriptions_I_subscription_I_receivers_I_receiver : sent-event-records : yang:zero-based-counter64   {Config : false}
+ietf_subscribed_notifications_I_subscriptions_I_subscription_I_receivers_I_receiver : excluded-event-records : yang:zero-based-counter64   {Config : false}
+ietf_subscribed_notifications_I_subscriptions_I_subscription_I_receivers_I_receiver : state : enumeration : {active,suspended,connecting,...}   {mandatory} {Config : false}
+ietf_subscribed_notifications_I_subscriptions_I_subscription_I_receivers_I_receiver : reset( out: time)
+class "delete-subscription-error" as sn_delete_subscription_error_identity << (I,Silver) identity>> 
+class "establish-subscription-error" as sn_establish_subscription_error_identity << (I,Silver) identity>> 
+class "modify-subscription-error" as sn_modify_subscription_error_identity << (I,Silver) identity>> 
+class "subscription-suspended-reason" as sn_subscription_suspended_reason_identity << (I,Silver) identity>> 
+class "subscription-terminated-reason" as sn_subscription_terminated_reason_identity << (I,Silver) identity>> 
+class "dscp-unavailable" as sn_dscp_unavailable_identity << (I,Silver) identity>> 
+sn_establish_subscription_error_identity <|-- sn_dscp_unavailable_identity 
+class "encoding-unsupported" as sn_encoding_unsupported_identity << (I,Silver) identity>> 
+sn_establish_subscription_error_identity <|-- sn_encoding_unsupported_identity 
+class "filter-unavailable" as sn_filter_unavailable_identity << (I,Silver) identity>> 
+sn_subscription_terminated_reason_identity <|-- sn_filter_unavailable_identity 
+class "filter-unsupported" as sn_filter_unsupported_identity << (I,Silver) identity>> 
+sn_establish_subscription_error_identity <|-- sn_filter_unsupported_identity 
+class "insufficient-resources" as sn_insufficient_resources_identity << (I,Silver) identity>> 
+sn_establish_subscription_error_identity <|-- sn_insufficient_resources_identity 
+class "no-such-subscription" as sn_no_such_subscription_identity << (I,Silver) identity>> 
+sn_modify_subscription_error_identity <|-- sn_no_such_subscription_identity 
+class "replay-unsupported" as sn_replay_unsupported_identity << (I,Silver) identity>> 
+sn_establish_subscription_error_identity <|-- sn_replay_unsupported_identity 
+class "stream-unavailable" as sn_stream_unavailable_identity << (I,Silver) identity>> 
+sn_subscription_terminated_reason_identity <|-- sn_stream_unavailable_identity 
+class "suspension-timeout" as sn_suspension_timeout_identity << (I,Silver) identity>> 
+sn_subscription_terminated_reason_identity <|-- sn_suspension_timeout_identity 
+class "unsupportable-volume" as sn_unsupportable_volume_identity << (I,Silver) identity>> 
+sn_subscription_suspended_reason_identity <|-- sn_unsupportable_volume_identity 
+class "configurable-encoding" as sn_configurable_encoding_identity << (I,Silver) identity>> 
+class "encoding" as sn_encoding_identity << (I,Silver) identity>> 
+class "encode-xml" as sn_encode_xml_identity << (I,Silver) identity>> 
+sn_encoding_identity <|-- sn_encode_xml_identity 
+class "encode-json" as sn_encode_json_identity << (I,Silver) identity>> 
+sn_encoding_identity <|-- sn_encode_json_identity 
+class "transport" as sn_transport_identity << (I,Silver) identity>> 
+sn_encoding_typedef-->sn_encoding_identity : encoding
+sn_transport_typedef-->sn_transport_identity : transport
+ietf_subscribed_notifications_I_subscription_suspended-->sn_subscription_suspended_reason_identity : reason
+ietf_subscribed_notifications_I_subscription_terminated-->sn_subscription_terminated_reason_identity : reason
+class "/ni:network-instances/ni:network-instance" as ietf_network_instance_I_network_instances_I_network_instance_leafref <<leafref>> 
+} 
+
+inet_ietf_inet_types +-- sn_ietf_subscribed_notifications
+if_ietf_interfaces +-- sn_ietf_subscribed_notifications
+nacm_ietf_netconf_acm +-- sn_ietf_subscribed_notifications
+ni_ietf_network_instance +-- sn_ietf_subscribed_notifications
+rc_ietf_restconf +-- sn_ietf_subscribed_notifications
+yang_ietf_yang_types +-- sn_ietf_subscribed_notifications
+
+package "yang:ietf-yang-types" as yang_ietf_yang_types { 
+} 
+
+package "sn:ietf-subscribed-notifications" as sn_ietf_subscribed_notifications { 
+} 
+
+package "ds:ietf-datastores" as ds_ietf_datastores { 
+} 
+
+package "rc:ietf-restconf" as rc_ietf_restconf { 
+} 
+
+package "ypatch:ietf-yang-patch" as ypatch_ietf_yang_patch { 
+} 
+
+package "yp:ietf-yang-push" as yp_ietf_yang_push { 
+} 
+note top of yp_ietf_yang_push : <b>Namespace: </b> urn:ietf:params:xml:ns:yang:ietf-yang-push \n<b>Prefix: </b> yp \n<b>Organization : </b>\nIETF NETCONF (Network Configuration) Working Group \n<b>Contact : </b>\nWG Web:  <https:/datatracker.ietf.org/wg/netconf/> \nWG List: <mailto:netconf@ietf.org> \n \nAuthor:  Alexander Clemm \n         <mailto:ludwig@clemm.org> \n \nAuthor:  Eric Voit \n         <mailto:evoit@cisco.com> \n<b>Revision : </b> 2019-09-09 \n
+
+package "yp:ietf-yang-push" as yp_ietf_yang_push { 
+class "ietf-yang-push" as ietf_yang_push << (M, #33CCFF) module>> 
+ietf_yang_push : feature : on-change 
+enum "change-type" as yp_change_type_typedef <<enumeration>> {
+create
+delete
+insert
+MORE
+}
+class "selection-filter-ref" as yp_selection_filter_ref_typedef << (T, YellowGreen) typedef>>
+yp_selection_filter_ref_typedef : leafref : /sn:filters/yp:selection-filter/yp:filter-id
+class "centiseconds" as yp_centiseconds_typedef << (T, YellowGreen) typedef>>
+yp_centiseconds_typedef : uint32
+ietf_yang_push : resync-subscription( in: id)
+} 
+
+package "sn:ietf-subscribed-notifications" as sn_ietf_subscribed_notifications { 
+class "input" as ietf_subscribed_notifications_I_establish_subscription_I_input << (L, #FF7700) list>> 
+} 
+
+package "yp:ietf-yang-push" as yp_ietf_yang_push { 
+} 
+
+package "sn:ietf-subscribed-notifications" as sn_ietf_subscribed_notifications { 
+class "input" as ietf_subscribed_notifications_I_establish_subscription_I_input << (L, #FF7700) list>> 
+} 
+
+package "yp:ietf-yang-push" as yp_ietf_yang_push { 
+class "update-trigger" as ietf_subscribed_notifications_I_establish_subscription_I_input_I_update_trigger <<choice>> 
+ietf_subscribed_notifications_I_establish_subscription_I_input .. ietf_subscribed_notifications_I_establish_subscription_I_input_I_update_trigger : choice 
+class "periodic" as ietf_subscribed_notifications_I_establish_subscription_I_input_I_update_trigger_I_periodic_case <<case>>
+ietf_subscribed_notifications_I_establish_subscription_I_input_I_update_trigger .. ietf_subscribed_notifications_I_establish_subscription_I_input_I_update_trigger_I_periodic_case  : choice update-trigger
+class "periodic" as  ietf_subscribed_notifications_I_establish_subscription_I_input_I_update_trigger_I_periodic_I_periodic <<container>> 
+ietf_subscribed_notifications_I_establish_subscription_I_input_I_update_trigger_I_periodic_case *-- "0..1" ietf_subscribed_notifications_I_establish_subscription_I_input_I_update_trigger_I_periodic_I_periodic 
+note bottom of ietf_subscribed_notifications_I_establish_subscription_I_input_I_update_trigger_I_periodic_I_periodic
+<b>Presence: </b>indicates a periodic subscription
+end note 
+ietf_subscribed_notifications_I_establish_subscription_I_input_I_update_trigger_I_periodic_I_periodic : period : centiseconds   {mandatory}
+ietf_subscribed_notifications_I_establish_subscription_I_input_I_update_trigger_I_periodic_I_periodic : anchor-time : yang:date-and-time  
+class "on-change" as ietf_subscribed_notifications_I_establish_subscription_I_input_I_update_trigger_I_on_change_case <<case>>
+ietf_subscribed_notifications_I_establish_subscription_I_input_I_update_trigger .. ietf_subscribed_notifications_I_establish_subscription_I_input_I_update_trigger_I_on_change_case  : choice update-trigger
+note bottom of ietf_subscribed_notifications_I_establish_subscription_I_input_I_update_trigger_I_on_change_case
+<b>if-feature: </b>on-change
+end note 
+class "on-change" as  ietf_subscribed_notifications_I_establish_subscription_I_input_I_update_trigger_I_on_change_I_on_change <<container>> 
+ietf_subscribed_notifications_I_establish_subscription_I_input_I_update_trigger_I_on_change_case *-- "0..1" ietf_subscribed_notifications_I_establish_subscription_I_input_I_update_trigger_I_on_change_I_on_change 
+note bottom of ietf_subscribed_notifications_I_establish_subscription_I_input_I_update_trigger_I_on_change_I_on_change
+<b>Presence: </b>indicates an on-change subscription
+end note 
+ietf_subscribed_notifications_I_establish_subscription_I_input_I_update_trigger_I_on_change_I_on_change : dampening-period : centiseconds   = 0 
+} 
+
+package "sn:ietf-subscribed-notifications" as sn_ietf_subscribed_notifications { 
+class "target" as ietf_subscribed_notifications_I_establish_subscription_I_input_I_target << (L, #FF7700) list>> 
+} 
+
+package "yp:ietf-yang-push" as yp_ietf_yang_push { 
+} 
+
+package "sn:ietf-subscribed-notifications" as sn_ietf_subscribed_notifications { 
+class "target" as ietf_subscribed_notifications_I_establish_subscription_I_input_I_target << (L, #FF7700) list>> 
+} 
+
+package "yp:ietf-yang-push" as yp_ietf_yang_push { 
+class "datastore" as ietf_subscribed_notifications_I_establish_subscription_I_input_I_target_I_datastore_case <<case>>
+ietf_subscribed_notifications_I_establish_subscription_I_input_I_target .. ietf_subscribed_notifications_I_establish_subscription_I_input_I_target_I_datastore_case  : choice target
+ietf_subscribed_notifications_I_establish_subscription_I_input_I_target_I_datastore_case : datastore : identityref {ds:datastore}   {mandatory}
+class "selection-filter" as ietf_subscribed_notifications_I_establish_subscription_I_input_I_target_I_datastore_I_selection_filter <<choice>> 
+ietf_subscribed_notifications_I_establish_subscription_I_input_I_target_I_datastore_case .. ietf_subscribed_notifications_I_establish_subscription_I_input_I_target_I_datastore_I_selection_filter : choice 
+class "by-reference" as ietf_subscribed_notifications_I_establish_subscription_I_input_I_target_I_datastore_I_selection_filter_I_by_reference_case <<case>>
+ietf_subscribed_notifications_I_establish_subscription_I_input_I_target_I_datastore_I_selection_filter .. ietf_subscribed_notifications_I_establish_subscription_I_input_I_target_I_datastore_I_selection_filter_I_by_reference_case  : choice selection-filter
+ietf_subscribed_notifications_I_establish_subscription_I_input_I_target_I_datastore_I_selection_filter_I_by_reference_case : selection-filter-ref : selection-filter-ref   {mandatory}
+class "within-subscription" as ietf_subscribed_notifications_I_establish_subscription_I_input_I_target_I_datastore_I_selection_filter_I_within_subscription_case <<case>>
+ietf_subscribed_notifications_I_establish_subscription_I_input_I_target_I_datastore_I_selection_filter .. ietf_subscribed_notifications_I_establish_subscription_I_input_I_target_I_datastore_I_selection_filter_I_within_subscription_case  : choice selection-filter
+class "filter-spec" as ietf_subscribed_notifications_I_establish_subscription_I_input_I_target_I_datastore_I_selection_filter_I_within_subscription_I_filter_spec <<choice>> 
+ietf_subscribed_notifications_I_establish_subscription_I_input_I_target_I_datastore_I_selection_filter_I_within_subscription_case .. ietf_subscribed_notifications_I_establish_subscription_I_input_I_target_I_datastore_I_selection_filter_I_within_subscription_I_filter_spec : choice 
+class "datastore-xpath-filter" as ietf_subscribed_notifications_I_establish_subscription_I_input_I_target_I_datastore_I_selection_filter_I_within_subscription_I_filter_spec_I_datastore_xpath_filter_case <<case>> 
+ietf_subscribed_notifications_I_establish_subscription_I_input_I_target_I_datastore_I_selection_filter_I_within_subscription_I_filter_spec .. ietf_subscribed_notifications_I_establish_subscription_I_input_I_target_I_datastore_I_selection_filter_I_within_subscription_I_filter_spec_I_datastore_xpath_filter_case : choice datastore-xpath-filter
+ietf_subscribed_notifications_I_establish_subscription_I_input_I_target_I_datastore_I_selection_filter_I_within_subscription_I_filter_spec_I_datastore_xpath_filter_case : datastore-xpath-filter : yang:xpath1.0   {if-feature : sn:xpath}
+} 
+
+package "sn:ietf-subscribed-notifications" as sn_ietf_subscribed_notifications { 
+class "input" as ietf_subscribed_notifications_I_modify_subscription_I_input << (L, #FF7700) list>> 
+} 
+
+package "yp:ietf-yang-push" as yp_ietf_yang_push { 
+} 
+
+package "sn:ietf-subscribed-notifications" as sn_ietf_subscribed_notifications { 
+class "input" as ietf_subscribed_notifications_I_modify_subscription_I_input << (L, #FF7700) list>> 
+} 
+
+package "yp:ietf-yang-push" as yp_ietf_yang_push { 
+class "update-trigger" as ietf_subscribed_notifications_I_modify_subscription_I_input_I_update_trigger <<choice>> 
+ietf_subscribed_notifications_I_modify_subscription_I_input .. ietf_subscribed_notifications_I_modify_subscription_I_input_I_update_trigger : choice 
+class "periodic" as ietf_subscribed_notifications_I_modify_subscription_I_input_I_update_trigger_I_periodic_case <<case>>
+ietf_subscribed_notifications_I_modify_subscription_I_input_I_update_trigger .. ietf_subscribed_notifications_I_modify_subscription_I_input_I_update_trigger_I_periodic_case  : choice update-trigger
+class "periodic" as  ietf_subscribed_notifications_I_modify_subscription_I_input_I_update_trigger_I_periodic_I_periodic <<container>> 
+ietf_subscribed_notifications_I_modify_subscription_I_input_I_update_trigger_I_periodic_case *-- "0..1" ietf_subscribed_notifications_I_modify_subscription_I_input_I_update_trigger_I_periodic_I_periodic 
+note bottom of ietf_subscribed_notifications_I_modify_subscription_I_input_I_update_trigger_I_periodic_I_periodic
+<b>Presence: </b>indicates a periodic subscription
+end note 
+ietf_subscribed_notifications_I_modify_subscription_I_input_I_update_trigger_I_periodic_I_periodic : period : centiseconds   {mandatory}
+ietf_subscribed_notifications_I_modify_subscription_I_input_I_update_trigger_I_periodic_I_periodic : anchor-time : yang:date-and-time  
+class "on-change" as ietf_subscribed_notifications_I_modify_subscription_I_input_I_update_trigger_I_on_change_case <<case>>
+ietf_subscribed_notifications_I_modify_subscription_I_input_I_update_trigger .. ietf_subscribed_notifications_I_modify_subscription_I_input_I_update_trigger_I_on_change_case  : choice update-trigger
+note bottom of ietf_subscribed_notifications_I_modify_subscription_I_input_I_update_trigger_I_on_change_case
+<b>if-feature: </b>on-change
+end note 
+class "on-change" as  ietf_subscribed_notifications_I_modify_subscription_I_input_I_update_trigger_I_on_change_I_on_change <<container>> 
+ietf_subscribed_notifications_I_modify_subscription_I_input_I_update_trigger_I_on_change_case *-- "0..1" ietf_subscribed_notifications_I_modify_subscription_I_input_I_update_trigger_I_on_change_I_on_change 
+note bottom of ietf_subscribed_notifications_I_modify_subscription_I_input_I_update_trigger_I_on_change_I_on_change
+<b>Presence: </b>indicates an on-change subscription
+end note 
+ietf_subscribed_notifications_I_modify_subscription_I_input_I_update_trigger_I_on_change_I_on_change : dampening-period : centiseconds   = 0 
+} 
+
+package "sn:ietf-subscribed-notifications" as sn_ietf_subscribed_notifications { 
+class "target" as ietf_subscribed_notifications_I_modify_subscription_I_input_I_target << (L, #FF7700) list>> 
+} 
+
+package "yp:ietf-yang-push" as yp_ietf_yang_push { 
+} 
+
+package "sn:ietf-subscribed-notifications" as sn_ietf_subscribed_notifications { 
+class "target" as ietf_subscribed_notifications_I_modify_subscription_I_input_I_target << (L, #FF7700) list>> 
+} 
+
+package "yp:ietf-yang-push" as yp_ietf_yang_push { 
+class "datastore" as ietf_subscribed_notifications_I_modify_subscription_I_input_I_target_I_datastore_case <<case>>
+ietf_subscribed_notifications_I_modify_subscription_I_input_I_target .. ietf_subscribed_notifications_I_modify_subscription_I_input_I_target_I_datastore_case  : choice target
+ietf_subscribed_notifications_I_modify_subscription_I_input_I_target_I_datastore_case : datastore : identityref {ds:datastore}   {mandatory}
+class "selection-filter" as ietf_subscribed_notifications_I_modify_subscription_I_input_I_target_I_datastore_I_selection_filter <<choice>> 
+ietf_subscribed_notifications_I_modify_subscription_I_input_I_target_I_datastore_case .. ietf_subscribed_notifications_I_modify_subscription_I_input_I_target_I_datastore_I_selection_filter : choice 
+class "by-reference" as ietf_subscribed_notifications_I_modify_subscription_I_input_I_target_I_datastore_I_selection_filter_I_by_reference_case <<case>>
+ietf_subscribed_notifications_I_modify_subscription_I_input_I_target_I_datastore_I_selection_filter .. ietf_subscribed_notifications_I_modify_subscription_I_input_I_target_I_datastore_I_selection_filter_I_by_reference_case  : choice selection-filter
+ietf_subscribed_notifications_I_modify_subscription_I_input_I_target_I_datastore_I_selection_filter_I_by_reference_case : selection-filter-ref : selection-filter-ref   {mandatory}
+class "within-subscription" as ietf_subscribed_notifications_I_modify_subscription_I_input_I_target_I_datastore_I_selection_filter_I_within_subscription_case <<case>>
+ietf_subscribed_notifications_I_modify_subscription_I_input_I_target_I_datastore_I_selection_filter .. ietf_subscribed_notifications_I_modify_subscription_I_input_I_target_I_datastore_I_selection_filter_I_within_subscription_case  : choice selection-filter
+class "filter-spec" as ietf_subscribed_notifications_I_modify_subscription_I_input_I_target_I_datastore_I_selection_filter_I_within_subscription_I_filter_spec <<choice>> 
+ietf_subscribed_notifications_I_modify_subscription_I_input_I_target_I_datastore_I_selection_filter_I_within_subscription_case .. ietf_subscribed_notifications_I_modify_subscription_I_input_I_target_I_datastore_I_selection_filter_I_within_subscription_I_filter_spec : choice 
+class "datastore-xpath-filter" as ietf_subscribed_notifications_I_modify_subscription_I_input_I_target_I_datastore_I_selection_filter_I_within_subscription_I_filter_spec_I_datastore_xpath_filter_case <<case>> 
+ietf_subscribed_notifications_I_modify_subscription_I_input_I_target_I_datastore_I_selection_filter_I_within_subscription_I_filter_spec .. ietf_subscribed_notifications_I_modify_subscription_I_input_I_target_I_datastore_I_selection_filter_I_within_subscription_I_filter_spec_I_datastore_xpath_filter_case : choice datastore-xpath-filter
+ietf_subscribed_notifications_I_modify_subscription_I_input_I_target_I_datastore_I_selection_filter_I_within_subscription_I_filter_spec_I_datastore_xpath_filter_case : datastore-xpath-filter : yang:xpath1.0   {if-feature : sn:xpath}
+class "push-update" as ietf_yang_push_I_push_update << (N,#00D1B2) notification>> 
+ietf_yang_push -- ietf_yang_push_I_push_update : notification 
+ietf_yang_push_I_push_update : id : sn:subscription-id  
+ietf_yang_push_I_push_update : incomplete-update : empty  
+class "push-change-update" as ietf_yang_push_I_push_change_update << (N,#00D1B2) notification>> 
+ietf_yang_push -- ietf_yang_push_I_push_change_update : notification 
+note bottom of ietf_yang_push_I_push_change_update
+<b>if-feature: </b>on-change
+end note 
+ietf_yang_push_I_push_change_update : id : sn:subscription-id  
+class "datastore-changes" as  ietf_yang_push_I_push_change_update_I_datastore_changes <<container>> 
+ietf_yang_push_I_push_change_update *-- "1" ietf_yang_push_I_push_change_update_I_datastore_changes 
+class "yang-patch" as  ietf_yang_push_I_push_change_update_I_datastore_changes_I_yang_patch <<container>> 
+ietf_yang_push_I_push_change_update_I_datastore_changes *-- "1" ietf_yang_push_I_push_change_update_I_datastore_changes_I_yang_patch 
+ietf_yang_push_I_push_change_update_I_datastore_changes_I_yang_patch : patch-id : string   {mandatory}
+ietf_yang_push_I_push_change_update_I_datastore_changes_I_yang_patch : comment : string  
+class "edit" as ietf_yang_push_I_push_change_update_I_datastore_changes_I_yang_patch_I_edit << (L, #FF7700) list>> 
+ietf_yang_push_I_push_change_update_I_datastore_changes_I_yang_patch *-- "0..N" ietf_yang_push_I_push_change_update_I_datastore_changes_I_yang_patch_I_edit : ordered-by : user
+ietf_yang_push_I_push_change_update_I_datastore_changes_I_yang_patch_I_edit : +edit-id : string  {key} 
+ietf_yang_push_I_push_change_update_I_datastore_changes_I_yang_patch_I_edit : operation : enumeration : {create,delete,insert,...}   {mandatory}
+ietf_yang_push_I_push_change_update_I_datastore_changes_I_yang_patch_I_edit : target : target-resource-offset   {mandatory}
+ietf_yang_push_I_push_change_update_I_datastore_changes_I_yang_patch_I_edit : point : target-resource-offset  
+note bottom of ietf_yang_push_I_push_change_update_I_datastore_changes_I_yang_patch_I_edit
+<b>When</b> (point):
+(../operation = 'insert' or ../operation = 'move')and (../where = 'before' or ../where = 'after')
+
+end note 
+ietf_yang_push_I_push_change_update_I_datastore_changes_I_yang_patch_I_edit : where : enumeration : {before,after,first,...}   = last 
+note bottom of ietf_yang_push_I_push_change_update_I_datastore_changes_I_yang_patch_I_edit
+<b>When</b> (where):
+../operation = 'insert' or ../operation = 'move'
+
+end note 
+ietf_yang_push_I_push_change_update : incomplete-update : empty  
+} 
+
+package "sn:ietf-subscribed-notifications" as sn_ietf_subscribed_notifications { 
+class "subscription-started" as ietf_subscribed_notifications_I_subscription_started << (L, #FF7700) list>> 
+} 
+
+package "yp:ietf-yang-push" as yp_ietf_yang_push { 
+} 
+
+package "sn:ietf-subscribed-notifications" as sn_ietf_subscribed_notifications { 
+class "subscription-started" as ietf_subscribed_notifications_I_subscription_started << (L, #FF7700) list>> 
+} 
+
+package "yp:ietf-yang-push" as yp_ietf_yang_push { 
+class "update-trigger" as ietf_subscribed_notifications_I_subscription_started_I_update_trigger <<choice>> 
+ietf_subscribed_notifications_I_subscription_started .. ietf_subscribed_notifications_I_subscription_started_I_update_trigger : choice 
+class "periodic" as ietf_subscribed_notifications_I_subscription_started_I_update_trigger_I_periodic_case <<case>>
+ietf_subscribed_notifications_I_subscription_started_I_update_trigger .. ietf_subscribed_notifications_I_subscription_started_I_update_trigger_I_periodic_case  : choice update-trigger
+class "periodic" as  ietf_subscribed_notifications_I_subscription_started_I_update_trigger_I_periodic_I_periodic <<container>> 
+ietf_subscribed_notifications_I_subscription_started_I_update_trigger_I_periodic_case *-- "0..1" ietf_subscribed_notifications_I_subscription_started_I_update_trigger_I_periodic_I_periodic 
+note bottom of ietf_subscribed_notifications_I_subscription_started_I_update_trigger_I_periodic_I_periodic
+<b>Presence: </b>indicates a periodic subscription
+end note 
+ietf_subscribed_notifications_I_subscription_started_I_update_trigger_I_periodic_I_periodic : period : centiseconds   {mandatory}
+ietf_subscribed_notifications_I_subscription_started_I_update_trigger_I_periodic_I_periodic : anchor-time : yang:date-and-time  
+class "on-change" as ietf_subscribed_notifications_I_subscription_started_I_update_trigger_I_on_change_case <<case>>
+ietf_subscribed_notifications_I_subscription_started_I_update_trigger .. ietf_subscribed_notifications_I_subscription_started_I_update_trigger_I_on_change_case  : choice update-trigger
+note bottom of ietf_subscribed_notifications_I_subscription_started_I_update_trigger_I_on_change_case
+<b>if-feature: </b>on-change
+end note 
+class "on-change" as  ietf_subscribed_notifications_I_subscription_started_I_update_trigger_I_on_change_I_on_change <<container>> 
+ietf_subscribed_notifications_I_subscription_started_I_update_trigger_I_on_change_case *-- "0..1" ietf_subscribed_notifications_I_subscription_started_I_update_trigger_I_on_change_I_on_change 
+note bottom of ietf_subscribed_notifications_I_subscription_started_I_update_trigger_I_on_change_I_on_change
+<b>Presence: </b>indicates an on-change subscription
+end note 
+ietf_subscribed_notifications_I_subscription_started_I_update_trigger_I_on_change_I_on_change : dampening-period : centiseconds   = 0 
+} 
+
+package "sn:ietf-subscribed-notifications" as sn_ietf_subscribed_notifications { 
+class "target" as ietf_subscribed_notifications_I_subscription_started_I_target << (L, #FF7700) list>> 
+} 
+
+package "yp:ietf-yang-push" as yp_ietf_yang_push { 
+} 
+
+package "sn:ietf-subscribed-notifications" as sn_ietf_subscribed_notifications { 
+class "target" as ietf_subscribed_notifications_I_subscription_started_I_target << (L, #FF7700) list>> 
+} 
+
+package "yp:ietf-yang-push" as yp_ietf_yang_push { 
+class "datastore" as ietf_subscribed_notifications_I_subscription_started_I_target_I_datastore_case <<case>>
+ietf_subscribed_notifications_I_subscription_started_I_target .. ietf_subscribed_notifications_I_subscription_started_I_target_I_datastore_case  : choice target
+ietf_subscribed_notifications_I_subscription_started_I_target_I_datastore_case : datastore : identityref {ds:datastore}   {mandatory}
+class "selection-filter" as ietf_subscribed_notifications_I_subscription_started_I_target_I_datastore_I_selection_filter <<choice>> 
+ietf_subscribed_notifications_I_subscription_started_I_target_I_datastore_case .. ietf_subscribed_notifications_I_subscription_started_I_target_I_datastore_I_selection_filter : choice 
+class "by-reference" as ietf_subscribed_notifications_I_subscription_started_I_target_I_datastore_I_selection_filter_I_by_reference_case <<case>>
+ietf_subscribed_notifications_I_subscription_started_I_target_I_datastore_I_selection_filter .. ietf_subscribed_notifications_I_subscription_started_I_target_I_datastore_I_selection_filter_I_by_reference_case  : choice selection-filter
+ietf_subscribed_notifications_I_subscription_started_I_target_I_datastore_I_selection_filter_I_by_reference_case : selection-filter-ref : selection-filter-ref   {mandatory}
+class "within-subscription" as ietf_subscribed_notifications_I_subscription_started_I_target_I_datastore_I_selection_filter_I_within_subscription_case <<case>>
+ietf_subscribed_notifications_I_subscription_started_I_target_I_datastore_I_selection_filter .. ietf_subscribed_notifications_I_subscription_started_I_target_I_datastore_I_selection_filter_I_within_subscription_case  : choice selection-filter
+class "filter-spec" as ietf_subscribed_notifications_I_subscription_started_I_target_I_datastore_I_selection_filter_I_within_subscription_I_filter_spec <<choice>> 
+ietf_subscribed_notifications_I_subscription_started_I_target_I_datastore_I_selection_filter_I_within_subscription_case .. ietf_subscribed_notifications_I_subscription_started_I_target_I_datastore_I_selection_filter_I_within_subscription_I_filter_spec : choice 
+class "datastore-xpath-filter" as ietf_subscribed_notifications_I_subscription_started_I_target_I_datastore_I_selection_filter_I_within_subscription_I_filter_spec_I_datastore_xpath_filter_case <<case>> 
+ietf_subscribed_notifications_I_subscription_started_I_target_I_datastore_I_selection_filter_I_within_subscription_I_filter_spec .. ietf_subscribed_notifications_I_subscription_started_I_target_I_datastore_I_selection_filter_I_within_subscription_I_filter_spec_I_datastore_xpath_filter_case : choice datastore-xpath-filter
+ietf_subscribed_notifications_I_subscription_started_I_target_I_datastore_I_selection_filter_I_within_subscription_I_filter_spec_I_datastore_xpath_filter_case : datastore-xpath-filter : yang:xpath1.0   {if-feature : sn:xpath}
+} 
+
+package "sn:ietf-subscribed-notifications" as sn_ietf_subscribed_notifications { 
+class "subscription-modified" as ietf_subscribed_notifications_I_subscription_modified << (L, #FF7700) list>> 
+} 
+
+package "yp:ietf-yang-push" as yp_ietf_yang_push { 
+} 
+
+package "sn:ietf-subscribed-notifications" as sn_ietf_subscribed_notifications { 
+class "subscription-modified" as ietf_subscribed_notifications_I_subscription_modified << (L, #FF7700) list>> 
+} 
+
+package "yp:ietf-yang-push" as yp_ietf_yang_push { 
+class "update-trigger" as ietf_subscribed_notifications_I_subscription_modified_I_update_trigger <<choice>> 
+ietf_subscribed_notifications_I_subscription_modified .. ietf_subscribed_notifications_I_subscription_modified_I_update_trigger : choice 
+class "periodic" as ietf_subscribed_notifications_I_subscription_modified_I_update_trigger_I_periodic_case <<case>>
+ietf_subscribed_notifications_I_subscription_modified_I_update_trigger .. ietf_subscribed_notifications_I_subscription_modified_I_update_trigger_I_periodic_case  : choice update-trigger
+class "periodic" as  ietf_subscribed_notifications_I_subscription_modified_I_update_trigger_I_periodic_I_periodic <<container>> 
+ietf_subscribed_notifications_I_subscription_modified_I_update_trigger_I_periodic_case *-- "0..1" ietf_subscribed_notifications_I_subscription_modified_I_update_trigger_I_periodic_I_periodic 
+note bottom of ietf_subscribed_notifications_I_subscription_modified_I_update_trigger_I_periodic_I_periodic
+<b>Presence: </b>indicates a periodic subscription
+end note 
+ietf_subscribed_notifications_I_subscription_modified_I_update_trigger_I_periodic_I_periodic : period : centiseconds   {mandatory}
+ietf_subscribed_notifications_I_subscription_modified_I_update_trigger_I_periodic_I_periodic : anchor-time : yang:date-and-time  
+class "on-change" as ietf_subscribed_notifications_I_subscription_modified_I_update_trigger_I_on_change_case <<case>>
+ietf_subscribed_notifications_I_subscription_modified_I_update_trigger .. ietf_subscribed_notifications_I_subscription_modified_I_update_trigger_I_on_change_case  : choice update-trigger
+note bottom of ietf_subscribed_notifications_I_subscription_modified_I_update_trigger_I_on_change_case
+<b>if-feature: </b>on-change
+end note 
+class "on-change" as  ietf_subscribed_notifications_I_subscription_modified_I_update_trigger_I_on_change_I_on_change <<container>> 
+ietf_subscribed_notifications_I_subscription_modified_I_update_trigger_I_on_change_case *-- "0..1" ietf_subscribed_notifications_I_subscription_modified_I_update_trigger_I_on_change_I_on_change 
+note bottom of ietf_subscribed_notifications_I_subscription_modified_I_update_trigger_I_on_change_I_on_change
+<b>Presence: </b>indicates an on-change subscription
+end note 
+ietf_subscribed_notifications_I_subscription_modified_I_update_trigger_I_on_change_I_on_change : dampening-period : centiseconds   = 0 
+} 
+
+package "sn:ietf-subscribed-notifications" as sn_ietf_subscribed_notifications { 
+class "target" as ietf_subscribed_notifications_I_subscription_modified_I_target << (L, #FF7700) list>> 
+} 
+
+package "yp:ietf-yang-push" as yp_ietf_yang_push { 
+} 
+
+package "sn:ietf-subscribed-notifications" as sn_ietf_subscribed_notifications { 
+class "target" as ietf_subscribed_notifications_I_subscription_modified_I_target << (L, #FF7700) list>> 
+} 
+
+package "yp:ietf-yang-push" as yp_ietf_yang_push { 
+class "datastore" as ietf_subscribed_notifications_I_subscription_modified_I_target_I_datastore_case <<case>>
+ietf_subscribed_notifications_I_subscription_modified_I_target .. ietf_subscribed_notifications_I_subscription_modified_I_target_I_datastore_case  : choice target
+ietf_subscribed_notifications_I_subscription_modified_I_target_I_datastore_case : datastore : identityref {ds:datastore}   {mandatory}
+class "selection-filter" as ietf_subscribed_notifications_I_subscription_modified_I_target_I_datastore_I_selection_filter <<choice>> 
+ietf_subscribed_notifications_I_subscription_modified_I_target_I_datastore_case .. ietf_subscribed_notifications_I_subscription_modified_I_target_I_datastore_I_selection_filter : choice 
+class "by-reference" as ietf_subscribed_notifications_I_subscription_modified_I_target_I_datastore_I_selection_filter_I_by_reference_case <<case>>
+ietf_subscribed_notifications_I_subscription_modified_I_target_I_datastore_I_selection_filter .. ietf_subscribed_notifications_I_subscription_modified_I_target_I_datastore_I_selection_filter_I_by_reference_case  : choice selection-filter
+ietf_subscribed_notifications_I_subscription_modified_I_target_I_datastore_I_selection_filter_I_by_reference_case : selection-filter-ref : selection-filter-ref   {mandatory}
+class "within-subscription" as ietf_subscribed_notifications_I_subscription_modified_I_target_I_datastore_I_selection_filter_I_within_subscription_case <<case>>
+ietf_subscribed_notifications_I_subscription_modified_I_target_I_datastore_I_selection_filter .. ietf_subscribed_notifications_I_subscription_modified_I_target_I_datastore_I_selection_filter_I_within_subscription_case  : choice selection-filter
+class "filter-spec" as ietf_subscribed_notifications_I_subscription_modified_I_target_I_datastore_I_selection_filter_I_within_subscription_I_filter_spec <<choice>> 
+ietf_subscribed_notifications_I_subscription_modified_I_target_I_datastore_I_selection_filter_I_within_subscription_case .. ietf_subscribed_notifications_I_subscription_modified_I_target_I_datastore_I_selection_filter_I_within_subscription_I_filter_spec : choice 
+class "datastore-xpath-filter" as ietf_subscribed_notifications_I_subscription_modified_I_target_I_datastore_I_selection_filter_I_within_subscription_I_filter_spec_I_datastore_xpath_filter_case <<case>> 
+ietf_subscribed_notifications_I_subscription_modified_I_target_I_datastore_I_selection_filter_I_within_subscription_I_filter_spec .. ietf_subscribed_notifications_I_subscription_modified_I_target_I_datastore_I_selection_filter_I_within_subscription_I_filter_spec_I_datastore_xpath_filter_case : choice datastore-xpath-filter
+ietf_subscribed_notifications_I_subscription_modified_I_target_I_datastore_I_selection_filter_I_within_subscription_I_filter_spec_I_datastore_xpath_filter_case : datastore-xpath-filter : yang:xpath1.0   {if-feature : sn:xpath}
+} 
+
+package "sn:ietf-subscribed-notifications" as sn_ietf_subscribed_notifications { 
+class "filters" as ietf_subscribed_notifications_I_filters << (L, #FF7700) list>> 
+} 
+
+package "yp:ietf-yang-push" as yp_ietf_yang_push { 
+} 
+
+package "sn:ietf-subscribed-notifications" as sn_ietf_subscribed_notifications { 
+class "filters" as ietf_subscribed_notifications_I_filters << (L, #FF7700) list>> 
+} 
+
+package "yp:ietf-yang-push" as yp_ietf_yang_push { 
+class "selection-filter" as ietf_subscribed_notifications_I_filters_I_selection_filter << (L, #FF7700) list>> 
+ietf_subscribed_notifications_I_filters *-- "0..N" ietf_subscribed_notifications_I_filters_I_selection_filter 
+ietf_subscribed_notifications_I_filters_I_selection_filter : +filter-id : string  {key} 
+class "filter-spec" as ietf_subscribed_notifications_I_filters_I_selection_filter_I_filter_spec <<choice>> 
+ietf_subscribed_notifications_I_filters_I_selection_filter .. ietf_subscribed_notifications_I_filters_I_selection_filter_I_filter_spec : choice 
+class "datastore-xpath-filter" as ietf_subscribed_notifications_I_filters_I_selection_filter_I_filter_spec_I_datastore_xpath_filter_case <<case>> 
+ietf_subscribed_notifications_I_filters_I_selection_filter_I_filter_spec .. ietf_subscribed_notifications_I_filters_I_selection_filter_I_filter_spec_I_datastore_xpath_filter_case : choice datastore-xpath-filter
+ietf_subscribed_notifications_I_filters_I_selection_filter_I_filter_spec_I_datastore_xpath_filter_case : datastore-xpath-filter : yang:xpath1.0   {if-feature : sn:xpath}
+} 
+
+package "sn:ietf-subscribed-notifications" as sn_ietf_subscribed_notifications { 
+class "subscription" as ietf_subscribed_notifications_I_subscriptions_I_subscription << (L, #FF7700) list>> 
+} 
+
+package "yp:ietf-yang-push" as yp_ietf_yang_push { 
+note bottom of ietf_subscribed_notifications_I_subscriptions_I_subscription
+<b>When: </b>yp:datastore
+end note 
+} 
+
+package "sn:ietf-subscribed-notifications" as sn_ietf_subscribed_notifications { 
+class "subscription" as ietf_subscribed_notifications_I_subscriptions_I_subscription << (L, #FF7700) list>> 
+} 
+
+package "yp:ietf-yang-push" as yp_ietf_yang_push { 
+} 
+
+package "sn:ietf-subscribed-notifications" as sn_ietf_subscribed_notifications { 
+class "subscription" as ietf_subscribed_notifications_I_subscriptions_I_subscription << (L, #FF7700) list>> 
+} 
+
+package "yp:ietf-yang-push" as yp_ietf_yang_push { 
+class "update-trigger" as ietf_subscribed_notifications_I_subscriptions_I_subscription_I_update_trigger <<choice>> 
+ietf_subscribed_notifications_I_subscriptions_I_subscription .. ietf_subscribed_notifications_I_subscriptions_I_subscription_I_update_trigger : choice 
+class "periodic" as ietf_subscribed_notifications_I_subscriptions_I_subscription_I_update_trigger_I_periodic_case <<case>>
+ietf_subscribed_notifications_I_subscriptions_I_subscription_I_update_trigger .. ietf_subscribed_notifications_I_subscriptions_I_subscription_I_update_trigger_I_periodic_case  : choice update-trigger
+class "periodic" as  ietf_subscribed_notifications_I_subscriptions_I_subscription_I_update_trigger_I_periodic_I_periodic <<container>> 
+ietf_subscribed_notifications_I_subscriptions_I_subscription_I_update_trigger_I_periodic_case *-- "0..1" ietf_subscribed_notifications_I_subscriptions_I_subscription_I_update_trigger_I_periodic_I_periodic 
+note bottom of ietf_subscribed_notifications_I_subscriptions_I_subscription_I_update_trigger_I_periodic_I_periodic
+<b>Presence: </b>indicates a periodic subscription
+end note 
+ietf_subscribed_notifications_I_subscriptions_I_subscription_I_update_trigger_I_periodic_I_periodic : period : centiseconds   {mandatory}
+ietf_subscribed_notifications_I_subscriptions_I_subscription_I_update_trigger_I_periodic_I_periodic : anchor-time : yang:date-and-time  
+class "on-change" as ietf_subscribed_notifications_I_subscriptions_I_subscription_I_update_trigger_I_on_change_case <<case>>
+ietf_subscribed_notifications_I_subscriptions_I_subscription_I_update_trigger .. ietf_subscribed_notifications_I_subscriptions_I_subscription_I_update_trigger_I_on_change_case  : choice update-trigger
+note bottom of ietf_subscribed_notifications_I_subscriptions_I_subscription_I_update_trigger_I_on_change_case
+<b>if-feature: </b>on-change
+end note 
+class "on-change" as  ietf_subscribed_notifications_I_subscriptions_I_subscription_I_update_trigger_I_on_change_I_on_change <<container>> 
+ietf_subscribed_notifications_I_subscriptions_I_subscription_I_update_trigger_I_on_change_case *-- "0..1" ietf_subscribed_notifications_I_subscriptions_I_subscription_I_update_trigger_I_on_change_I_on_change 
+note bottom of ietf_subscribed_notifications_I_subscriptions_I_subscription_I_update_trigger_I_on_change_I_on_change
+<b>Presence: </b>indicates an on-change subscription
+end note 
+ietf_subscribed_notifications_I_subscriptions_I_subscription_I_update_trigger_I_on_change_I_on_change : dampening-period : centiseconds   = 0 
+} 
+
+package "sn:ietf-subscribed-notifications" as sn_ietf_subscribed_notifications { 
+class "target" as ietf_subscribed_notifications_I_subscriptions_I_subscription_I_target << (L, #FF7700) list>> 
+} 
+
+package "yp:ietf-yang-push" as yp_ietf_yang_push { 
+} 
+
+package "sn:ietf-subscribed-notifications" as sn_ietf_subscribed_notifications { 
+class "target" as ietf_subscribed_notifications_I_subscriptions_I_subscription_I_target << (L, #FF7700) list>> 
+} 
+
+package "yp:ietf-yang-push" as yp_ietf_yang_push { 
+class "datastore" as ietf_subscribed_notifications_I_subscriptions_I_subscription_I_target_I_datastore_case <<case>>
+ietf_subscribed_notifications_I_subscriptions_I_subscription_I_target .. ietf_subscribed_notifications_I_subscriptions_I_subscription_I_target_I_datastore_case  : choice target
+ietf_subscribed_notifications_I_subscriptions_I_subscription_I_target_I_datastore_case : datastore : identityref {ds:datastore}   {mandatory}
+class "selection-filter" as ietf_subscribed_notifications_I_subscriptions_I_subscription_I_target_I_datastore_I_selection_filter <<choice>> 
+ietf_subscribed_notifications_I_subscriptions_I_subscription_I_target_I_datastore_case .. ietf_subscribed_notifications_I_subscriptions_I_subscription_I_target_I_datastore_I_selection_filter : choice 
+class "by-reference" as ietf_subscribed_notifications_I_subscriptions_I_subscription_I_target_I_datastore_I_selection_filter_I_by_reference_case <<case>>
+ietf_subscribed_notifications_I_subscriptions_I_subscription_I_target_I_datastore_I_selection_filter .. ietf_subscribed_notifications_I_subscriptions_I_subscription_I_target_I_datastore_I_selection_filter_I_by_reference_case  : choice selection-filter
+ietf_subscribed_notifications_I_subscriptions_I_subscription_I_target_I_datastore_I_selection_filter_I_by_reference_case : selection-filter-ref : selection-filter-ref   {mandatory}
+class "within-subscription" as ietf_subscribed_notifications_I_subscriptions_I_subscription_I_target_I_datastore_I_selection_filter_I_within_subscription_case <<case>>
+ietf_subscribed_notifications_I_subscriptions_I_subscription_I_target_I_datastore_I_selection_filter .. ietf_subscribed_notifications_I_subscriptions_I_subscription_I_target_I_datastore_I_selection_filter_I_within_subscription_case  : choice selection-filter
+class "filter-spec" as ietf_subscribed_notifications_I_subscriptions_I_subscription_I_target_I_datastore_I_selection_filter_I_within_subscription_I_filter_spec <<choice>> 
+ietf_subscribed_notifications_I_subscriptions_I_subscription_I_target_I_datastore_I_selection_filter_I_within_subscription_case .. ietf_subscribed_notifications_I_subscriptions_I_subscription_I_target_I_datastore_I_selection_filter_I_within_subscription_I_filter_spec : choice 
+class "datastore-xpath-filter" as ietf_subscribed_notifications_I_subscriptions_I_subscription_I_target_I_datastore_I_selection_filter_I_within_subscription_I_filter_spec_I_datastore_xpath_filter_case <<case>> 
+ietf_subscribed_notifications_I_subscriptions_I_subscription_I_target_I_datastore_I_selection_filter_I_within_subscription_I_filter_spec .. ietf_subscribed_notifications_I_subscriptions_I_subscription_I_target_I_datastore_I_selection_filter_I_within_subscription_I_filter_spec_I_datastore_xpath_filter_case : choice datastore-xpath-filter
+ietf_subscribed_notifications_I_subscriptions_I_subscription_I_target_I_datastore_I_selection_filter_I_within_subscription_I_filter_spec_I_datastore_xpath_filter_case : datastore-xpath-filter : yang:xpath1.0   {if-feature : sn:xpath}
+class "ds:datastore" as ds_datastore_identity << (I,Silver) identity>> 
+class "resync-subscription-error" as yp_resync_subscription_error_identity << (I,Silver) identity>> 
+class "cant-exclude" as yp_cant_exclude_identity << (I,Silver) identity>> 
+sn_establish_subscription_error_identity <|-- yp_cant_exclude_identity 
+class "datastore-not-subscribable" as yp_datastore_not_subscribable_identity << (I,Silver) identity>> 
+sn_establish_subscription_error_identity <|-- yp_datastore_not_subscribable_identity 
+class "no-such-subscription-resync" as yp_no_such_subscription_resync_identity << (I,Silver) identity>> 
+yp_resync_subscription_error_identity <|-- yp_no_such_subscription_resync_identity 
+class "on-change-unsupported" as yp_on_change_unsupported_identity << (I,Silver) identity>> 
+sn_establish_subscription_error_identity <|-- yp_on_change_unsupported_identity 
+class "on-change-sync-unsupported" as yp_on_change_sync_unsupported_identity << (I,Silver) identity>> 
+sn_establish_subscription_error_identity <|-- yp_on_change_sync_unsupported_identity 
+class "period-unsupported" as yp_period_unsupported_identity << (I,Silver) identity>> 
+sn_establish_subscription_error_identity <|-- yp_period_unsupported_identity 
+class "update-too-big" as yp_update_too_big_identity << (I,Silver) identity>> 
+sn_establish_subscription_error_identity <|-- yp_update_too_big_identity 
+class "sync-too-big" as yp_sync_too_big_identity << (I,Silver) identity>> 
+sn_establish_subscription_error_identity <|-- yp_sync_too_big_identity 
+class "unchanging-selection" as yp_unchanging_selection_identity << (I,Silver) identity>> 
+sn_establish_subscription_error_identity <|-- yp_unchanging_selection_identity 
+ietf_subscribed_notifications_I_establish_subscription_I_input_I_target_I_datastore_case-->ds_datastore_identity : datastore
+ietf_subscribed_notifications_I_modify_subscription_I_input_I_target_I_datastore_case-->ds_datastore_identity : datastore
+ietf_subscribed_notifications_I_subscription_started_I_target_I_datastore_case-->ds_datastore_identity : datastore
+ietf_subscribed_notifications_I_subscription_modified_I_target_I_datastore_case-->ds_datastore_identity : datastore
+ietf_subscribed_notifications_I_subscriptions_I_subscription_I_target_I_datastore_case-->ds_datastore_identity : datastore
+} 
+
+yang_ietf_yang_types +-- yp_ietf_yang_push
+sn_ietf_subscribed_notifications +-- yp_ietf_yang_push
+ds_ietf_datastores +-- yp_ietf_yang_push
+rc_ietf_restconf +-- yp_ietf_yang_push
+ypatch_ietf_yang_patch +-- yp_ietf_yang_push
+sn_stream_filter_ref_typedef-->"sn:name"ietf_subscribed_notifications_I_filters_I_stream_filter: stream-filter-ref
+sn_stream_ref_typedef-->"sn:name"ietf_subscribed_notifications_I_streams_I_stream: stream-ref
+ietf_subscribed_notifications_I_subscriptions_I_subscription_I_notification_message_origin_I_address_originated_case-->"ni:name"ietf_network_instance_I_network_instances_I_network_instance_leafref: source-vrf
+yp_selection_filter_ref_typedef-->"yp:filter-id"ietf_subscribed_notifications_I_filters_I_selection_filter: selection-filter-ref
+center footer
+ <size:20> UML Generated : 2023-11-10 14:54 </size>
+ endfooter 
+@enduml 

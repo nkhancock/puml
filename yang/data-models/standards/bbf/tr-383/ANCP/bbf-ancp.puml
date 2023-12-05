@@ -1,0 +1,206 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/bbf-ancp.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title bbf-ancp 
+package "bbf-yang:bbf-yang-types" as bbf_yang_bbf_yang_types { 
+} 
+package "inet:ietf-inet-types" as inet_ietf_inet_types { 
+} 
+package "yang:ietf-yang-types" as yang_ietf_yang_types { 
+} 
+package "bbf-ancp:bbf-ancp" as bbf_ancp_bbf_ancp { 
+} 
+note top of bbf_ancp_bbf_ancp : <b>Namespace: </b> urn:bbf:yang:bbf-ancp \n<b>Prefix: </b> bbf-ancp \n<b>Organization : </b>\nBroadband Forum <https://www.broadband-forum.org> \nCommon YANG Work Area \n<b>Contact : </b>\nComments or questions about this Broadband Forum YANG module \nshould be directed to <mailto:help@broadband-forum.org>. \n \nEditor:      Nick Hancock, Adtran \n \nEditor:      Ludwig Pauwels, Nokia \n \nPS Leader:   Joey Boyd, Adtran \n \nWA Director: Joey Boyd, Adtran \n \nWA Director: Sven Ooghe, Nokia \n<b>Revision : </b> 2023-06-08 \n
+package "bbf-ancp:bbf-ancp" as bbf_ancp_bbf_ancp { 
+class "bbf-ancp" as bbf_ancp << (M, #33CCFF) module>> 
+bbf_ancp : feature : protocol-version 
+bbf_ancp : feature : partition-id-negotiation 
+bbf_ancp : feature : session-statistics 
+bbf_ancp : feature : tcp-port 
+bbf_ancp : feature : port-message-dampening 
+bbf_ancp : feature : session-administrative-state 
+bbf_ancp : feature : session-reset 
+bbf_ancp : feature : nas-connection-state 
+enum "protocol-version" as bbf_ancp_protocol_version_typedef <<enumeration>> {
+rfc6320
+}
+class "partition-id" as bbf_ancp_partition_id_typedef << (T, YellowGreen) typedef>>
+bbf_ancp_partition_id_typedef : uint8 [1..255]
+class "entity-name" as bbf_ancp_entity_name_typedef << (T, YellowGreen) typedef>>
+bbf_ancp_entity_name_typedef : union{enumeration, yang:hex-string}
+class "link-instance" as bbf_ancp_link_instance_typedef << (T, YellowGreen) typedef>>
+bbf_ancp_link_instance_typedef : union{uint32, enumeration}
+class "peer-operational-parameters" as bbf_ancp_I_peer_operational_parameters_grouping <<(G,Lime) grouping>> 
+bbf_ancp_I_peer_operational_parameters_grouping : name : entity-name   {mandatory} {Config : false}
+bbf_ancp_I_peer_operational_parameters_grouping : instance : link-instance   {mandatory} {Config : false}
+class "ancp-schema" as bbf_ancp_I_ancp_schema_grouping <<(G,Lime) grouping>> 
+class "partitions" as  bbf_ancp_I_ancp_schema_I_partitions <<container>> 
+bbf_ancp_I_ancp_schema_grouping *-- "1" bbf_ancp_I_ancp_schema_I_partitions 
+note bottom of bbf_ancp_I_ancp_schema_I_partitions
+<b>Must:</b>
+(bbf-ancp:partition/bbf-ancp:partition-id='global' and count(bbf-ancp:partition)=1) or not(bbf-ancp:partition/bbf-ancp:partition-id='global')
+end note 
+class "partition" as bbf_ancp_I_ancp_schema_I_partitions_I_partition << (L, #FF7700) list>> 
+bbf_ancp_I_ancp_schema_I_partitions *-- "0..N" bbf_ancp_I_ancp_schema_I_partitions_I_partition 
+bbf_ancp_I_ancp_schema_I_partitions_I_partition : +partition-id : union{enumeration, partition-id}  {key} 
+bbf_ancp_I_ancp_schema_I_partitions_I_partition : technology : identityref {access-line-technology}   {mandatory}
+class "sessions" as  bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions <<container>> 
+bbf_ancp_I_ancp_schema_I_partitions_I_partition *-- "1" bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions 
+class "session" as bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session << (L, #FF7700) list>> 
+bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions *-- "0..N" bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session 
+bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session : +name : string  {key} 
+bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session : enable : boolean   = true  {if-feature : session-administrative-state}
+bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session : protocol-version : protocol-version   = rfc6320  {if-feature : bbf-ancp:protocol-version}
+bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session : capability []: identityref {capabilities} 
+bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session : oper-state : enumeration : {down,up,}   {mandatory} {Config : false}
+class "access-node" as  bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_access_node <<container>> 
+bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session *-- "1" bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_access_node 
+class "name-source" as  bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_access_node_I_name_source <<container>> 
+bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_access_node *-- "0..1" bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_access_node_I_name_source 
+note bottom of bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_access_node_I_name_source
+<b>Presence: </b>Enables selection of the source of the name to use
+to generate the Sender Name to be used for this
+ANCP session.
+
+If this container is not present, the system will
+use the a system MAC address to generate the
+Sender Name.
+end note 
+class "which-name-source" as bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_access_node_I_name_source_I_which_name_source <<choice>> 
+bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_access_node_I_name_source .. bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_access_node_I_name_source_I_which_name_source : choice 
+class "use-mac-address" as bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_access_node_I_name_source_I_which_name_source_I_use_mac_address_case <<case>>
+bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_access_node_I_name_source_I_which_name_source .. bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_access_node_I_name_source_I_which_name_source_I_use_mac_address_case  : choice which-name-source
+bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_access_node_I_name_source_I_which_name_source_I_use_mac_address_case : use-mac-address : empty  
+bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_access_node : peer-operational-parameters {uses} 
+bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_access_node : address : inet:ip-address   {mandatory} {Config : false}
+bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_access_node : port : inet:port-number   {mandatory} {Config : false}
+class "network-access-server" as  bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_network_access_server <<container>> 
+bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session *-- "1" bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_network_access_server 
+bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_network_access_server : peer-operational-parameters {uses} 
+class "transport" as bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_network_access_server_I_transport <<choice>> 
+bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_network_access_server .. bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_network_access_server_I_transport : choice 
+class "tcp" as bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_network_access_server_I_transport_I_tcp_case <<case>>
+bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_network_access_server_I_transport .. bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_network_access_server_I_transport_I_tcp_case  : choice transport
+class "tcp" as  bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_network_access_server_I_transport_I_tcp_I_tcp <<container>> 
+bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_network_access_server_I_transport_I_tcp_case *-- "1" bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_network_access_server_I_transport_I_tcp_I_tcp 
+bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_network_access_server_I_transport_I_tcp_I_tcp : address : inet:host   {mandatory}
+bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_network_access_server_I_transport_I_tcp_I_tcp : port : inet:port-number   = 6068  {if-feature : tcp-port}
+bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_network_access_server : connection-state : enumeration : {opening,established,closed,...}   {mandatory} {Config : false} {if-feature : nas-connection-state}
+class "adjacency-protocol" as  bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_adjacency_protocol <<container>> 
+bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session *-- "1" bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_adjacency_protocol 
+bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_adjacency_protocol : liveness-timer : uint8   = 250  {0.1 seconds}
+bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_adjacency_protocol : adjacency-state : enumeration : {malfunction,synchronization-lost,estab,...}   {mandatory} {Config : false}
+bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_adjacency_protocol : partition-id : partition-id   {mandatory} {Config : false} {if-feature : bbf-ancp:partition-id-negotiation}
+note bottom of bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_adjacency_protocol
+<b>When</b> (partition-id):
+count(/bbf-ancp:ancp/bbf-ancp:partitions/bbf-ancp:partition)>0 and not(boolean(/bbf-ancp:ancp/bbf-ancp:partitions/bbf-ancp:partition[bbf-ancp:partition-id='global']))
+
+end note 
+class "malfunction" as  bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_adjacency_protocol_I_malfunction <<container>> 
+bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_adjacency_protocol *-- "1" bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_adjacency_protocol_I_malfunction 
+note bottom of bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_adjacency_protocol_I_malfunction
+<b>When: </b>../adjacency-state='malfunction'
+end note 
+note bottom of bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_adjacency_protocol_I_malfunction
+<b>Config = </b>false
+end note 
+bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_adjacency_protocol_I_malfunction : cause : identityref {adjacency-malfunction-cause}   {mandatory}
+bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_adjacency_protocol_I_malfunction : message : string  
+class "access-line-identification" as  bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_access_line_identification <<container>> 
+bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session *-- "1" bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_access_line_identification 
+bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_access_line_identification : access-line-identification []: enumeration : {access-loop-circuit-id,access-loop-remote-id,access-aggregation-circuit-id-binary,...} 
+bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_access_line_identification : access-loop-circuit-id : bbf-yang:string-ascii63-or-empty   =  
+bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_access_line_identification : access-aggregation-circuit-id-ascii : bbf-yang:string-ascii63-or-empty   =  
+bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_access_line_identification : start-numbering-from-zero : boolean   = false 
+bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_access_line_identification : use-leading-zeroes : boolean   = false 
+class "topology-discovery" as  bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_topology_discovery <<container>> 
+bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session *-- "1" bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_topology_discovery 
+note bottom of bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_topology_discovery
+<b>When: </b>../capability='bbf-ancp:topology-discovery'
+end note 
+class "port-up" as  bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_topology_discovery_I_port_up <<container>> 
+bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_topology_discovery *-- "1" bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_topology_discovery_I_port_up 
+class "port-down" as  bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_topology_discovery_I_port_down <<container>> 
+bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_topology_discovery *-- "1" bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_topology_discovery_I_port_down 
+class "statistics" as  bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_statistics <<container>> 
+bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session *-- "1" bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_statistics 
+note bottom of bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_statistics
+<b>if-feature: </b>bbf-ancp:session-statistics
+end note 
+note bottom of bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_statistics
+<b>Config = </b>false
+end note 
+bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_statistics : last-established-timestamp : yang:date-and-time   {mandatory}
+bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_statistics : last-discontinuity-timestamp : yang:date-and-time   {mandatory}
+bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_statistics : in-valid-messages : yang:zero-based-counter32   {mandatory} {messages}
+bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_statistics : in-discarded-messages : yang:zero-based-counter32   {mandatory} {messages}
+bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_statistics : out-messages : yang:zero-based-counter32   {mandatory} {messages}
+bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_statistics : in-syn : yang:zero-based-counter32   {mandatory} {messages}
+bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_statistics : in-synack : yang:zero-based-counter32   {mandatory} {messages}
+bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_statistics : in-ack : yang:zero-based-counter32   {mandatory} {messages}
+bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_statistics : in-rstack : yang:zero-based-counter32   {mandatory} {messages}
+bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_statistics : out-syn : yang:zero-based-counter32   {mandatory} {messages}
+bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_statistics : out-synack : yang:zero-based-counter32   {mandatory} {messages}
+bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_statistics : out-rstack : yang:zero-based-counter32   {mandatory} {messages}
+bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_statistics : out-ack : yang:zero-based-counter32   {mandatory} {messages}
+class "reset" as  bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_reset <<container>> 
+bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session *-- "1" bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_reset 
+note bottom of bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_reset
+<b>When: </b>not(boolean(../enable)) or (../enable='true')
+end note 
+note bottom of bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_reset
+<b>if-feature: </b>session-reset
+end note 
+bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_reset : reset()
+class "port-message-control" as  bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_port_message_control <<container>> 
+bbf_ancp_I_ancp_schema_I_partitions_I_partition *-- "1" bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_port_message_control 
+class "which-dampening-mechanism" as bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_port_message_control_I_which_dampening_mechanism <<choice>> 
+bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_port_message_control .. bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_port_message_control_I_which_dampening_mechanism : choice 
+note bottom of bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_port_message_control_I_which_dampening_mechanism
+<b>if-feature: </b>bbf-ancp:port-message-dampening
+end note 
+class "port-up-port-down-withholding-interval" as bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_port_message_control_I_which_dampening_mechanism_I_port_up_port_down_withholding_interval_case <<case>>
+bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_port_message_control_I_which_dampening_mechanism .. bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_port_message_control_I_which_dampening_mechanism_I_port_up_port_down_withholding_interval_case  : choice which-dampening-mechanism
+bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_port_message_control_I_which_dampening_mechanism_I_port_up_port_down_withholding_interval_case : port-up-port-down-withholding-interval : union{enumeration, uint16}   = disabled  {0.1 seconds}
+class "ancp" as  bbf_ancp_I_ancp <<container>> 
+bbf_ancp *-- "1" bbf_ancp_I_ancp 
+bbf_ancp_I_ancp : ancp-schema {uses} 
+class "capabilities" as bbf_ancp_capabilities_identity << (I,Silver) identity>> 
+class "topology-discovery" as bbf_ancp_topology_discovery_identity << (I,Silver) identity>> 
+bbf_ancp_capabilities_identity <|-- bbf_ancp_topology_discovery_identity 
+class "access-line-technology" as bbf_ancp_access_line_technology_identity << (I,Silver) identity>> 
+class "access-line-attribute" as bbf_ancp_access_line_attribute_identity << (I,Silver) identity>> 
+class "technology-independent-access-line-attribute" as bbf_ancp_technology_independent_access_line_attribute_identity << (I,Silver) identity>> 
+bbf_ancp_access_line_attribute_identity <|-- bbf_ancp_technology_independent_access_line_attribute_identity 
+class "access-loop-encapsulation" as bbf_ancp_access_loop_encapsulation_identity << (I,Silver) identity>> 
+bbf_ancp_technology_independent_access_line_attribute_identity <|-- bbf_ancp_access_loop_encapsulation_identity 
+class "adjacency-malfunction-cause" as bbf_ancp_adjacency_malfunction_cause_identity << (I,Silver) identity>> 
+class "message-type-not-supported" as bbf_ancp_message_type_not_supported_identity << (I,Silver) identity>> 
+bbf_ancp_adjacency_malfunction_cause_identity <|-- bbf_ancp_message_type_not_supported_identity 
+class "capability-negotiation-failed" as bbf_ancp_capability_negotiation_failed_identity << (I,Silver) identity>> 
+bbf_ancp_adjacency_malfunction_cause_identity <|-- bbf_ancp_capability_negotiation_failed_identity 
+bbf_ancp_I_ancp_schema_I_partitions_I_partition-->bbf_ancp_access_line_technology_identity : technology
+bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session-->bbf_ancp_capabilities_identity : capability
+bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_adjacency_protocol_I_malfunction-->bbf_ancp_adjacency_malfunction_cause_identity : cause
+} 
+
+bbf_yang_bbf_yang_types +-- bbf_ancp_bbf_ancp
+inet_ietf_inet_types +-- bbf_ancp_bbf_ancp
+yang_ietf_yang_types +-- bbf_ancp_bbf_ancp
+bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_access_node --> bbf_ancp_I_peer_operational_parameters_grouping : uses 
+bbf_ancp_I_ancp_schema_I_partitions_I_partition_I_sessions_I_session_I_network_access_server --> bbf_ancp_I_peer_operational_parameters_grouping : uses 
+bbf_ancp_I_ancp --> bbf_ancp_I_ancp_schema_grouping : uses 
+center footer
+ <size:20> UML Generated : 2023-07-25 11:30 </size>
+ endfooter 
+@enduml 

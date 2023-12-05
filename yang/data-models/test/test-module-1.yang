@@ -1,0 +1,77 @@
+module test-module-1 {
+  namespace "http://www.example.com/ns/yang/test-module-1";
+  prefix tst-mod-1;
+  import test-module-common {
+    prefix tst-mod-c;
+  }
+  revision 2023-07-17 {
+    description
+      "Initial revision.";
+    reference
+      "None.";
+  }
+  identity base-id {
+    description
+      "Base identity for my identities.";
+  }
+  identity id-1 {
+    base base-id;
+    description
+      "...";
+  }
+  identity id-2 {
+    base base-id;
+    description
+      "...";
+  }
+  identity id-3 {
+    base id-2;
+    description
+      "...";
+  }
+  identity module-1-identity {
+    base tst-mod-c:base-identity;
+    description
+      "...";
+  }
+  typedef direction {
+    type enumeration {
+      enum up {
+        description
+          "...";
+      }
+      enum down {
+        description
+          "...";
+      }
+    } 
+  }
+  typedef base-id-ref {
+    type identityref {
+      base base-id;
+    }
+    description
+      "...";
+  }
+  container refs {
+    description
+      "...";
+    list list {
+      key name;
+      description
+        "...";
+      leaf name {
+        type string;
+        description
+          "...";
+      }
+      leaf id {
+        type identityref {
+          base base-id;
+        }
+        description
+          "...";
+      }
+    }
+  }
+}

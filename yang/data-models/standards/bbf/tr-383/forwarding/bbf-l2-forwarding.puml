@@ -1,0 +1,38 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/bbf-l2-forwarding.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title bbf-l2-forwarding 
+package "bbf-l2-fwd:bbf-l2-forwarding" as bbf_l2_fwd_bbf_l2_forwarding { 
+} 
+package "bbf-l2-fwd:bbf-l2-forwarding" as bbf_l2_fwd_bbf_l2_forwarding { 
+package "bbf-l2-forwarding-base" as bbf_l2_forwarding_base { 
+}
+package "bbf-l2-forwarding-flooding-policies" as bbf_l2_forwarding_flooding_policies { 
+}
+package "bbf-l2-forwarding-forwarders" as bbf_l2_forwarding_forwarders { 
+}
+package "bbf-l2-forwarding-forwarding-databases" as bbf_l2_forwarding_forwarding_databases { 
+}
+package "bbf-l2-forwarding-mac-learning" as bbf_l2_forwarding_mac_learning { 
+}
+package "bbf-l2-forwarding-split-horizon-profiles" as bbf_l2_forwarding_split_horizon_profiles { 
+}
+package "bbf-l2-forwarding-mac-learning-control" as bbf_l2_forwarding_mac_learning_control { 
+}
+class "bbf-l2-forwarding" as bbf_l2_forwarding << (M, #33CCFF) module>> 
+} 
+
+center footer
+ <size:20> UML Generated : 2023-07-19 18:17 </size>
+ endfooter 
+@enduml 

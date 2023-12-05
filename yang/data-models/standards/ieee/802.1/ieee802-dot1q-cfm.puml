@@ -1,0 +1,303 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/ieee802-dot1q-cfm.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title ieee802-dot1q-cfm 
+package "cfm-types:ieee802-dot1q-cfm-types" as cfm_types_ieee802_dot1q_cfm_types { 
+} 
+package "dot1q-types:ieee802-dot1q-types" as dot1q_types_ieee802_dot1q_types { 
+} 
+package "ieee:ieee802-types" as ieee_ieee802_types { 
+} 
+package "yang:ietf-yang-types" as yang_ietf_yang_types { 
+} 
+package "inet:ietf-inet-types" as inet_ietf_inet_types { 
+} 
+package "dot1q-cfm:ieee802-dot1q-cfm" as dot1q_cfm_ieee802_dot1q_cfm { 
+} 
+note top of dot1q_cfm_ieee802_dot1q_cfm : <b>Namespace: </b> urn:ieee:std:802.1Q:yang:ieee802-dot1q-cfm \n<b>Prefix: </b> dot1q-cfm \n<b>Organization : </b>\nIEEE 802.1 Working Group \n<b>Contact : </b>\nWG-URL: http://ieee802.org/1/ \nWG-EMail: stds-802-1-l@ieee.org \n \nContact: IEEE 802.1 Working Group Chair \nPostal: C/O IEEE 802.1 Working Group \n       IEEE Standards Association \n       445 Hoes Lane \n       Piscataway, NJ 08854 \n       USA \n \nE-mail: stds-802-1-chairs@ieee.org \n<b>Revision : </b> 2020-06-04 \n
+package "dot1q-cfm:ieee802-dot1q-cfm" as dot1q_cfm_ieee802_dot1q_cfm { 
+class "ieee802-dot1q-cfm" as ieee802_dot1q_cfm << (M, #33CCFF) module>> 
+class "mac-address-and-uint-type-grouping" as ieee802_dot1q_cfm_I_mac_address_and_uint_type_grouping_grouping <<(G,Lime) grouping>> 
+class "mac-address-and-uint-type" as  ieee802_dot1q_cfm_I_mac_address_and_uint_type_grouping_I_mac_address_and_uint_type <<container>> 
+ieee802_dot1q_cfm_I_mac_address_and_uint_type_grouping_grouping *-- "1" ieee802_dot1q_cfm_I_mac_address_and_uint_type_grouping_I_mac_address_and_uint_type 
+ieee802_dot1q_cfm_I_mac_address_and_uint_type_grouping_I_mac_address_and_uint_type : address : ieee:mac-address   {mandatory}
+ieee802_dot1q_cfm_I_mac_address_and_uint_type_grouping_I_mac_address_and_uint_type : int : uint16   {mandatory}
+class "md-name-choice-grouping" as ieee802_dot1q_cfm_I_md_name_choice_grouping_grouping <<(G,Lime) grouping>> 
+class "md-name" as ieee802_dot1q_cfm_I_md_name_choice_grouping_I_md_name <<choice>> 
+ieee802_dot1q_cfm_I_md_name_choice_grouping_grouping .. ieee802_dot1q_cfm_I_md_name_choice_grouping_I_md_name : choice 
+class "none" as ieee802_dot1q_cfm_I_md_name_choice_grouping_I_md_name_I_none_case <<case>>
+ieee802_dot1q_cfm_I_md_name_choice_grouping_I_md_name .. ieee802_dot1q_cfm_I_md_name_choice_grouping_I_md_name_I_none_case  : choice md-name
+ieee802_dot1q_cfm_I_md_name_choice_grouping_I_md_name_I_none_case : none : empty  
+class "dns-like-name" as ieee802_dot1q_cfm_I_md_name_choice_grouping_I_md_name_I_dns_like_name_case <<case>>
+ieee802_dot1q_cfm_I_md_name_choice_grouping_I_md_name .. ieee802_dot1q_cfm_I_md_name_choice_grouping_I_md_name_I_dns_like_name_case  : choice md-name
+ieee802_dot1q_cfm_I_md_name_choice_grouping_I_md_name_I_dns_like_name_case : dns-like-name : string {length = 1..43}  
+class "mac-address-and-uint" as ieee802_dot1q_cfm_I_md_name_choice_grouping_I_md_name_I_mac_address_and_uint_case <<case>>
+ieee802_dot1q_cfm_I_md_name_choice_grouping_I_md_name .. ieee802_dot1q_cfm_I_md_name_choice_grouping_I_md_name_I_mac_address_and_uint_case  : choice md-name
+ieee802_dot1q_cfm_I_md_name_choice_grouping_I_md_name_I_mac_address_and_uint_case : mac-address-and-uint-type-grouping {uses} 
+class "char-string" as ieee802_dot1q_cfm_I_md_name_choice_grouping_I_md_name_I_char_string_case <<case>>
+ieee802_dot1q_cfm_I_md_name_choice_grouping_I_md_name .. ieee802_dot1q_cfm_I_md_name_choice_grouping_I_md_name_I_char_string_case  : choice md-name
+ieee802_dot1q_cfm_I_md_name_choice_grouping_I_md_name_I_char_string_case : char-string : string {length = 1..43} {pattern = [ -~]*}   = DEFAULT 
+class "ma-name-choice-grouping" as ieee802_dot1q_cfm_I_ma_name_choice_grouping_grouping <<(G,Lime) grouping>> 
+class "ma-name" as ieee802_dot1q_cfm_I_ma_name_choice_grouping_I_ma_name <<choice>> 
+ieee802_dot1q_cfm_I_ma_name_choice_grouping_grouping .. ieee802_dot1q_cfm_I_ma_name_choice_grouping_I_ma_name : choice 
+class "primary-vid" as ieee802_dot1q_cfm_I_ma_name_choice_grouping_I_ma_name_I_primary_vid_case <<case>>
+ieee802_dot1q_cfm_I_ma_name_choice_grouping_I_ma_name .. ieee802_dot1q_cfm_I_ma_name_choice_grouping_I_ma_name_I_primary_vid_case  : choice ma-name
+ieee802_dot1q_cfm_I_ma_name_choice_grouping_I_ma_name_I_primary_vid_case : primary-vid : dot1q-types:vlanid  
+class "char-string" as ieee802_dot1q_cfm_I_ma_name_choice_grouping_I_ma_name_I_char_string_case <<case>>
+ieee802_dot1q_cfm_I_ma_name_choice_grouping_I_ma_name .. ieee802_dot1q_cfm_I_ma_name_choice_grouping_I_ma_name_I_char_string_case  : choice ma-name
+ieee802_dot1q_cfm_I_ma_name_choice_grouping_I_ma_name_I_char_string_case : char-string : string {length = 1..45} {pattern = [ -~]*}  
+class "unsigned-int16" as ieee802_dot1q_cfm_I_ma_name_choice_grouping_I_ma_name_I_unsigned_int16_case <<case>>
+ieee802_dot1q_cfm_I_ma_name_choice_grouping_I_ma_name .. ieee802_dot1q_cfm_I_ma_name_choice_grouping_I_ma_name_I_unsigned_int16_case  : choice ma-name
+ieee802_dot1q_cfm_I_ma_name_choice_grouping_I_ma_name_I_unsigned_int16_case : unsigned-int16 : uint16  
+class "rfc2865-vpn-id" as ieee802_dot1q_cfm_I_ma_name_choice_grouping_I_ma_name_I_rfc2865_vpn_id_case <<case>>
+ieee802_dot1q_cfm_I_ma_name_choice_grouping_I_ma_name .. ieee802_dot1q_cfm_I_ma_name_choice_grouping_I_ma_name_I_rfc2865_vpn_id_case  : choice ma-name
+class "vpn-id" as  ieee802_dot1q_cfm_I_ma_name_choice_grouping_I_ma_name_I_rfc2865_vpn_id_I_vpn_id <<container>> 
+ieee802_dot1q_cfm_I_ma_name_choice_grouping_I_ma_name_I_rfc2865_vpn_id_case *-- "1" ieee802_dot1q_cfm_I_ma_name_choice_grouping_I_ma_name_I_rfc2865_vpn_id_I_vpn_id 
+ieee802_dot1q_cfm_I_ma_name_choice_grouping_I_ma_name_I_rfc2865_vpn_id_I_vpn_id : vpn-oui : uint32 [0..16777215]   {mandatory}
+ieee802_dot1q_cfm_I_ma_name_choice_grouping_I_ma_name_I_rfc2865_vpn_id_I_vpn_id : vpn-index : uint32   {mandatory}
+class "management-address-grouping" as ieee802_dot1q_cfm_I_management_address_grouping_grouping <<(G,Lime) grouping>> 
+ieee802_dot1q_cfm_I_management_address_grouping_grouping : domain : yang:object-identifier-128  
+class "management-address" as ieee802_dot1q_cfm_I_management_address_grouping_I_management_address <<choice>> 
+ieee802_dot1q_cfm_I_management_address_grouping_grouping .. ieee802_dot1q_cfm_I_management_address_grouping_I_management_address : choice 
+note bottom of ieee802_dot1q_cfm_I_management_address_grouping_I_management_address
+<b>When: </b>./domain
+end note 
+class "ip" as ieee802_dot1q_cfm_I_management_address_grouping_I_management_address_I_ip_case <<case>>
+ieee802_dot1q_cfm_I_management_address_grouping_I_management_address .. ieee802_dot1q_cfm_I_management_address_grouping_I_management_address_I_ip_case  : choice management-address
+ieee802_dot1q_cfm_I_management_address_grouping_I_management_address_I_ip_case : ip-address : inet:ip-address   {mandatory}
+ieee802_dot1q_cfm_I_management_address_grouping_I_management_address_I_ip_case : ip-port : inet:port-number   {mandatory}
+class "local" as ieee802_dot1q_cfm_I_management_address_grouping_I_management_address_I_local_case <<case>>
+ieee802_dot1q_cfm_I_management_address_grouping_I_management_address .. ieee802_dot1q_cfm_I_management_address_grouping_I_management_address_I_local_case  : choice management-address
+ieee802_dot1q_cfm_I_management_address_grouping_I_management_address_I_local_case : local-address : string {length = 1..255}   {mandatory}
+class "dns" as ieee802_dot1q_cfm_I_management_address_grouping_I_management_address_I_dns_case <<case>>
+ieee802_dot1q_cfm_I_management_address_grouping_I_management_address .. ieee802_dot1q_cfm_I_management_address_grouping_I_management_address_I_dns_case  : choice management-address
+ieee802_dot1q_cfm_I_management_address_grouping_I_management_address_I_dns_case : dns-address : string {length = 1..255}   {mandatory}
+class "other" as ieee802_dot1q_cfm_I_management_address_grouping_I_management_address_I_other_case <<case>>
+ieee802_dot1q_cfm_I_management_address_grouping_I_management_address .. ieee802_dot1q_cfm_I_management_address_grouping_I_management_address_I_other_case  : choice management-address
+ieee802_dot1q_cfm_I_management_address_grouping_I_management_address_I_other_case : unknown-address : binary {length = 1..255}  
+class "loopback-input-grouping" as ieee802_dot1q_cfm_I_loopback_input_grouping_grouping <<(G,Lime) grouping>> 
+class "lbm-destination" as ieee802_dot1q_cfm_I_loopback_input_grouping_I_lbm_destination <<choice>> 
+ieee802_dot1q_cfm_I_loopback_input_grouping_grouping .. ieee802_dot1q_cfm_I_loopback_input_grouping_I_lbm_destination : choice 
+class "dest-ucast-mac-address" as ieee802_dot1q_cfm_I_loopback_input_grouping_I_lbm_destination_I_dest_ucast_mac_address_case <<case>>
+ieee802_dot1q_cfm_I_loopback_input_grouping_I_lbm_destination .. ieee802_dot1q_cfm_I_loopback_input_grouping_I_lbm_destination_I_dest_ucast_mac_address_case  : choice lbm-destination
+ieee802_dot1q_cfm_I_loopback_input_grouping_I_lbm_destination_I_dest_ucast_mac_address_case : lbm-dest-ucast-mac-address : cfm-types:unicast-mac-address-type  
+class "dest-mcast-class1-mac-address" as ieee802_dot1q_cfm_I_loopback_input_grouping_I_lbm_destination_I_dest_mcast_class1_mac_address_case <<case>>
+ieee802_dot1q_cfm_I_loopback_input_grouping_I_lbm_destination .. ieee802_dot1q_cfm_I_loopback_input_grouping_I_lbm_destination_I_dest_mcast_class1_mac_address_case  : choice lbm-destination
+ieee802_dot1q_cfm_I_loopback_input_grouping_I_lbm_destination_I_dest_mcast_class1_mac_address_case : lbm-dest-mcast-class1-mac-address : cfm-types:multicast-class1-mac-address-type  
+class "dest-mep-id" as ieee802_dot1q_cfm_I_loopback_input_grouping_I_lbm_destination_I_dest_mep_id_case <<case>>
+ieee802_dot1q_cfm_I_loopback_input_grouping_I_lbm_destination .. ieee802_dot1q_cfm_I_loopback_input_grouping_I_lbm_destination_I_dest_mep_id_case  : choice lbm-destination
+ieee802_dot1q_cfm_I_loopback_input_grouping_I_lbm_destination_I_dest_mep_id_case : lbm-dest-mep-id : cfm-types:mep-id-type  
+ieee802_dot1q_cfm_I_loopback_input_grouping_grouping : lbm-messages : uint16 [1..1024]   = 1 
+ieee802_dot1q_cfm_I_loopback_input_grouping_grouping : lbm-priority : dot1q-types:priority-type   = 7 
+ieee802_dot1q_cfm_I_loopback_input_grouping_grouping : lbm-drop-eligible : boolean   = false 
+ieee802_dot1q_cfm_I_loopback_input_grouping_grouping : lbm-data-tlv : cfm-types:lbm-data-tlv-type  
+class "linktrace-input-grouping" as ieee802_dot1q_cfm_I_linktrace_input_grouping_grouping <<(G,Lime) grouping>> 
+class "ltr-target" as ieee802_dot1q_cfm_I_linktrace_input_grouping_I_ltr_target <<choice>> 
+ieee802_dot1q_cfm_I_linktrace_input_grouping_grouping .. ieee802_dot1q_cfm_I_linktrace_input_grouping_I_ltr_target : choice 
+class "target-ucast-mac-address" as ieee802_dot1q_cfm_I_linktrace_input_grouping_I_ltr_target_I_target_ucast_mac_address_case <<case>>
+ieee802_dot1q_cfm_I_linktrace_input_grouping_I_ltr_target .. ieee802_dot1q_cfm_I_linktrace_input_grouping_I_ltr_target_I_target_ucast_mac_address_case  : choice ltr-target
+ieee802_dot1q_cfm_I_linktrace_input_grouping_I_ltr_target_I_target_ucast_mac_address_case : ltm-target-mac-address : cfm-types:unicast-mac-address-type  
+class "target-mep-id" as ieee802_dot1q_cfm_I_linktrace_input_grouping_I_ltr_target_I_target_mep_id_case <<case>>
+ieee802_dot1q_cfm_I_linktrace_input_grouping_I_ltr_target .. ieee802_dot1q_cfm_I_linktrace_input_grouping_I_ltr_target_I_target_mep_id_case  : choice ltr-target
+ieee802_dot1q_cfm_I_linktrace_input_grouping_I_ltr_target_I_target_mep_id_case : ltm-target-mep-id : cfm-types:mep-id-type  
+ieee802_dot1q_cfm_I_linktrace_input_grouping_grouping : ltm-ttl : uint8 [0..255]   = 64 
+ieee802_dot1q_cfm_I_linktrace_input_grouping_grouping : ltm-flags : cfm-types:mep-tx-ltm-flags-type   =  
+class "ltm-egress-identifier-grouping" as ieee802_dot1q_cfm_I_ltm_egress_identifier_grouping_grouping <<(G,Lime) grouping>> 
+ieee802_dot1q_cfm_I_ltm_egress_identifier_grouping_grouping : int : uint16   {mandatory}
+ieee802_dot1q_cfm_I_ltm_egress_identifier_grouping_grouping : address : ieee:mac-address   {mandatory}
+class "cfm" as  ieee802_dot1q_cfm_I_cfm <<container>> 
+ieee802_dot1q_cfm *-- "1" ieee802_dot1q_cfm_I_cfm 
+class "maintenance-domain" as ieee802_dot1q_cfm_I_cfm_I_maintenance_domain << (L, #FF7700) list>> 
+ieee802_dot1q_cfm_I_cfm *-- "0..N" ieee802_dot1q_cfm_I_cfm_I_maintenance_domain 
+ieee802_dot1q_cfm_I_cfm_I_maintenance_domain : +md-id : cfm-types:name-key-type  {key} 
+ieee802_dot1q_cfm_I_cfm_I_maintenance_domain : md-name-choice-grouping {uses} 
+ieee802_dot1q_cfm_I_cfm_I_maintenance_domain : md-level : cfm-types:md-level-type   = 0 
+ieee802_dot1q_cfm_I_cfm_I_maintenance_domain : mhf-creation : cfm-types:mhf-creation-type   = mhf-none 
+note bottom of ieee802_dot1q_cfm_I_cfm_I_maintenance_domain
+<b>Must</b> (mhf-creation):
+. != "mhf-defer"
+
+end note 
+ieee802_dot1q_cfm_I_cfm_I_maintenance_domain : id-permission : cfm-types:sender-id-permission-type   = send-id-none 
+note bottom of ieee802_dot1q_cfm_I_cfm_I_maintenance_domain
+<b>Must</b> (id-permission):
+. != "send-id-defer"
+
+end note 
+ieee802_dot1q_cfm_I_cfm_I_maintenance_domain : fault-alarm-transmission : cfm-types:fault-alarm-type   = not-transmitted 
+class "maintenance-association" as ieee802_dot1q_cfm_I_cfm_I_maintenance_domain_I_maintenance_association << (L, #FF7700) list>> 
+ieee802_dot1q_cfm_I_cfm_I_maintenance_domain *-- "0..N" ieee802_dot1q_cfm_I_cfm_I_maintenance_domain_I_maintenance_association 
+ieee802_dot1q_cfm_I_cfm_I_maintenance_domain_I_maintenance_association : +ma-id : cfm-types:name-key-type  {key} 
+ieee802_dot1q_cfm_I_cfm_I_maintenance_domain_I_maintenance_association : ma-name-choice-grouping {uses} 
+ieee802_dot1q_cfm_I_cfm_I_maintenance_domain_I_maintenance_association : ccm-interval : cfm-types:ccm-interval-type   = 1sec 
+ieee802_dot1q_cfm_I_cfm_I_maintenance_domain_I_maintenance_association : fault-alarm-transmission : cfm-types:fault-alarm-type  
+ieee802_dot1q_cfm_I_cfm_I_maintenance_domain_I_maintenance_association : mhf-creation : cfm-types:mhf-creation-type   = mhf-defer 
+ieee802_dot1q_cfm_I_cfm_I_maintenance_domain_I_maintenance_association : id-permission : cfm-types:sender-id-permission-type   = send-id-defer 
+class "maintenance-association-mep" as ieee802_dot1q_cfm_I_cfm_I_maintenance_domain_I_maintenance_association_I_maintenance_association_mep << (L, #FF7700) list>> 
+ieee802_dot1q_cfm_I_cfm_I_maintenance_domain_I_maintenance_association *-- "0..N" ieee802_dot1q_cfm_I_cfm_I_maintenance_domain_I_maintenance_association_I_maintenance_association_mep 
+ieee802_dot1q_cfm_I_cfm_I_maintenance_domain_I_maintenance_association_I_maintenance_association_mep : +mep-id : cfm-types:mep-id-type  {key} 
+class "maintenance-group" as ieee802_dot1q_cfm_I_cfm_I_maintenance_group << (L, #FF7700) list>> 
+ieee802_dot1q_cfm_I_cfm *-- "0..N" ieee802_dot1q_cfm_I_cfm_I_maintenance_group 
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group : +maintenance-group-id : cfm-types:name-key-type  {key} 
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group : md-id : leafref : /cfm/maintenance-domain/md-id   {mandatory}
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group : ma-id : leafref : /cfm/maintenance-domain[md-id = current{}/../md-id]/maintenance-association/ma-id   {mandatory}
+class "mep" as ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep << (L, #FF7700) list>> 
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group *-- "0..N" ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep 
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep : +mep-id : leafref : /cfm/maintenance-domain[md-id = current{}/../../md-id]/maintenance-association[ma-id = current{}/../../ma-id]/maintenance-association-mep/mep-id  {key} 
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep : direction : cfm-types:mp-direction-type   {mandatory}
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep : enabled : boolean   = false 
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep : ccm-ltm-priority : dot1q-types:priority-type   = 7 
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep : mac-address : ieee:mac-address   {mandatory} {Config : false}
+class "inactive-remote-mep" as ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_inactive_remote_mep << (L, #FF7700) list>> 
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep *-- "0..N" ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_inactive_remote_mep 
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_inactive_remote_mep : +inactive-rmep-id : leafref : /cfm/maintenance-domain[md-id = current{}/../../../md-id]/maintenance-association[ma-id = current{}/../../../ma-id]/maintenance-association-mep/mep-id  {key} 
+class "mep-db" as ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_mep_db << (L, #FF7700) list>> 
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep *-- "0..N" ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_mep_db 
+note bottom of ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_mep_db
+<b>Config = </b>false
+end note 
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_mep_db : +rmep-id : cfm-types:mep-id-type  {key} 
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_mep_db : rmep-state : cfm-types:remote-mep-state-type   {mandatory}
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_mep_db : rmep-failed-ok-time : yang:timeticks   {mandatory}
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_mep_db : mac-address : ieee:mac-address   {mandatory}
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_mep_db : rdi : boolean   {mandatory}
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_mep_db : port-status-tlv : cfm-types:port-status-tlv-value-type  
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_mep_db : interface-status-tlv : cfm-types:interface-status-tlv-value-type  
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_mep_db : chassis-id-subtype : ieee:chassis-id-subtype-type  
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_mep_db : chassis-id : ieee:chassis-id-type  
+class "transport-service-domain" as  ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_mep_db_I_transport_service_domain <<container>> 
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_mep_db *-- "1" ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_mep_db_I_transport_service_domain 
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_mep_db_I_transport_service_domain : management-address-grouping {uses} 
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_mep_db : rmep-is-active : boolean   = true 
+class "continuity-check" as  ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_continuity_check <<container>> 
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep *-- "1" ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_continuity_check 
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_continuity_check : ccm-enabled : boolean   = false 
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_continuity_check : fng-state : cfm-types:fng-state-type   = fng-reset  {Config : false}
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_continuity_check : fault-alarm-transmission : cfm-types:fault-alarm-type  
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_continuity_check : lowest-priority-defect : cfm-types:lowest-alarm-priority-type   = mac-remote-error-xcon 
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_continuity_check : fng-alarm-time : uint16 [2500..10000]   = 2500  {milliseconds}
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_continuity_check : fng-reset-time : uint16 [2500..10000]   = 10000  {milliseconds}
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_continuity_check : highest-priority-defect : cfm-types:highest-defect-priority-type   {mandatory} {Config : false}
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_continuity_check : defects : cfm-types:mep-defects-type   {mandatory} {Config : false}
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_continuity_check : error-ccm-last-failure : binary {length = 1..128}   {Config : false}
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_continuity_check : xcon-ccm-last-failure : binary {length = 1..128}   {Config : false}
+class "stats" as  ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_stats <<container>> 
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep *-- "1" ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_stats 
+note bottom of ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_stats
+<b>Config = </b>false
+end note 
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_stats : mep-ccm-sequence-errors : yang:counter64   {mandatory}
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_stats : mep-ccms-sent : yang:counter64   {mandatory}
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_stats : mep-lbr-in : yang:counter64   {mandatory}
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_stats : mep-lbr-in-out-of-order : yang:counter64   {mandatory}
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_stats : mep-lbr-bad-msdu : yang:counter64   {mandatory}
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_stats : mep-unexpected-ltr-in : yang:counter64   {mandatory}
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_stats : mep-lbr-out : yang:counter64   {mandatory}
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep : transmit-loopback( in: loopback_input_grouping out: lbm_request_id)
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep : transmit-linktrace( in: linktrace_input_grouping out: ltm_transaction_id out: ltm_egress_identifier)
+class "linktrace-reply" as ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_linktrace_reply << (L, #FF7700) list>> 
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep *-- "0..N" ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_linktrace_reply 
+note bottom of ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_linktrace_reply
+<b>Config = </b>false
+end note 
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_linktrace_reply : +ltr-transaction-id : cfm-types:seq-number-type  {key} 
+class "linktrace-input" as  ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_linktrace_reply_I_linktrace_input <<container>> 
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_linktrace_reply *-- "1" ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_linktrace_reply_I_linktrace_input 
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_linktrace_reply_I_linktrace_input : linktrace-input-grouping {uses} 
+class "responses" as ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_linktrace_reply_I_responses << (L, #FF7700) list>> 
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_linktrace_reply *-- "0..N" ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_linktrace_reply_I_responses 
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_linktrace_reply_I_responses : +ltr-receive-order : uint32 [1..4294967295]  {key} 
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_linktrace_reply_I_responses : ltr-ttl : uint8 [0..255]   {mandatory}
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_linktrace_reply_I_responses : ltr-forwarded : boolean   {mandatory}
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_linktrace_reply_I_responses : ltr-terminal-mep : boolean   {mandatory}
+class "ltr-last-egress-identifier" as  ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_linktrace_reply_I_responses_I_ltr_last_egress_identifier <<container>> 
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_linktrace_reply_I_responses *-- "1" ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_linktrace_reply_I_responses_I_ltr_last_egress_identifier 
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_linktrace_reply_I_responses_I_ltr_last_egress_identifier : ltm-egress-identifier-grouping {uses} 
+class "ltr-next-egress-identifier" as  ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_linktrace_reply_I_responses_I_ltr_next_egress_identifier <<container>> 
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_linktrace_reply_I_responses *-- "1" ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_linktrace_reply_I_responses_I_ltr_next_egress_identifier 
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_linktrace_reply_I_responses_I_ltr_next_egress_identifier : ltm-egress-identifier-grouping {uses} 
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_linktrace_reply_I_responses : ltr-relay : cfm-types:relay-action-field-value-type   {mandatory}
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_linktrace_reply_I_responses : ltr-chassis-id-subtype : ieee:chassis-id-subtype-type  
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_linktrace_reply_I_responses : ltr-chassis-id : ieee:chassis-id-type   {mandatory}
+note bottom of ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_linktrace_reply_I_responses
+<b>When</b> (ltr-chassis-id):
+../ltr-chassis-id-subtype
+
+end note 
+class "ltr-transport-service-domain" as  ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_linktrace_reply_I_responses_I_ltr_transport_service_domain <<container>> 
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_linktrace_reply_I_responses *-- "1" ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_linktrace_reply_I_responses_I_ltr_transport_service_domain 
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_linktrace_reply_I_responses_I_ltr_transport_service_domain : management-address-grouping {uses} 
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_linktrace_reply_I_responses : ltr-ingress : cfm-types:ingress-action-field-value-type  
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_linktrace_reply_I_responses : ltr-ingress-mac : ieee:mac-address   {mandatory}
+note bottom of ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_linktrace_reply_I_responses
+<b>When</b> (ltr-ingress-mac):
+../ltr-ingress
+
+end note 
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_linktrace_reply_I_responses : ltr-ingress-port-id-subtype : ieee:port-id-subtype-type  
+note bottom of ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_linktrace_reply_I_responses
+<b>When</b> (ltr-ingress-port-id-subtype):
+../ltr-ingress
+
+end note 
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_linktrace_reply_I_responses : ltr-ingress-port-id : ieee:port-id-type   {mandatory}
+note bottom of ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_linktrace_reply_I_responses
+<b>When</b> (ltr-ingress-port-id):
+../ltr-ingress and ../ltr-ingress-port-id-subtype
+
+end note 
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_linktrace_reply_I_responses : ltr-egress : cfm-types:egress-action-field-value-type  
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_linktrace_reply_I_responses : ltr-egress-mac : ieee:mac-address   {mandatory}
+note bottom of ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_linktrace_reply_I_responses
+<b>When</b> (ltr-egress-mac):
+../ltr-egress
+
+end note 
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_linktrace_reply_I_responses : ltr-egress-port-id-subtype : ieee:port-id-subtype-type  
+note bottom of ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_linktrace_reply_I_responses
+<b>When</b> (ltr-egress-port-id-subtype):
+../ltr-egress
+
+end note 
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_linktrace_reply_I_responses : ltr-egress-port-id : ieee:port-id-type   {mandatory}
+note bottom of ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_linktrace_reply_I_responses
+<b>When</b> (ltr-egress-port-id):
+../ltr-egress and ../ltr-egress-port-id-subtype
+
+end note 
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_linktrace_reply_I_responses : ltr-organization-specific-tlv : binary {length = 0 | 4..1500}  
+} 
+
+cfm_types_ieee802_dot1q_cfm_types +-- dot1q_cfm_ieee802_dot1q_cfm
+dot1q_types_ieee802_dot1q_types +-- dot1q_cfm_ieee802_dot1q_cfm
+ieee_ieee802_types +-- dot1q_cfm_ieee802_dot1q_cfm
+yang_ietf_yang_types +-- dot1q_cfm_ieee802_dot1q_cfm
+inet_ietf_inet_types +-- dot1q_cfm_ieee802_dot1q_cfm
+ieee802_dot1q_cfm_I_md_name_choice_grouping_I_md_name_I_mac_address_and_uint_case --> ieee802_dot1q_cfm_I_mac_address_and_uint_type_grouping_grouping : uses 
+ieee802_dot1q_cfm_I_cfm_I_maintenance_domain --> ieee802_dot1q_cfm_I_md_name_choice_grouping_grouping : uses 
+ieee802_dot1q_cfm_I_cfm_I_maintenance_domain_I_maintenance_association --> ieee802_dot1q_cfm_I_ma_name_choice_grouping_grouping : uses 
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_mep_db_I_transport_service_domain --> ieee802_dot1q_cfm_I_management_address_grouping_grouping : uses 
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep --> ieee802_dot1q_cfm_I_loopback_input_grouping_grouping : uses 
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep --> ieee802_dot1q_cfm_I_linktrace_input_grouping_grouping : uses 
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_linktrace_reply_I_linktrace_input --> ieee802_dot1q_cfm_I_linktrace_input_grouping_grouping : uses 
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_linktrace_reply_I_responses_I_ltr_last_egress_identifier --> ieee802_dot1q_cfm_I_ltm_egress_identifier_grouping_grouping : uses 
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_linktrace_reply_I_responses_I_ltr_next_egress_identifier --> ieee802_dot1q_cfm_I_ltm_egress_identifier_grouping_grouping : uses 
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_linktrace_reply_I_responses_I_ltr_transport_service_domain --> ieee802_dot1q_cfm_I_management_address_grouping_grouping : uses 
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group-->"md-id"ieee802_dot1q_cfm_I_cfm_I_maintenance_domain: md-id
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group-->"ma-id"ieee802_dot1q_cfm_I_cfm_I_maintenance_domain_I_maintenance_association: ma-id
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep-->"mep-id"ieee802_dot1q_cfm_I_cfm_I_maintenance_domain_I_maintenance_association_I_maintenance_association_mep: mep-id
+ieee802_dot1q_cfm_I_cfm_I_maintenance_group_I_mep_I_inactive_remote_mep-->"mep-id"ieee802_dot1q_cfm_I_cfm_I_maintenance_domain_I_maintenance_association_I_maintenance_association_mep: inactive-rmep-id
+center footer
+ <size:20> UML Generated : 2023-07-21 16:31 </size>
+ endfooter 
+@enduml 

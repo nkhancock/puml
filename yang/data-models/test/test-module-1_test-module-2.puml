@@ -1,0 +1,82 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/test-module-1_test-module-2.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title test-module-1_test-module-2 
+package "tst-mod-c:test-module-common" as tst_mod_c_test_module_common { 
+} 
+package "tst-mod-1:test-module-1" as tst_mod_1_test_module_1 { 
+} 
+package "tst-mod-1:test-module-1" as tst_mod_1_test_module_1 { 
+class "test-module-1" as test_module_1 << (M, #33CCFF) module>> 
+enum "direction" as tst_mod_1_direction_typedef <<enumeration>> {
+up
+down
+}
+class "base-id-ref" as tst_mod_1_base_id_ref_typedef << (T, YellowGreen) typedef>>
+tst_mod_1_base_id_ref_typedef : identityref {base-id}
+class "refs" as  test_module_1_I_refs <<container>> 
+test_module_1 *-- "1" test_module_1_I_refs 
+class "list" as test_module_1_I_refs_I_list << (L, #FF7700) list>> 
+test_module_1_I_refs *-- "0..N" test_module_1_I_refs_I_list 
+test_module_1_I_refs_I_list : +name : string  {key} 
+test_module_1_I_refs_I_list : id : identityref {base-id}  
+class "tst-mod-c:base-identity" as tst_mod_c_base_identity_identity << (I,Silver) identity>> 
+class "base-id" as tst_mod_1_base_id_identity << (I,Silver) identity>> 
+class "id-1" as tst_mod_1_id_1_identity << (I,Silver) identity>> 
+tst_mod_1_base_id_identity <|-- tst_mod_1_id_1_identity 
+class "id-2" as tst_mod_1_id_2_identity << (I,Silver) identity>> 
+tst_mod_1_base_id_identity <|-- tst_mod_1_id_2_identity 
+class "id-3" as tst_mod_1_id_3_identity << (I,Silver) identity>> 
+tst_mod_1_id_2_identity <|-- tst_mod_1_id_3_identity 
+class "module-1-identity" as tst_mod_1_module_1_identity_identity << (I,Silver) identity>> 
+tst_mod_c_base_identity_identity <|-- tst_mod_1_module_1_identity_identity 
+tst_mod_1_base_id_ref_typedef-->tst_mod_1_base_id_identity : base-id-ref
+test_module_1_I_refs_I_list-->tst_mod_1_base_id_identity : id
+} 
+
+tst_mod_c_test_module_common +-- tst_mod_1_test_module_1
+package "tst-mod-1:test-module-1" as tst_mod_1_test_module_1 { 
+} 
+package "tst-mod-2:test-module-2" as tst_mod_2_test_module_2 { 
+} 
+package "tst-mod-2:test-module-2" as tst_mod_2_test_module_2 { 
+class "test-module-2" as test_module_2 << (M, #33CCFF) module>> 
+class "list-ref" as tst_mod_2_list_ref_typedef << (T, YellowGreen) typedef>>
+tst_mod_2_list_ref_typedef : leafref : /tst-mod-1:refs/tst-mod-1:list/tst-mod-1:name
+class "selection-ref" as tst_mod_2_selection_ref_typedef << (T, YellowGreen) typedef>>
+tst_mod_2_selection_ref_typedef : leafref : /tst-mod-1:refs/tst-mod-1:list/tst-mod-2:select/tst-mod-2:name
+class "id-2-ref" as tst_mod_2_id_2_ref_typedef << (T, YellowGreen) typedef>>
+tst_mod_2_id_2_ref_typedef : identityref {tst-mod-1:id-2}
+class "/tst-mod-1:refs/tst-mod-1:list" as tst_mod_1_refs_tst_mod_1_list << (A,CadetBlue) augment>>
+test_module_2 *--  tst_mod_1_refs_tst_mod_1_list 
+class "select" as test_module_1_I_refs_I_list_I_select << (L, #FF7700) list>> 
+tst_mod_1_refs_tst_mod_1_list *-- "0..N" test_module_1_I_refs_I_list_I_select 
+test_module_1_I_refs_I_list_I_select : +name : string  {key} 
+test_module_1_I_refs_I_list_I_select : thing-1 : list-ref  
+test_module_1_I_refs_I_list_I_select : thing-2 : leafref : /tst-mod-1:refs/tst-mod-1:list/tst-mod-1:name  
+test_module_1_I_refs_I_list_I_select : remote-identity : identityref {tst-mod-1:id-3}  
+class "another-id" as tst_mod_2_another_id_identity << (I,Silver) identity>> 
+tst_mod_1_base_id_identity <|-- tst_mod_2_another_id_identity 
+} 
+
+tst_mod_1_test_module_1 +-- tst_mod_2_test_module_2
+tst_mod_2_selection_ref_typedef-->"tst-mod-2:name"test_module_1_I_refs_I_list_I_select: selection-ref
+tst_mod_2_list_ref_typedef-->"tst-mod-1:name"test_module_1_I_refs_I_list: list-ref
+tst_mod_2_id_2_ref_typedef-->tst_mod_1_id_2_identity : id-2-ref
+test_module_1_I_refs_I_list_I_select-->"tst-mod-1:name"test_module_1_I_refs_I_list: thing-2
+test_module_1_I_refs_I_list_I_select-->tst_mod_1_id_3_identity : remote-identity
+tst_mod_1_refs_tst_mod_1_list-->test_module_1_I_refs_I_list : augments
+center footer
+ <size:20> UML Generated : 2023-07-20 16:02 </size>
+ endfooter 
+@enduml 

@@ -1,0 +1,82 @@
+module test-module-2 {
+  namespace "http://www.example.com/ns/yang/test-module-2";
+  prefix tst-mod-2;
+  import test-module-1 {
+    prefix tst-mod-1;
+  }
+  revision 2023-07-17 {
+    description
+      "Initial revision.";
+    reference
+      "None.";
+  }
+  identity another-id {
+    base tst-mod-1:base-id;
+    description
+      "...";
+  }
+  typedef list-ref {
+    type leafref {
+      path 
+        "/tst-mod-1:refs"
+        + "/tst-mod-1:list"
+        + "/tst-mod-1:name";
+    }
+    description
+      "---.";
+  }
+  typedef selection-ref {
+    type leafref {
+      path 
+        "/tst-mod-1:refs"
+        + "/tst-mod-1:list"
+        + "/tst-mod-2:select"
+        + "/tst-mod-2:name";
+    }
+    description
+      "---.";
+  }
+  typedef id-2-ref {
+    type identityref {
+      base tst-mod-1:id-2;
+    }
+    description
+      "...";
+  }
+  augment "/tst-mod-1:refs/tst-mod-1:list" {
+    description
+      "...";
+    list select {
+      key name;
+      description
+        "...";
+      leaf name {
+        type string;
+        description
+          "...";
+      }
+      leaf thing-1 {
+        type list-ref;
+        description
+          "...";
+      }
+      leaf thing-2 {
+        type leafref {
+          path 
+            "/tst-mod-1:refs"
+            + "/tst-mod-1:list"
+            + "/tst-mod-1:name";
+        }
+        description
+          "...";
+      }
+      leaf remote-identity {
+        type identityref {
+          base tst-mod-1:id-3;
+        }
+        description
+          "..";
+      }
+    }
+  }
+}

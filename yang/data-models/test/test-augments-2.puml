@@ -1,0 +1,47 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/%filename() (PlantUML %version()).png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title %filename() (PlantUML %version()) 
+center header
+ <size:48> %date('dd MMM yyyy HH:mm:ss') </size>
+ endheader 
+
+package "tst-aug-1:test-augments-1" as tst_aug_1_test_augments_1 { 
+} 
+
+package "tst-aug-2:test-augments-2" as tst_aug_2_test_augments_2 { 
+} 
+
+package "tst-aug-2:test-augments-2" as tst_aug_2_test_augments_2 { 
+class "test-augments-2" as test_augments_2 << (M, #33CCFF) module>> 
+class "/tst-aug-1:container-a/tst-aug-1:list-a" as tst_aug_1_container_a_tst_aug_1_list_a << (A,CadetBlue) augment>>
+test_augments_2 *--  tst_aug_1_container_a_tst_aug_1_list_a 
+tst_aug_1_container_a_tst_aug_1_list_a : augmented-leaf : string  
+class "/tst-aug-1:top-level-nfc" as tst_aug_1_top_level_nfc << (A,CadetBlue) augment>>
+test_augments_2 *--  tst_aug_1_top_level_nfc 
+tst_aug_1_top_level_nfc : just-an-augmented-leaf : string  
+class "/tst-aug-1:container-a/tst-aug-1:list-a/tst-aug-1:a-choice" as tst_aug_1_container_a_tst_aug_1_list_a_tst_aug_1_a_choice << (A,CadetBlue) augment>>
+test_augments_2 *--  tst_aug_1_container_a_tst_aug_1_list_a_tst_aug_1_a_choice 
+class "case-b" as test_augments_1_I_container_a_I_list_a_I_a_choice_I_case_b_case <<case>>
+tst_aug_1_container_a_tst_aug_1_list_a_tst_aug_1_a_choice .. test_augments_1_I_container_a_I_list_a_I_a_choice_I_case_b_case  : choice a-choice
+test_augments_1_I_container_a_I_list_a_I_a_choice_I_case_b_case : case-b : string  
+class "/tst-aug-1:container-a/tst-aug-1:list-a/tst-aug-1:a-choice/tst-aug-1:case-a" as tst_aug_1_container_a_tst_aug_1_list_a_tst_aug_1_a_choice_tst_aug_1_case_a << (A,CadetBlue) augment>>
+test_augments_2 *--  tst_aug_1_container_a_tst_aug_1_list_a_tst_aug_1_a_choice_tst_aug_1_case_a 
+tst_aug_1_container_a_tst_aug_1_list_a_tst_aug_1_a_choice_tst_aug_1_case_a : another-case-leaf : string  
+} 
+
+tst_aug_1_test_augments_1 +-- tst_aug_2_test_augments_2
+center footer
+ <size:20> UML Generated : 2023-11-09 15:49 </size>
+ endfooter 
+@enduml 

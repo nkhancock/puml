@@ -1,0 +1,91 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/bbf-voltmf.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title bbf-voltmf 
+package "bbf-dev-agg:bbf-device-aggregation" as bbf_dev_agg_bbf_device_aggregation { 
+} 
+package "bbf-dvct:bbf-device-types" as bbf_dvct_bbf_device_types { 
+} 
+package "bbf-nf:bbf-network-function" as bbf_nf_bbf_network_function { 
+} 
+package "bbf-nfc:bbf-network-function-client" as bbf_nfc_bbf_network_function_client { 
+} 
+package "bbf-nft:bbf-network-function-types" as bbf_nft_bbf_network_function_types { 
+} 
+package "bbf-voltmf-c:bbf-voltmf-common" as bbf_voltmf_c_bbf_voltmf_common { 
+} 
+package "bbf-voltmf-msg-mon:bbf-voltmf-message-monitor" as bbf_voltmf_msg_mon_bbf_voltmf_message_monitor { 
+} 
+package "bbf-xpon-types:bbf-xpon-types" as bbf_xpon_types_bbf_xpon_types { 
+} 
+package "bbf-yang:bbf-yang-types" as bbf_yang_bbf_yang_types { 
+} 
+package "yangmnt:ietf-yang-schema-mount" as yangmnt_ietf_yang_schema_mount { 
+} 
+package "bbf-voltmf:bbf-voltmf" as bbf_voltmf_bbf_voltmf { 
+} 
+package "bbf-voltmf:bbf-voltmf" as bbf_voltmf_bbf_voltmf { 
+class "bbf-voltmf" as bbf_voltmf << (M, #33CCFF) module>> 
+class "/bbf-dev-agg:devices/bbf-dev-agg:device" as bbf_dev_agg_devices_bbf_dev_agg_device << (A,CadetBlue) augment>>
+bbf_voltmf *--  bbf_dev_agg_devices_bbf_dev_agg_device 
+class "vomci-onu-management" as  bbf_device_aggregation_I_devices_I_device_I_vomci_onu_management <<container>> 
+bbf_dev_agg_devices_bbf_dev_agg_device *-- "1" bbf_device_aggregation_I_devices_I_device_I_vomci_onu_management 
+bbf_device_aggregation_I_devices_I_device_I_vomci_onu_management : onu-management-chain-selection : enumeration : {vomci-policy,configured,vomci-function,}   {mandatory}
+bbf_device_aggregation_I_devices_I_device_I_vomci_onu_management : vomci-function : bbf-yang:string-ascii64  
+class "onu-management-chain" as bbf_device_aggregation_I_devices_I_device_I_vomci_onu_management_I_onu_management_chain << (L, #FF7700) list>> 
+bbf_device_aggregation_I_devices_I_device_I_vomci_onu_management *-- "0..N" bbf_device_aggregation_I_devices_I_device_I_vomci_onu_management_I_onu_management_chain : ordered-by : user
+bbf_device_aggregation_I_devices_I_device_I_vomci_onu_management_I_onu_management_chain : +nf-type : identityref {bbf-nft:nf-type}  {key} 
+bbf_device_aggregation_I_devices_I_device_I_vomci_onu_management_I_onu_management_chain : +nf-instance : bbf-yang:string-ascii64  {key} 
+class "statistics" as  bbf_device_aggregation_I_devices_I_device_I_vomci_onu_management_I_statistics <<container>> 
+bbf_device_aggregation_I_devices_I_device_I_vomci_onu_management *-- "1" bbf_device_aggregation_I_devices_I_device_I_vomci_onu_management_I_statistics 
+bbf_device_aggregation_I_devices_I_device_I_vomci_onu_management_I_statistics : bbf-voltmf-msg-mon:voltmf-message-statistics {uses} 
+class "voltmf" as  bbf_voltmf_I_voltmf <<container>> 
+bbf_voltmf *-- "1" bbf_voltmf_I_voltmf 
+class "nf-topology" as  bbf_voltmf_I_voltmf_I_nf_topology <<container>> 
+bbf_voltmf_I_voltmf *-- "1" bbf_voltmf_I_voltmf_I_nf_topology 
+bbf_voltmf_I_voltmf_I_nf_topology : bbf-nf:nf-topology {uses} 
+class "onu-vomci-assignment-policy" as  bbf_voltmf_I_voltmf_I_onu_vomci_assignment_policy <<container>> 
+bbf_voltmf_I_voltmf *-- "1" bbf_voltmf_I_voltmf_I_onu_vomci_assignment_policy 
+bbf_voltmf_I_voltmf_I_onu_vomci_assignment_policy : bbf-voltmf-c:onu-vomci-assignment-policy {uses} 
+class "remote-nf" as  bbf_voltmf_I_voltmf_I_remote_nf <<container>> 
+bbf_voltmf_I_voltmf *-- "0..1" bbf_voltmf_I_voltmf_I_remote_nf 
+class "nf-client" as  bbf_voltmf_I_voltmf_I_remote_nf_I_nf_client <<container>> 
+bbf_voltmf_I_voltmf_I_remote_nf *-- "1" bbf_voltmf_I_voltmf_I_remote_nf_I_nf_client 
+bbf_voltmf_I_voltmf_I_remote_nf_I_nf_client : enabled : boolean   = true 
+bbf_voltmf_I_voltmf_I_remote_nf_I_nf_client : bbf-nfc:nf-client {uses} 
+class "statistics" as  bbf_voltmf_I_voltmf_I_statistics <<container>> 
+bbf_voltmf_I_voltmf *-- "1" bbf_voltmf_I_voltmf_I_statistics 
+bbf_voltmf_I_voltmf_I_statistics : reset()
+bbf_voltmf_I_voltmf_I_statistics : bbf-voltmf-msg-mon:voltmf-message-statistics {uses} 
+class "onu-discovery-result" as bbf_voltmf_I_onu_discovery_result << (N,#00D1B2) notification>> 
+bbf_voltmf -- bbf_voltmf_I_onu_discovery_result : notification 
+bbf_voltmf_I_onu_discovery_result : onu-serial-number : bbf-xpon-types:onu-serial-number  
+bbf_voltmf_I_onu_discovery_result : discovery-result : enumeration : {successful,failed-no-connectivity,failed-unknown-onu,}   {mandatory}
+class "bbf-nft:nf-type" as bbf_nft_nf_type_identity << (I,Silver) identity>> 
+bbf_device_aggregation_I_devices_I_device_I_vomci_onu_management_I_onu_management_chain-->bbf_nft_nf_type_identity : nf-type
+} 
+
+bbf_dev_agg_bbf_device_aggregation +-- bbf_voltmf_bbf_voltmf
+bbf_dvct_bbf_device_types +-- bbf_voltmf_bbf_voltmf
+bbf_nf_bbf_network_function +-- bbf_voltmf_bbf_voltmf
+bbf_nfc_bbf_network_function_client +-- bbf_voltmf_bbf_voltmf
+bbf_nft_bbf_network_function_types +-- bbf_voltmf_bbf_voltmf
+bbf_voltmf_c_bbf_voltmf_common +-- bbf_voltmf_bbf_voltmf
+bbf_voltmf_msg_mon_bbf_voltmf_message_monitor +-- bbf_voltmf_bbf_voltmf
+bbf_xpon_types_bbf_xpon_types +-- bbf_voltmf_bbf_voltmf
+bbf_yang_bbf_yang_types +-- bbf_voltmf_bbf_voltmf
+yangmnt_ietf_yang_schema_mount +-- bbf_voltmf_bbf_voltmf
+center footer
+ <size:20> UML Generated : 2023-07-25 11:43 </size>
+ endfooter 
+@enduml 

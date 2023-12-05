@@ -1,0 +1,43 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/ietf-datastores.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title ietf-datastores 
+package "ds:ietf-datastores" as ds_ietf_datastores { 
+} 
+note top of ds_ietf_datastores : <b>Namespace: </b> urn:ietf:params:xml:ns:yang:ietf-datastores \n<b>Prefix: </b> ds \n<b>Organization : </b>\nIETF Network Modeling (NETMOD) Working Group \n<b>Contact : </b>\nWG Web:   <https://datatracker.ietf.org/wg/netmod/> \n \nWG List:  <mailto:netmod@ietf.org> \n \nAuthor:   Martin Bjorklund \n          <mailto:mbj@tail-f.com> \n \nAuthor:   Juergen Schoenwaelder \n          <mailto:j.schoenwaelder@jacobs-university.de> \n \nAuthor:   Phil Shafer \n          <mailto:phil@juniper.net> \n \nAuthor:   Kent Watsen \n          <mailto:kwatsen@juniper.net> \n \nAuthor:   Rob Wilton \n          <rwilton@cisco.com> \n<b>Revision : </b> 2018-02-14 \n
+package "ds:ietf-datastores" as ds_ietf_datastores { 
+class "ietf-datastores" as ietf_datastores << (M, #33CCFF) module>> 
+class "datastore-ref" as ds_datastore_ref_typedef << (T, YellowGreen) typedef>>
+ds_datastore_ref_typedef : identityref {datastore}
+class "datastore" as ds_datastore_identity << (I,Silver) identity>> 
+class "conventional" as ds_conventional_identity << (I,Silver) identity>> 
+ds_datastore_identity <|-- ds_conventional_identity 
+class "running" as ds_running_identity << (I,Silver) identity>> 
+ds_conventional_identity <|-- ds_running_identity 
+class "candidate" as ds_candidate_identity << (I,Silver) identity>> 
+ds_conventional_identity <|-- ds_candidate_identity 
+class "startup" as ds_startup_identity << (I,Silver) identity>> 
+ds_conventional_identity <|-- ds_startup_identity 
+class "intended" as ds_intended_identity << (I,Silver) identity>> 
+ds_conventional_identity <|-- ds_intended_identity 
+class "dynamic" as ds_dynamic_identity << (I,Silver) identity>> 
+ds_datastore_identity <|-- ds_dynamic_identity 
+class "operational" as ds_operational_identity << (I,Silver) identity>> 
+ds_datastore_identity <|-- ds_operational_identity 
+ds_datastore_ref_typedef-->ds_datastore_identity : datastore-ref
+} 
+
+center footer
+ <size:20> UML Generated : 2023-12-05 07:43 </size>
+ endfooter 
+@enduml 

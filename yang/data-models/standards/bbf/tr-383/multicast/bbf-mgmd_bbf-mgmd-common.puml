@@ -1,0 +1,304 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/bbf-mgmd_bbf-mgmd-common.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title bbf-mgmd_bbf-mgmd-common 
+package "bbfift:bbf-if-type" as bbfift_bbf_if_type { 
+} 
+package "bbf-mgmdc:bbf-mgmd-common" as bbf_mgmdc_bbf_mgmd_common { 
+} 
+package "bbf-mgmd-types:bbf-mgmd-types" as bbf_mgmd_types_bbf_mgmd_types { 
+} 
+package "bbf-yang:bbf-yang-types" as bbf_yang_bbf_yang_types { 
+} 
+package "inet:ietf-inet-types" as inet_ietf_inet_types { 
+} 
+package "if:ietf-interfaces" as if_ietf_interfaces { 
+} 
+package "yang:ietf-yang-types" as yang_ietf_yang_types { 
+} 
+package "bbf-mgmd:bbf-mgmd" as bbf_mgmd_bbf_mgmd { 
+} 
+package "bbf-mgmd:bbf-mgmd" as bbf_mgmd_bbf_mgmd { 
+class "bbf-mgmd" as bbf_mgmd << (M, #33CCFF) module>> 
+bbf_mgmd : feature : mgmd-proxy 
+bbf_mgmd : feature : mgmd-snoop-transparent 
+bbf_mgmd : feature : mgmd-snoop-with-proxy-reporting 
+bbf_mgmd : feature : multicast-cac 
+bbf_mgmd : feature : multicast-package 
+bbf_mgmd : feature : multicast-preview 
+bbf_mgmd : feature : mgmd-group-ip-range 
+bbf_mgmd : feature : static-multicast-host-associations 
+enum "rate-limit-action-enum" as bbf_mgmd_rate_limit_action_enum_typedef <<enumeration>> {
+drop
+best-effort
+}
+class "usage-limit" as bbf_mgmd_usage_limit_typedef << (T, YellowGreen) typedef>>
+bbf_mgmd_usage_limit_typedef : union{enumeration, uint32}
+class "multicast-channel-with-admission-control" as bbf_mgmd_I_multicast_channel_with_admission_control_grouping <<(G,Lime) grouping>> 
+class "multicast-channel-admission-control" as bbf_mgmd_I_multicast_channel_with_admission_control_I_multicast_channel_admission_control << (L, #FF7700) list>> 
+bbf_mgmd_I_multicast_channel_with_admission_control_grouping *-- "0..N" bbf_mgmd_I_multicast_channel_with_admission_control_I_multicast_channel_admission_control 
+bbf_mgmd_I_multicast_channel_with_admission_control_I_multicast_channel_admission_control : +multicast-channel-name : leafref : ../../../bbf-mgmd:multicast-channel/bbf-mgmd:name  {key} 
+bbf_mgmd_I_multicast_channel_with_admission_control_I_multicast_channel_admission_control : access-right : enumeration : {enabled,preview,disabled,}   = enabled 
+class "access-parameters" as  bbf_mgmd_I_multicast_channel_with_admission_control_I_multicast_channel_admission_control_I_access_parameters <<container>> 
+bbf_mgmd_I_multicast_channel_with_admission_control_I_multicast_channel_admission_control *-- "1" bbf_mgmd_I_multicast_channel_with_admission_control_I_multicast_channel_admission_control_I_access_parameters 
+bbf_mgmd_I_multicast_channel_with_admission_control_I_multicast_channel_admission_control_I_access_parameters : preview-parameter : leafref : /bbf-mgmd:multicast/bbf-mgmd:mgmd/bbf-mgmd:preview-parameters-profile/bbf-mgmd:name   {if-feature : bbf-mgmd:multicast-preview}
+class "multicast" as  bbf_mgmd_I_multicast <<container>> 
+bbf_mgmd *-- "1" bbf_mgmd_I_multicast 
+class "mgmd" as  bbf_mgmd_I_multicast_I_mgmd <<container>> 
+bbf_mgmd_I_multicast *-- "1" bbf_mgmd_I_multicast_I_mgmd 
+bbf_mgmd_I_multicast_I_mgmd : global-administrative-enabled : boolean   = true 
+class "preview-parameters-profile" as bbf_mgmd_I_multicast_I_mgmd_I_preview_parameters_profile << (L, #FF7700) list>> 
+bbf_mgmd_I_multicast_I_mgmd *-- "0..N" bbf_mgmd_I_multicast_I_mgmd_I_preview_parameters_profile 
+bbf_mgmd_I_multicast_I_mgmd_I_preview_parameters_profile : +name : bbf-yang:string-ascii64  {key} 
+bbf_mgmd_I_multicast_I_mgmd_I_preview_parameters_profile : preview-control-style : enumeration : {pattern,total-time,}  
+class "preview-pattern" as  bbf_mgmd_I_multicast_I_mgmd_I_preview_parameters_profile_I_preview_pattern <<container>> 
+bbf_mgmd_I_multicast_I_mgmd_I_preview_parameters_profile *-- "1" bbf_mgmd_I_multicast_I_mgmd_I_preview_parameters_profile_I_preview_pattern 
+bbf_mgmd_I_multicast_I_mgmd_I_preview_parameters_profile_I_preview_pattern : preview-repeat-interval : uint32   = 0  {seconds}
+bbf_mgmd_I_multicast_I_mgmd_I_preview_parameters_profile_I_preview_pattern : preview-repeat-count : usage-limit   = 3 
+bbf_mgmd_I_multicast_I_mgmd_I_preview_parameters_profile_I_preview_pattern : preview-clip-length : uint32   = 180  {seconds}
+bbf_mgmd_I_multicast_I_mgmd_I_preview_parameters_profile : preview-time : uint32   = 180  {seconds}
+bbf_mgmd_I_multicast_I_mgmd_I_preview_parameters_profile : preview-permission-restore-cycle : uint32   = 60  {minutes}
+class "multicast-snoop-transparent-profile" as bbf_mgmd_I_multicast_I_mgmd_I_multicast_snoop_transparent_profile << (L, #FF7700) list>> 
+bbf_mgmd_I_multicast_I_mgmd *-- "0..N" bbf_mgmd_I_multicast_I_mgmd_I_multicast_snoop_transparent_profile 
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_snoop_transparent_profile : +name : bbf-yang:string-ascii64  {key} 
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_snoop_transparent_profile : protocol-version : bbf-mgmd-types:mgmd-protocol-and-version   {mandatory}
+class "interfaces-to-hosts-data" as  bbf_mgmd_I_multicast_I_mgmd_I_multicast_snoop_transparent_profile_I_interfaces_to_hosts_data <<container>> 
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_snoop_transparent_profile *-- "1" bbf_mgmd_I_multicast_I_mgmd_I_multicast_snoop_transparent_profile_I_interfaces_to_hosts_data 
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_snoop_transparent_profile_I_interfaces_to_hosts_data : bbf-mgmdc:multicast-snoop {uses} 
+class "multicast-snoop-with-proxy-reporting-profile" as bbf_mgmd_I_multicast_I_mgmd_I_multicast_snoop_with_proxy_reporting_profile << (L, #FF7700) list>> 
+bbf_mgmd_I_multicast_I_mgmd *-- "0..N" bbf_mgmd_I_multicast_I_mgmd_I_multicast_snoop_with_proxy_reporting_profile 
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_snoop_with_proxy_reporting_profile : +name : bbf-yang:string-ascii64  {key} 
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_snoop_with_proxy_reporting_profile : protocol-version : bbf-mgmd-types:mgmd-protocol-and-version   {mandatory}
+class "interfaces-to-hosts-data" as  bbf_mgmd_I_multicast_I_mgmd_I_multicast_snoop_with_proxy_reporting_profile_I_interfaces_to_hosts_data <<container>> 
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_snoop_with_proxy_reporting_profile *-- "1" bbf_mgmd_I_multicast_I_mgmd_I_multicast_snoop_with_proxy_reporting_profile_I_interfaces_to_hosts_data 
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_snoop_with_proxy_reporting_profile_I_interfaces_to_hosts_data : bbf-mgmdc:multicast-snoop {uses} 
+class "interface-to-router-data" as  bbf_mgmd_I_multicast_I_mgmd_I_multicast_snoop_with_proxy_reporting_profile_I_interface_to_router_data <<container>> 
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_snoop_with_proxy_reporting_profile *-- "1" bbf_mgmd_I_multicast_I_mgmd_I_multicast_snoop_with_proxy_reporting_profile_I_interface_to_router_data 
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_snoop_with_proxy_reporting_profile_I_interface_to_router_data : bbf-mgmdc:interface-to-router {uses} 
+class "multicast-proxy-profile" as bbf_mgmd_I_multicast_I_mgmd_I_multicast_proxy_profile << (L, #FF7700) list>> 
+bbf_mgmd_I_multicast_I_mgmd *-- "0..N" bbf_mgmd_I_multicast_I_mgmd_I_multicast_proxy_profile 
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_proxy_profile : +name : bbf-yang:string-ascii64  {key} 
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_proxy_profile : protocol-version : bbf-mgmd-types:mgmd-protocol-and-version   {mandatory}
+class "interfaces-to-hosts-data" as  bbf_mgmd_I_multicast_I_mgmd_I_multicast_proxy_profile_I_interfaces_to_hosts_data <<container>> 
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_proxy_profile *-- "1" bbf_mgmd_I_multicast_I_mgmd_I_multicast_proxy_profile_I_interfaces_to_hosts_data 
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_proxy_profile_I_interfaces_to_hosts_data : bbf-mgmdc:interface-to-host {uses} 
+class "interface-to-router-data" as  bbf_mgmd_I_multicast_I_mgmd_I_multicast_proxy_profile_I_interface_to_router_data <<container>> 
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_proxy_profile *-- "1" bbf_mgmd_I_multicast_I_mgmd_I_multicast_proxy_profile_I_interface_to_router_data 
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_proxy_profile_I_interface_to_router_data : bbf-mgmdc:interface-to-router {uses} 
+class "multicast-vpn" as bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn << (L, #FF7700) list>> 
+bbf_mgmd_I_multicast_I_mgmd *-- "0..N" bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn 
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn : +name : bbf-yang:string-ascii64  {key} 
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn : vpn-administrative-enabled : boolean   = true 
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn : mode : identityref {mgmd-mode}   {mandatory}
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn : multicast-proxy-profile-name : leafref : /bbf-mgmd:multicast/bbf-mgmd:mgmd/bbf-mgmd:multicast-proxy-profile/bbf-mgmd:name   {if-feature : mgmd-proxy}
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn : multicast-snoop-transparent-profile-name : leafref : /bbf-mgmd:multicast/bbf-mgmd:mgmd/bbf-mgmd:multicast-snoop-transparent-profile/bbf-mgmd:name   {if-feature : mgmd-snoop-transparent}
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn : multicast-snoop-with-proxy-reporting-profile-name : leafref : /bbf-mgmd:multicast/bbf-mgmd:mgmd/bbf-mgmd:multicast-snoop-with-proxy-reporting-profile/bbf-mgmd:name   {if-feature : mgmd-snoop-with-proxy-reporting}
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn : ip-version : inet:ip-version   = ipv4 
+class "ip-to-host" as bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn_I_ip_to_host <<choice>> 
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn .. bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn_I_ip_to_host : choice 
+class "ip-address" as bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn_I_ip_to_host_I_ip_address_case <<case>>
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn_I_ip_to_host .. bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn_I_ip_to_host_I_ip_address_case  : choice ip-to-host
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn_I_ip_to_host_I_ip_address_case : ipv4-address : inet:ipv4-address   = 0.0.0.0 
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn_I_ip_to_host_I_ip_address_case : ipv6-address : inet:ipv6-address   = ::  {deprecated}
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn : unmatched-join-processing : identityref {unmatched-join-processing}   = unmatched-join-discard 
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn : network-interface-for-unmatched-reports : leafref : ../bbf-mgmd:multicast-network-interface/bbf-mgmd:name   {mandatory}
+class "multicast-interface-to-host" as bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn_I_multicast_interface_to_host << (L, #FF7700) list>> 
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn *-- "0..N" bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn_I_multicast_interface_to_host 
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn_I_multicast_interface_to_host : +name : bbf-yang:string-ascii64  {key} 
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn_I_multicast_interface_to_host : vlan-sub-interface : if:interface-ref  {unique}  {mandatory}
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn_I_multicast_interface_to_host : data-path-vlan-sub-interface : if:interface-ref  
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn_I_multicast_interface_to_host : interface-to-host-administrative-enabled : boolean   = true 
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn_I_multicast_interface_to_host : max-group-number : usage-limit   = no-limit 
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn_I_multicast_interface_to_host : maximum-concurrent-devices-per-channel : usage-limit   = 2 
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn_I_multicast_interface_to_host : multicast-rate-limit : uint32   = 0  {kilobits per second} {if-feature : multicast-cac}
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn_I_multicast_interface_to_host : multicast-rate-limit-exceed-action : rate-limit-action-enum   = best-effort  {if-feature : multicast-cac}
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn_I_multicast_interface_to_host : multicast-package []: leafref : ../../bbf-mgmd:multicast-package/bbf-mgmd:name  {if-feature : multicast-package}
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn_I_multicast_interface_to_host : clear-host-interface-statistics()
+class "multicast-network-interface" as bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn_I_multicast_network_interface << (L, #FF7700) list>> 
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn *-- "0..N" bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn_I_multicast_network_interface 
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn_I_multicast_network_interface : +name : bbf-yang:string-ascii64  {key} 
+class "multicast-transport" as bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn_I_multicast_network_interface_I_multicast_transport <<choice>> 
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn_I_multicast_network_interface .. bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn_I_multicast_network_interface_I_multicast_transport : choice 
+class "single-uplink" as bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn_I_multicast_network_interface_I_multicast_transport_I_single_uplink_case <<case>>
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn_I_multicast_network_interface_I_multicast_transport .. bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn_I_multicast_network_interface_I_multicast_transport_I_single_uplink_case  : choice multicast-transport
+class "single-uplink-interface-data" as  bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn_I_multicast_network_interface_I_multicast_transport_I_single_uplink_I_single_uplink_interface_data <<container>> 
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn_I_multicast_network_interface_I_multicast_transport_I_single_uplink_case *-- "1" bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn_I_multicast_network_interface_I_multicast_transport_I_single_uplink_I_single_uplink_interface_data 
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn_I_multicast_network_interface_I_multicast_transport_I_single_uplink_I_single_uplink_interface_data : vlan-sub-interface : if:interface-ref  {unique} 
+class "ip-layer" as bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn_I_multicast_network_interface_I_ip_layer <<choice>> 
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn_I_multicast_network_interface .. bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn_I_multicast_network_interface_I_ip_layer : choice 
+class "ip-address" as bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn_I_multicast_network_interface_I_ip_layer_I_ip_address_case <<case>>
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn_I_multicast_network_interface_I_ip_layer .. bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn_I_multicast_network_interface_I_ip_layer_I_ip_address_case  : choice ip-layer
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn_I_multicast_network_interface_I_ip_layer_I_ip_address_case : ipv4-address : inet:ipv4-address   = 0.0.0.0 
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn_I_multicast_network_interface_I_ip_layer_I_ip_address_case : ipv6-address : inet:ipv6-address   = ::  {deprecated}
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn_I_multicast_network_interface : clear-network-interface-statistics()
+class "multicast-channel" as bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn_I_multicast_channel << (L, #FF7700) list>> 
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn *-- "0..N" bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn_I_multicast_channel 
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn_I_multicast_channel : +name : bbf-yang:string-ascii64  {key} 
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn_I_multicast_channel : network-interface : leafref : ../../bbf-mgmd:multicast-network-interface/bbf-mgmd:name   {mandatory}
+class "ipv4" as  bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn_I_multicast_channel_I_ipv4 <<container>> 
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn_I_multicast_channel *-- "1" bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn_I_multicast_channel_I_ipv4 
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn_I_multicast_channel_I_ipv4 : source-ipv4-address : inet:ipv4-address   = 0.0.0.0 
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn_I_multicast_channel_I_ipv4 : group-ipv4-address : inet:ipv4-address   {mandatory}
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn_I_multicast_channel_I_ipv4 : group-ipv4-address-end : inet:ipv4-address   {if-feature : mgmd-group-ip-range}
+class "ipv6" as  bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn_I_multicast_channel_I_ipv6 <<container>> 
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn_I_multicast_channel *-- "1" bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn_I_multicast_channel_I_ipv6 
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn_I_multicast_channel_I_ipv6 : source-ipv6-address : inet:ipv6-address   = :: 
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn_I_multicast_channel_I_ipv6 : group-ipv6-address : inet:ipv6-address   {mandatory}
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn_I_multicast_channel_I_ipv6 : group-ipv6-address-end : inet:ipv6-address   {if-feature : mgmd-group-ip-range}
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn_I_multicast_channel : channel-rate : uint32   = 0  {kilobits per second} {if-feature : multicast-cac}
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn_I_multicast_channel : interface-to-host []: leafref : ../../bbf-mgmd:multicast-interface-to-host/bbf-mgmd:name  {if-feature : static-multicast-host-associations}
+class "multicast-package" as bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn_I_multicast_package << (L, #FF7700) list>> 
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn *-- "0..N" bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn_I_multicast_package 
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn_I_multicast_package : +name : bbf-yang:string-ascii64  {key} 
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn_I_multicast_package : multicast-channel-with-admission-control {uses} 
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn : clear-vpn-statistics()
+bbf_mgmd_I_multicast_I_mgmd : clear-global-statistics()
+class "multicast-state" as  bbf_mgmd_I_multicast_state <<container>> 
+bbf_mgmd *-- "1" bbf_mgmd_I_multicast_state 
+class "mgmd" as  bbf_mgmd_I_multicast_state_I_mgmd <<container>> 
+bbf_mgmd_I_multicast_state *-- "1" bbf_mgmd_I_multicast_state_I_mgmd 
+class "multicast-vpn" as bbf_mgmd_I_multicast_state_I_mgmd_I_multicast_vpn << (L, #FF7700) list>> 
+bbf_mgmd_I_multicast_state_I_mgmd *-- "0..N" bbf_mgmd_I_multicast_state_I_mgmd_I_multicast_vpn 
+bbf_mgmd_I_multicast_state_I_mgmd_I_multicast_vpn : +name : bbf-yang:string-ascii64  {key} 
+bbf_mgmd_I_multicast_state_I_mgmd_I_multicast_vpn : mode : identityref {mgmd-mode}   {mandatory}
+class "multicast-interface-to-host" as bbf_mgmd_I_multicast_state_I_mgmd_I_multicast_vpn_I_multicast_interface_to_host << (L, #FF7700) list>> 
+bbf_mgmd_I_multicast_state_I_mgmd_I_multicast_vpn *-- "0..N" bbf_mgmd_I_multicast_state_I_mgmd_I_multicast_vpn_I_multicast_interface_to_host 
+bbf_mgmd_I_multicast_state_I_mgmd_I_multicast_vpn_I_multicast_interface_to_host : +name : bbf-yang:string-ascii64  {key} 
+class "interface-to-host-rx-state-data" as  bbf_mgmd_I_multicast_state_I_mgmd_I_multicast_vpn_I_multicast_interface_to_host_I_interface_to_host_rx_state_data <<container>> 
+bbf_mgmd_I_multicast_state_I_mgmd_I_multicast_vpn_I_multicast_interface_to_host *-- "1" bbf_mgmd_I_multicast_state_I_mgmd_I_multicast_vpn_I_multicast_interface_to_host_I_interface_to_host_rx_state_data 
+bbf_mgmd_I_multicast_state_I_mgmd_I_multicast_vpn_I_multicast_interface_to_host_I_interface_to_host_rx_state_data : bbf-mgmdc:mgmd-interface-to-hosts-receive-state {uses} 
+class "interface-to-hosts-tx-state-data" as  bbf_mgmd_I_multicast_state_I_mgmd_I_multicast_vpn_I_multicast_interface_to_host_I_interface_to_hosts_tx_state_data <<container>> 
+bbf_mgmd_I_multicast_state_I_mgmd_I_multicast_vpn_I_multicast_interface_to_host *-- "1" bbf_mgmd_I_multicast_state_I_mgmd_I_multicast_vpn_I_multicast_interface_to_host_I_interface_to_hosts_tx_state_data 
+bbf_mgmd_I_multicast_state_I_mgmd_I_multicast_vpn_I_multicast_interface_to_host_I_interface_to_hosts_tx_state_data : bbf-mgmdc:mgmd-interface-to-hosts-transmit-state {uses} 
+bbf_mgmd_I_multicast_state_I_mgmd_I_multicast_vpn_I_multicast_interface_to_host : multicast-rate-limit-exceeded-count : yang:counter32   {messages} {if-feature : multicast-cac}
+bbf_mgmd_I_multicast_state_I_mgmd_I_multicast_vpn_I_multicast_interface_to_host : current-multicast-bw-delivered : uint32   {kilobits per second} {if-feature : multicast-cac}
+bbf_mgmd_I_multicast_state_I_mgmd_I_multicast_vpn_I_multicast_interface_to_host : number-active-multicast-channels : uint32  
+class "multicast-network-interface" as bbf_mgmd_I_multicast_state_I_mgmd_I_multicast_vpn_I_multicast_network_interface << (L, #FF7700) list>> 
+bbf_mgmd_I_multicast_state_I_mgmd_I_multicast_vpn *-- "0..N" bbf_mgmd_I_multicast_state_I_mgmd_I_multicast_vpn_I_multicast_network_interface 
+bbf_mgmd_I_multicast_state_I_mgmd_I_multicast_vpn_I_multicast_network_interface : +name : bbf-yang:string-ascii64  {key} 
+class "multicast-transport" as bbf_mgmd_I_multicast_state_I_mgmd_I_multicast_vpn_I_multicast_network_interface_I_multicast_transport <<choice>> 
+bbf_mgmd_I_multicast_state_I_mgmd_I_multicast_vpn_I_multicast_network_interface .. bbf_mgmd_I_multicast_state_I_mgmd_I_multicast_vpn_I_multicast_network_interface_I_multicast_transport : choice 
+class "single-uplink" as bbf_mgmd_I_multicast_state_I_mgmd_I_multicast_vpn_I_multicast_network_interface_I_multicast_transport_I_single_uplink_case <<case>>
+bbf_mgmd_I_multicast_state_I_mgmd_I_multicast_vpn_I_multicast_network_interface_I_multicast_transport .. bbf_mgmd_I_multicast_state_I_mgmd_I_multicast_vpn_I_multicast_network_interface_I_multicast_transport_I_single_uplink_case  : choice multicast-transport
+class "single-uplink-interface-to-router-state-data" as  bbf_mgmd_I_multicast_state_I_mgmd_I_multicast_vpn_I_multicast_network_interface_I_multicast_transport_I_single_uplink_I_single_uplink_interface_to_router_state_data <<container>> 
+bbf_mgmd_I_multicast_state_I_mgmd_I_multicast_vpn_I_multicast_network_interface_I_multicast_transport_I_single_uplink_case *-- "1" bbf_mgmd_I_multicast_state_I_mgmd_I_multicast_vpn_I_multicast_network_interface_I_multicast_transport_I_single_uplink_I_single_uplink_interface_to_router_state_data 
+bbf_mgmd_I_multicast_state_I_mgmd_I_multicast_vpn_I_multicast_network_interface_I_multicast_transport_I_single_uplink_I_single_uplink_interface_to_router_state_data : vlan-sub-interface : if:interface-state-ref  
+bbf_mgmd_I_multicast_state_I_mgmd_I_multicast_vpn_I_multicast_network_interface_I_multicast_transport_I_single_uplink_I_single_uplink_interface_to_router_state_data : bbf-mgmdc:mgmd-host-interface-state {uses} 
+class "multicast-proxy-or-snooper" as  bbf_mgmd_I_multicast_state_I_mgmd_I_multicast_vpn_I_multicast_proxy_or_snooper <<container>> 
+bbf_mgmd_I_multicast_state_I_mgmd_I_multicast_vpn *-- "1" bbf_mgmd_I_multicast_state_I_mgmd_I_multicast_vpn_I_multicast_proxy_or_snooper 
+bbf_mgmd_I_multicast_state_I_mgmd_I_multicast_vpn_I_multicast_proxy_or_snooper : number-active-groups : uint32  
+class "active-channel" as bbf_mgmd_I_multicast_state_I_mgmd_I_multicast_vpn_I_active_channel << (L, #FF7700) list>> 
+bbf_mgmd_I_multicast_state_I_mgmd_I_multicast_vpn *-- "0..N" bbf_mgmd_I_multicast_state_I_mgmd_I_multicast_vpn_I_active_channel 
+bbf_mgmd_I_multicast_state_I_mgmd_I_multicast_vpn_I_active_channel : +source-address : inet:ip-address  {key} 
+bbf_mgmd_I_multicast_state_I_mgmd_I_multicast_vpn_I_active_channel : +group-address : inet:ip-address  {key} 
+bbf_mgmd_I_multicast_state_I_mgmd_I_multicast_vpn_I_active_channel : name : bbf-yang:string-ascii64  
+bbf_mgmd_I_multicast_state_I_mgmd_I_multicast_vpn_I_active_channel : multicast-network-interface : leafref : ../../bbf-mgmd:multicast-network-interface/bbf-mgmd:name  
+bbf_mgmd_I_multicast_state_I_mgmd_I_multicast_vpn_I_active_channel : number-active-interfaces-to-hosts : uint32  
+class "multicast-interface-to-host" as bbf_mgmd_I_multicast_state_I_mgmd_I_multicast_vpn_I_active_channel_I_multicast_interface_to_host << (L, #FF7700) list>> 
+bbf_mgmd_I_multicast_state_I_mgmd_I_multicast_vpn_I_active_channel *-- "0..N" bbf_mgmd_I_multicast_state_I_mgmd_I_multicast_vpn_I_active_channel_I_multicast_interface_to_host 
+bbf_mgmd_I_multicast_state_I_mgmd_I_multicast_vpn_I_active_channel_I_multicast_interface_to_host : +name : leafref : ../../../bbf-mgmd:multicast-interface-to-host/bbf-mgmd:name  {key} 
+bbf_mgmd_I_multicast_state_I_mgmd_I_multicast_vpn_I_active_channel_I_multicast_interface_to_host : host-reporter-address []: inet:ip-address 
+bbf_mgmd_I_multicast_state_I_mgmd_I_multicast_vpn_I_active_channel : uptime : yang:timeticks   {0.01 seconds}
+class "mgmd-mode" as bbf_mgmd_mgmd_mode_identity << (I,Silver) identity>> 
+class "proxy" as bbf_mgmd_proxy_identity << (I,Silver) identity>> 
+bbf_mgmd_mgmd_mode_identity <|-- bbf_mgmd_proxy_identity 
+class "snoop-transparent" as bbf_mgmd_snoop_transparent_identity << (I,Silver) identity>> 
+bbf_mgmd_mgmd_mode_identity <|-- bbf_mgmd_snoop_transparent_identity 
+class "snoop-with-proxy-reporting" as bbf_mgmd_snoop_with_proxy_reporting_identity << (I,Silver) identity>> 
+bbf_mgmd_mgmd_mode_identity <|-- bbf_mgmd_snoop_with_proxy_reporting_identity 
+class "unmatched-join-processing" as bbf_mgmd_unmatched_join_processing_identity << (I,Silver) identity>> 
+class "unmatched-join-discard" as bbf_mgmd_unmatched_join_discard_identity << (I,Silver) identity>> 
+bbf_mgmd_unmatched_join_processing_identity <|-- bbf_mgmd_unmatched_join_discard_identity 
+class "unmatched-join-forward" as bbf_mgmd_unmatched_join_forward_identity << (I,Silver) identity>> 
+bbf_mgmd_unmatched_join_processing_identity <|-- bbf_mgmd_unmatched_join_forward_identity 
+class "unmatched-join-snoop-or-proxy" as bbf_mgmd_unmatched_join_snoop_or_proxy_identity << (I,Silver) identity>> 
+bbf_mgmd_unmatched_join_processing_identity <|-- bbf_mgmd_unmatched_join_snoop_or_proxy_identity 
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn-->bbf_mgmd_mgmd_mode_identity : mode
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn-->bbf_mgmd_unmatched_join_processing_identity : unmatched-join-processing
+bbf_mgmd_I_multicast_state_I_mgmd_I_multicast_vpn-->bbf_mgmd_mgmd_mode_identity : mode
+} 
+
+bbfift_bbf_if_type +-- bbf_mgmd_bbf_mgmd
+bbf_mgmdc_bbf_mgmd_common +-- bbf_mgmd_bbf_mgmd
+bbf_mgmd_types_bbf_mgmd_types +-- bbf_mgmd_bbf_mgmd
+bbf_yang_bbf_yang_types +-- bbf_mgmd_bbf_mgmd
+inet_ietf_inet_types +-- bbf_mgmd_bbf_mgmd
+if_ietf_interfaces +-- bbf_mgmd_bbf_mgmd
+yang_ietf_yang_types +-- bbf_mgmd_bbf_mgmd
+package "yang:ietf-yang-types" as yang_ietf_yang_types { 
+} 
+package "bbf-mgmdc:bbf-mgmd-common" as bbf_mgmdc_bbf_mgmd_common { 
+} 
+package "bbf-mgmdc:bbf-mgmd-common" as bbf_mgmdc_bbf_mgmd_common { 
+class "bbf-mgmd-common" as bbf_mgmd_common << (M, #33CCFF) module>> 
+bbf_mgmd_common : feature : mgmd-snoop-last-leave 
+class "interface-to-host" as bbf_mgmd_common_I_interface_to_host_grouping <<(G,Lime) grouping>> 
+bbf_mgmd_common_I_interface_to_host_grouping : query-interval : uint32 [1..31744]   = 125  {seconds}
+bbf_mgmd_common_I_interface_to_host_grouping : query-max-response-time : uint32 [0..31744]   = 100  {0.1 seconds}
+bbf_mgmd_common_I_interface_to_host_grouping : last-member-query-interval : uint32 [2..31744]   = 10  {0.1 seconds}
+bbf_mgmd_common_I_interface_to_host_grouping : last-member-query-count : uint32 [1..255]   = 2 
+bbf_mgmd_common_I_interface_to_host_grouping : startup-query-interval : uint32 [0..31744]   = 30  {seconds}
+bbf_mgmd_common_I_interface_to_host_grouping : startup-query-count : uint32 [1..255]   = 2 
+bbf_mgmd_common_I_interface_to_host_grouping : immediate-leave : enumeration : {enabled,disabled,}   = disabled 
+bbf_mgmd_common_I_interface_to_host_grouping : robustness : uint32 [1..255]   = 2 
+class "interface-to-router" as bbf_mgmd_common_I_interface_to_router_grouping <<(G,Lime) grouping>> 
+bbf_mgmd_common_I_interface_to_router_grouping : unsolicited-report-interval : uint32 [1..255]   = 10  {0.1 seconds}
+bbf_mgmd_common_I_interface_to_router_grouping : robustness : uint32 [1..255]   = 2 
+class "multicast-snoop" as bbf_mgmd_common_I_multicast_snoop_grouping <<(G,Lime) grouping>> 
+bbf_mgmd_common_I_multicast_snoop_grouping : immediate-leave : enumeration : {enabled,disabled,}   = disabled 
+bbf_mgmd_common_I_multicast_snoop_grouping : group-membership-interval : uint32 [1..31744]   = 260  {seconds}
+bbf_mgmd_common_I_multicast_snoop_grouping : last-member-query-interval : uint32 [2..31744]   = 10  {0.1 seconds} {if-feature : bbf-mgmdc:mgmd-snoop-last-leave}
+bbf_mgmd_common_I_multicast_snoop_grouping : last-member-query-count : uint32 [1..255]   = 2  {if-feature : bbf-mgmdc:mgmd-snoop-last-leave}
+class "mgmd-interface-to-hosts-receive-state" as bbf_mgmd_common_I_mgmd_interface_to_hosts_receive_state_grouping <<(G,Lime) grouping>> 
+bbf_mgmd_common_I_mgmd_interface_to_hosts_receive_state_grouping : in-successful-join-requests : yang:counter32   {messages}
+bbf_mgmd_common_I_mgmd_interface_to_hosts_receive_state_grouping : in-unsuccessful-join-requests : yang:counter32   {messages}
+bbf_mgmd_common_I_mgmd_interface_to_hosts_receive_state_grouping : in-leaves : yang:counter32   {messages}
+bbf_mgmd_common_I_mgmd_interface_to_hosts_receive_state_grouping : in-valid-messages : yang:counter32   {messages}
+bbf_mgmd_common_I_mgmd_interface_to_hosts_receive_state_grouping : in-invalid-messages : yang:counter32   {messages}
+class "mgmd-interface-to-hosts-transmit-state" as bbf_mgmd_common_I_mgmd_interface_to_hosts_transmit_state_grouping <<(G,Lime) grouping>> 
+bbf_mgmd_common_I_mgmd_interface_to_hosts_transmit_state_grouping : out-specific-queries : yang:counter32   {messages}
+bbf_mgmd_common_I_mgmd_interface_to_hosts_transmit_state_grouping : out-general-queries : yang:counter32   {messages}
+class "mgmd-host-interface-state" as bbf_mgmd_common_I_mgmd_host_interface_state_grouping <<(G,Lime) grouping>> 
+bbf_mgmd_common_I_mgmd_host_interface_state_grouping : out-joins : yang:counter32   {messages}
+bbf_mgmd_common_I_mgmd_host_interface_state_grouping : out-leaves : yang:counter32   {messages}
+bbf_mgmd_common_I_mgmd_host_interface_state_grouping : in-general-queries : yang:counter32   {messages}
+bbf_mgmd_common_I_mgmd_host_interface_state_grouping : in-specific-queries : yang:counter32   {messages}
+bbf_mgmd_common_I_mgmd_host_interface_state_grouping : in-valid-messages : yang:counter32   {messages}
+bbf_mgmd_common_I_mgmd_host_interface_state_grouping : in-invalid-message : yang:counter32   {messages}
+bbf_mgmd_common_I_mgmd_host_interface_state_grouping : in-interface-wrong-version-queries : yang:counter32   {messages}
+bbf_mgmd_common_I_mgmd_host_interface_state_grouping : host-interface-version2-querier-time : yang:timeticks   {0.01 seconds}
+} 
+
+yang_ietf_yang_types +-- bbf_mgmdc_bbf_mgmd_common
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_snoop_transparent_profile_I_interfaces_to_hosts_data --> bbf_mgmd_common_I_multicast_snoop_grouping : uses 
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_snoop_with_proxy_reporting_profile_I_interfaces_to_hosts_data --> bbf_mgmd_common_I_multicast_snoop_grouping : uses 
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_snoop_with_proxy_reporting_profile_I_interface_to_router_data --> bbf_mgmd_common_I_interface_to_router_grouping : uses 
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_proxy_profile_I_interfaces_to_hosts_data --> bbf_mgmd_common_I_interface_to_host_grouping : uses 
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_proxy_profile_I_interface_to_router_data --> bbf_mgmd_common_I_interface_to_router_grouping : uses 
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn_I_multicast_package --> bbf_mgmd_I_multicast_channel_with_admission_control_grouping : uses 
+bbf_mgmd_I_multicast_state_I_mgmd_I_multicast_vpn_I_multicast_interface_to_host_I_interface_to_host_rx_state_data --> bbf_mgmd_common_I_mgmd_interface_to_hosts_receive_state_grouping : uses 
+bbf_mgmd_I_multicast_state_I_mgmd_I_multicast_vpn_I_multicast_interface_to_host_I_interface_to_hosts_tx_state_data --> bbf_mgmd_common_I_mgmd_interface_to_hosts_transmit_state_grouping : uses 
+bbf_mgmd_I_multicast_state_I_mgmd_I_multicast_vpn_I_multicast_network_interface_I_multicast_transport_I_single_uplink_I_single_uplink_interface_to_router_state_data --> bbf_mgmd_common_I_mgmd_host_interface_state_grouping : uses 
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn-->"bbf-mgmd:name"bbf_mgmd_I_multicast_I_mgmd_I_multicast_proxy_profile: multicast-proxy-profile-name
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn-->"bbf-mgmd:name"bbf_mgmd_I_multicast_I_mgmd_I_multicast_snoop_transparent_profile: multicast-snoop-transparent-profile-name
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn-->"bbf-mgmd:name"bbf_mgmd_I_multicast_I_mgmd_I_multicast_snoop_with_proxy_reporting_profile: multicast-snoop-with-proxy-reporting-profile-name
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn-->"bbf-mgmd:name"bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn_I_multicast_network_interface: network-interface-for-unmatched-reports
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn_I_multicast_interface_to_host-->"bbf-mgmd:name"bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn_I_multicast_package: multicast-package
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn_I_multicast_channel-->"bbf-mgmd:name"bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn_I_multicast_network_interface: network-interface
+bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn_I_multicast_channel-->"bbf-mgmd:name"bbf_mgmd_I_multicast_I_mgmd_I_multicast_vpn_I_multicast_interface_to_host: interface-to-host
+bbf_mgmd_I_multicast_state_I_mgmd_I_multicast_vpn_I_active_channel-->"bbf-mgmd:name"bbf_mgmd_I_multicast_state_I_mgmd_I_multicast_vpn_I_multicast_network_interface: multicast-network-interface
+bbf_mgmd_I_multicast_state_I_mgmd_I_multicast_vpn_I_active_channel_I_multicast_interface_to_host-->"bbf-mgmd:name"bbf_mgmd_I_multicast_state_I_mgmd_I_multicast_vpn_I_multicast_interface_to_host: name
+center footer
+ <size:20> UML Generated : 2023-07-25 11:33 </size>
+ endfooter 
+@enduml 

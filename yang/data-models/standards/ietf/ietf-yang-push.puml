@@ -1,0 +1,341 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/%filename() (PlantUML %version()).png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title %filename() (PlantUML %version()) 
+center header
+ <size:48> %date('dd MMM yyyy HH:mm:ss') </size>
+ endheader 
+package "yang:ietf-yang-types" as yang_ietf_yang_types { 
+} 
+package "sn:ietf-subscribed-notifications" as sn_ietf_subscribed_notifications { 
+} 
+package "ds:ietf-datastores" as ds_ietf_datastores { 
+} 
+package "rc:ietf-restconf" as rc_ietf_restconf { 
+} 
+package "ypatch:ietf-yang-patch" as ypatch_ietf_yang_patch { 
+} 
+package "yp:ietf-yang-push" as yp_ietf_yang_push { 
+} 
+note top of yp_ietf_yang_push : <b>Namespace: </b> urn:ietf:params:xml:ns:yang:ietf-yang-push \n<b>Prefix: </b> yp \n<b>Organization : </b>\nIETF NETCONF (Network Configuration) Working Group \n<b>Contact : </b>\nWG Web:  <https:/datatracker.ietf.org/wg/netconf/> \nWG List: <mailto:netconf@ietf.org> \n \nAuthor:  Alexander Clemm \n         <mailto:ludwig@clemm.org> \n \nAuthor:  Eric Voit \n         <mailto:evoit@cisco.com> \n<b>Revision : </b> 2019-09-09 \n
+package "yp:ietf-yang-push" as yp_ietf_yang_push { 
+class "ietf-yang-push" as ietf_yang_push << (M, #33CCFF) module>> 
+ietf_yang_push : feature : on-change 
+enum "change-type" as ietf_yang_push_I_change_type {
+create
+delete
+insert
+MORE
+}
+class "selection-filter-ref" as selection_filter_ref << (T, YellowGreen) typedef>>
+selection_filter_ref : leafref : /sn:filters/yp:selection-filter/yp:filter-id
+class "centiseconds" as centiseconds << (T, YellowGreen) typedef>>
+centiseconds : uint32
+ietf_yang_push : resync-subscription( in: id)
+class "/sn:establish-subscription/sn:input" as sn_establish_subscription_sn_input << (A,CadetBlue) augment>>
+ietf_yang_push *--  sn_establish_subscription_sn_input 
+class "update-trigger" as ietf_yang_push_I__sn_establish_subscription_sn_input_I_update_trigger <<choice>> 
+sn_establish_subscription_sn_input .. ietf_yang_push_I__sn_establish_subscription_sn_input_I_update_trigger : choice 
+class "periodic" as ietf_yang_push_I__sn_establish_subscription_sn_input_I_update_trigger_I_periodic_case <<case>>
+ietf_yang_push_I__sn_establish_subscription_sn_input_I_update_trigger .. ietf_yang_push_I__sn_establish_subscription_sn_input_I_update_trigger_I_periodic_case  : choice update-trigger
+class "periodic" as  ietf_yang_push_I__sn_establish_subscription_sn_input_I_update_trigger_I_periodic_I_periodic <<container>> 
+ietf_yang_push_I__sn_establish_subscription_sn_input_I_update_trigger_I_periodic_case *-- "0..1" ietf_yang_push_I__sn_establish_subscription_sn_input_I_update_trigger_I_periodic_I_periodic 
+note bottom of ietf_yang_push_I__sn_establish_subscription_sn_input_I_update_trigger_I_periodic_I_periodic
+<b>Presence: </b>indicates a periodic subscription
+end note 
+ietf_yang_push_I__sn_establish_subscription_sn_input_I_update_trigger_I_periodic_I_periodic : period : centiseconds   {mandatory}
+ietf_yang_push_I__sn_establish_subscription_sn_input_I_update_trigger_I_periodic_I_periodic : anchor-time : yang:date-and-time  
+class "on-change" as ietf_yang_push_I__sn_establish_subscription_sn_input_I_update_trigger_I_on_change_case <<case>>
+ietf_yang_push_I__sn_establish_subscription_sn_input_I_update_trigger .. ietf_yang_push_I__sn_establish_subscription_sn_input_I_update_trigger_I_on_change_case  : choice update-trigger
+note bottom of ietf_yang_push_I__sn_establish_subscription_sn_input_I_update_trigger_I_on_change_case
+<b>if-feature: </b>on-change
+end note 
+class "on-change" as  ietf_yang_push_I__sn_establish_subscription_sn_input_I_update_trigger_I_on_change_I_on_change <<container>> 
+ietf_yang_push_I__sn_establish_subscription_sn_input_I_update_trigger_I_on_change_case *-- "0..1" ietf_yang_push_I__sn_establish_subscription_sn_input_I_update_trigger_I_on_change_I_on_change 
+note bottom of ietf_yang_push_I__sn_establish_subscription_sn_input_I_update_trigger_I_on_change_I_on_change
+<b>Presence: </b>indicates an on-change subscription
+end note 
+ietf_yang_push_I__sn_establish_subscription_sn_input_I_update_trigger_I_on_change_I_on_change : dampening-period : centiseconds   = 0 
+class "/sn:establish-subscription/sn:input/sn:target" as sn_establish_subscription_sn_input_sn_target << (A,CadetBlue) augment>>
+ietf_yang_push *--  sn_establish_subscription_sn_input_sn_target 
+class "datastore" as ietf_subscribed_notifications_I_establish_subscription_I_input_I_target_I_datastore_case <<case>>
+sn_establish_subscription_sn_input_sn_target .. ietf_subscribed_notifications_I_establish_subscription_I_input_I_target_I_datastore_case  : choice target
+ietf_subscribed_notifications_I_establish_subscription_I_input_I_target_I_datastore_case : datastore : identityref {ds:datastore}   {mandatory}
+class "selection-filter" as ietf_subscribed_notifications_I_establish_subscription_I_input_I_target_I_datastore_I_selection_filter <<choice>> 
+ietf_subscribed_notifications_I_establish_subscription_I_input_I_target_I_datastore_case .. ietf_subscribed_notifications_I_establish_subscription_I_input_I_target_I_datastore_I_selection_filter : choice 
+class "by-reference" as ietf_subscribed_notifications_I_establish_subscription_I_input_I_target_I_datastore_I_selection_filter_I_by_reference_case <<case>>
+ietf_subscribed_notifications_I_establish_subscription_I_input_I_target_I_datastore_I_selection_filter .. ietf_subscribed_notifications_I_establish_subscription_I_input_I_target_I_datastore_I_selection_filter_I_by_reference_case  : choice selection-filter
+ietf_subscribed_notifications_I_establish_subscription_I_input_I_target_I_datastore_I_selection_filter_I_by_reference_case : selection-filter-ref : selection-filter-ref   {mandatory}
+class "within-subscription" as ietf_subscribed_notifications_I_establish_subscription_I_input_I_target_I_datastore_I_selection_filter_I_within_subscription_case <<case>>
+ietf_subscribed_notifications_I_establish_subscription_I_input_I_target_I_datastore_I_selection_filter .. ietf_subscribed_notifications_I_establish_subscription_I_input_I_target_I_datastore_I_selection_filter_I_within_subscription_case  : choice selection-filter
+class "filter-spec" as ietf_subscribed_notifications_I_establish_subscription_I_input_I_target_I_datastore_I_selection_filter_I_within_subscription_I_filter_spec <<choice>> 
+ietf_subscribed_notifications_I_establish_subscription_I_input_I_target_I_datastore_I_selection_filter_I_within_subscription_case .. ietf_subscribed_notifications_I_establish_subscription_I_input_I_target_I_datastore_I_selection_filter_I_within_subscription_I_filter_spec : choice 
+class "datastore-xpath-filter" as ietf_subscribed_notifications_I_establish_subscription_I_input_I_target_I_datastore_I_selection_filter_I_within_subscription_I_filter_spec_I_datastore_xpath_filter_case <<case>> 
+ietf_subscribed_notifications_I_establish_subscription_I_input_I_target_I_datastore_I_selection_filter_I_within_subscription_I_filter_spec .. ietf_subscribed_notifications_I_establish_subscription_I_input_I_target_I_datastore_I_selection_filter_I_within_subscription_I_filter_spec_I_datastore_xpath_filter_case : choice datastore-xpath-filter
+ietf_subscribed_notifications_I_establish_subscription_I_input_I_target_I_datastore_I_selection_filter_I_within_subscription_I_filter_spec_I_datastore_xpath_filter_case : datastore-xpath-filter : yang:xpath1.0   {if-feature : sn:xpath}
+class "/sn:modify-subscription/sn:input" as sn_modify_subscription_sn_input << (A,CadetBlue) augment>>
+ietf_yang_push *--  sn_modify_subscription_sn_input 
+class "update-trigger" as ietf_yang_push_I__sn_modify_subscription_sn_input_I_update_trigger <<choice>> 
+sn_modify_subscription_sn_input .. ietf_yang_push_I__sn_modify_subscription_sn_input_I_update_trigger : choice 
+class "periodic" as ietf_yang_push_I__sn_modify_subscription_sn_input_I_update_trigger_I_periodic_case <<case>>
+ietf_yang_push_I__sn_modify_subscription_sn_input_I_update_trigger .. ietf_yang_push_I__sn_modify_subscription_sn_input_I_update_trigger_I_periodic_case  : choice update-trigger
+class "periodic" as  ietf_yang_push_I__sn_modify_subscription_sn_input_I_update_trigger_I_periodic_I_periodic <<container>> 
+ietf_yang_push_I__sn_modify_subscription_sn_input_I_update_trigger_I_periodic_case *-- "0..1" ietf_yang_push_I__sn_modify_subscription_sn_input_I_update_trigger_I_periodic_I_periodic 
+note bottom of ietf_yang_push_I__sn_modify_subscription_sn_input_I_update_trigger_I_periodic_I_periodic
+<b>Presence: </b>indicates a periodic subscription
+end note 
+ietf_yang_push_I__sn_modify_subscription_sn_input_I_update_trigger_I_periodic_I_periodic : period : centiseconds   {mandatory}
+ietf_yang_push_I__sn_modify_subscription_sn_input_I_update_trigger_I_periodic_I_periodic : anchor-time : yang:date-and-time  
+class "on-change" as ietf_yang_push_I__sn_modify_subscription_sn_input_I_update_trigger_I_on_change_case <<case>>
+ietf_yang_push_I__sn_modify_subscription_sn_input_I_update_trigger .. ietf_yang_push_I__sn_modify_subscription_sn_input_I_update_trigger_I_on_change_case  : choice update-trigger
+note bottom of ietf_yang_push_I__sn_modify_subscription_sn_input_I_update_trigger_I_on_change_case
+<b>if-feature: </b>on-change
+end note 
+class "on-change" as  ietf_yang_push_I__sn_modify_subscription_sn_input_I_update_trigger_I_on_change_I_on_change <<container>> 
+ietf_yang_push_I__sn_modify_subscription_sn_input_I_update_trigger_I_on_change_case *-- "0..1" ietf_yang_push_I__sn_modify_subscription_sn_input_I_update_trigger_I_on_change_I_on_change 
+note bottom of ietf_yang_push_I__sn_modify_subscription_sn_input_I_update_trigger_I_on_change_I_on_change
+<b>Presence: </b>indicates an on-change subscription
+end note 
+ietf_yang_push_I__sn_modify_subscription_sn_input_I_update_trigger_I_on_change_I_on_change : dampening-period : centiseconds   = 0 
+class "/sn:modify-subscription/sn:input/sn:target" as sn_modify_subscription_sn_input_sn_target << (A,CadetBlue) augment>>
+ietf_yang_push *--  sn_modify_subscription_sn_input_sn_target 
+class "datastore" as ietf_subscribed_notifications_I_modify_subscription_I_input_I_target_I_datastore_case <<case>>
+sn_modify_subscription_sn_input_sn_target .. ietf_subscribed_notifications_I_modify_subscription_I_input_I_target_I_datastore_case  : choice target
+ietf_subscribed_notifications_I_modify_subscription_I_input_I_target_I_datastore_case : datastore : identityref {ds:datastore}   {mandatory}
+class "selection-filter" as ietf_subscribed_notifications_I_modify_subscription_I_input_I_target_I_datastore_I_selection_filter <<choice>> 
+ietf_subscribed_notifications_I_modify_subscription_I_input_I_target_I_datastore_case .. ietf_subscribed_notifications_I_modify_subscription_I_input_I_target_I_datastore_I_selection_filter : choice 
+class "by-reference" as ietf_subscribed_notifications_I_modify_subscription_I_input_I_target_I_datastore_I_selection_filter_I_by_reference_case <<case>>
+ietf_subscribed_notifications_I_modify_subscription_I_input_I_target_I_datastore_I_selection_filter .. ietf_subscribed_notifications_I_modify_subscription_I_input_I_target_I_datastore_I_selection_filter_I_by_reference_case  : choice selection-filter
+ietf_subscribed_notifications_I_modify_subscription_I_input_I_target_I_datastore_I_selection_filter_I_by_reference_case : selection-filter-ref : selection-filter-ref   {mandatory}
+class "within-subscription" as ietf_subscribed_notifications_I_modify_subscription_I_input_I_target_I_datastore_I_selection_filter_I_within_subscription_case <<case>>
+ietf_subscribed_notifications_I_modify_subscription_I_input_I_target_I_datastore_I_selection_filter .. ietf_subscribed_notifications_I_modify_subscription_I_input_I_target_I_datastore_I_selection_filter_I_within_subscription_case  : choice selection-filter
+class "filter-spec" as ietf_subscribed_notifications_I_modify_subscription_I_input_I_target_I_datastore_I_selection_filter_I_within_subscription_I_filter_spec <<choice>> 
+ietf_subscribed_notifications_I_modify_subscription_I_input_I_target_I_datastore_I_selection_filter_I_within_subscription_case .. ietf_subscribed_notifications_I_modify_subscription_I_input_I_target_I_datastore_I_selection_filter_I_within_subscription_I_filter_spec : choice 
+class "datastore-xpath-filter" as ietf_subscribed_notifications_I_modify_subscription_I_input_I_target_I_datastore_I_selection_filter_I_within_subscription_I_filter_spec_I_datastore_xpath_filter_case <<case>> 
+ietf_subscribed_notifications_I_modify_subscription_I_input_I_target_I_datastore_I_selection_filter_I_within_subscription_I_filter_spec .. ietf_subscribed_notifications_I_modify_subscription_I_input_I_target_I_datastore_I_selection_filter_I_within_subscription_I_filter_spec_I_datastore_xpath_filter_case : choice datastore-xpath-filter
+ietf_subscribed_notifications_I_modify_subscription_I_input_I_target_I_datastore_I_selection_filter_I_within_subscription_I_filter_spec_I_datastore_xpath_filter_case : datastore-xpath-filter : yang:xpath1.0   {if-feature : sn:xpath}
+class "push-update" as ietf_yang_push_I_push_update << (N,#00D1B2) notification>> 
+ietf_yang_push -- ietf_yang_push_I_push_update : notification 
+ietf_yang_push_I_push_update : id : sn:subscription-id  
+ietf_yang_push_I_push_update : incomplete-update : empty  
+class "push-change-update" as ietf_yang_push_I_push_change_update << (N,#00D1B2) notification>> 
+ietf_yang_push -- ietf_yang_push_I_push_change_update : notification 
+note bottom of ietf_yang_push_I_push_change_update
+<b>if-feature: </b>on-change
+end note 
+ietf_yang_push_I_push_change_update : id : sn:subscription-id  
+class "datastore-changes" as  ietf_yang_push_I_push_change_update_I_datastore_changes <<container>> 
+ietf_yang_push_I_push_change_update *-- "1" ietf_yang_push_I_push_change_update_I_datastore_changes 
+class "yang-patch" as  ietf_yang_push_I_push_change_update_I_datastore_changes_I_yang_patch <<container>> 
+ietf_yang_push_I_push_change_update_I_datastore_changes *-- "1" ietf_yang_push_I_push_change_update_I_datastore_changes_I_yang_patch 
+ietf_yang_push_I_push_change_update_I_datastore_changes_I_yang_patch : patch-id : string   {mandatory}
+ietf_yang_push_I_push_change_update_I_datastore_changes_I_yang_patch : comment : string  
+class "edit" as ietf_yang_push_I_push_change_update_I_datastore_changes_I_yang_patch_I_edit << (L, #FF7700) list>> 
+ietf_yang_push_I_push_change_update_I_datastore_changes_I_yang_patch *-- "0..N" ietf_yang_push_I_push_change_update_I_datastore_changes_I_yang_patch_I_edit : ordered-by : user
+ietf_yang_push_I_push_change_update_I_datastore_changes_I_yang_patch_I_edit : +edit-id : string  {key} 
+ietf_yang_push_I_push_change_update_I_datastore_changes_I_yang_patch_I_edit : operation : enumeration : {create,delete,insert,...}   {mandatory}
+ietf_yang_push_I_push_change_update_I_datastore_changes_I_yang_patch_I_edit : target : target-resource-offset   {mandatory}
+ietf_yang_push_I_push_change_update_I_datastore_changes_I_yang_patch_I_edit : point : target-resource-offset  
+note bottom of ietf_yang_push_I_push_change_update_I_datastore_changes_I_yang_patch_I_edit
+<b>When</b> (point):
+(../operation = 'insert' or ../operation = 'move')and (../where = 'before' or ../where = 'after')
+
+end note 
+ietf_yang_push_I_push_change_update_I_datastore_changes_I_yang_patch_I_edit : where : enumeration : {before,after,first,...}   = last 
+note bottom of ietf_yang_push_I_push_change_update_I_datastore_changes_I_yang_patch_I_edit
+<b>When</b> (where):
+../operation = 'insert' or ../operation = 'move'
+
+end note 
+ietf_yang_push_I_push_change_update : incomplete-update : empty  
+class "/sn:subscription-started" as sn_subscription_started << (A,CadetBlue) augment>>
+ietf_yang_push *--  sn_subscription_started 
+class "update-trigger" as ietf_yang_push_I__sn_subscription_started_I_update_trigger <<choice>> 
+sn_subscription_started .. ietf_yang_push_I__sn_subscription_started_I_update_trigger : choice 
+class "periodic" as ietf_yang_push_I__sn_subscription_started_I_update_trigger_I_periodic_case <<case>>
+ietf_yang_push_I__sn_subscription_started_I_update_trigger .. ietf_yang_push_I__sn_subscription_started_I_update_trigger_I_periodic_case  : choice update-trigger
+class "periodic" as  ietf_yang_push_I__sn_subscription_started_I_update_trigger_I_periodic_I_periodic <<container>> 
+ietf_yang_push_I__sn_subscription_started_I_update_trigger_I_periodic_case *-- "0..1" ietf_yang_push_I__sn_subscription_started_I_update_trigger_I_periodic_I_periodic 
+note bottom of ietf_yang_push_I__sn_subscription_started_I_update_trigger_I_periodic_I_periodic
+<b>Presence: </b>indicates a periodic subscription
+end note 
+ietf_yang_push_I__sn_subscription_started_I_update_trigger_I_periodic_I_periodic : period : centiseconds   {mandatory}
+ietf_yang_push_I__sn_subscription_started_I_update_trigger_I_periodic_I_periodic : anchor-time : yang:date-and-time  
+class "on-change" as ietf_yang_push_I__sn_subscription_started_I_update_trigger_I_on_change_case <<case>>
+ietf_yang_push_I__sn_subscription_started_I_update_trigger .. ietf_yang_push_I__sn_subscription_started_I_update_trigger_I_on_change_case  : choice update-trigger
+note bottom of ietf_yang_push_I__sn_subscription_started_I_update_trigger_I_on_change_case
+<b>if-feature: </b>on-change
+end note 
+class "on-change" as  ietf_yang_push_I__sn_subscription_started_I_update_trigger_I_on_change_I_on_change <<container>> 
+ietf_yang_push_I__sn_subscription_started_I_update_trigger_I_on_change_case *-- "0..1" ietf_yang_push_I__sn_subscription_started_I_update_trigger_I_on_change_I_on_change 
+note bottom of ietf_yang_push_I__sn_subscription_started_I_update_trigger_I_on_change_I_on_change
+<b>Presence: </b>indicates an on-change subscription
+end note 
+ietf_yang_push_I__sn_subscription_started_I_update_trigger_I_on_change_I_on_change : dampening-period : centiseconds   = 0 
+class "/sn:subscription-started/sn:target" as sn_subscription_started_sn_target << (A,CadetBlue) augment>>
+ietf_yang_push *--  sn_subscription_started_sn_target 
+class "datastore" as ietf_subscribed_notifications_I_subscription_started_I_target_I_datastore_case <<case>>
+sn_subscription_started_sn_target .. ietf_subscribed_notifications_I_subscription_started_I_target_I_datastore_case  : choice target
+ietf_subscribed_notifications_I_subscription_started_I_target_I_datastore_case : datastore : identityref {ds:datastore}   {mandatory}
+class "selection-filter" as ietf_subscribed_notifications_I_subscription_started_I_target_I_datastore_I_selection_filter <<choice>> 
+ietf_subscribed_notifications_I_subscription_started_I_target_I_datastore_case .. ietf_subscribed_notifications_I_subscription_started_I_target_I_datastore_I_selection_filter : choice 
+class "by-reference" as ietf_subscribed_notifications_I_subscription_started_I_target_I_datastore_I_selection_filter_I_by_reference_case <<case>>
+ietf_subscribed_notifications_I_subscription_started_I_target_I_datastore_I_selection_filter .. ietf_subscribed_notifications_I_subscription_started_I_target_I_datastore_I_selection_filter_I_by_reference_case  : choice selection-filter
+ietf_subscribed_notifications_I_subscription_started_I_target_I_datastore_I_selection_filter_I_by_reference_case : selection-filter-ref : selection-filter-ref   {mandatory}
+class "within-subscription" as ietf_subscribed_notifications_I_subscription_started_I_target_I_datastore_I_selection_filter_I_within_subscription_case <<case>>
+ietf_subscribed_notifications_I_subscription_started_I_target_I_datastore_I_selection_filter .. ietf_subscribed_notifications_I_subscription_started_I_target_I_datastore_I_selection_filter_I_within_subscription_case  : choice selection-filter
+class "filter-spec" as ietf_subscribed_notifications_I_subscription_started_I_target_I_datastore_I_selection_filter_I_within_subscription_I_filter_spec <<choice>> 
+ietf_subscribed_notifications_I_subscription_started_I_target_I_datastore_I_selection_filter_I_within_subscription_case .. ietf_subscribed_notifications_I_subscription_started_I_target_I_datastore_I_selection_filter_I_within_subscription_I_filter_spec : choice 
+class "datastore-xpath-filter" as ietf_subscribed_notifications_I_subscription_started_I_target_I_datastore_I_selection_filter_I_within_subscription_I_filter_spec_I_datastore_xpath_filter_case <<case>> 
+ietf_subscribed_notifications_I_subscription_started_I_target_I_datastore_I_selection_filter_I_within_subscription_I_filter_spec .. ietf_subscribed_notifications_I_subscription_started_I_target_I_datastore_I_selection_filter_I_within_subscription_I_filter_spec_I_datastore_xpath_filter_case : choice datastore-xpath-filter
+ietf_subscribed_notifications_I_subscription_started_I_target_I_datastore_I_selection_filter_I_within_subscription_I_filter_spec_I_datastore_xpath_filter_case : datastore-xpath-filter : yang:xpath1.0   {if-feature : sn:xpath}
+class "/sn:subscription-modified" as sn_subscription_modified << (A,CadetBlue) augment>>
+ietf_yang_push *--  sn_subscription_modified 
+class "update-trigger" as ietf_yang_push_I__sn_subscription_modified_I_update_trigger <<choice>> 
+sn_subscription_modified .. ietf_yang_push_I__sn_subscription_modified_I_update_trigger : choice 
+class "periodic" as ietf_yang_push_I__sn_subscription_modified_I_update_trigger_I_periodic_case <<case>>
+ietf_yang_push_I__sn_subscription_modified_I_update_trigger .. ietf_yang_push_I__sn_subscription_modified_I_update_trigger_I_periodic_case  : choice update-trigger
+class "periodic" as  ietf_yang_push_I__sn_subscription_modified_I_update_trigger_I_periodic_I_periodic <<container>> 
+ietf_yang_push_I__sn_subscription_modified_I_update_trigger_I_periodic_case *-- "0..1" ietf_yang_push_I__sn_subscription_modified_I_update_trigger_I_periodic_I_periodic 
+note bottom of ietf_yang_push_I__sn_subscription_modified_I_update_trigger_I_periodic_I_periodic
+<b>Presence: </b>indicates a periodic subscription
+end note 
+ietf_yang_push_I__sn_subscription_modified_I_update_trigger_I_periodic_I_periodic : period : centiseconds   {mandatory}
+ietf_yang_push_I__sn_subscription_modified_I_update_trigger_I_periodic_I_periodic : anchor-time : yang:date-and-time  
+class "on-change" as ietf_yang_push_I__sn_subscription_modified_I_update_trigger_I_on_change_case <<case>>
+ietf_yang_push_I__sn_subscription_modified_I_update_trigger .. ietf_yang_push_I__sn_subscription_modified_I_update_trigger_I_on_change_case  : choice update-trigger
+note bottom of ietf_yang_push_I__sn_subscription_modified_I_update_trigger_I_on_change_case
+<b>if-feature: </b>on-change
+end note 
+class "on-change" as  ietf_yang_push_I__sn_subscription_modified_I_update_trigger_I_on_change_I_on_change <<container>> 
+ietf_yang_push_I__sn_subscription_modified_I_update_trigger_I_on_change_case *-- "0..1" ietf_yang_push_I__sn_subscription_modified_I_update_trigger_I_on_change_I_on_change 
+note bottom of ietf_yang_push_I__sn_subscription_modified_I_update_trigger_I_on_change_I_on_change
+<b>Presence: </b>indicates an on-change subscription
+end note 
+ietf_yang_push_I__sn_subscription_modified_I_update_trigger_I_on_change_I_on_change : dampening-period : centiseconds   = 0 
+class "/sn:subscription-modified/sn:target" as sn_subscription_modified_sn_target << (A,CadetBlue) augment>>
+ietf_yang_push *--  sn_subscription_modified_sn_target 
+class "datastore" as ietf_subscribed_notifications_I_subscription_modified_I_target_I_datastore_case <<case>>
+sn_subscription_modified_sn_target .. ietf_subscribed_notifications_I_subscription_modified_I_target_I_datastore_case  : choice target
+ietf_subscribed_notifications_I_subscription_modified_I_target_I_datastore_case : datastore : identityref {ds:datastore}   {mandatory}
+class "selection-filter" as ietf_subscribed_notifications_I_subscription_modified_I_target_I_datastore_I_selection_filter <<choice>> 
+ietf_subscribed_notifications_I_subscription_modified_I_target_I_datastore_case .. ietf_subscribed_notifications_I_subscription_modified_I_target_I_datastore_I_selection_filter : choice 
+class "by-reference" as ietf_subscribed_notifications_I_subscription_modified_I_target_I_datastore_I_selection_filter_I_by_reference_case <<case>>
+ietf_subscribed_notifications_I_subscription_modified_I_target_I_datastore_I_selection_filter .. ietf_subscribed_notifications_I_subscription_modified_I_target_I_datastore_I_selection_filter_I_by_reference_case  : choice selection-filter
+ietf_subscribed_notifications_I_subscription_modified_I_target_I_datastore_I_selection_filter_I_by_reference_case : selection-filter-ref : selection-filter-ref   {mandatory}
+class "within-subscription" as ietf_subscribed_notifications_I_subscription_modified_I_target_I_datastore_I_selection_filter_I_within_subscription_case <<case>>
+ietf_subscribed_notifications_I_subscription_modified_I_target_I_datastore_I_selection_filter .. ietf_subscribed_notifications_I_subscription_modified_I_target_I_datastore_I_selection_filter_I_within_subscription_case  : choice selection-filter
+class "filter-spec" as ietf_subscribed_notifications_I_subscription_modified_I_target_I_datastore_I_selection_filter_I_within_subscription_I_filter_spec <<choice>> 
+ietf_subscribed_notifications_I_subscription_modified_I_target_I_datastore_I_selection_filter_I_within_subscription_case .. ietf_subscribed_notifications_I_subscription_modified_I_target_I_datastore_I_selection_filter_I_within_subscription_I_filter_spec : choice 
+class "datastore-xpath-filter" as ietf_subscribed_notifications_I_subscription_modified_I_target_I_datastore_I_selection_filter_I_within_subscription_I_filter_spec_I_datastore_xpath_filter_case <<case>> 
+ietf_subscribed_notifications_I_subscription_modified_I_target_I_datastore_I_selection_filter_I_within_subscription_I_filter_spec .. ietf_subscribed_notifications_I_subscription_modified_I_target_I_datastore_I_selection_filter_I_within_subscription_I_filter_spec_I_datastore_xpath_filter_case : choice datastore-xpath-filter
+ietf_subscribed_notifications_I_subscription_modified_I_target_I_datastore_I_selection_filter_I_within_subscription_I_filter_spec_I_datastore_xpath_filter_case : datastore-xpath-filter : yang:xpath1.0   {if-feature : sn:xpath}
+class "/sn:filters" as sn_filters << (A,CadetBlue) augment>>
+ietf_yang_push *--  sn_filters 
+class "selection-filter" as ietf_subscribed_notifications_I_filters_I_selection_filter << (L, #FF7700) list>> 
+sn_filters *-- "0..N" ietf_subscribed_notifications_I_filters_I_selection_filter 
+ietf_subscribed_notifications_I_filters_I_selection_filter : +filter-id : string  {key} 
+class "filter-spec" as ietf_subscribed_notifications_I_filters_I_selection_filter_I_filter_spec <<choice>> 
+ietf_subscribed_notifications_I_filters_I_selection_filter .. ietf_subscribed_notifications_I_filters_I_selection_filter_I_filter_spec : choice 
+class "datastore-xpath-filter" as ietf_subscribed_notifications_I_filters_I_selection_filter_I_filter_spec_I_datastore_xpath_filter_case <<case>> 
+ietf_subscribed_notifications_I_filters_I_selection_filter_I_filter_spec .. ietf_subscribed_notifications_I_filters_I_selection_filter_I_filter_spec_I_datastore_xpath_filter_case : choice datastore-xpath-filter
+ietf_subscribed_notifications_I_filters_I_selection_filter_I_filter_spec_I_datastore_xpath_filter_case : datastore-xpath-filter : yang:xpath1.0   {if-feature : sn:xpath}
+class "/sn:subscriptions/sn:subscription" as sn_subscriptions_sn_subscription << (A,CadetBlue) augment>>
+ietf_yang_push *--  sn_subscriptions_sn_subscription 
+note bottom of sn_subscriptions_sn_subscription
+<b>When: </b>yp:datastore
+end note 
+class "update-trigger" as ietf_yang_push_I__sn_subscriptions_sn_subscription_I_update_trigger <<choice>> 
+sn_subscriptions_sn_subscription .. ietf_yang_push_I__sn_subscriptions_sn_subscription_I_update_trigger : choice 
+class "periodic" as ietf_yang_push_I__sn_subscriptions_sn_subscription_I_update_trigger_I_periodic_case <<case>>
+ietf_yang_push_I__sn_subscriptions_sn_subscription_I_update_trigger .. ietf_yang_push_I__sn_subscriptions_sn_subscription_I_update_trigger_I_periodic_case  : choice update-trigger
+class "periodic" as  ietf_yang_push_I__sn_subscriptions_sn_subscription_I_update_trigger_I_periodic_I_periodic <<container>> 
+ietf_yang_push_I__sn_subscriptions_sn_subscription_I_update_trigger_I_periodic_case *-- "0..1" ietf_yang_push_I__sn_subscriptions_sn_subscription_I_update_trigger_I_periodic_I_periodic 
+note bottom of ietf_yang_push_I__sn_subscriptions_sn_subscription_I_update_trigger_I_periodic_I_periodic
+<b>Presence: </b>indicates a periodic subscription
+end note 
+ietf_yang_push_I__sn_subscriptions_sn_subscription_I_update_trigger_I_periodic_I_periodic : period : centiseconds   {mandatory}
+ietf_yang_push_I__sn_subscriptions_sn_subscription_I_update_trigger_I_periodic_I_periodic : anchor-time : yang:date-and-time  
+class "on-change" as ietf_yang_push_I__sn_subscriptions_sn_subscription_I_update_trigger_I_on_change_case <<case>>
+ietf_yang_push_I__sn_subscriptions_sn_subscription_I_update_trigger .. ietf_yang_push_I__sn_subscriptions_sn_subscription_I_update_trigger_I_on_change_case  : choice update-trigger
+note bottom of ietf_yang_push_I__sn_subscriptions_sn_subscription_I_update_trigger_I_on_change_case
+<b>if-feature: </b>on-change
+end note 
+class "on-change" as  ietf_yang_push_I__sn_subscriptions_sn_subscription_I_update_trigger_I_on_change_I_on_change <<container>> 
+ietf_yang_push_I__sn_subscriptions_sn_subscription_I_update_trigger_I_on_change_case *-- "0..1" ietf_yang_push_I__sn_subscriptions_sn_subscription_I_update_trigger_I_on_change_I_on_change 
+note bottom of ietf_yang_push_I__sn_subscriptions_sn_subscription_I_update_trigger_I_on_change_I_on_change
+<b>Presence: </b>indicates an on-change subscription
+end note 
+ietf_yang_push_I__sn_subscriptions_sn_subscription_I_update_trigger_I_on_change_I_on_change : dampening-period : centiseconds   = 0 
+class "/sn:subscriptions/sn:subscription/sn:target" as sn_subscriptions_sn_subscription_sn_target << (A,CadetBlue) augment>>
+ietf_yang_push *--  sn_subscriptions_sn_subscription_sn_target 
+class "datastore" as ietf_subscribed_notifications_I_subscriptions_I_subscription_I_target_I_datastore_case <<case>>
+sn_subscriptions_sn_subscription_sn_target .. ietf_subscribed_notifications_I_subscriptions_I_subscription_I_target_I_datastore_case  : choice target
+ietf_subscribed_notifications_I_subscriptions_I_subscription_I_target_I_datastore_case : datastore : identityref {ds:datastore}   {mandatory}
+class "selection-filter" as ietf_subscribed_notifications_I_subscriptions_I_subscription_I_target_I_datastore_I_selection_filter <<choice>> 
+ietf_subscribed_notifications_I_subscriptions_I_subscription_I_target_I_datastore_case .. ietf_subscribed_notifications_I_subscriptions_I_subscription_I_target_I_datastore_I_selection_filter : choice 
+class "by-reference" as ietf_subscribed_notifications_I_subscriptions_I_subscription_I_target_I_datastore_I_selection_filter_I_by_reference_case <<case>>
+ietf_subscribed_notifications_I_subscriptions_I_subscription_I_target_I_datastore_I_selection_filter .. ietf_subscribed_notifications_I_subscriptions_I_subscription_I_target_I_datastore_I_selection_filter_I_by_reference_case  : choice selection-filter
+ietf_subscribed_notifications_I_subscriptions_I_subscription_I_target_I_datastore_I_selection_filter_I_by_reference_case : selection-filter-ref : selection-filter-ref   {mandatory}
+class "within-subscription" as ietf_subscribed_notifications_I_subscriptions_I_subscription_I_target_I_datastore_I_selection_filter_I_within_subscription_case <<case>>
+ietf_subscribed_notifications_I_subscriptions_I_subscription_I_target_I_datastore_I_selection_filter .. ietf_subscribed_notifications_I_subscriptions_I_subscription_I_target_I_datastore_I_selection_filter_I_within_subscription_case  : choice selection-filter
+class "filter-spec" as ietf_subscribed_notifications_I_subscriptions_I_subscription_I_target_I_datastore_I_selection_filter_I_within_subscription_I_filter_spec <<choice>> 
+ietf_subscribed_notifications_I_subscriptions_I_subscription_I_target_I_datastore_I_selection_filter_I_within_subscription_case .. ietf_subscribed_notifications_I_subscriptions_I_subscription_I_target_I_datastore_I_selection_filter_I_within_subscription_I_filter_spec : choice 
+class "datastore-xpath-filter" as ietf_subscribed_notifications_I_subscriptions_I_subscription_I_target_I_datastore_I_selection_filter_I_within_subscription_I_filter_spec_I_datastore_xpath_filter_case <<case>> 
+ietf_subscribed_notifications_I_subscriptions_I_subscription_I_target_I_datastore_I_selection_filter_I_within_subscription_I_filter_spec .. ietf_subscribed_notifications_I_subscriptions_I_subscription_I_target_I_datastore_I_selection_filter_I_within_subscription_I_filter_spec_I_datastore_xpath_filter_case : choice datastore-xpath-filter
+ietf_subscribed_notifications_I_subscriptions_I_subscription_I_target_I_datastore_I_selection_filter_I_within_subscription_I_filter_spec_I_datastore_xpath_filter_case : datastore-xpath-filter : yang:xpath1.0   {if-feature : sn:xpath}
+class "sn:establish-subscription-error" as sn_establish_subscription_error << (I,Silver) identity>> 
+class "sn:establish-subscription-error" as sn_establish_subscription_error << (I,Silver) identity>> 
+class "sn:establish-subscription-error" as sn_establish_subscription_error << (I,Silver) identity>> 
+class "sn:establish-subscription-error" as sn_establish_subscription_error << (I,Silver) identity>> 
+class "sn:establish-subscription-error" as sn_establish_subscription_error << (I,Silver) identity>> 
+class "sn:establish-subscription-error" as sn_establish_subscription_error << (I,Silver) identity>> 
+class "sn:establish-subscription-error" as sn_establish_subscription_error << (I,Silver) identity>> 
+class "sn:establish-subscription-error" as sn_establish_subscription_error << (I,Silver) identity>> 
+class "resync-subscription-error" as resync_subscription_error << (I,Silver) identity>> 
+class "cant-exclude" as cant_exclude << (I,Silver) identity>> 
+sn_establish_subscription_error <|-- cant_exclude 
+class "datastore-not-subscribable" as datastore_not_subscribable << (I,Silver) identity>> 
+sn_establish_subscription_error <|-- datastore_not_subscribable 
+class "no-such-subscription-resync" as no_such_subscription_resync << (I,Silver) identity>> 
+resync_subscription_error <|-- no_such_subscription_resync 
+class "on-change-unsupported" as on_change_unsupported << (I,Silver) identity>> 
+sn_establish_subscription_error <|-- on_change_unsupported 
+class "on-change-sync-unsupported" as on_change_sync_unsupported << (I,Silver) identity>> 
+sn_establish_subscription_error <|-- on_change_sync_unsupported 
+class "period-unsupported" as period_unsupported << (I,Silver) identity>> 
+sn_establish_subscription_error <|-- period_unsupported 
+class "update-too-big" as update_too_big << (I,Silver) identity>> 
+sn_establish_subscription_error <|-- update_too_big 
+class "sync-too-big" as sync_too_big << (I,Silver) identity>> 
+sn_establish_subscription_error <|-- sync_too_big 
+class "unchanging-selection" as unchanging_selection << (I,Silver) identity>> 
+sn_establish_subscription_error <|-- unchanging_selection 
+class "/sn:filters/yp:selection-filter" as ietf_subscribed_notifications_I_filters_I_selection_filter <<leafref>> 
+ietf_subscribed_notifications_I_establish_subscription_I_input_I_target_I_datastore_case-->ds_datastore: datastore
+ietf_subscribed_notifications_I_modify_subscription_I_input_I_target_I_datastore_case-->ds_datastore: datastore
+ietf_subscribed_notifications_I_subscription_started_I_target_I_datastore_case-->ds_datastore: datastore
+ietf_subscribed_notifications_I_subscription_modified_I_target_I_datastore_case-->ds_datastore: datastore
+ietf_subscribed_notifications_I_subscriptions_I_subscription_I_target_I_datastore_case-->ds_datastore: datastore
+} 
+
+yang_ietf_yang_types +-- yp_ietf_yang_push
+sn_ietf_subscribed_notifications +-- yp_ietf_yang_push
+ds_ietf_datastores +-- yp_ietf_yang_push
+rc_ietf_restconf +-- yp_ietf_yang_push
+ypatch_ietf_yang_patch +-- yp_ietf_yang_push
+selection_filter_ref-->"yp:filter-id"ietf_subscribed_notifications_I_filters_I_selection_filter: selection-filter-ref
+center footer
+ <size:20> UML Generated : 2023-08-08 12:48 </size>
+ endfooter 
+@enduml 
