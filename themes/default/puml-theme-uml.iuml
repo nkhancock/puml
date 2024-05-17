@@ -1,6 +1,6 @@
 'Default settings for all PlantUML UML diagrams
 
-!include puml-theme-default-colors.iuml
+!include puml-theme-colors.iuml
 
 ' Apply colors
 !$defaultLineColor = $defaultTeal

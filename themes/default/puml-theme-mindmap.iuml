@@ -1,6 +1,6 @@
 'Default settings for all PlantUML Mindmap diagrams
 
-!include puml-theme-default-colors.iuml
+!include puml-theme-colors.iuml
 
   <style>
     mindmapDiagram {
