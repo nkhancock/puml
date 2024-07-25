@@ -1,0 +1,51 @@
+@startuml
+
+  hide methods
+
+  note "Nomenclature taken from \nG.988 where possible" as N1
+
+  class "tone event table" as tone_event_tbl {
+
+  }
+
+  class "tone event" as tone_event {
+    event
+  }
+  class "//tone event configuration//" as tone_event_config <<choice>>
+  class "tone pattern" as tone_event_pattern <<case>>
+  class "tone file" as tone_file <<case>> {
+    tone file
+    tone file repetitions
+  }
+  tone_event_config <|- tone_event_pattern
+  tone_event_config <|-- tone_file
+
+
+  class "tone pattern table" as tone_pattern_tbl
+  note right : G.988 clause 9.9.6 \n"a table, each of whose entries \nspecifies a complex tone \n(or silence) and a duration."
+
+
+  class "table entry" as tone_pattern_component {
+    index
+    tone on : Boolean
+    modulation frequency
+    modulation power
+    duration
+  }
+
+  class "frequency-power" as frequency {
+    frequency
+    power
+  }
+
+  tone_pattern_tbl "1" *-- "0..*" tone_pattern_component
+  tone_pattern_component "1" *-- "1..4" frequency
+  tone_pattern_component "1" -> "0..1" tone_pattern_component : next entry
+  note right on link: Conceptually a tone pattern \ncomprises a sequence of one \nor more complex (composite) \ntones or silence \n\nBy linking tones and silence \ntogether, possibly cyclically, \ncontinuous, varying \nor interrupted tone sequences, \nrepetitive or not, may be defined \n\nA reference to a non-existent \ntable entry, or the value 0, \nindicates that the sequence \nshould be terminated
+  tone_event_tbl "1" *-- "0..*" tone_event
+  tone_event "1" *-- "1" tone_event_config
+  tone_event_pattern "1" -> "0..1" tone_pattern_component : tone pattern
+
+  'title Figure 1 : Conceptual view of G.988 clause 9.9.6 Tone pattern table and Tone event table
+
+@enduml

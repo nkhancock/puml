@@ -1,0 +1,42 @@
+@startuml
+  hide methods
+
+  note "nomenclature taken from \nG.988 where possible" as N1
+
+  class "ringing event table" as ringing_event_tbl {
+
+  }
+
+  class "ringing event" as ringing_event {
+    event
+  }
+  class "//ringing event configuration//" as ringing_event_config <<choice>>
+  class "ringing pattern" as ringing_event_pattern <<case>>
+  class "ringing file" as ringing_file <<case>> {
+    ringing file
+    ringing file repetitions
+  }
+  ringing_event_config <|- ringing_event_pattern
+  ringing_event_config <|-- ringing_file
+
+
+  class "ringing pattern table" as ringing_pattern_tbl
+  note right : G.988 clause 9.9.6 \n"...a table, each of whose entries specifies \na ringing pattern and a duration."
+
+
+  class "table entry" as ringing_pattern_component {
+    index
+    ringing on : Boolean
+    duration
+  }
+
+  ringing_pattern_tbl "1" *-- "0..*" ringing_pattern_component
+  ringing_pattern_component "1" -> "0..1" ringing_pattern_component : next entry
+  note on link: Conceptually a ringing pattern comprises \none or more (ringing) components \n\nBy linking ringing and silence together, \npossibly cyclically, continuous or \ninterrupted ringing sequences, repetitive \nor not, may be defined \n\nA reference to a non-existent table entry, \nor the value 0, indicates that the \nsequence should be terminated
+  ringing_event_tbl "1" *-- "0..*" ringing_event
+  ringing_event "1" *-- "1" ringing_event_config
+  ringing_event_pattern "1" -> "0..1" ringing_pattern_component : ringing pattern
+
+  title Figure 4 : Conceptual view of G.988 clause 9.9.6 Ringing pattern table and Ringing event table
+
+@enduml

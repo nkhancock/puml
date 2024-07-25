@@ -1,0 +1,37 @@
+@startmindmap
+
+  * SubscribeRequest
+  ** subscribe
+  *** SubscriptionList
+  **** Subscription[*]
+  ***** path
+  ******_ set of paths (data nodes): the dataset
+  ***** modes\n{SubscriptionList.mode=STREAM}
+  ****** ON_CHANGE
+  *******_ data updates are only sent when the value of the data item changes
+  *******_ A heartbeat interval MAY be specified along with an "on change" subscription - in this case, the value of the data item(s) MUST be re-sent once per heartbeat interval regardless of whether the value has changed or not.
+  ******* //heartbeat_interval//
+  ********_ the target MUST generate one telemetry update per heartbeat interval, regardless of whether the value has changed or not
+  ****** SAMPLE
+  *******_ Data is sent at specified intervals as specified in the sample_interval field.
+  ******* sample_interval
+  ******* //suppress redundant//
+  ******** //heartbeat_interval//
+  *********_ the target MUST generate one telemetry update per heartbeat interval, regardless of whether the 'suppress_redundant' is set to true.
+  ********_ If true, target SHOULD NOT generate a telemetry update message unless the value of the path being reported on has changed since the last update was generated.
+  ****** TARGET_DEFINED
+  *******_ The target determines the best subscription type to create on a per-leaf basis.
+  **** //mode//
+  ***** ONCE
+  ******_ single req-resp
+  ***** STREAM
+  ******_ long-lived subscriptions
+  ***** POLL 
+  ******_ on-demand retrieval of data items via long-lived RPCs via the Poll SubscribeRequest
+  **** //update_only//
+  *****_ If true, server sends only updates to the current state
+  ** poll
+  ***_ Used for on-demand retrieval of data items.
+  ***_ Requires an open SubscribeRequest
+
+@endmindmap
