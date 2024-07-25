@@ -1,0 +1,39 @@
+@startuml
+
+  skinparam arrowColor #limegreen
+
+  skinparam Class {
+    backgroundColor #white
+    borderColor #limegreen
+    borderThickness 1
+  }
+
+  skinparam Package {
+    backgroundColor #white
+    fontSize 11
+    fontStyle normal
+    borderColor #LimeGreen
+    ' borderThickness 1
+  }
+  
+  skinparam Sequence {
+    actorBorderColor #darkgreen
+    boxBackgroundColor #whitesmoke
+    boxBorderColor #darkgrey
+    groupBorderColor #black
+    groupBorderThickness 3
+    groupBackgroundColor #darkgrey
+    lifeLineBorderColor #limegreen
+    lifeLineBackgroundColor #limegreen
+    participantBackgroundColor #limegreen
+    participantBorderColor #limegreen
+  }
+
+  package "external-module" as external_module {
+  }
+  package "my-module" as my_module {
+    class "my-class" as my_class
+  }
+
+  external_module +-- my_module
+@enduml

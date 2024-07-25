@@ -1,6 +1,5 @@
-'Deafult color settings
+'Default color settings
 
-' Define the Adtran colors
 !$defaultOffWhite = "f4f9fA"
 !$defaultTeal = "00a0c8"
 !$defaultLightTeal = "00c8e6"

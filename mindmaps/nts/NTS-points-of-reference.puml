@@ -1,0 +1,30 @@
+@startmindmap
+* RFCs
+** RFC 5905
+***_ Network Time Protocol Version 4: Protocol and Algorithms Specification
+*** RFC 5906
+****_ Network Time Protocol Version 4: Autokey Specification
+*** RFC 8915
+****_ Network Time Security for the Network Time Protocol
+**** RFC 5280
+*****_ Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile
+**** RFC 5705
+*****_ Keying Material Exporters for Transport Layer Security (TLS)
+**** RFC 6125
+*****_ Representation and Verification of Domain-Based Application Service Identity within Internet Public Key Infrastructure Using X.509 (PKIX) Certificates in the Context of Transport Layer Security (TLS)
+**** RFC 7301
+*****_ Transport Layer Security (TLS) Application-Layer Protocol Negotiation (ALPN) Extension
+******_ ntske/1
+**** RFC 7525
+*****_ Recommendations for Secure Use of Transport Layer Security (TLS) and Datagram Transport Layer Security (DTLS)
+**** RFC 8446
+*****_ The Transport Layer Security (TLS) Protocol Version 1.3
+*** RFC 9249
+****_ A YANG Data Model for NTP
+** RFC 5297
+***_ Synthetic Initialization Vector (SIV) Authenticated Encryption Using the Advanced Encryption Standard (AES)
+****_ AES_SIV_CMAC_256
+****_ AES_SIV_CMAC_384
+****_ AES_SIV_CMAC_512
+
+@endmindmap

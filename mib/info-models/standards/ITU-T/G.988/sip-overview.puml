@@ -1,0 +1,90 @@
+@startuml
+
+' title G.988 OMCI managed SIP VoIP (Figure 8.2.8.3)
+hide members
+
+package "non-protocol-specific" as common <<Rectangle>> {
+  note as c1
+    **VoIP voice Connection Termination Point**
+    Links the phyiscal path termination point,
+    a POTS UNI, to the VoIP service, here SIP
+  end note
+  class "VoIP voice CTP" as ctp #line:red
+  'note top : connection \ntermination \npoint
+  note right of ctp : §9.9.4
+  c1 .. ctp
+  class "VoIP media profile" as voip_media #line:orange
+  note top : §9.9.5
+
+  class "RTP profile data" as rtp #line:orange
+  note top : §9.9.7
+  class "Voice service profile" as vsp #line:brown
+  note top : §9.9.6
+
+  class "PPTP POTS UNI" as pots #line:blue
+  ' note left of pots : physical \npath \ntermination \npoint
+  note left : §9.9.1
+
+  ctp "0..1" -right-> "1" pots #blue
+  ctp "0..*" -left> "1" voip_media #orange : \t
+
+  voip_media "0..*" -left> "1" rtp #orange : \t
+  voip_media "0..*" --> "1" vsp #brown
+}
+
+package "SIP-specific" as sip_voip <<Rectangle>> {
+  class "SIP user data" as sip_ud #line:red
+  note right : §9.9.2
+
+  class "SIP agent \nconfig data" as sip_agent
+  note right : §9.9.3
+
+  class "Network dial\nplan table" as dial
+  note bottom : §9.9.10
+  class "VoIP feature\naccess codes" as access
+  note bottom : §9.9.9
+  class "authentication\nsecurity\nmethod" as auth #line:red
+  note bottom : §9.12.4
+
+  class "VoIP \napplication \nservice \nprofile" as voip_appl
+  note right : §9.9.8
+
+
+  class "TCP/UDP \nconfig data" as transport
+
+  sip_ud "0..*" ---> "1" sip_agent
+
+  sip_ud "0..*" -left-> "1" dial : \t
+  sip_ud "0..*" -left-> "1" access : \t
+  sip_ud "1" --> "1" auth #red : \t
+
+  sip_ud "0..*" ---> "1" voip_appl : \t
+
+  sip_agent "0..*" -left> "1" transport : \t
+  note top  : §9.4.3
+}
+note as N1
+  Legend
+
+  <color:red> ___</color> : user-specific
+  <color:orange> ___</color> : media-specific
+  <color:blue> ___</color> : POTS-specific
+  <color:brown> ___</color> : device-specific
+  <color:green> ___</color> : service-specific
+end note
+
+ctp "0..1" ---> "1" sip_ud #red : signalling protocol \n(//user prototocl pointer//)
+sip_ud "0..1" -up-> "1" pots #blue
+
+/'
+legend
+  Correspondance to the
+  YANG data model
+
+  <color:red> ___</color> : ~ 'sip-termination'
+  <color:orange> ___</color> : ~ 'bbf-voip-media'
+  <color:blue> ___</color> : ~ 'POTS-specific'
+  <color:brown> ___</color> : ~ 'Mostly bbf-pots, some bbf-voip-media'
+end legend
+'/
+@enduml
